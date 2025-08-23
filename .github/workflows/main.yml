@@ -106,7 +106,7 @@ jobs:
       run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$ONTO_FILE$" 
+          git add "$ONTO_FILE" 
           git add "${{ env.NEW_FILE }}"
           git commit -m "chore(ontology): bump version to ${{ env.NEW_VERSION }} [skip ci]" || echo "Nothing to commit."
           git push
