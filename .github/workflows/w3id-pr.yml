@@ -44,10 +44,15 @@ jobs:
           echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> $GITHUB_ENV
           echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}" >> $GITHUB_ENV
 
-      - name: Authenticate gh
+      - name: Authenticate gh for both API and Git
         env:
           GH_TOKEN: ${{ secrets.W3ID_TOKEN }}   # PAT with repo scope
-        run: gh auth status
+        run: |
+          echo "${GH_TOKEN}" | gh auth login --with-token
+          gh auth status
+          gh auth setup-git
+          git config --global user.name  "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Determine upstream default branch
         env:
