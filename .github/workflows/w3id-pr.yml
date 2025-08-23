@@ -138,7 +138,7 @@ jobs:
         run: |
           cd "${CLONED_DIR}"
           CLEAN_TOKEN="$(printf %s "${GH_TOKEN}" | tr -d '\r\n')"
-          git push "https://${GITHUB_ACTOR}:${CLEAN_TOKEN}@github.com/${FORK_FULLNAME}.git" "${BRANCH}"
+          git push "https://${GITHUB_ACTOR}:${CLEAN_TOKEN}@github.com/${FORK_FULLNAME}" "${BRANCH}"
 
       - name: Open Pull Request to upstream
         env:
