@@ -130,8 +130,8 @@ jobs:
       id: ontospy
       run: |
           mkdir -p "$DOCS_DIR"
-          python -m ontospy.cli gendocs \
-            -o "$DOCS_DIR" \
+          python -m ontospy.cli gendocs --type 2 \
+            -o "$DOCS_DIR/ontospy" \
             "${{ env.NEW_FILE }}"
 
 
