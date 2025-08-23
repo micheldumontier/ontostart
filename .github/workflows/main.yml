@@ -142,7 +142,7 @@ jobs:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ env.GIST_ID }}
         filename: ontology-ci-ontospy.json
-        label: docs
+        label: ontospy
         message: ${{ steps.ontospy.outcome }}
         color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
 
@@ -151,7 +151,7 @@ jobs:
       run: |
           mkdir -p "$DOCS_DIR/pylode/"
           pylode -o "$DOCS_DIR/pylode/index" \
-            "${{ steps.bump.outputs.new_file }}"
+            "${{ env.NEW_FILE }}"
 
     - name: Badge — Pylode
       if: always()
@@ -160,7 +160,7 @@ jobs:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ env.GIST_ID }}
         filename: ontology-ci-pylode.json
-        label: docs
+        label: pylode
         message: ${{ steps.pylode.outcome }}
         color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
 
