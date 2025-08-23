@@ -219,7 +219,7 @@ jobs:
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"$ONTO_URI"}" \
+              -d "{  \"ontologyUri\": \"$ONTO_URI\"}" \
               -o foops-results.json
           
       - name: Process FOOPS! results
