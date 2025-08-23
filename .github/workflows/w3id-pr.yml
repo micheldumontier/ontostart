@@ -125,12 +125,12 @@ jobs:
           git add "${ONTO_ABBREV}/.htaccess"
           git add "${ONTO_ABBREV}/README.md"
           # If file unchanged (re-run), avoid empty commit error
-          if git diff --cached --quiet; then
-            echo "No changes to commit; continuing (branch still created)."
-          else
-            git commit -m "Add ${ONTO_ABBREV}/.htaccess"
-            git commit -m "Add ${ONTO_ABBREV}/README.md"
-          fi
+          #if git diff --cached --quiet; then
+          #  echo "No changes to commit; continuing (branch still created)."
+          #else
+          git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+          git commit -m "Add ${ONTO_ABBREV}/README.md"
+          #fi
 
       - name: Push branch to fork
         run: |
