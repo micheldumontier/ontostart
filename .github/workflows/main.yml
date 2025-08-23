@@ -184,6 +184,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      GIST_ID: ${{ vars.GIST_ID }}
       
     steps: 
         - name: Deploy to GitHub Pages
