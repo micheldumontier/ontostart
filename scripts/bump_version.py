@@ -145,7 +145,7 @@ g.serialize(destination=onto_file, format="turtle")
 print(f"NEW_FILE={new_version_file}")
 print(f"NEW_VERSION={new_vi}")
 
-if "GITHUB_OUTPUT" in os.environ:
-    with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+if "GITHUB_ENV" in os.environ:
+    with open(os.environ["GITHUB_ENV"], "a") as fh:
         fh.write(f"NEW_FILE={new_version_file}\n")
         fh.write(f"NEW_VERSION={new_vi}\n")
