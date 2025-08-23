@@ -82,7 +82,7 @@ jobs:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ env.GIST_ID }}
         filename: ontology-ci-reason.json
-        label: OWL DL Profile
+        label: Reasoning
         message: ${{ env.REASON_RESULT }}
         color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
         
