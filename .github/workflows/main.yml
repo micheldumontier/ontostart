@@ -36,6 +36,7 @@ jobs:
         chmod +x robot
      
     - name: Validate ontology profile
+      id: profile
       run: |
         # If parsing fails, this step will exit non-zero
         ./robot validate-profile --input "$ONTO_FILE" --profile DL|| \
@@ -47,8 +48,8 @@ jobs:
       with:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-syntax.json
-        label: syntax
-        message: ${{ steps.syntax_check.outcome }}
-        color: ${{ steps.syntax_check.outcome == 'success' && 'brightgreen' || steps.syntax_check.outcome == 'cancelled' && 'yellow' || 'red' }}
+        filename: ontology-ci-profile.json
+        label: OWL DL Profile
+        message: ${{ steps.profile.outcome }}
+        color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
   
