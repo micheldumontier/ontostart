@@ -121,7 +121,7 @@ jobs:
           git add "${ONTO_ABBREV}/.htaccess"
           git commit -m "Add ${ONTO_ABBREV}/.htaccess"
 
-      - name: Push branch to fork
+      - name: Push branch to fork (sanitized token)
         env:
           FORK_FULLNAME: ${{ env.FORK_FULLNAME }}
           GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
@@ -129,7 +129,9 @@ jobs:
           BRANCH: ${{ env.BRANCH }}
         run: |
           cd "${CLONED_DIR}"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${FORK_FULLNAME}.git" "${BRANCH}"
+          CLEAN_TOKEN="$(printf %s "${GH_TOKEN}" | tr -d '\r\n')"
+          git push "https://x-access-token:${CLEAN_TOKEN}@github.com/${FORK_FULLNAME}.git" "${BRANCH}"
+
 
       - name: Open Pull Request to upstream
         env:
