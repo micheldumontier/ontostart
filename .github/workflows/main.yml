@@ -164,31 +164,41 @@ jobs:
         message: ${{ steps.pylode.outcome }}
         color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
 
-
     - name: Configure Pages
       uses: actions/configure-pages@v5
 
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
-      with:
-        path: ${{ env.DOCS_DIR }}
+      # with:
+      #   path: ${{ env.DOCS_DIR }}
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
 
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
-      id: deploy
-      with:
-          # leaves default to gh-pages
-          preview: false
-          publish_dir: ./docs
-
-    
-    - name: Badge — Deploy (Shields endpoint)
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-deploy.json
-        label: deploy
-        message: ${{ steps.deploy.outcome }}
-        color: ${{ steps.deploy.outcome == 'success' && 'brightgreen' || steps.deploy.outcome == 'cancelled' && 'yellow' || 'red' }}
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+      
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps: 
+        - name: Deploy to GitHub Pages
+          uses: actions/deploy-pages@v4
+          id: deployment
+          with:
+              preview: false 
+        
+        - name: Badge — Deploy (Shields endpoint)
+          if: always()
+          uses: schneegans/dynamic-badges-action@v1.7.0
+          with:
+            auth: ${{ secrets.GIST_TOKEN }}
+            gistID: ${{ env.GIST_ID }}
+            filename: ontology-ci-deploy.json
+            label: deploy
+            message: ${{ steps.deployment.outcome }}
+            color: ${{ steps.deployment.outcome == 'success' && 'brightgreen' || steps.deployment.outcome == 'cancelled' && 'yellow' || 'red' }}
