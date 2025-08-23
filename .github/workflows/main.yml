@@ -4,15 +4,16 @@ on:
 
 jobs:
   build:
+    env:
+      ONTO_FILE: testo.ttl
+      GIST_ID: ${{ vars.GIST_ID }}
+
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pages: write
       id-token: write
-    env:
-      ONTO_FILE: testo.ttl
-      GIST_ID: ${{ vars.GIST_ID }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -36,19 +37,65 @@ jobs:
         chmod +x robot
      
     - name: Validate ontology profile
+      id: profile
       run: |
         # If parsing fails, this step will exit non-zero
         ./robot validate-profile --input "$ONTO_FILE" --profile DL|| \
         (echo "Profile check failed." && exit 1)
   
-    - name: Badge — Syntax (Shields endpoint)
+    - name: Badge — Syntax
       if: always()
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-syntax.json
-        label: syntax
-        message: ${{ steps.syntax_check.outcome }}
-        color: ${{ steps.syntax_check.outcome == 'success' && 'brightgreen' || steps.syntax_check.outcome == 'cancelled' && 'yellow' || 'red' }}
+        filename: ontology-ci-profile.json
+        label: OWL DL Profile
+        message: ${{ steps.profile.outcome }}
+        color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
   
+    - name: Reasoning and consistency check (HermiT)
+      id: reason
+      run: |
+       ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+        > reason.stdout 2> reason.stderr \
+        && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
+        || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
+
+    - name: Upload reasoning logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: reasoning-logs
+        path: |
+          reason.stdout
+          reason.stderr
+          reason.summary
+          
+    - name: Badge — Reason
+      if: always()
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{ env.GIST_ID }}
+        filename: ontology-ci-reason.json
+        label: OWL DL Profile
+        message: ${{ env.REASON_RESULT }}
+        color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+        
+    - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) and write new file
+      id: version
+      run: |
+        python scripts/bump_version.py
+
+    - name: Badge — Version update
+      if: always()
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{ env.GIST_ID }}
+        filename: ontology-ci-version.json
+        label: Version
+        message: ${{ env.new_version }}
+        color: ${{ steps.version.outcome == 'success' && 'brightgreen' || 'red' }}
+
