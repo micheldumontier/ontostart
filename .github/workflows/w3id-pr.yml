@@ -40,13 +40,9 @@ jobs:
           gh --version
 
       - name: Authenticate gh for API and Git
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}   # PAT with 'repo' scope
         run: |
-          # Login for API use
-          echo "${GH_TOKEN}" | gh auth login --with-token
+          echo "${{ secrets.W3ID_TOKEN }}" | gh auth login --with-token
           gh auth status
-          # Configure git to use gh credential helper
           gh auth setup-git
           git config --global user.name  "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
