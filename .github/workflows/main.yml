@@ -150,7 +150,7 @@ jobs:
       id: pylode
       run: |
           mkdir -p "$DOCS_DIR/pylode/"
-          pylode -o $DOCS_DIR/pylode/index" \
+          pylode -o "$DOCS_DIR/pylode/index" \
             "${{ steps.bump.outputs.new_file }}"
 
     - name: Badge — Pylode
