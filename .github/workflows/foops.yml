@@ -33,7 +33,7 @@ jobs:
           python3 - << 'PY'
           import json, pathlib, os
           total_score = 0
-          with open('test.json') as f:
+          with open('foops-results.json') as f:
               data = json.load(f)
               tot_checks = len(data["checks"])
               passed_checks = 0
