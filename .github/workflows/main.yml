@@ -204,3 +204,44 @@ jobs:
             label: deploy
             message: ${{ steps.deployment.outcome }}
             color: ${{ steps.deployment.outcome == 'success' && 'brightgreen' || steps.deployment.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+  foops:
+    runs-on: ubuntu-latest
+    needs: deploy
+    env:
+      #ONTO_URI: https://w3id.org/testo/
+      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.13/testo.ttl
+      GIST_ID: ${{ vars.GIST_ID }}
+    
+    steps:
+      - name: Call FOOPS! API
+        run: |
+          curl -X POST "https://foops.linkeddata.es/assessOntology" \
+              -H  "accept: application/json" \
+              -H "Content-Type: application/json" \
+              -d "{  \"ontologyUri\": \"$ONTO_URI"}" \
+              -o foops-results.json
+          
+      - name: Process FOOPS! results
+        run: |
+          python3 - << 'PY'
+          import json, pathlib
+          d=json.load(open("foops-results.json"))
+          tot=sum(c["total_tests_run"] for c in d["checks"])
+          pas=sum(c["total_passed_tests"] for c in d["checks"])
+          pct = (pas / tot * 100) if tot else 0
+          label = f"{pct:.0f}% ({pas}/{tot} tests)"
+          echo "FOOPS_SCORE=$label" >> $GITHUB_ENV \
+          PY
+          
+      - name: Badge — FOOPS
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-foops.json
+          label: FOOPS!
+          message: ${{ env.FOOPS_SCORE }}
+          color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
+
