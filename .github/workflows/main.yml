@@ -34,7 +34,7 @@ jobs:
     - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
       run: |
         python -m pip install --upgrade pip
-        pip install rdflib dotenv
+        pip install rdflib dotenv pylode
         wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
         curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
         chmod +x robot
