@@ -123,15 +123,12 @@ jobs:
           cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${ONTO_ABBREV}/README.md"
           
           git checkout -b "${BRANCH}"
-          git add "${ONTO_ABBREV}/.htaccess"
-          git add "${ONTO_ABBREV}/README.md"
+          git add "${ONTO_ABBREV}/.htaccess" "${ONTO_ABBREV}/README.md" || true
           
-          #If file unchanged (re-run), avoid empty commit error
-          if git diff --cached --quiet; then
-            echo "No changes to commit; continuing (branch still created)."
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Adding ${ONTO_ABBREV} .htaccess and/or README.md"
           else
-            git commit -m "Add ${ONTO_ABBREV}/.htaccess"
-            git commit -m "Add ${ONTO_ABBREV}/README.md"
+            echo "No changes to commit; proceeding without commit."
           fi
 
       - name: Push branch to fork
