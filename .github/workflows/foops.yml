@@ -13,6 +13,7 @@ jobs:
     
     steps:
       - name: Call FOOPS! API
+        id: foops
         run: |
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
