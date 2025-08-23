@@ -61,6 +61,16 @@ jobs:
         && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
         || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
 
+    - name: Upload reasoning logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: reasoning-logs
+        path: |
+          reason.stdout
+          reason.stderr
+          reason.summary
+          
     - name: Badge — Reason (Shields endpoint)
       if: always()
       uses: schneegans/dynamic-badges-action@v1.7.0
@@ -71,4 +81,8 @@ jobs:
         label: OWL DL Profile
         message: ${{ env.REASON_RESULT }}
         color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+        
+
+
+
         
