@@ -12,7 +12,7 @@ on:
         required: true
         default: "scripts/.htaccess"
       W3ID_FORK_OWNER:
-        description: "Org to own the fork (leave empty to fork under your user)"
+        description: "Organization to own the fork (leave empty to fork under your user)"
         required: false
         default: ""
 
@@ -30,40 +30,39 @@ jobs:
       - name: Check out this repository
         uses: actions/checkout@v4
 
-      - name: Verify gh is available
-        run: gh --version
-
-      - name: Set up git identity
+      # gh is preinstalled on ubuntu-latest, but this keeps the job portable
+      - name: Ensure GitHub CLI is available
         run: |
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          if ! command -v gh >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y gh
+          fi
+          gh --version
 
-      - name: Inputs
-        run: |
-          echo "ONTO_ABBREV=${{ inputs.ONTO_ABBREV }}" >> $GITHUB_ENV
-          echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> $GITHUB_ENV
-          echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}" >> $GITHUB_ENV
-
-      - name: Authenticate gh for both API and Git
+      - name: Authenticate gh for API and Git
         env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}   # PAT with repo scope
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}   # PAT with 'repo' scope
         run: |
+          # Login for API use
           echo "${GH_TOKEN}" | gh auth login --with-token
           gh auth status
+          # Configure git to use gh credential helper
           gh auth setup-git
           git config --global user.name  "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
+      - name: Capture inputs
+        run: |
+          echo "ONTO_ABBREV=${{ inputs.ONTO_ABBREV }}"          >> "$GITHUB_ENV"
+          echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> "$GITHUB_ENV"
+          echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}"         >> "$GITHUB_ENV"
+
       - name: Determine upstream default branch
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
         run: |
           BASE_BRANCH="$(gh api repos/${{ env.W3ID_UPSTREAM_REPO }} -q .default_branch)"
-          echo "BASE_BRANCH=${BASE_BRANCH}" >> $GITHUB_ENV
+          echo "BASE_BRANCH=${BASE_BRANCH}" | tee -a "$GITHUB_ENV"
 
       - name: Decide fork target (org vs user)
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
         run: |
           FORK_OWNER="${GITHUB_ACTOR}"
           TARGET_IS_ORG="false"
@@ -79,12 +78,10 @@ jobs:
           else
             echo "No org provided; forking under user '${GITHUB_ACTOR}'."
           fi
-          echo "FORK_OWNER=${FORK_OWNER}" >> $GITHUB_ENV
-          echo "TARGET_IS_ORG=${TARGET_IS_ORG}" >> $GITHUB_ENV
+          echo "FORK_OWNER=${FORK_OWNER}"       >> "$GITHUB_ENV"
+          echo "TARGET_IS_ORG=${TARGET_IS_ORG}" >> "$GITHUB_ENV"
 
-      - name: Fork perma-id/w3id.org (no clone)
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+      - name: Fork upstream (idempotent)
         run: |
           if [ "${TARGET_IS_ORG}" = "true" ]; then
             gh repo fork "${{ env.W3ID_UPSTREAM_REPO }}" --org "${FORK_OWNER}" --remote=false || true
@@ -92,14 +89,12 @@ jobs:
             gh repo fork "${{ env.W3ID_UPSTREAM_REPO }}" --remote=false || true
           fi
 
-      - name: Compute fork fullname and clone it
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+      - name: Compute fork fullname and clone
         run: |
           FORK_FULLNAME="${FORK_OWNER}/$(basename '${{ env.W3ID_UPSTREAM_REPO }}')"
-          echo "FORK_FULLNAME=${FORK_FULLNAME}" >> $GITHUB_ENV
+          echo "FORK_FULLNAME=${FORK_FULLNAME}" >> "$GITHUB_ENV"
 
-          # Wait for fork to appear
+          # Wait for fork to exist (first run) then clone
           for i in {1..10}; do
             if git ls-remote "https://github.com/${FORK_FULLNAME}.git" &>/dev/null; then
               break
@@ -109,13 +104,13 @@ jobs:
           done
 
           git clone "https://github.com/${FORK_FULLNAME}.git"
-          echo "CLONED_DIR=$(basename '${{ env.W3ID_UPSTREAM_REPO }}')" >> $GITHUB_ENV
+          echo "CLONED_DIR=$(basename '${{ env.W3ID_UPSTREAM_REPO }}')" >> "$GITHUB_ENV"
 
       - name: Create branch and copy .htaccess
         run: |
           cd "${CLONED_DIR}"
           BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
-          echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+          echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
           mkdir -p "${ONTO_ABBREV}"
           if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
@@ -126,37 +121,34 @@ jobs:
 
           git checkout -b "${BRANCH}"
           git add "${ONTO_ABBREV}/.htaccess"
-          git commit -m "Add ${ONTO_ABBREV}/.htaccess"
-
-      - name: Configure git to use gh credentials
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
-        run: gh auth setup-git
+          # If file unchanged (re-run), avoid empty commit error
+          if git diff --cached --quiet; then
+            echo "No changes to commit; continuing (branch still created)."
+          else
+            git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+          fi
 
       - name: Push branch to fork
-        env:
-          FORK_FULLNAME: ${{ env.FORK_FULLNAME }}
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
-          CLONED_DIR: ${{ env.CLONED_DIR }}
-          BRANCH: ${{ env.BRANCH }}
-          GITHUB_ACTOR: ${{ github.actor }}
         run: |
           cd "${CLONED_DIR}"
-          CLEAN_TOKEN="$(printf %s "${GH_TOKEN}" | tr -d '\r\n')"
-          git push "https://${GITHUB_ACTOR}:${CLEAN_TOKEN}@github.com/${FORK_FULLNAME}" "${BRANCH}"
+          git remote add fork "https://github.com/${FORK_FULLNAME}.git" || git remote set-url fork "https://github.com/${FORK_FULLNAME}.git"
+          # Push even if there were no new commits (creates branch if needed)
+          git push -u fork "${BRANCH}"
 
-      - name: Open Pull Request to upstream
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+      - name: Open/Reuse Pull Request to upstream
         run: |
-          gh pr create \
-            --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
-            --head "${FORK_OWNER}:${BRANCH}" \
-            --base "${BASE_BRANCH}" \
-            --title "Add ${ONTO_ABBREV} redirects" \
-            --body "This PR adds \`${ONTO_ABBREV}/.htaccess\` with redirects for the \`${ONTO_ABBREV}\` namespace."
-
-      - name: Show PR URL
-        env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
-        run: gh pr list --repo "${{ env.W3ID_UPSTREAM_REPO }}" --state open --limit 5
+          set -e
+          # Try to create the PR; if it already exists, just show it
+          if gh pr create \
+              --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
+              --head "${FORK_OWNER}:${BRANCH}" \
+              --base "${BASE_BRANCH}" \
+              --title "Add ${ONTO_ABBREV} redirects" \
+              --body "This PR adds \`${ONTO_ABBREV}/.htaccess\` with redirects for the \`${ONTO_ABBREV}\` namespace."; then
+            echo "PR created."
+          else
+            echo "PR may already exist; showing matching PRs..."
+          fi
+          gh pr list --repo "${{ env.W3ID_UPSTREAM_REPO }}" --search "${BRANCH}" --state open --limit 1
+          # Print the URL of the PR (new or existing)
+          gh pr view --repo "${{ env.W3ID_UPSTREAM_REPO }}" --json url -q .url || true
