@@ -85,7 +85,6 @@ jobs:
         
     - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) and write new file
       id: version
-      shell: python
       run: |
         python scripts/bump_version.py
 
