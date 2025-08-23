@@ -123,6 +123,7 @@ jobs:
 
           git checkout -b "${BRANCH}"
           git add "${ONTO_ABBREV}/.htaccess"
+          git add "${ONTO_ABBREV}/README.md"
           # If file unchanged (re-run), avoid empty commit error
           if git diff --cached --quiet; then
             echo "No changes to commit; continuing (branch still created)."
