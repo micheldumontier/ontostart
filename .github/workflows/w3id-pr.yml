@@ -30,6 +30,9 @@ jobs:
       - name: Check out this repository
         uses: actions/checkout@v4
 
+      - name: Verify gh is available
+        run: gh --version
+
       - name: Set up git identity
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
@@ -42,35 +45,27 @@ jobs:
           INP_SOURCE: ${{ inputs.SOURCE_HTACCESS_PATH }}
           INP_OWNER:  ${{ inputs.W3ID_FORK_OWNER }}
         run: |
-          # Normalize inputs
-          echo "ONTO_ABBREV=${INP_ABBREV}" >> $GITHUB_ENV
-          echo "SOURCE_HTACCESS_PATH=${INP_SOURCE}" >> $GITHUB_ENV
-
-          # Decide fork owner
+          echo "ONTO_ABBREV=${INP_ABBREV}" >> "$GITHUB_ENV"
+          echo "SOURCE_HTACCESS_PATH=${INP_SOURCE}" >> "$GITHUB_ENV"
           if [ -n "${INP_OWNER}" ]; then
             FORK_OWNER="${INP_OWNER}"
           else
             FORK_OWNER="${GITHUB_ACTOR}"
           fi
-          echo "W3ID_FORK_OWNER=${FORK_OWNER}" >> $GITHUB_ENV
-
-      - name: Install GitHub CLI
-        uses: actions/setup-gh@v4
+          echo "W3ID_FORK_OWNER=${FORK_OWNER}" >> "$GITHUB_ENV"
 
       - name: Authenticate gh
         env:
-          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}   # PAT with 'repo' scope
         run: gh auth status
 
       - name: Determine upstream default branch
-        id: base
         env:
           GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
           W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
         run: |
           BASE_BRANCH="$(gh api repos/${W3ID_UPSTREAM_REPO} -q .default_branch)"
-          echo "BASE_BRANCH=${BASE_BRANCH}"
-          echo "BASE_BRANCH=${BASE_BRANCH}" >> $GITHUB_ENV
+          echo "BASE_BRANCH=${BASE_BRANCH}" | tee -a "$GITHUB_ENV"
 
       - name: Fork perma-id/w3id.org (no clone)
         env:
@@ -91,10 +86,9 @@ jobs:
           W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
         run: |
           OWNER="${W3ID_FORK_OWNER:-$GITHUB_ACTOR}"
-          FORK_FULLNAME="${OWNER}/$(basename ${W3ID_UPSTREAM_REPO})"
-          echo "FORK_FULLNAME=${FORK_FULLNAME}" >> $GITHUB_ENV
+          FORK_FULLNAME="${OWNER}/$(basename "${W3ID_UPSTREAM_REPO}")"
+          echo "FORK_FULLNAME=${FORK_FULLNAME}" >> "$GITHUB_ENV"
 
-          # Wait briefly for the fork to materialize; retry clone a few times
           for i in {1..10}; do
             if git ls-remote "https://github.com/${FORK_FULLNAME}.git" &>/dev/null; then
               break
@@ -104,7 +98,7 @@ jobs:
           done
 
           git clone "https://github.com/${FORK_FULLNAME}.git"
-          echo "CLONED_DIR=$(basename ${W3ID_UPSTREAM_REPO})" >> $GITHUB_ENV
+          echo "CLONED_DIR=$(basename "${W3ID_UPSTREAM_REPO}")" >> "$GITHUB_ENV"
 
       - name: Create branch and copy .htaccess
         env:
@@ -113,13 +107,10 @@ jobs:
           CLONED_DIR: ${{ env.CLONED_DIR }}
         run: |
           cd "${CLONED_DIR}"
-
           BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
-          echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+          echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
-          # Create directory and copy file
           mkdir -p "${ONTO_ABBREV}"
-          # Ensure source file exists in the checked out repo
           if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
             echo "Source ${SOURCE_HTACCESS_PATH} not found in this repo." >&2
             exit 1
@@ -161,5 +152,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
           W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
-        run: |
-          gh pr list --repo "${W3ID_UPSTREAM_REPO}" --state open --limit 5
+        run: gh pr list --repo "${W3ID_UPSTREAM_REPO}" --state open --limit 5
