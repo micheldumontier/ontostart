@@ -1,0 +1,167 @@
+name: Propose w3id.org redirects
+
+on:
+  workflow_dispatch:
+    inputs:
+      ONTO_ABBREV:
+        description: "Short directory name to create in w3id.org (e.g., 'testo')"
+        required: true
+        default: "testo"
+      SOURCE_HTACCESS_PATH:
+        description: "Path in this repo to the .htaccess to copy"
+        required: true
+        default: "scripts/.htaccess"
+      W3ID_FORK_OWNER:
+        description: "Account/org to own the fork (defaults to the actor)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  W3ID_UPSTREAM_REPO: perma-id/w3id.org
+
+jobs:
+  make-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v4
+
+      - name: Set up git identity
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Set variables
+        id: vars
+        env:
+          INP_ABBREV: ${{ inputs.ONTO_ABBREV }}
+          INP_SOURCE: ${{ inputs.SOURCE_HTACCESS_PATH }}
+          INP_OWNER:  ${{ inputs.W3ID_FORK_OWNER }}
+        run: |
+          # Normalize inputs
+          echo "ONTO_ABBREV=${INP_ABBREV}" >> $GITHUB_ENV
+          echo "SOURCE_HTACCESS_PATH=${INP_SOURCE}" >> $GITHUB_ENV
+
+          # Decide fork owner
+          if [ -n "${INP_OWNER}" ]; then
+            FORK_OWNER="${INP_OWNER}"
+          else
+            FORK_OWNER="${GITHUB_ACTOR}"
+          fi
+          echo "W3ID_FORK_OWNER=${FORK_OWNER}" >> $GITHUB_ENV
+
+      - name: Install GitHub CLI
+        uses: cli/cli@v2
+        with:
+          version: latest
+
+      - name: Authenticate gh
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+        run: gh auth status
+
+      - name: Determine upstream default branch
+        id: base
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
+        run: |
+          BASE_BRANCH="$(gh api repos/${W3ID_UPSTREAM_REPO} -q .default_branch)"
+          echo "BASE_BRANCH=${BASE_BRANCH}"
+          echo "BASE_BRANCH=${BASE_BRANCH}" >> $GITHUB_ENV
+
+      - name: Fork perma-id/w3id.org (no clone)
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          W3ID_FORK_OWNER: ${{ env.W3ID_FORK_OWNER }}
+          W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
+        run: |
+          if [ -n "${W3ID_FORK_OWNER}" ]; then
+            gh repo fork "${W3ID_UPSTREAM_REPO}" --org "${W3ID_FORK_OWNER}" --remote=false || true
+          else
+            gh repo fork "${W3ID_UPSTREAM_REPO}" --remote=false || true
+          fi
+
+      - name: Compute fork fullname and clone it
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          W3ID_FORK_OWNER: ${{ env.W3ID_FORK_OWNER }}
+          W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
+        run: |
+          OWNER="${W3ID_FORK_OWNER:-$GITHUB_ACTOR}"
+          FORK_FULLNAME="${OWNER}/$(basename ${W3ID_UPSTREAM_REPO})"
+          echo "FORK_FULLNAME=${FORK_FULLNAME}" >> $GITHUB_ENV
+
+          # Wait briefly for the fork to materialize; retry clone a few times
+          for i in {1..10}; do
+            if git ls-remote "https://github.com/${FORK_FULLNAME}.git" &>/dev/null; then
+              break
+            fi
+            echo "Waiting for fork to be ready (${i}/10)..."
+            sleep 3
+          done
+
+          git clone "https://github.com/${FORK_FULLNAME}.git"
+          echo "CLONED_DIR=$(basename ${W3ID_UPSTREAM_REPO})" >> $GITHUB_ENV
+
+      - name: Create branch and copy .htaccess
+        env:
+          ONTO_ABBREV: ${{ env.ONTO_ABBREV }}
+          SOURCE_HTACCESS_PATH: ${{ env.SOURCE_HTACCESS_PATH }}
+          CLONED_DIR: ${{ env.CLONED_DIR }}
+        run: |
+          cd "${CLONED_DIR}"
+
+          BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
+          echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+
+          # Create directory and copy file
+          mkdir -p "${ONTO_ABBREV}"
+          # Ensure source file exists in the checked out repo
+          if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
+            echo "Source ${SOURCE_HTACCESS_PATH} not found in this repo." >&2
+            exit 1
+          fi
+          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ONTO_ABBREV}/.htaccess"
+
+          git checkout -b "${BRANCH}"
+          git add "${ONTO_ABBREV}/.htaccess"
+          git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+
+      - name: Push branch to fork
+        env:
+          FORK_FULLNAME: ${{ env.FORK_FULLNAME }}
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          CLONED_DIR: ${{ env.CLONED_DIR }}
+          BRANCH: ${{ env.BRANCH }}
+        run: |
+          cd "${CLONED_DIR}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${FORK_FULLNAME}.git" "${BRANCH}"
+
+      - name: Open Pull Request to upstream
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
+          FORK_FULLNAME: ${{ env.FORK_FULLNAME }}
+          BRANCH: ${{ env.BRANCH }}
+          ONTO_ABBREV: ${{ env.ONTO_ABBREV }}
+          BASE_BRANCH: ${{ env.BASE_BRANCH }}
+        run: |
+          gh pr create \
+            --repo "${W3ID_UPSTREAM_REPO}" \
+            --head "${FORK_FULLNAME%%/*}:${BRANCH}" \
+            --base "${BASE_BRANCH}" \
+            --title "Add ${ONTO_ABBREV} redirects" \
+            --body "This PR adds \`${ONTO_ABBREV}/.htaccess\` with redirects for the \`${ONTO_ABBREV}\` namespace."
+
+      - name: Show PR URL
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          W3ID_UPSTREAM_REPO: ${{ env.W3ID_UPSTREAM_REPO }}
+        run: |
+          gh pr list --repo "${W3ID_UPSTREAM_REPO}" --state open --limit 5
