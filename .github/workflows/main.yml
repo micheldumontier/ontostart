@@ -231,7 +231,7 @@ jobs:
           pas=sum(c["total_passed_tests"] for c in d["checks"])
           pct = (pas / tot * 100) if tot else 0
           label = f"{pct:.0f}% ({pas}/{tot} tests)"
-          echo "FOOPS_SCORE=$label" >> $GITHUB_ENV 
+          echo f"FOOPS_SCORE={label}" >> $GITHUB_ENV 
           PY
           
       - name: Badge — FOOPS
