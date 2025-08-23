@@ -179,6 +179,7 @@ jobs:
       with:
           # leaves default to gh-pages
           preview: false
+          publish_dir: ./docs
 
     
     - name: Badge — Deploy (Shields endpoint)
