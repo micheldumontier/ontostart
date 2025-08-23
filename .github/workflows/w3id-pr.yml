@@ -55,9 +55,7 @@ jobs:
           echo "W3ID_FORK_OWNER=${FORK_OWNER}" >> $GITHUB_ENV
 
       - name: Install GitHub CLI
-        uses: cli/cli@v2
-        with:
-          version: latest
+        uses: actions/setup-gh@v4
 
       - name: Authenticate gh
         env:
