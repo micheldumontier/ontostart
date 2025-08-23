@@ -129,7 +129,7 @@ jobs:
     - name: Generate documentation with Ontospy
       id: ontospy
       run: |
-          mkdir -p "$DOCS_DIR"
+          mkdir -p "$DOCS_DIR/ontospy"
           python -m ontospy.cli gendocs --type 2 \
             -o "$DOCS_DIR/ontospy" \
             "${{ env.NEW_FILE }}"
