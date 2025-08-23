@@ -10,7 +10,11 @@ on:
       SOURCE_HTACCESS_PATH:
         description: "Path in this repo to the .htaccess to copy"
         required: true
-        default: "scripts/.htaccess"
+        default: "scripts/w3id.org/.htaccess"
+      SOURCE_README_PATH:
+        description: "Path in this repo to the README.md file to copy"
+        required: true
+        default: "scripts/w3id.org/README.md"        
       W3ID_FORK_OWNER:
         description: "Organization to own the fork (leave empty to fork under your user)"
         required: false
@@ -51,6 +55,7 @@ jobs:
         run: |
           echo "ONTO_ABBREV=${{ inputs.ONTO_ABBREV }}"          >> "$GITHUB_ENV"
           echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> "$GITHUB_ENV"
+          echo "SOURCE_README_PATH=${{ inputs.SOURCE_README_PATH }}" >> "$GITHUB_ENV"
           echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}"         >> "$GITHUB_ENV"
 
       - name: Determine upstream default branch
@@ -102,7 +107,7 @@ jobs:
           git clone "https://github.com/${FORK_FULLNAME}.git"
           echo "CLONED_DIR=$(basename '${{ env.W3ID_UPSTREAM_REPO }}')" >> "$GITHUB_ENV"
 
-      - name: Create branch and copy .htaccess
+      - name: Create branch and copy .htaccess AND README.md
         run: |
           cd "${CLONED_DIR}"
           BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
@@ -114,6 +119,7 @@ jobs:
             exit 1
           fi
           cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ONTO_ABBREV}/.htaccess"
+          cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${ONTO_ABBREV}/README.md"
 
           git checkout -b "${BRANCH}"
           git add "${ONTO_ABBREV}/.htaccess"
@@ -122,6 +128,7 @@ jobs:
             echo "No changes to commit; continuing (branch still created)."
           else
             git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+            git commit -m "Add ${ONTO_ABBREV}/README.md"
           fi
 
       - name: Push branch to fork
