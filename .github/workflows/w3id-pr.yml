@@ -129,10 +129,16 @@ jobs:
         run: gh auth setup-git
 
       - name: Push branch to fork
+        env:
+          FORK_FULLNAME: ${{ env.FORK_FULLNAME }}
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+          CLONED_DIR: ${{ env.CLONED_DIR }}
+          BRANCH: ${{ env.BRANCH }}
+          GITHUB_ACTOR: ${{ github.actor }}
         run: |
           cd "${CLONED_DIR}"
-          git remote add fork "https://github.com/${FORK_FULLNAME}.git" || git remote set-url fork "https://github.com/${FORK_FULLNAME}.git"
-          git push fork "${BRANCH}"
+          CLEAN_TOKEN="$(printf %s "${GH_TOKEN}" | tr -d '\r\n')"
+          git push "https://${GITHUB_ACTOR}:${CLEAN_TOKEN}@github.com/${FORK_FULLNAME}.git" "${BRANCH}"
 
       - name: Open Pull Request to upstream
         env:
