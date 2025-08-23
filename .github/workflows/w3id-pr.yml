@@ -103,4 +103,49 @@ jobs:
             sleep 3
           done
 
-          git clone "https://github.
+          git clone "https://github.com/${FORK_FULLNAME}.git"
+          echo "CLONED_DIR=$(basename '${{ env.W3ID_UPSTREAM_REPO }}')" >> $GITHUB_ENV
+
+      - name: Create branch and copy .htaccess
+        run: |
+          cd "${CLONED_DIR}"
+          BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
+          echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+
+          mkdir -p "${ONTO_ABBREV}"
+          if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
+            echo "Source ${SOURCE_HTACCESS_PATH} not found." >&2
+            exit 1
+          fi
+          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ONTO_ABBREV}/.htaccess"
+
+          git checkout -b "${BRANCH}"
+          git add "${ONTO_ABBREV}/.htaccess"
+          git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+
+      - name: Configure git to use gh credentials
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+        run: gh auth setup-git
+
+      - name: Push branch to fork
+        run: |
+          cd "${CLONED_DIR}"
+          git remote add fork "https://github.com/${FORK_FULLNAME}.git" || git remote set-url fork "https://github.com/${FORK_FULLNAME}.git"
+          git push fork "${BRANCH}"
+
+      - name: Open Pull Request to upstream
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+        run: |
+          gh pr create \
+            --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
+            --head "${FORK_OWNER}:${BRANCH}" \
+            --base "${BASE_BRANCH}" \
+            --title "Add ${ONTO_ABBREV} redirects" \
+            --body "This PR adds \`${ONTO_ABBREV}/.htaccess\` with redirects for the \`${ONTO_ABBREV}\` namespace."
+
+      - name: Show PR URL
+        env:
+          GH_TOKEN: ${{ secrets.W3ID_TOKEN }}
+        run: gh pr list --repo "${{ env.W3ID_UPSTREAM_REPO }}" --state open --limit 5
