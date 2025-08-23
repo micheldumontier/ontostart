@@ -129,9 +129,9 @@ jobs:
     - name: Generate documentation with Ontospy
       id: ontospy
       run: |
-          mkdir -p "$DOCS_DIR/ontospy"
+          mkdir -p "$DOCS_DIR/docs/ontospy"
           python -m ontospy.cli gendocs --type 2 \
-            -o "$DOCS_DIR/ontospy" \
+            -o "$DOCS_DIR/docs/ontospy" \
             "${{ env.NEW_FILE }}"
 
 
@@ -149,8 +149,8 @@ jobs:
     - name: Generate static site with Pylode
       id: pylode
       run: |
-          mkdir -p "$DOCS_DIR/pylode/"
-          pylode -o "$DOCS_DIR/pylode/index" \
+          mkdir -p "$DOCS_DIR/docs/pylode/"
+          pylode -o "$DOCS_DIR/docs/pylode/index" \
             "${{ env.NEW_FILE }}"
 
     - name: Badge — Pylode
@@ -169,8 +169,8 @@ jobs:
 
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
-      # with:
-      #   path: ${{ env.DOCS_DIR }}
+      with:
+        path: ${{ env.DOCS_DIR }}
         
   deploy:
     runs-on: ubuntu-latest
