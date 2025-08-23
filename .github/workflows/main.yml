@@ -4,15 +4,16 @@ on:
 
 jobs:
   build:
+    env:
+      ONTO_FILE: testo.ttl
+      GIST_ID: ${{ vars.GIST_ID }}
+
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pages: write
       id-token: write
-    env:
-      ONTO_FILE: testo.ttl
-      GIST_ID: ${{ vars.GIST_ID }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -42,7 +43,7 @@ jobs:
         ./robot validate-profile --input "$ONTO_FILE" --profile DL|| \
         (echo "Profile check failed." && exit 1)
   
-    - name: Badge — Syntax (Shields endpoint)
+    - name: Badge — Syntax
       if: always()
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
@@ -71,7 +72,7 @@ jobs:
           reason.stderr
           reason.summary
           
-    - name: Badge — Reason (Shields endpoint)
+    - name: Badge — Reason
       if: always()
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
@@ -82,7 +83,20 @@ jobs:
         message: ${{ env.REASON_RESULT }}
         color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
         
+    - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) and write new file
+      id: version
+      shell: python
+      run: |
+        python scripts/bump_version.py
 
+    - name: Badge — Version update
+      if: always()
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{ env.GIST_ID }}
+        filename: ontology-ci-version.json
+        label: Version
+        message: ${{ env.new_version }}
+        color: ${{ steps.version.outcome == 'success' && 'brightgreen' || 'red' }}
 
-
-        
