@@ -225,7 +225,7 @@ jobs:
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
-          import json, pathlib
+          import json, pathlib, os
           d=json.load(open("foops-results.json"))
           tot=sum(c["total_tests_run"] for c in d["checks"])
           pas=sum(c["total_passed_tests"] for c in d["checks"])
