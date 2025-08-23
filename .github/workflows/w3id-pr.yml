@@ -119,18 +119,20 @@ jobs:
             exit 1
           fi
 
-          git checkout -b "${BRANCH}"
           cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ONTO_ABBREV}/.htaccess"
           cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${ONTO_ABBREV}/README.md"
+          
+          git checkout -b "${BRANCH}"
           git add "${ONTO_ABBREV}/.htaccess"
           git add "${ONTO_ABBREV}/README.md"
-          # If file unchanged (re-run), avoid empty commit error
-          #if git diff --cached --quiet; then
-          #  echo "No changes to commit; continuing (branch still created)."
-          #else
-          git commit -m "Add ${ONTO_ABBREV}/.htaccess"
-          git commit -m "Add ${ONTO_ABBREV}/README.md"
-          #fi
+          
+          #If file unchanged (re-run), avoid empty commit error
+          if git diff --cached --quiet; then
+            echo "No changes to commit; continuing (branch still created)."
+          else
+            git commit -m "Add ${ONTO_ABBREV}/.htaccess"
+            git commit -m "Add ${ONTO_ABBREV}/README.md"
+          fi
 
       - name: Push branch to fork
         run: |
