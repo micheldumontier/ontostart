@@ -53,3 +53,21 @@ jobs:
         message: ${{ steps.profile.outcome }}
         color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
   
+    - name: Reasoning and consistency check (HermiT)
+      id: reason
+      run: |
+       ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+        > reason.stdout 2> reason.stderr
+       && echo "REASON_RESULT=consistent" >> $GITHUB_ENV || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
+
+    - name: Badge — Reason (Shields endpoint)
+      if: always()
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{ env.GIST_ID }}
+        filename: ontology-ci-reason.json
+        label: OWL DL Profile
+        message: ${{ env.REASON_RESULT }}
+        color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+        
