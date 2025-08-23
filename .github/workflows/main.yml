@@ -221,6 +221,13 @@ jobs:
               -H "Content-Type: application/json" \
               -d "{  \"ontologyUri\": \"$ONTO_URI\"}" \
               -o foops-results.json
+
+      - name: Upload foops results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foops-results
+          path: foops-results.json
           
       - name: Process FOOPS! results
         run: |
