@@ -86,7 +86,7 @@ jobs:
         color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
         
     - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) and write new file
-      id: version
+      id: bump_version
       run: |
         python scripts/bump_version.py
 
@@ -99,5 +99,15 @@ jobs:
         filename: ontology-ci-version.json
         label: Version
         message: ${{ env.NEW_VERSION }}
-        color: ${{ steps.version.outcome == 'success' && 'brightgreen' || 'red' }}
+        color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
 
+    - name: Commit bumped ontology back to main in both root and version directory (skip CI)
+      id: commit
+      run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$ONTO_FILE$" 
+          git add "${{ env.NEW_FILE }}"
+          git commit -m "chore(ontology): bump version to ${{ env.NEW_VERSION }} [skip ci]" || echo "Nothing to commit."
+          git push
+          
