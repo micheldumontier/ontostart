@@ -98,6 +98,6 @@ jobs:
         gistID: ${{ env.GIST_ID }}
         filename: ontology-ci-version.json
         label: Version
-        message: ${{ env.version.output.NEW_VERSION }}
+        message: ${{ env.NEW_VERSION }}
         color: ${{ steps.version.outcome == 'success' && 'brightgreen' || 'red' }}
 
