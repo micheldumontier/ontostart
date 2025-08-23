@@ -57,8 +57,9 @@ jobs:
       id: reason
       run: |
        ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
-        > reason.stdout 2> reason.stderr
-       && echo "REASON_RESULT=consistent" >> $GITHUB_ENV || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
+        > reason.stdout 2> reason.stderr \
+        && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
+        || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
 
     - name: Badge — Reason (Shields endpoint)
       if: always()
