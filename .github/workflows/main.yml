@@ -6,6 +6,7 @@ jobs:
   build:
     env:
       ONTO_FILE: testo.ttl
+      ONTO_ABBREV: testo
       GIST_ID: ${{ vars.GIST_ID }}
 
     if: ${{ github.actor != 'github-actions[bot]' }}
