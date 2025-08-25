@@ -43,7 +43,7 @@ jobs:
           ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
           onto_file = "testo.ttl"
           g = Graph()
-          g.parse(onto_file")
+          g.parse(onto_file)
           target_fmts = [
               ("jsonld", "json-ld"),
               ("nt", "nt"),
