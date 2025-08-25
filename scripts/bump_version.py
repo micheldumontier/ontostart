@@ -35,6 +35,14 @@ else:
     base_iri = f"https://w3id.org/{onto_abbrev}/"
     print(f"Info: Using default base IRI: {base_iri}")
 
+if "VERSION_DIR" in os.environ:
+    version_dir = os.environ["VERSION_DIR"]
+else:
+    # write error
+    print("Warning: VERSION_DIR not found in environment variables.")
+    version_dir = "versions"
+    print(f"Info: Using default version directory: {version_dir}")
+
 
 #### automatic after this
 onto_iri = URIRef(base_iri) 
