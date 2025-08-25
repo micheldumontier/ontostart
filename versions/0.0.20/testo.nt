@@ -1,0 +1,55 @@
+<https://w3id.org/testo/> <http://purl.org/dc/elements/1.1/creator> <https://orcid.org/0000-0000-0000-0000> .
+<http://purl.org/dc/terms/modified> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/created> "2025-08-25T12:44:26.475773+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0> .
+<https://w3id.org/testo/> <https://w3id.org/mod#hasRepresentationLanguage> <http://omv.ontoware.org/2005/05/ontology#OWL> .
+<http://www.w3.org/2004/02/skos/core#example> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/dc/terms/contributor> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://www.w3.org/2001/XMLSchema#date> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<https://w3id.org/testo/> <http://purl.org/vocab/vann/preferredNamespaceUri> <https://w3id.org/testo/> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/contributor> <https://orcid.org/0000-0000-0000-0000> .
+<http://purl.org/pav/authoredBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://www.w3.org/2000/01/rdf-schema#label> "Test Ontology"@en .
+<https://w3id.org/testo/> <http://www.w3.org/2002/07/owl#priorVersion> <https://w3id.org/testo/0.0.19> .
+<https://w3id.org/testo/> <https://w3id.org/mod#status> "active" .
+<http://purl.org/dc/terms/created> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/mod#definitionProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/testo/0.0.20> .
+<https://w3id.org/testo/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/modified> "2025-08-25T12:44:26.475773+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://purl.org/dc/terms/publisher> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/publisher> <https://someorganization.org> .
+<https://w3id.org/testo/> <http://www.w3.org/2002/07/owl#backwardCompatibleWith> <https://w3id.org/testo/0.0.19> .
+<https://schema.org/includedInDataCatalog> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://www.w3.org/2002/07/owl#versionInfo> "0.0.20"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://purl.org/dc/terms/title> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/vocab/vann/preferredNamespaceUri> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://xmlns.com/foaf/0.1/homepage> <https://github.com/micheldumontier/testo> .
+<https://w3id.org/testo/> <https://w3id.org/mod#definitionProperty> <http://www.w3.org/2000/01/rdf-schema#comment> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/title> "Test Ontology"@en .
+<https://w3id.org/testo/> <http://www.w3.org/2000/01/rdf-schema#comment> "The Test Ontology."@en .
+<https://w3id.org/testo/> <https://schema.org/includedInDataCatalog> <https://lov.linkeddata.es/dataset/lov/vocabs/testo> .
+<http://purl.org/dc/terms/license> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://purl.org/vocab/vann/preferredNamespacePrefix> "testo" .
+<http://purl.org/dc/terms/issued> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://www.w3.org/ns/dcat#accessURL> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://www.w3.org/ns/dcat#accessURL> <https://w3id.org/testo/testo.ttl> .
+<https://w3id.org/testo/> <https://schema.org/funding> "This work is supported by my overwhelming enthusiasm for ontology."@en .
+<https://w3id.org/testo/> <https://w3id.org/mod#prefLabelProperty> <http://www.w3.org/2000/01/rdf-schema#label> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/alternative> "TESTO"@en .
+<https://w3id.org/testo/> <http://purl.org/pav/authoredBy> <https://orcid.org/0000-0000-0000-0000> .
+<https://w3id.org/mod#hasRepresentationLanguage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://xmlns.com/foaf/0.1/homepage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://schema.org/funding> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/bibliographicCitation> "Some paper here"@en .
+<http://purl.org/dc/terms/language> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/dc/terms/alternative> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <https://w3id.org/mod#hasSyntax> <http://www.w3.org/ns/formats/Turtle> .
+<https://w3id.org/mod#status> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/vocab/vann/preferredNamespacePrefix> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/mod#hasSyntax> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/language> <http://lexvo.org/id/iso639-1/en> .
+<https://w3id.org/testo/> <http://purl.org/dc/terms/issued> "2025-08-25"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://w3id.org/mod#prefLabelProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/dc/elements/1.1/creator> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<http://purl.org/dc/terms/bibliographicCitation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
