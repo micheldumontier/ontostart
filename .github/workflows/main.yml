@@ -128,7 +128,7 @@ jobs:
               target_file = f"{target_dir}/${{env.ONTO_ABBREV}}.{fmt[0]}"
               print(f"Creating {target_file}")
               g.serialize(destination=target_file, format=fmt[1], encoding="utf-8")
-              files.add(target_file)
+              files_to_commit.add(target_file)
          
           with open(os.environ["GITHUB_ENV"], "a") as f:
               f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
