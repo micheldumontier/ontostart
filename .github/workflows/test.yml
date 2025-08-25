@@ -41,9 +41,9 @@ jobs:
             f.write(f"NEW_VERSION=0.0.2\n")  
           target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
           ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
-            
+          onto_file = "testo.ttl"
           g = Graph()
-          g.parse(f"{onto_file}.ttl")
+          g.parse(onto_file")
           target_fmts = [
               ("jsonld", "json-ld"),
               ("nt", "nt"),
