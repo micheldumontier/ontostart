@@ -111,7 +111,7 @@ jobs:
           from rdflib import Graph
 
           target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
-          ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
+          ttl_file = f"{target_dir}/${{env.ONTO_ABBREV}}.ttl"
           onto_file = ${{env.ONTO_FILE}}
           
           g = Graph()
