@@ -8,6 +8,7 @@ jobs:
       ONTO_FILE: testo.ttl
       ONTO_ABBREV: testo
       VERSION_DIR: versions
+      NEW_VERSION: 0.0.2
       GIST_ID: ${{ vars.GIST_ID }}
 
     if: ${{ github.actor != 'github-actions[bot]' }}
@@ -37,8 +38,6 @@ jobs:
           import os
           from rdflib import Graph
 
-          with open(os.environ["GITHUB_ENV"], "a") as f:
-            f.write(f"NEW_VERSION=0.0.2\n")  
           target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
           ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
           onto_file = "testo.ttl"
