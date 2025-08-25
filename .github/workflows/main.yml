@@ -7,6 +7,7 @@ jobs:
     env:
       ONTO_FILE: testo.ttl
       ONTO_ABBREV: testo
+      VERSION_DIR: versions
       DOCS_DIR: docs
       GIST_ID: ${{ vars.GIST_ID }}
 
@@ -102,13 +103,43 @@ jobs:
         message: ${{ env.NEW_VERSION }}
         color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
 
+    - name: Generate syntax variants
+      id: syntax_variants
+      run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph
+
+          target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
+          ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
+          onto_file =  ${{env.NEW_FILE}}
+          
+          g = Graph()
+          g.parse(onto_file)
+          target_fmts = [
+              ("jsonld", "json-ld"),
+              ("nt", "nt"),
+              ("owl", "xml")
+          ]
+          files_to_commit = set()
+          files_to_commit.add(onto_file)
+
+          for fmt in target_fmts:
+              target_file = f"{target_dir}/${{env.ONTO_ABBREV}}.{fmt[0]}"
+              print(f"Creating {target_file}")
+              g.serialize(destination=target_file, format=fmt[1], encoding="utf-8")
+              files.add(target_file)
+         
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
+          PY
+          
     - name: Commit bumped ontology back to main in both root and version directory (skip CI)
       id: commit
       run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$ONTO_FILE" 
-          git add "${{ env.NEW_FILE }}"
+          git add "$ONTO_FILE" "${{ env.NEW_FILES }}"
           git commit -m "chore(ontology): bump version to ${{ env.NEW_VERSION }} [skip ci]" || echo "Nothing to commit."
           git push
 
