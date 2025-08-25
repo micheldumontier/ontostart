@@ -110,7 +110,7 @@ jobs:
           import os
           from rdflib import Graph
          
-          target_dir = f"{os.environ["VERSION_DIR"]}/{os.environ["NEW_VERSION"]}"       
+          target_dir = f"{os.environ['VERSION_DIR']}/{os.environ['NEW_VERSION']}"       
 
           g = Graph()
           g.parse(os.environ["ONTO_FILE"])
@@ -123,7 +123,7 @@ jobs:
           
           files_to_commit = set()
           for fmt in target_fmts:
-              target_file = f"{target_dir}/{os.environ["ONTO_ABBREV"]}.{fmt[0]}"
+              target_file = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{fmt[0]}"
               print(f"Creating {target_file}")
               g.serialize(destination=target_file, format=fmt[1], encoding="utf-8")
               files_to_commit.add(target_file)
