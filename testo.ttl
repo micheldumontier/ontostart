@@ -64,26 +64,19 @@ mod:prefLabelProperty a owl:AnnotationProperty .
 mod:status a owl:AnnotationProperty .
 
 testo: a owl:Ontology ;
-    rdfs:label "Test Ontology"@en ;
-    dc:creator <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:alternative "TESTO"@en ;
-    dcterms:bibliographicCitation "Some paper here"@en ;
-    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:created "2025-08-25T13:17:19.032236+00:00"^^xsd:dateTime ;
-    dcterms:issued "2025-08-25"^^xsd:date ;
-    dcterms:language <http://lexvo.org/id/iso639-1/en> ;
-    dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
-    dcterms:modified "2025-08-25T13:17:19.032236+00:00"^^xsd:dateTime ;
-    dcterms:publisher <https://someorganization.org> ;
     dcterms:title "Test Ontology"@en ;
-    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
+    rdfs:label "Test Ontology"@en ;
+    rdfs:comment "The Test Ontology."@en ;
+    dcterms:alternative "TESTO"@en ;
     vann:preferredNamespacePrefix "testo" ;
     vann:preferredNamespaceUri testo: ;
-    rdfs:comment "The Test Ontology."@en ;
-    owl:backwardCompatibleWith testo:0.0.23 ;
-    owl:priorVersion testo:0.0.23 ;
-    owl:versionIRI testo:0.0.24 ;
-    owl:versionInfo "0.0.24"^^xsd:string ;
+    dc:creator <https://orcid.org/0000-0000-0000-0000> ;
+    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:language <http://lexvo.org/id/iso639-1/en> ;
+    dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
+    dcterms:publisher <https://someorganization.org> ;
+    dcterms:bibliographicCitation "Some paper here"@en ;       
     dcat:accessURL testo:testo.ttl ;
     foaf:homepage <https://github.com/micheldumontier/testo> ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
