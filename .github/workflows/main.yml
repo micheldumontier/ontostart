@@ -109,23 +109,21 @@ jobs:
           python3 - << 'PY'
           import os
           from rdflib import Graph
+         
+          target_dir = f"{os.environ["VERSION_DIR"]}/{os.environ["NEW_VERSION"]}"       
 
-          target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
-          #ttl_file = f"{target_dir}/${{env.ONTO_ABBREV}}.ttl"
-          onto_file = $ONTO_FILE
-          
           g = Graph()
-          g.parse(onto_file)
+          g.parse(os.environ["ONTO_FILE"])
           target_fmts = [
+              ("ttl","turtle"),
               ("jsonld", "json-ld"),
               ("nt", "nt"),
               ("owl", "xml")
           ]
+          
           files_to_commit = set()
-          files_to_commit.add({{env.NEW_FILE}})
-
           for fmt in target_fmts:
-              target_file = f"{target_dir}/${{env.ONTO_ABBREV}}.{fmt[0]}"
+              target_file = f"{target_dir}/{os.environ["ONTO_ABBREV"]}.{fmt[0]}"
               print(f"Creating {target_file}")
               g.serialize(destination=target_file, format=fmt[1], encoding="utf-8")
               files_to_commit.add(target_file)
