@@ -35,14 +35,6 @@ else:
     base_iri = f"https://w3id.org/{onto_abbrev}/"
     print(f"Info: Using default base IRI: {base_iri}")
 
-if "VERSION_DIR" in os.environ:
-    version_dir = os.environ["VERSION_DIR"]
-else:
-    # write error
-    print("Warning: VERSION_DIR not found in environment variables.")
-    version_dir = "versions"
-    print(f"Info: Using default version directory: {version_dir}")
-
 
 #### automatic after this
 onto_iri = URIRef(base_iri) 
@@ -87,31 +79,6 @@ current_version_dir = f"{version_dir}/{current_vi}"
 current_version_iri = URIRef(f"{base_iri}{current_vi}")
 current_version_file = f"{current_version_dir}/{onto_abbrev}.ttl"
 
-### add any missing metadata to the current version
-# if not any(g.triples((onto_iri, MOD.URI, None))):
-#     g.add((onto_iri, MOD.URI, Literal(current_version_iri, datatype=XSD.anyURI)))
-
-# if not any(g.triples((onto_iri, OWL.versionInfo, None))):
-#     g.add((onto_iri, OWL.versionInfo, Literal(current_vi, datatype=XSD.string)))
-    
-# if not any(g.triples((onto_iri, OWL.versionIRI, None))):
-#     g.add((onto_iri, OWL.versionIRI, current_version_iri))
-
-# if not any(g.triples((onto_iri, DCTERMS.created, None))):
-#     g.add((onto_iri, DCTERMS.created, Literal(today, datatype=XSD.date)))
-    
-# if not any(g.triples((onto_iri, DCTERMS.modified, None))):
-#     g.add((onto_iri, DCTERMS.modified, Literal(today, datatype=XSD.date)))
-           
-# if not any(g.triples((onto_iri, DCTERMS.issued, None))):
-#     g.add((onto_iri, DCTERMS.issued, Literal(today, datatype=XSD.date)))
-
-# # write the current IRI file to the version directory.
-# if not os.path.exists(current_version_file):
-#     # create the directory
-#     os.makedirs(current_version_dir, exist_ok=True)
-#     g.serialize(destination=current_version_file, format="turtle")
-
 # now update the ontology with the new versioning info
 # Bump patch
 patch += 1
@@ -137,15 +104,10 @@ if os.path.exists(current_version_file):
     g.add((onto_iri, OWL.priorVersion, current_version_iri))
     g.add((onto_iri, OWL.backwardCompatibleWith, current_version_iri))
 
-# write new versioned files
-os.makedirs(new_version_dir, exist_ok=True)
-g.serialize(destination=new_version_file, format="turtle")
+# write version updated file
 g.serialize(destination=onto_file, format="turtle")
 
-print(f"NEW_FILE={new_version_file}")
 print(f"NEW_VERSION={new_vi}")
-
 if "GITHUB_ENV" in os.environ:
     with open(os.environ["GITHUB_ENV"], "a") as fh:
-        fh.write(f"NEW_FILE={new_version_file}\n")
         fh.write(f"NEW_VERSION={new_vi}\n")
