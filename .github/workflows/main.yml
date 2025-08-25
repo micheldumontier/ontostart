@@ -112,7 +112,7 @@ jobs:
 
           target_dir=f"${{env.VERSION_DIR}}/${{env.NEW_VERSION}}"
           ttl_file = f"{target_dir}/${{env.ONTO_ABREV}}.ttl"
-          onto_file =  ${{env.NEW_FILE}}
+          onto_file = ${{env.ONTO_FILE}}
           
           g = Graph()
           g.parse(onto_file)
@@ -122,7 +122,7 @@ jobs:
               ("owl", "xml")
           ]
           files_to_commit = set()
-          files_to_commit.add(onto_file)
+          files_to_commit.add({{env.NEW_FILE}})
 
           for fmt in target_fmts:
               target_file = f"{target_dir}/${{env.ONTO_ABBREV}}.{fmt[0]}"
