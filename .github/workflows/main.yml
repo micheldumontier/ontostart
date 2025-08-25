@@ -162,7 +162,7 @@ jobs:
           mkdir -p "$DOCS_DIR/docs/ontospy"
           python -m ontospy.cli gendocs --type 2 \
             -o "$DOCS_DIR/docs/ontospy" \
-            "${{ env.NEW_FILE }}"
+            "$ONTO_FILE"
 
 
     - name: Badge — Ontospy
@@ -181,7 +181,7 @@ jobs:
       run: |
           mkdir -p "$DOCS_DIR/docs/pylode/"
           pylode -o "$DOCS_DIR/docs/pylode/index" \
-            "${{ env.NEW_FILE }}"
+            "$ONTO_FILE"
 
     - name: Badge — Pylode
       if: always()
