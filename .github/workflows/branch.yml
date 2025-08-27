@@ -222,7 +222,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/${{ env.SAFE_BRANCH }}
+          publish_dir: ${{ env.DOCS_DIR }}
           destination_dir: ${{ env.SAFE_BRANCH }}
           keep_files: false
           enable_jekyll: false
