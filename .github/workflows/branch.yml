@@ -145,6 +145,36 @@ jobs:
           message: ${{ steps.profile.outcome }}
           color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
 
+
+      - name: Reasoning and consistency check (HermiT)
+        id: reason
+        run: |
+          ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+            > reason.stdout 2> reason.stderr \
+            && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
+            || echo "REASON_RESULT=inconsistent" >> $GITHUB_ENV
+
+      - name: Upload reasoning logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SAFE_BRANCH }}-reasoning-logs
+          path: |
+            reason.stdout
+            reason.stderr
+            reason.summary
+
+      - name: Badge — Reason
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-reason-${{ env.SAFE_BRANCH }}.json
+          label: Reasoning
+          message: ${{ env.REASON_RESULT }}
+          color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+          
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
           python3 - << 'PY'
