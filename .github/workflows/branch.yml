@@ -87,6 +87,11 @@ jobs:
           echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
           echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
 
+      - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
+        run: |
+          python -m pip install --upgrade pip
+          pip install rdflib dotenv
+          
       - name: Debug env
         run: |
           echo "BRANCH=$BRANCH"
