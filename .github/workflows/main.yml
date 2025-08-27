@@ -240,7 +240,7 @@ jobs:
     needs: deploy
     env:
       #ONTO_URI: https://w3id.org/testo/
-      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.13/testo.ttl
+      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.1/testo.ttl
       GIST_ID: ${{ vars.GIST_ID }}
     
     steps:
