@@ -1,77 +1,98 @@
 name: branch-based CI
+
 on:
   workflow_dispatch:
     inputs:
       branch:
-        description: "Branch to build (optional). Defaults to current ref."
+        description: "Branch to build (leave empty to use current ref)"
         required: false
-        default: "testo"
+        default: ""
       onto_abbrev:
-        description: "The name of the ontology if different than the specified branch"
+        description: "Ontology name (leave empty to use the branch name)"
         required: false
         default: ""
       format:
-        description: "The ontology format which follows the ontology name (e.g. test.ttl)"
+        description: "Ontology file extension (e.g., ttl, owl, rdf, jsonld)"
         required: false
         default: "ttl"
-        
+
 jobs:
   build:
-    env:
-      VERSION_DIR: versions
-      GIST_ID: ${{ vars.GIST_ID }}
-      GIST_OWNER: ${{ vars.GIST_OWNER || github.repository_owner }}
-
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pages: write
       id-token: write
+    env:
+      VERSION_DIR: versions
+      GIST_ID: ${{ vars.GIST_ID }}
+      # Prefer org/repo owner if no explicit GIST_OWNER is set in repo variables
+      GIST_OWNER: ${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}
 
     steps:
-      - name: Determine target branch & safe name
+      - name: Determine target branch & derive names
         id: setup
+        shell: bash
         run: |
-          BRANCH_INPUT="${{ github.event.inputs.branch }}"
-          if [ -n "$BRANCH_INPUT" ]; then
-            BRANCH="$BRANCH_INPUT"
-          else
-            BRANCH="${{ github.ref_name }}"
+          # 1) Resolve branch: if input empty, use current ref_name
+          BRANCH="${{ inputs.branch != '' && inputs.branch || github.ref_name }}"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+          # 2) Resolve ontology abbrev
+          RAW_ABBREV="${{ inputs.onto_abbrev != '' && inputs.onto_abbrev || '' }}"
+
+          # ⛔ Fail if on main and no ontology name was explicitly provided
+          if [ "$BRANCH" = "main" ] && [ -z "$RAW_ABBREV" ]; then
+            echo "::error::ONTO_ABBREV must be specified when building from 'main' branch."
+            exit 1
           fi
 
-          ONTO_ABBREV="${{ github.event.inputs.onto_abbrev }}"
-          if [ -n "$ONTO_ABBREV" ]; then
-            ONTO_ABBREV="$ONTO_ABBREV"
-          else
-            ONTO_ABBREV="${{ github.ref_name }}"
+          if [ -z "$RAW_ABBREV" ]; then
+            RAW_ABBREV="$BRANCH"
           fi
-          
-          ONTO_FORMAT="${{ github.event.inputs.format }}"
-          if [ -n "$ONTO_FORMAT" ]; then
-            ONTO_FORMAT="$ONTO_FORMAT"
-          else
-            ONTO_FORMAT="ttl"
-          fi
-          
-          ONTO_ABBREV="${ONTO_ABBREV//\//-}"
-          ONTO_ABBREV="${ONTO_ABBREV// /_}"
-          echo "ONTO=$ONTO_ABBREV" >> "$GITHUB_ENV"
-          
-          ONTO_FILE="${ONTO_ABBREV}.${ONTO_FORMAT}"
-          echo "ONTO_FILE=$ONTO_ABBREV" >> "$GITHUB_ENV"  
-          
+
+          # 3) Sanitize abbrev for safety (slashes->-, spaces->_)
+          SAFE_ABBREV="${RAW_ABBREV//\//-}"
+          SAFE_ABBREV="${SAFE_ABBREV// /_}"
+          echo "ONTO=$SAFE_ABBREV" >> "$GITHUB_ENV"
+          echo "onto=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
+
+          # 4) Resolve ontology format (default already set by inputs)
+          ONTO_FORMAT="${{ inputs.format != '' && inputs.format || 'ttl' }}"
+          echo "ONTO_FORMAT=$ONTO_FORMAT" >> "$GITHUB_ENV"
+          echo "onto_format=$ONTO_FORMAT" >> "$GITHUB_OUTPUT"
+
+          # 5) Build filename WITH extension
+          ONTO_FILE="${SAFE_ABBREV}.${ONTO_FORMAT}"
+          echo "ONTO_FILE=$ONTO_FILE" >> "$GITHUB_ENV"
+          echo "onto_file=$ONTO_FILE" >> "$GITHUB_OUTPUT"
+
+          # 6) Compute public base URL (GitHub Pages)
           OWNER_REPO="${{ github.repository }}"
           OWNER="${OWNER_REPO%%/*}"
           REPO="${OWNER_REPO##*/}"
-          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${ONTO_ABBREV}/"
+          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${SAFE_ABBREV}/"
           echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL" >> "$GITHUB_ENV"
-          
-          # Shields endpoint base for gist dynamic badges
-          echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
+          echo "public_base_url=$PUBLIC_BASE_URL" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout
+          # 7) Shields.io endpoint base for Gist-hosted dynamic badges
+          echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
+          echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout target ref
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch != '' && github.event.inputs.branch || '' }}        
-  
+          # If the user supplied a branch, use it; else use the current ref name
+          ref: ${{ inputs.branch != '' && inputs.branch || github.ref_name }}
+
+      # Example: show resolved values (remove in production)
+      - name: Debug env
+        run: |
+          echo "BRANCH=$BRANCH"
+          echo "ONTO=$ONTO"
+          echo "ONTO_FORMAT=$ONTO_FORMAT"
+          echo "ONTO_FILE=$ONTO_FILE"
+          echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL"
+          echo "BADGE_BASE=$BADGE_BASE"
