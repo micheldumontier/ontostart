@@ -216,15 +216,6 @@ jobs:
           with open(os.path.join(outdir, "index.html"), "w", encoding="utf-8") as f:
             f.write(html)
           PY
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      # Upload the parent docs/ so final URL is .../branches/<safe-branch>/index.html
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
           
       - name: Deploy to gh-pages (keep other branches)
         id: ghpages
@@ -233,7 +224,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/${{ env.SAFE_BRANCH }}
           destination_dir: ${{ env.SAFE_BRANCH }}
-          keep_files: true
+          keep_files: false
           enable_jekyll: false
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
