@@ -79,18 +79,13 @@ jobs:
           OWNER_REPO="${{ github.repository }}"
           OWNER="${OWNER_REPO%%/*}"
           REPO="${OWNER_REPO##*/}"
-          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${SAFE_BRANCH}/${SAFE_ABBREV}/"
+          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${SAFE_BRANCH}/"
           echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL" >> "$GITHUB_ENV"
           echo "public_base_url=$PUBLIC_BASE_URL" >> "$GITHUB_OUTPUT"
 
           # 7) Shields.io endpoint base for Gist-hosted dynamic badges
           echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
           echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
-
-      - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
-        run: |
-          python -m pip install --upgrade pip
-          pip install rdflib dotenv
           
       - name: Debug env
         run: |
@@ -113,6 +108,42 @@ jobs:
         with:
           # If the user supplied a branch, use it; else use the current ref name
           ref: ${{ inputs.branch != '' && inputs.branch || github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Java (for ROBOT/HermiT)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
+        run: |
+          python -m pip install --upgrade pip
+          pip install rdflib dotenv pylode
+          wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
+          curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
+          chmod +x robot
+
+      - name: Validate ontology profile
+        id: profile
+        run: |
+          ./robot validate-profile --input "$ONTO_FILE" --profile DL || \
+          (echo "Profile check failed." && exit 1)
+
+      - name: Badge — Syntax
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-profile-${{ env.SAFE_BRANCH }}.json
+          label: OWL DL Profile
+          message: ${{ steps.profile.outcome }}
+          color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
 
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
