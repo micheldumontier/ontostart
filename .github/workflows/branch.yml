@@ -62,8 +62,8 @@ jobs:
           # 3) Sanitize abbrev for safety (slashes->-, spaces->_)
           SAFE_ABBREV="${RAW_ABBREV//\//-}"
           SAFE_ABBREV="${SAFE_ABBREV// /_}"
-          echo "ONTO=$SAFE_ABBREV" >> "$GITHUB_ENV"
-          echo "onto=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
+          echo "ONTO_ABBREV=$SAFE_ABBREV" >> "$GITHUB_ENV"
+          echo "onto_abbrev=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
 
           # 4) Resolve ontology format (default already set by inputs)
           ONTO_FORMAT="${{ inputs.format != '' && inputs.format || 'ttl' }}"
@@ -96,7 +96,7 @@ jobs:
         run: |
           echo "BRANCH=$BRANCH"
           echo "SAFE_BRANCH=$SAFE_BRANCH"
-          echo "ONTO=$ONTO"
+          echo "ONTO_ABBREV=$ONTO_ABBREV"
           echo "ONTO_FORMAT=$ONTO_FORMAT"
           echo "ONTO_FILE=$ONTO_FILE"
           echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL"
