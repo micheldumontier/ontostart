@@ -26,6 +26,7 @@ jobs:
       id-token: write
     env:
       VERSION_DIR: versions
+      DOCS_DIR: docs
       GIST_ID: ${{ vars.GIST_ID }}
       # Prefer org/repo owner if no explicit GIST_OWNER is set in repo variables
       GIST_OWNER: ${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}
@@ -86,10 +87,150 @@ jobs:
           echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
           echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
 
+      - name: Debug env
+        run: |
+          echo "BRANCH=$BRANCH"
+          echo "SAFE_BRANCH=$SAFE_BRANCH"
+          echo "ONTO=$ONTO"
+          echo "ONTO_FORMAT=$ONTO_FORMAT"
+          echo "ONTO_FILE=$ONTO_FILE"
+          echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL"
+          echo "BADGE_BASE=$BADGE_BASE"
+
+          echo "VERSION_DIR=$VERSION_DIR"
+          echo "DOCS_DIR=$DOCS_DIR"
+
+          echo "NEW_VERSION=0.0.1" >> "$GITHUB_ENV"
+          echo "NEW_VERSION=$NEW_VERSION"
+          
       - name: Checkout target ref
         uses: actions/checkout@v4
         with:
           # If the user supplied a branch, use it; else use the current ref name
           ref: ${{ inputs.branch != '' && inputs.branch || github.ref_name }}
 
+      - name: Generate default branch page (index.html with metadata + badges)
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          DCT = Namespace("http://purl.org/dc/terms/")
+          # Find the ontology node (owl:Ontology)
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          onto = ontos[0] if ontos else None
+          label = str(next(g.objects(onto, RDFS.label), "")) if onto else ""
+          version = os.environ.get("NEW_VERSION","")
+          modified = str(next(g.objects(onto, DCT.modified), "")) if onto else ""
+          iri = str(onto) if onto else ""
+          base = os.environ["PUBLIC_BASE_URL"]
+          abbrev = os.environ["ONTO_ABBREV"]
+          vers_url = f"{base}versions/{version}/{abbrev}"
+          ttl  = vers_url + ".ttl"
+          jsonld = vers_url + ".jsonld"
+          nt = vers_url + ".nt"
+          owl = vers_url + ".owl"
+          ontospy_url = base + "ontospy/"
+          pylode_url  = base + "pylode/"
+          # badge URLs (shields endpoint -> gist JSON files)
+          bbase = os.environ["BADGE_BASE"]
+          sb = os.environ["SAFE_BRANCH"]
+          badges = {
+            "profile": f"{bbase}ontology-ci-profile-{sb}.json",
+            "reason":  f"{bbase}ontology-ci-reason-{sb}.json",
+            "version": f"{bbase}ontology-ci-version-{sb}.json",
+            "ontospy": f"{bbase}ontology-ci-ontospy-{sb}.json",
+            "pylode":  f"{bbase}ontology-ci-pylode-{sb}.json",
+            "deploy":  f"{bbase}ontology-ci-deploy-{sb}.json",
+            "foops":   f"{bbase}ontology-ci-foops-{sb}.json",
+          }
+          html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>{label or abbrev} — {version} ({sb})</title>
+            <style>
+              body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }}
+              header h1 {{ margin: 0 0 .25rem 0; }}
+              .meta {{ color: #555; margin-bottom: 1rem; }}
+              .badges img {{ margin-right: .5rem; vertical-align: middle; }}
+              .grid {{ display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }}
+              .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; }}
+              code, a {{ color: #0b5fff; word-break: break-all; }}
+              ul {{ margin: .25rem 0 .5rem 1.25rem; }}
+            </style>
+          </head>
+          <body>
+            <header>
+              <h1>{label or abbrev}</h1>
+              <div class="meta">
+                <div><strong>Ontology IRI:</strong> <code>{iri}</code></div>
+                <div><strong>Branch:</strong> <code>{sb}</code></div>
+                <div><strong>Version:</strong> <code>{version}</code></div>
+                <div><strong>Modified:</strong> <code>{modified}</code></div>
+                <div><strong>Base URL:</strong> <a href="{base}">{base}</a></div>
+              </div>
+              <div class="badges">
+                <img alt="Profile" src="{badges['profile']}" />
+                <img alt="Reason"  src="{badges['reason']}" />
+                <img alt="Version" src="{badges['version']}" />
+                <img alt="Ontospy" src="{badges['ontospy']}" />
+                <img alt="Pylode"  src="{badges['pylode']}" />
+                <img alt="Deploy"  src="{badges['deploy']}" />
+                <img alt="FOOPS"   src="{badges['foops']}" />
+              </div>
+            </header>
 
+            <div class="grid">
+              <section class="card">
+                <h2>Downloads (version {version})</h2>
+                <ul>
+                  <li><a href="{ttl}">{abbrev}.ttl</a></li>
+                  <li><a href="{jsonld}">{abbrev}.jsonld</a></li>
+                  <li><a href="{nt}">{abbrev}.nt</a></li>
+                  <li><a href="{owl}">{abbrev}.owl</a></li>
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>Documentation</h2>
+                <ul>
+                  <li><a href="{pylode_url}">PyLODE</a></li>
+                  <li><a href="{ontospy_url}">Ontospy</a></li>
+                </ul>
+              </section>
+            </div>
+          </body>
+          </html>
+          """
+          outdir = os.environ["DOCS_DIR"]
+          os.makedirs(outdir, exist_ok=True)
+          with open(os.path.join(outdir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html)
+          PY
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # Upload the parent docs/ so final URL is .../branches/<safe-branch>/index.html
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+          
+      - name: Deploy to gh-pages (keep other branches)
+        id: ghpages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/${{ env.SAFE_BRANCH }}
+          destination_dir: ${{ env.SAFE_BRANCH }}
+          keep_files: true
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+
+    
