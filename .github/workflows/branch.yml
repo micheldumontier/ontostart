@@ -1,4 +1,4 @@
-name: ontology CI
+name: branch-based CI
 on:
   workflow_dispatch:
     inputs:
