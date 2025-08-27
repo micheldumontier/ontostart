@@ -1,0 +1,77 @@
+name: ontology CI
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build (optional). Defaults to current ref."
+        required: false
+        default: "testo"
+      onto_abbrev:
+        description: "The name of the ontology if different than the specified branch"
+        required: false
+        default: ""
+      format:
+        description: "The ontology format which follows the ontology name (e.g. test.ttl)"
+        required: false
+        default: "ttl"
+        
+jobs:
+  build:
+    env:
+      VERSION_DIR: versions
+      GIST_ID: ${{ vars.GIST_ID }}
+      GIST_OWNER: ${{ vars.GIST_OWNER || github.repository_owner }}
+
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Determine target branch & safe name
+        id: setup
+        run: |
+          BRANCH_INPUT="${{ github.event.inputs.branch }}"
+          if [ -n "$BRANCH_INPUT" ]; then
+            BRANCH="$BRANCH_INPUT"
+          else
+            BRANCH="${{ github.ref_name }}"
+          fi
+
+          ONTO_ABBREV="${{ github.event.inputs.onto_abbrev }}"
+          if [ -n "$ONTO_ABBREV" ]; then
+            ONTO_ABBREV="$ONTO_ABBREV"
+          else
+            ONTO_ABBREV="${{ github.ref_name }}"
+          fi
+          
+          ONTO_FORMAT="${{ github.event.inputs.format }}"
+          if [ -n "$ONTO_FORMAT" ]; then
+            ONTO_FORMAT="$ONTO_FORMAT"
+          else
+            ONTO_FORMAT="ttl"
+          fi
+          
+          ONTO_ABBREV="${ONTO_ABBREV//\//-}"
+          ONTO_ABBREV="${ONTO_ABBREV// /_}"
+          echo "ONTO=$ONTO_ABBREV" >> "$GITHUB_ENV"
+          
+          ONTO_FILE="${ONTO_ABBREV}.${ONTO_FORMAT}"
+          echo "ONTO_FILE=$ONTO_ABBREV" >> "$GITHUB_ENV"  
+          
+          OWNER_REPO="${{ github.repository }}"
+          OWNER="${OWNER_REPO%%/*}"
+          REPO="${OWNER_REPO##*/}"
+          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${ONTO_ABBREV}/"
+          echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL" >> "$GITHUB_ENV"
+          
+          # Shields endpoint base for gist dynamic badges
+          echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch != '' && github.event.inputs.branch || '' }}        
+  
