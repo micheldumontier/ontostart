@@ -63,7 +63,7 @@ jobs:
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
-          import json, pathlib, os
+          import json, pathlib, os, sys
           total_score = 0
           with open('foops-results.json') as f:
               data = json.load(f)
@@ -73,7 +73,7 @@ jobs:
                   pas=check["total_passed_tests"]
                   tot=check["total_tests_run"]
                   if check["status"] == "error":
-                      exit 1
+                      sys.exit(1)
                   check_score = pas / tot
                   total_score += check_score
                   
