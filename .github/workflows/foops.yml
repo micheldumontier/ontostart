@@ -2,19 +2,28 @@ name: FOOPS!
 
 on:
   workflow_dispatch:
-
+    inputs:
+      branch:
+        description: "Branch to build (leave empty to use current ref)"
+        required: false
+        default: "testo"
+      onto_uri:
+        description: "ONTO_URI"
+        required: false
+        default: "https://micheldumontier.github.io/testo/versions/0.0.1/testo.tll"
 jobs:
   foops:
     runs-on: ubuntu-latest
     env:
-      #ONTO_URI: https://w3id.org/testo/
-      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.13/testo.ttl
       GIST_ID: ${{ vars.GIST_ID }}
+      DOCS_DIR: docs
+      VERSION_DIR: versions
     
     steps:
       - name: Call FOOPS! API
         id: foops
         run: |
+          ONTO_URI = ${{ inputs.onto_uri }}
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
@@ -56,7 +65,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-foops.json
+          filename: ontology-ci-foops-${{ env.SAFE_BRANCH }}.json
           label: FOOPS!
           message: ${{ env.FOOPS_SCORE }}
           color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
