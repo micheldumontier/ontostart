@@ -204,7 +204,7 @@ jobs:
       - name: Copy files to docs
         id: copy_to_docs
         run: |
-            cp -r $VERSION_DIR $DOCS_DIR
+            cp -r $VERSION_DIR "$DOCS_DIR/$VERSION_DIR"
             
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
