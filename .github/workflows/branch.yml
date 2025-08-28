@@ -175,6 +175,30 @@ jobs:
           message: ${{ env.REASON_RESULT }}
           color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
           
+
+      - name: Generate syntax variants (branch-scoped)
+        id: syntax_variants
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph
+          target_dir = f"{os.environ['VERSION_DIR']}/{os.environ['NEW_VERSION']}"
+          os.makedirs(target_dir, exist_ok=True)
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          targets = [("ttl","turtle"), ("jsonld","json-ld"), ("nt","nt"), ("owl","xml")]
+          files_to_commit = set()
+          for ext, fmt in targets:
+            out = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{ext}"
+            print(f"Creating {out}")
+            g.serialize(destination=out, format=fmt, encoding="utf-8")
+            # copy this to docs/versions/
+            
+            files_to_commit.add(out)
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
+          PY
+          
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
           python3 - << 'PY'
