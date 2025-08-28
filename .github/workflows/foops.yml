@@ -72,12 +72,11 @@ jobs:
               for check in data["checks"]:
                   pas=check["total_passed_tests"]
                   tot=check["total_tests_run"]
-
-                  check_score = float(f"{pas/tot:.2g}")
+                  check_score = pas/tot
                   total_score += check_score
                   
               overall_score = total_score / tot_checks * 100
-              label = f"{overall_score:.1f}% ({total_score}/{tot_checks} tests)"
+              label = f"{overall_score:.1f}% ({total_score:.1f}/{tot_checks} tests)"
               with open(os.environ["GITHUB_ENV"], "a") as f:
                 f.write(f"FOOPS_SCORE={label}\n")  
           PY
