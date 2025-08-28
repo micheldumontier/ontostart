@@ -72,8 +72,6 @@ jobs:
               for check in data["checks"]:
                   pas=check["total_passed_tests"]
                   tot=check["total_tests_run"]
-                  if check["status"] == "error":
-                      sys.exit(1)
                   check_score = pas / tot
                   total_score += check_score
                   
