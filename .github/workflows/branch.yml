@@ -192,13 +192,17 @@ jobs:
             out = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{ext}"
             print(f"Creating {out}")
             g.serialize(destination=out, format=fmt, encoding="utf-8")
-            # copy this to docs/versions/
-            
             files_to_commit.add(out)
+
           with open(os.environ["GITHUB_ENV"], "a") as f:
             f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
           PY
-          
+
+      - name: Copy files to docs
+        id: copy_to_docs
+        run: |
+            cp -r "$VERSION_DIR/$NEW_VERSION" $DOCS_DIR
+            
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
           python3 - << 'PY'
