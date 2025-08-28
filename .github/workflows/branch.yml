@@ -86,7 +86,10 @@ jobs:
           # 7) Shields.io endpoint base for Gist-hosted dynamic badges
           echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
           echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
-          
+
+          # 8) create the docs folder
+          mkdir -p ${{ env.DOCS_DIR }}
+  
       - name: Debug env
         run: |
           echo "BRANCH=$BRANCH"
