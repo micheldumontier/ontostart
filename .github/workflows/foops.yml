@@ -72,7 +72,8 @@ jobs:
               for check in data["checks"]:
                   pas=check["total_passed_tests"]
                   tot=check["total_tests_run"]
-                  check_score = pas / tot
+
+                  check_score = float(f"{pas/tot:.2g}")
                   total_score += check_score
                   
               overall_score = total_score / tot_checks * 100
