@@ -14,7 +14,7 @@ on:
       onto_uri:
         description: "ONTO_URI"
         required: false
-        default: "https://micheldumontier.github.io/testo/versions/0.0.1/testo.ttl"
+        default: "https://micheldumontier.github.io/ontostart/testo/versions/0.0.1/testo.ttl"
 jobs:        
   foops:
     runs-on: ubuntu-latest
