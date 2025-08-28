@@ -23,11 +23,11 @@ jobs:
       - name: Call FOOPS! API
         id: foops
         run: |
-          ONTO_URI = ${{ inputs.onto_uri }}
+          
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"$ONTO_URI\"}" \
+              -d "{  \"ontologyUri\": \"${{ inputs.onto_URI }}\"}" \
               -o foops-results.json
 
       - name: Upload foops results
