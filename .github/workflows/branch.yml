@@ -207,6 +207,54 @@ jobs:
           mkdir -p "$DOCS_DIR/versions"
           cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
             
+      - name: Checkout Forked Ontospy
+        uses: actions/checkout@v3
+        with:
+          repository: micheldumontier/Ontospy
+          path: './ontospy'
+
+      - name: Install Forked Ontospy
+        run: |
+          python -m pip install --upgrade pip
+          cd ./ontospy
+          pip install -r requirements.txt
+          pip install -e .
+          cd ..
+
+      - name: Generate documentation with Ontospy (branch-scoped)
+        id: ontospy
+        run: |
+          mkdir -p "$DOCS_DIR/ontospy"
+          python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/ontospy" "$ONTO_FILE"
+
+      - name: Badge — Ontospy
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-ontospy-${{ env.SAFE_BRANCH }}.json
+          label: ontospy
+          message: ${{ steps.ontospy.outcome }}
+          color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Generate static site with Pylode (branch-scoped)
+        id: pylode
+        run: |
+          mkdir -p "$DOCS_DIR/pylode"
+          pylode -o "$DOCS_DIR/pylode/index" "$ONTO_FILE"
+
+      - name: Badge — Pylode
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-pylode-${{ env.SAFE_BRANCH }}.json
+          label: pylode
+          message: ${{ steps.pylode.outcome }}
+          color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
+
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
           python3 - << 'PY'
