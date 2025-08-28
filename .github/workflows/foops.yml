@@ -68,12 +68,8 @@ jobs:
           with open('foops-results.json') as f:
               data = json.load(f)
               tot_checks = len(data["checks"])
-              passed_checks = 0
               for check in data["checks"]:
-                  pas=check["total_passed_tests"]
-                  tot=check["total_tests_run"]
-                  check_score = pas/tot
-                  total_score += check_score
+                  total_score += check["total_passed_tests"] / check["total_tests_run"]
                   
               overall_score = total_score / tot_checks * 100
               label = f"{overall_score:.1f}% ({total_score:.1f}/{tot_checks} tests)"
