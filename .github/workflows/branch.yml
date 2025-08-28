@@ -88,7 +88,7 @@ jobs:
           echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
 
           # 8) create the docs folder
-          mkdir -p ${{ env.DOCS_DIR }}
+          mkdir -p ${{ env.DOCS_DIR }}/${{ env.VERSIONS_DIR}}
   
       - name: Debug env
         run: |
