@@ -15,8 +15,15 @@ on:
         description: "ONTO_URI"
         required: false
         default: "https://micheldumontier.github.io/testo/versions/0.0.1/testo.ttl"
-jobs:
-     - name: Determine target branch & derive names
+jobs:        
+  foops:
+    runs-on: ubuntu-latest
+    env:
+      GIST_ID: ${{ vars.GIST_ID }}
+      DOCS_DIR: docs
+      VERSION_DIR: versions
+    steps:
+      - name: Determine target branch & derive names
         id: setup
         shell: bash
         run: |
@@ -35,15 +42,7 @@ jobs:
           SAFE_BRANCH="${SAFE_BRANCH// /_}"
           echo "SAFE_BRANCH=$SAFE_BRANCH" >> "$GITHUB_ENV"
           echo "safe_branch=$SAFE_BRANCH" >> "$GITHUB_OUTPUT"
-          
-  foops:
-    runs-on: ubuntu-latest
-    env:
-      GIST_ID: ${{ vars.GIST_ID }}
-      DOCS_DIR: docs
-      VERSION_DIR: versions
-    
-    steps:
+      
       - name: Call FOOPS! API
         id: foops
         run: |
