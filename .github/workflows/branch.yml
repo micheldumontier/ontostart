@@ -370,4 +370,15 @@ jobs:
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
 
+
+      - name: Badge — Deploy (Shields endpoint)
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
+          label: deploy
+          message: ${{ steps.ghpages.outcome }}
+          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
     
