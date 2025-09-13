@@ -9,7 +9,7 @@ RewriteRule ^ - [E=GH_USER:micheldumontier]
 RewriteRule ^ - [E=GH_REPO:ontostart]
 RewriteRule ^ - [E=GH_BRANCH:testo]
 RewriteRule ^ - [E=ONTOSPY:true]
-RewriteRule ^ - [E=GH_PROJECT:https://%{ENV:GH_USER}.github.com/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}]
+RewriteRule ^ - [E=GH_PROJECT:https://github.com/%{ENV:GH_USER}/%{ENV:GH_REPO}/tree/%{ENV:GH_BRANCH}]
 RewriteRule ^ - [E=WEBSITE:https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}]
 RewriteRule ^ - [E=DOCS:%{ENV:WEBSITE}/docs]
 
