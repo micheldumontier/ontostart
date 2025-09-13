@@ -3,7 +3,6 @@ Options -MultiViews
 
 RewriteEngine On
 
-
 RewriteRule ^ - [E=ONTO:testo]
 RewriteRule ^ - [E=ONTO_IRI:https://w3id.org/%{ENV:ONTO}/]
 RewriteRule ^ - [E=GH_USER:micheldumontier]
@@ -17,57 +16,68 @@ RewriteRule ^ - [E=DOCS:%{ENV:WEBSITE}/docs]
 RewriteRule ^ - [E=VERSIONS:versions]
 RewriteRule ^ - [E=FILE_IRI:%{ENV:WEBSITE}/%{ENV:VERSIONS}]
 
-### Content negotiation for ontology formats
-# JSON-LD
-RewriteCond %{ENV:EXT} ^$
-RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/ld\+json)([,;].*)?$
+# Content negotiation for ontology formats
+## JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld+json
 RewriteRule ^ - [E=EXT:jsonld]
 
-# RDF/XML
-RewriteCond %{ENV:EXT} ^$
-RewriteCond %{HTTP_ACCEPT} ^(application/rdf\+xml|application/xml|text/xml|xml)?$
+## RDF/XML
+RewriteCond %{HTTP_ACCEPT} "application/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "text/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml"
 RewriteRule ^ - [E=EXT:owl]
 
-# Turtle variants
-RewriteCond %{ENV:EXT} ^$
-RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(text/turtle|text/ttl|application/turtle|application/x-turtle)([,;].*)?$
+## Turtle variants
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
 RewriteRule ^ - [E=EXT:ttl]
 
-# N-Triples
-RewriteCond %{ENV:EXT} ^$
-RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/n-triples)([,;].*)?$
+## N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^ - [E=EXT:nt]
 
-
-# Website redirect when no format requested
-
-RewriteCond %{ENV:EXT} ^$
-RewriteRule ^/?$ %{ENV:WEBSITE} [R=303,L]
-
-# Redirect when root requested with content negotiation
+# Map requests to target resources
+RewriteCond %{REQUEST_URI} ^/?$
 RewriteCond %{ENV:EXT} .
-RewriteRule ^/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteRule ^ - [E=TARGET:%{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT}]
 
-# Redirect when the requested path inside this directory is `versions/latest`
+
+# Latest version with format
+RewriteCond %{REQUEST_URI} ^/versions/latest/?$
 RewriteCond %{ENV:EXT} .
-RewriteRule ^versions/latest/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteRule ^versions/latest/?$ - [E=TARGET:%{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT}]
 
-# Redirect for specific versions
+# Specific version with format
+
+RewriteCond %{REQUEST_URI} ^/versions/(latest|[0-9]+\.[0-9]+\.[0-9]+)/?$
 RewriteCond %{ENV:EXT} .
-RewriteRule ^versions/([0-9]+\.[0-9]+\.[0-9]+)/?$ %{ENV:FILE_IRI}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteRule ^versions/(latest|[0-9]+\.[0-9]+\.[0-9]+)/?$ - [E=TARGET:%{ENV:FILE_IRI}/$1/%{ENV:ONTO}.%{ENV:EXT}]
 
-# Docs redirect
-RewriteRule ^docs/?$ %{ENV:DOCS} [R=303,L]
+# Redirect to target if set
+RewriteCond %{ENV:TARGET} .
+RewriteRule ^ %{ENV:TARGET} [R=303,L]
 
-# Github redirect
-RewriteRule ^github/?$ %{ENV:GH_PROJECT} [R=303,L]
+# Default to Website if no target format requested
+RewriteCond %{ENV:TARGET} !.
+RewriteCond %{ENV:EXT} !.
+RewriteRule ^/?$ %{ENV:WEBSITE}  [R=303,L]
 
-# Redirect for Classes if ONTOSPY is true
+# Redirect /docs to documentation
+RewriteCond %{REQUEST_URI} ^/docs/?(.*)$
+RewriteRule ^docs/?(.*)$ %{ENV:DOCS}/$1 [R=303,L]
+
+# Redirect /github to GitHub project
+RewriteCond %{REQUEST_URI} ^/github/?(.*)$
+RewriteRule ^github/?(.*)$ %{ENV:WEBSITE}/$1 [R=303,L]
+
+# Redirect Class and prop to OntoSpy documentation
+RewriteCond %{REQUEST_URI} ^/([A-Z]+.*)$
 RewriteCond %{ENV:ONTOSPY} ^true$
-RewriteRule ^classes/(.*)$ %{ENV:DOCS}/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
+RewriteRule ^([A-Z]+.*)$ ${ENV:DOCS}/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
 
-# Redirect for Properties if ONTOSPY is true
+RewriteCond %{REQUEST_URI} ^/([a-z]+.*)$
 RewriteCond %{ENV:ONTOSPY} ^true$
-RewriteRule ^properties/(.*)$ %{ENV:DOCS}/ontospy/prop-%{ENV:ONTO}$1.html [R=303,L]
-
-# End of file
+RewriteRule ^([a-z]+.*)$ ${ENV:DOCS}/ontospy/prop-%{ENV:ONTO}$1.html [R=303,L]
