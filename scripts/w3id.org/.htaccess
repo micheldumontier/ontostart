@@ -23,9 +23,9 @@ RewriteCond %{ENV:EXT} ^$
 RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/ld\+json)([,;].*)?$
 RewriteRule ^ - [E=EXT:jsonld]
 
-# RDF/XML (just xml and text/xml is too broad (browsers usually include by default))
+# RDF/XML
 RewriteCond %{ENV:EXT} ^$
-RewriteCond %{HTTP_ACCEPT} ^(application/rdf\+xml|application/xml|text/xml)?$
+RewriteCond %{HTTP_ACCEPT} ^(application/rdf\+xml|application/xml|text/xml|xml)?$
 RewriteRule ^ - [E=EXT:owl]
 
 # Turtle variants
