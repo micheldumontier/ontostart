@@ -42,25 +42,25 @@ RewriteRule ^ - [E=EXT:nt]
 # Website redirect when no format requested
 
 RewriteCond %{ENV:EXT} ^$
-RewriteRule ^/?$ %{ENV:WEBSITE} [R=302,L]
+RewriteRule ^/?$ %{ENV:WEBSITE} [R=303,L]
 
 # Redirect when root requested with content negotiation
 RewriteCond %{ENV:EXT} .
-RewriteRule ^/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=302,L]
+RewriteRule ^/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 
 # Redirect when the requested path inside this directory is `versions/latest`
 RewriteCond %{ENV:EXT} .
-RewriteRule ^versions/latest/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=302,L]
+RewriteRule ^versions/latest/?$ %{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 
 # Redirect for specific versions
 RewriteCond %{ENV:EXT} .
-RewriteRule ^versions/([0-9]+\.[0-9]+\.[0-9]+)/?$ %{ENV:FILE_IRI}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=302,L]
+RewriteRule ^versions/([0-9]+\.[0-9]+\.[0-9]+)/?$ %{ENV:FILE_IRI}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 
 # Docs redirect
-RewriteRule ^docs/?$ %{ENV:DOCS} [R=302,L]
+RewriteRule ^docs/?$ %{ENV:DOCS} [R=303,L]
 
 # Github redirect
-RewriteRule ^github/?$ %{ENV:GH_PROJECT} [R=302,L]
+RewriteRule ^github/?$ %{ENV:GH_PROJECT} [R=303,L]
 
 # Redirect for Classes if ONTOSPY is true
 RewriteCond %{ENV:ONTOSPY} ^true$
