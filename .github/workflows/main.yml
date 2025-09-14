@@ -240,7 +240,7 @@ jobs:
     needs: deploy
     env:
       #ONTO_URI: https://w3id.org/testo/
-      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.13/testo.ttl
+      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.1/testo.ttl
       GIST_ID: ${{ vars.GIST_ID }}
     
     steps:
@@ -264,14 +264,22 @@ jobs:
         run: |
           python3 - << 'PY'
           import json, pathlib, os
-          d=json.load(open("foops-results.json"))
-          tot=sum(c["total_tests_run"] for c in d["checks"])
-          pas=sum(c["total_passed_tests"] for c in d["checks"])
-          pct = (pas / tot * 100) if tot else 0
-          label = f"{pct:.0f}% ({pas}/{tot} tests)"
-         
-          with open(os.environ["GITHUB_ENV"], "a") as f:
-            f.write(f"FOOPS_SCORE={label}\n")  
+          total_score = 0
+          with open('foops-results.json') as f:
+              data = json.load(f)
+              tot_checks = len(data["checks"])
+              passed_checks = 0
+              for check in data["checks"]:
+                  pas=check["total_passed_tests"]
+                  tot=check["total_tests_run"]
+              
+                  check_score = pas / tot
+                  total_score += check_score
+                  
+              overall_score = total_score / tot_checks * 100
+              label = f"{overall_score:.1f}% ({total_score}/{tot_checks} tests)"
+              with open(os.environ["GITHUB_ENV"], "a") as f:
+                f.write(f"FOOPS_SCORE={label}\n")  
           PY
           
       - name: Badge — FOOPS

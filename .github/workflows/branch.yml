@@ -1,0 +1,384 @@
+name: branch-based CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build (leave empty to use current ref)"
+        required: false
+        default: "testo"
+      onto_abbrev:
+        description: "Ontology name (leave empty to use the branch name)"
+        required: false
+        default: ""
+      format:
+        description: "Ontology file extension (e.g., ttl, owl, rdf, jsonld)"
+        required: true
+        default: "ttl"
+
+jobs:
+  build:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    env:
+      VERSION_DIR: versions
+      DOCS_DIR: docs
+      GIST_ID: ${{ vars.GIST_ID }}
+      # Prefer org/repo owner if no explicit GIST_OWNER is set in repo variables
+      GIST_OWNER: ${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}
+
+    steps:
+      - name: Determine target branch & derive names
+        id: setup
+        shell: bash
+        run: |
+          # 1) Resolve branch: if input empty, use current ref_name
+          BRANCH="${{ inputs.branch != '' && inputs.branch || github.ref_name }}"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+          # 2) Resolve ontology abbrev
+          RAW_ABBREV="${{ inputs.onto_abbrev != '' && inputs.onto_abbrev || '' }}"
+
+          # ⛔ Fail if on main and no ontology name was explicitly provided
+          if [ "$BRANCH" = "main" ] && [ -z "$RAW_ABBREV" ]; then
+            echo "::error::ONTO_ABBREV must be specified when building from 'main' branch."
+            exit 1
+          fi
+
+          SAFE_BRANCH="${BRANCH//\//-}"
+          SAFE_BRANCH="${SAFE_BRANCH// /_}"
+          echo "SAFE_BRANCH=$SAFE_BRANCH" >> "$GITHUB_ENV"
+          echo "safe_branch=$SAFE_BRANCH" >> "$GITHUB_OUTPUT"
+          
+          if [ -z "$RAW_ABBREV" ]; then
+            RAW_ABBREV="$BRANCH"
+          fi
+
+          # 3) Sanitize abbrev for safety (slashes->-, spaces->_)
+          SAFE_ABBREV="${RAW_ABBREV//\//-}"
+          SAFE_ABBREV="${SAFE_ABBREV// /_}"
+          echo "ONTO_ABBREV=$SAFE_ABBREV" >> "$GITHUB_ENV"
+          echo "onto_abbrev=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
+
+          # 4) Resolve ontology format (default already set by inputs)
+          ONTO_FORMAT="${{ inputs.format != '' && inputs.format || 'ttl' }}"
+          echo "ONTO_FORMAT=$ONTO_FORMAT" >> "$GITHUB_ENV"
+          echo "onto_format=$ONTO_FORMAT" >> "$GITHUB_OUTPUT"
+
+          # 5) Build filename WITH extension
+          ONTO_FILE="${SAFE_ABBREV}.${ONTO_FORMAT}"
+          echo "ONTO_FILE=$ONTO_FILE" >> "$GITHUB_ENV"
+          echo "onto_file=$ONTO_FILE" >> "$GITHUB_OUTPUT"
+
+          # 6) Compute public base URL (GitHub Pages)
+          OWNER_REPO="${{ github.repository }}"
+          OWNER="${OWNER_REPO%%/*}"
+          REPO="${OWNER_REPO##*/}"
+          PUBLIC_BASE_URL="https://${OWNER}.github.io/${REPO}/${SAFE_BRANCH}/"
+          echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL" >> "$GITHUB_ENV"
+          echo "public_base_url=$PUBLIC_BASE_URL" >> "$GITHUB_OUTPUT"
+
+          # 7) Shields.io endpoint base for Gist-hosted dynamic badges
+          echo "BADGE_BASE=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_ENV"
+          echo "badge_base=https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ env.GIST_OWNER }}/${{ env.GIST_ID }}/raw/" >> "$GITHUB_OUTPUT"
+
+          # 8) create the docs folder
+          mkdir -p ${{ env.DOCS_DIR }}
+  
+      - name: Debug env
+        run: |
+          echo "BRANCH=$BRANCH"
+          echo "SAFE_BRANCH=$SAFE_BRANCH"
+          echo "ONTO_ABBREV=$ONTO_ABBREV"
+          echo "ONTO_FORMAT=$ONTO_FORMAT"
+          echo "ONTO_FILE=$ONTO_FILE"
+          echo "PUBLIC_BASE_URL=$PUBLIC_BASE_URL"
+          echo "BADGE_BASE=$BADGE_BASE"
+
+          echo "VERSION_DIR=$VERSION_DIR"
+          echo "DOCS_DIR=$DOCS_DIR"
+
+          echo "NEW_VERSION=0.0.1" >> "$GITHUB_ENV"
+          echo "NEW_VERSION=$NEW_VERSION"
+          
+      - name: Checkout target ref
+        uses: actions/checkout@v4
+        with:
+          # If the user supplied a branch, use it; else use the current ref name
+          ref: ${{ inputs.branch != '' && inputs.branch || github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Java (for ROBOT/HermiT)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
+        run: |
+          python -m pip install --upgrade pip
+          pip install rdflib dotenv pylode
+          wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
+          curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
+          chmod +x robot
+
+      - name: Validate ontology profile
+        id: profile
+        run: |
+          ./robot validate-profile --input "$ONTO_FILE" --profile DL || \
+          (echo "Profile check failed." && exit 1)
+
+      - name: Badge — Syntax
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-profile-${{ env.SAFE_BRANCH }}.json
+          label: OWL DL Profile
+          message: ${{ steps.profile.outcome }}
+          color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+
+      - name: Reasoning and consistency check (HermiT)
+        id: reason
+        run: |
+          ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+            > reason.stdout 2> reason.stderr \
+            && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
+            || echo "REASON_RESULT=inconsistent" >> $GITHUB_ENV
+
+      - name: Upload reasoning logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SAFE_BRANCH }}-reasoning-logs
+          path: |
+            reason.stdout
+            reason.stderr
+            reason.summary
+
+      - name: Badge — Reason
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-reason-${{ env.SAFE_BRANCH }}.json
+          label: Reasoning
+          message: ${{ env.REASON_RESULT }}
+          color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+          
+
+      - name: Generate syntax variants (branch-scoped)
+        id: syntax_variants
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph
+          target_dir = f"{os.environ['VERSION_DIR']}/{os.environ['NEW_VERSION']}"
+          os.makedirs(target_dir, exist_ok=True)
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          targets = [("ttl","turtle"), ("jsonld","json-ld"), ("nt","nt"), ("owl","xml")]
+          files_to_commit = set()
+          for ext, fmt in targets:
+            out = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{ext}"
+            print(f"Creating {out}")
+            g.serialize(destination=out, format=fmt, encoding="utf-8")
+            files_to_commit.add(out)
+
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
+          PY
+
+      - name: Copy files to docs
+        id: copy_to_docs
+        run: |
+          mkdir -p "$DOCS_DIR/versions"
+          cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
+            
+      - name: Checkout Forked Ontospy
+        uses: actions/checkout@v3
+        with:
+          repository: micheldumontier/Ontospy
+          path: './ontospy'
+
+      - name: Install Forked Ontospy
+        run: |
+          python -m pip install --upgrade pip
+          cd ./ontospy
+          pip install -r requirements.txt
+          pip install -e .
+          cd ..
+
+      - name: Generate documentation with Ontospy (branch-scoped)
+        id: ontospy
+        run: |
+          mkdir -p "$DOCS_DIR/ontospy"
+          python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/ontospy" "$ONTO_FILE"
+
+      - name: Badge — Ontospy
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-ontospy-${{ env.SAFE_BRANCH }}.json
+          label: ontospy
+          message: ${{ steps.ontospy.outcome }}
+          color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Generate static site with Pylode (branch-scoped)
+        id: pylode
+        run: |
+          mkdir -p "$DOCS_DIR/pylode"
+          pylode -o "$DOCS_DIR/pylode/index" "$ONTO_FILE"
+
+      - name: Badge — Pylode
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-pylode-${{ env.SAFE_BRANCH }}.json
+          label: pylode
+          message: ${{ steps.pylode.outcome }}
+          color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Generate default branch page (index.html with metadata + badges)
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          DCT = Namespace("http://purl.org/dc/terms/")
+          # Find the ontology node (owl:Ontology)
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          onto = ontos[0] if ontos else None
+          label = str(next(g.objects(onto, RDFS.label), "")) if onto else ""
+          version = os.environ.get("NEW_VERSION","")
+          modified = str(next(g.objects(onto, DCT.modified), "")) if onto else ""
+          iri = str(onto) if onto else ""
+          base = os.environ["PUBLIC_BASE_URL"]
+          abbrev = os.environ["ONTO_ABBREV"]
+          vers_url = f"{base}versions/{version}/{abbrev}"
+          ttl  = vers_url + ".ttl"
+          jsonld = vers_url + ".jsonld"
+          nt = vers_url + ".nt"
+          owl = vers_url + ".owl"
+          ontospy_url = base + "ontospy/"
+          pylode_url  = base + "pylode/"
+          # badge URLs (shields endpoint -> gist JSON files)
+          bbase = os.environ["BADGE_BASE"]
+          sb = os.environ["SAFE_BRANCH"]
+          badges = {
+            "profile": f"{bbase}ontology-ci-profile-{sb}.json",
+            "reason":  f"{bbase}ontology-ci-reason-{sb}.json",
+            "version": f"{bbase}ontology-ci-version-{sb}.json",
+            "ontospy": f"{bbase}ontology-ci-ontospy-{sb}.json",
+            "pylode":  f"{bbase}ontology-ci-pylode-{sb}.json",
+            "deploy":  f"{bbase}ontology-ci-deploy-{sb}.json",
+            "foops":   f"{bbase}ontology-ci-foops-{sb}.json",
+          }
+          html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>{label or abbrev} — {version} ({sb})</title>
+            <style>
+              body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }}
+              header h1 {{ margin: 0 0 .25rem 0; }}
+              .meta {{ color: #555; margin-bottom: 1rem; }}
+              .badges img {{ margin-right: .5rem; vertical-align: middle; }}
+              .grid {{ display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }}
+              .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; }}
+              code, a {{ color: #0b5fff; word-break: break-all; }}
+              ul {{ margin: .25rem 0 .5rem 1.25rem; }}
+            </style>
+          </head>
+          <body>
+            <header>
+              <h1>{label or abbrev}</h1>
+              <div class="meta">
+                <div><strong>Ontology IRI:</strong> <code>{iri}</code></div>
+                <div><strong>Branch:</strong> <code>{sb}</code></div>
+                <div><strong>Version:</strong> <code>{version}</code></div>
+                <div><strong>Modified:</strong> <code>{modified}</code></div>
+                <div><strong>Base URL:</strong> <a href="{base}">{base}</a></div>
+              </div>
+              <div class="badges">
+                <img alt="Profile" src="{badges['profile']}" />
+                <img alt="Reason"  src="{badges['reason']}" />
+                <img alt="Version" src="{badges['version']}" />
+                <img alt="Ontospy" src="{badges['ontospy']}" />
+                <img alt="Pylode"  src="{badges['pylode']}" />
+                <img alt="Deploy"  src="{badges['deploy']}" />
+                <img alt="FOOPS"   src="{badges['foops']}" />
+              </div>
+            </header>
+
+            <div class="grid">
+              <section class="card">
+                <h2>Downloads (version {version})</h2>
+                <ul>
+                  <li><a href="{ttl}">{abbrev}.ttl</a></li>
+                  <li><a href="{jsonld}">{abbrev}.jsonld</a></li>
+                  <li><a href="{nt}">{abbrev}.nt</a></li>
+                  <li><a href="{owl}">{abbrev}.owl</a></li>
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>Documentation</h2>
+                <ul>
+                  <li><a href="{pylode_url}">PyLODE</a></li>
+                  <li><a href="{ontospy_url}">Ontospy</a></li>
+                </ul>
+              </section>
+            </div>
+          </body>
+          </html>
+          """
+          outdir = os.environ["DOCS_DIR"]
+          os.makedirs(outdir, exist_ok=True)
+          with open(os.path.join(outdir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html)
+          PY
+          
+      - name: Deploy to gh-pages (keep other branches)
+        id: ghpages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DOCS_DIR }}
+          destination_dir: ${{ env.SAFE_BRANCH }}
+          keep_files: false
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+
+
+      - name: Badge — Deploy (Shields endpoint)
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
+          label: deploy
+          message: ${{ steps.ghpages.outcome }}
+          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
+    

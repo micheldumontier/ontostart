@@ -2,23 +2,55 @@ name: FOOPS!
 
 on:
   workflow_dispatch:
-
-jobs:
+    inputs:
+      branch:
+        description: "Branch to build (leave empty to use current ref)"
+        required: false
+        default: "testo"
+      onto_abbrev:
+        description: "Ontology name (leave empty to use the branch name)"
+        required: false
+        default: ""        
+      onto_uri:
+        description: "ONTO_URI"
+        required: false
+        default: "https://micheldumontier.github.io/ontostart/testo/versions/0.0.1/testo.ttl"
+jobs:        
   foops:
     runs-on: ubuntu-latest
     env:
-      #ONTO_URI: https://w3id.org/testo/
-      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.13/testo.ttl
       GIST_ID: ${{ vars.GIST_ID }}
-    
+      DOCS_DIR: docs
+      VERSION_DIR: versions
     steps:
+      - name: Determine target branch & derive names
+        id: setup
+        shell: bash
+        run: |
+          # 1) Resolve branch: if input empty, use current ref_name
+          BRANCH="${{ inputs.branch != '' && inputs.branch || github.ref_name }}"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          # 2) Resolve ontology abbrev
+          RAW_ABBREV="${{ inputs.onto_abbrev != '' && inputs.onto_abbrev || '' }}"
+          # ⛔ Fail if on main and no ontology name was explicitly provided
+          if [ "$BRANCH" = "main" ] && [ -z "$RAW_ABBREV" ]; then
+            echo "::error::ONTO_ABBREV must be specified when building from 'main' branch."
+            exit 1
+          fi
+          SAFE_BRANCH="${BRANCH//\//-}"
+          SAFE_BRANCH="${SAFE_BRANCH// /_}"
+          echo "SAFE_BRANCH=$SAFE_BRANCH" >> "$GITHUB_ENV"
+          echo "safe_branch=$SAFE_BRANCH" >> "$GITHUB_OUTPUT"
+      
       - name: Call FOOPS! API
         id: foops
         run: |
+          
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"$ONTO_URI\"}" \
+              -d "{  \"ontologyUri\": \"${{ inputs.onto_URI }}\"}" \
               -o foops-results.json
 
       - name: Upload foops results
@@ -31,21 +63,16 @@ jobs:
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
-          import json, pathlib, os
+          import json, pathlib, os, sys
           total_score = 0
           with open('foops-results.json') as f:
               data = json.load(f)
               tot_checks = len(data["checks"])
-              passed_checks = 0
               for check in data["checks"]:
-                  pas=check["total_passed_tests"]
-                  tot=check["total_tests_run"]
-              
-                  check_score = pas / tot
-                  total_score += check_score
+                  total_score += check["total_passed_tests"] / check["total_tests_run"]
                   
               overall_score = total_score / tot_checks * 100
-              label = f"{overall_score:.1f}% ({total_score}/{tot_checks} tests)"
+              label = f"{overall_score:.1f}% ({total_score:.2f} in {tot_checks} tests)"
               with open(os.environ["GITHUB_ENV"], "a") as f:
                 f.write(f"FOOPS_SCORE={label}\n")  
           PY
@@ -56,7 +83,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-foops.json
+          filename: ontology-ci-foops-${{ env.SAFE_BRANCH }}.json
           label: FOOPS!
           message: ${{ env.FOOPS_SCORE }}
           color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}

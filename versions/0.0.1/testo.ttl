@@ -65,22 +65,25 @@ mod:status a owl:AnnotationProperty .
 
 testo: a owl:Ontology ;
     rdfs:label "Test Ontology"@en ;
-    rdfs:comment "The Test Ontology."@en ;
+    dc:creator <https://orcid.org/0000-0000-0000-0000> ;
     dcterms:alternative "TESTO"@en ;
-    vann:preferredNamespacePrefix "testo" ;
-    vann:preferredNamespaceUri testo: ;
-    dc:creator <https://orcid.org/0000-0003-4727-9435> ;
-    pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
+    dcterms:bibliographicCitation "Some paper here"@en ;
+    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:created "2025-08-27T11:56:07.920128+00:00"^^xsd:dateTime ;
+    dcterms:issued "2025-08-27"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
-    dcterms:publisher <https://maastrichtuniversity.nl/ids> ;
-    dcterms:bibliographicCitation "Unpublished"@en ;       
+    dcterms:modified "2025-08-27T11:56:07.920128+00:00"^^xsd:dateTime ;
+    dcterms:publisher <https://someorganization.org> ;
     dcterms:title "Test Ontology"@en ;
+    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
     vann:preferredNamespacePrefix "testo" ;
     vann:preferredNamespaceUri testo: ;
+    rdfs:comment "The Test Ontology."@en ;
+    owl:versionIRI testo:0.0.1 ;
+    owl:versionInfo "0.0.1"^^xsd:string ;
     dcat:accessURL testo:testo.ttl ;
-    foaf:homepage <https://micheldumontier.github.io/testo> ;
-    owl:imports <https://w3id.org/sulo/> ;
+    foaf:homepage <https://github.com/micheldumontier/testo> ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
     schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/testo> ;
     mod:definitionProperty rdfs:comment ;
@@ -88,3 +91,4 @@ testo: a owl:Ontology ;
     mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
     mod:prefLabelProperty rdfs:label ;
     mod:status "active" .
+
