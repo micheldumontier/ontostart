@@ -1,0 +1,89 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mod: <https://w3id.org/mod#> .
+@prefix omv: <http://omv.ontoware.org/2005/05/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ontostart: <https://w3id.org/ontostart/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:creator a owl:AnnotationProperty .
+
+dcterms:alternative a owl:AnnotationProperty .
+
+dcterms:bibliographicCitation a owl:AnnotationProperty .
+
+dcterms:contributor a owl:AnnotationProperty .
+
+dcterms:created a owl:AnnotationProperty .
+
+dcterms:issued a owl:AnnotationProperty .
+
+dcterms:language a owl:AnnotationProperty .
+
+dcterms:license a owl:AnnotationProperty .
+
+dcterms:modified a owl:AnnotationProperty .
+
+dcterms:publisher a owl:AnnotationProperty .
+
+dcterms:title a owl:AnnotationProperty .
+
+pav:authoredBy a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+
+xsd:date a rdfs:Datatype .
+
+skos:example a owl:AnnotationProperty .
+
+dcat:accessURL a owl:AnnotationProperty .
+
+foaf:homepage a owl:AnnotationProperty .
+
+schema:funding a owl:AnnotationProperty .
+
+schema:includedInDataCatalog a owl:AnnotationProperty .
+
+mod:definitionProperty a owl:AnnotationProperty .
+
+mod:hasRepresentationLanguage a owl:AnnotationProperty .
+
+mod:hasSyntax a owl:AnnotationProperty .
+
+mod:prefLabelProperty a owl:AnnotationProperty .
+
+mod:status a owl:AnnotationProperty .
+
+testo: a owl:Ontology ;
+    dcterms:title "Ontostart Template Ontology"@en ;
+    rdfs:label "Ontostart Template Ontology"@en ;
+    rdfs:comment "Ontostart Template Ontology."@en ;
+    dcterms:alternative "ontostart"@en ;
+    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
+    dc:creator <https://orcid.org/0000-0000-0000-0000> ;
+    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:publisher <https://github.org/micheldumontier/ontostart> ;
+    dcterms:bibliographicCitation "Unpublished"@en ;
+    dcterms:language <http://lexvo.org/id/iso639-1/en> ;
+    dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
+    vann:preferredNamespacePrefix "ontostart" ;
+    vann:preferredNamespaceUri ontostart: ;
+    dcat:accessURL ontostart:template.ttl ;
+    schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
+    schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/replace_me> ;
+    mod:definitionProperty rdfs:comment ;
+    mod:hasRepresentationLanguage omv:OWL ;
+    mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
+    mod:prefLabelProperty rdfs:label ;
+    mod:status "active" .
+
