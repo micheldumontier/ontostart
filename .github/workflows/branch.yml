@@ -15,6 +15,10 @@ on:
         description: "Ontology file extension (e.g., ttl, owl, rdf, jsonld)"
         required: true
         default: "ttl"
+      onto_uri:
+        description: "Ontology URI"
+        required: false
+        default: "https://micheldumontier.github.io/ontostart/main/versions/0.0.1/ontostart.ttl"        
 
 jobs:
   build:
@@ -291,6 +295,10 @@ jobs:
           abbrev = os.environ["ONTO_ABBREV"]
           vers_url = f"{base}versions/{version}/{abbrev}"
           ttl  = vers_url + ".ttl"
+
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write(f"GITHUB_ONTO_URI={ttl}")
+            
           jsonld = vers_url + ".jsonld"
           nt = vers_url + ".nt"
           owl = vers_url + ".owl"
@@ -398,3 +406,47 @@ jobs:
           message: ${{ steps.ghpages.outcome }}
           color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
     
+      - name: Call FOOPS! API
+        id: foops
+        # @todo replace with the w3id ontology URI when available.
+        run: |
+          curl -X POST "https://foops.linkeddata.es/assessOntology" \
+              -H  "accept: application/json" \
+              -H "Content-Type: application/json" \
+              -d "{  \"ontologyUri\": \"${{ env.GITHUB_ONTO_URI }}\"}" \
+              -o foops-results.json
+
+      - name: Upload foops results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foops-results
+          path: foops-results.json
+          
+      - name: Process FOOPS! results
+        run: |
+          python3 - << 'PY'
+          import json, pathlib, os, sys
+          total_score = 0
+          with open('foops-results.json') as f:
+              data = json.load(f)
+              tot_checks = len(data["checks"])
+              for check in data["checks"]:
+                  total_score += check["total_passed_tests"] / check["total_tests_run"]
+                  
+              overall_score = total_score / tot_checks * 100
+              label = f"{overall_score:.1f}% ({total_score:.2f} in {tot_checks} tests)"
+              with open(os.environ["GITHUB_ENV"], "a") as f:
+                f.write(f"FOOPS_SCORE={label}\n")  
+          PY
+          
+      - name: Badge — FOOPS
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-foops-${{ env.SAFE_BRANCH }}.json
+          label: FOOPS!
+          message: ${{ env.FOOPS_SCORE }}
+          color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
