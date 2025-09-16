@@ -1,0 +1,26 @@
+name: Use Reusable Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build (leave empty to use current ref)"
+        required: false
+        default: "main"
+      onto_abbrev:
+        description: "Ontology name (leave empty to use the branch name)"
+        required: false
+        default: "ontostart"        
+      onto_uri:
+        description: "ONTO_URI"
+        required: false
+        default: "https://micheldumontier.github.io/ontostart/main/versions/0.0.1/ontostart.ttl"
+        
+
+jobs:
+  call-build:
+    uses: micheldumontier/ci-workflows/.github/workflows/foops.yml@main
+    with:
+      branch: ${{ inputs.branch }}
+      onto_abbrev: ${{ inputs.onto_abbrev }}
+      onto_uri: ${{ inputs.onto_uri }}
