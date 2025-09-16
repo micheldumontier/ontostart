@@ -2,7 +2,7 @@ Header set Access-Control-Allow-Origin *
 Options -MultiViews
 RewriteEngine On
 
-RewriteRule /
+RewriteBase /
 
 ### redirects for OntoStart projects
 ###
