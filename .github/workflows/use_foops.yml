@@ -18,8 +18,6 @@ on:
         
 
 jobs:
-  env:
-    GIST_ID: ${{ vars.GIST_ID }}
   call-build:
     uses: micheldumontier/ontostart/.github/workflows/foops.yml@main
     with:
