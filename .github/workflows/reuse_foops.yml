@@ -19,7 +19,7 @@ on:
 
 jobs:
   call-build:
-    uses: micheldumontier/ci-workflows/.github/workflows/foops.yml@main
+    uses: micheldumontier/ontostart/.github/workflows/foops.yml@main
     with:
       branch: ${{ inputs.branch }}
       onto_abbrev: ${{ inputs.onto_abbrev }}
