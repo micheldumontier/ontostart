@@ -190,7 +190,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-version.json
+          filename: ontology-ci-version-${{ env.SAFE_BRANCH }}.json
           label: Version
           message: ${{ env.NEW_VERSION }}
           color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
