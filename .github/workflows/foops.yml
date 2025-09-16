@@ -1,12 +1,27 @@
 name: FOOPS!
 
 on:
+  workflow_call:  
+   inputs:
+     branch:
+        description: "Branch to build (leave empty to use current ref)"
+        required: false
+        type: string
+     onto_abbrev:
+        description: "Ontology name (leave empty to use the branch name)"
+        required: false
+        type: string        
+     onto_uri:
+        description: "ONTO_URI"
+        required: true
+        type: string
+        
   workflow_dispatch:
     inputs:
       branch:
         description: "Branch to build (leave empty to use current ref)"
         required: false
-        default: "testo"
+        default: "main"
       onto_abbrev:
         description: "Ontology name (leave empty to use the branch name)"
         required: false
