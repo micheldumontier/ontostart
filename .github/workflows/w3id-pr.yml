@@ -6,7 +6,7 @@ on:
       W3ID_FOLDER:
         description: "Single word directory name to create in w3id.org (e.g., 'ontostart')"
         required: true
-        default: "testo"
+        default: "ontostart"
       SOURCE_HTACCESS_PATH:
         description: "Path in this repo to the .htaccess to copy"
         required: true
