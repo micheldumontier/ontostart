@@ -177,7 +177,23 @@ jobs:
           label: Reasoning
           message: ${{ env.REASON_RESULT }}
           color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
-          
+
+      - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
+        id: bump_version
+        run: |
+         #python scripts/bump_version.py
+         echo "simulating bump_versioning"
+
+      - name: Badge — Version update
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-version.json
+          label: Version
+          message: ${{ env.NEW_VERSION }}
+          color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
 
       - name: Generate syntax variants (branch-scoped)
         id: syntax_variants
