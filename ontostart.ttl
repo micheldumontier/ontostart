@@ -63,7 +63,7 @@ mod:prefLabelProperty a owl:AnnotationProperty .
 
 mod:status a owl:AnnotationProperty .
 
-: a owl:Ontology ;
+ontostart: a owl:Ontology ;
     dcterms:title "Ontostart Template Ontology"@en ;
     rdfs:label "Ontostart Template Ontology"@en ;
     rdfs:comment "Ontostart Template Ontology."@en ;
