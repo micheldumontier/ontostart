@@ -63,7 +63,7 @@ mod:prefLabelProperty a owl:AnnotationProperty .
 
 mod:status a owl:AnnotationProperty .
 
-testo: a owl:Ontology ;
+: a owl:Ontology ;
     dcterms:title "Ontostart Template Ontology"@en ;
     rdfs:label "Ontostart Template Ontology"@en ;
     rdfs:comment "Ontostart Template Ontology."@en ;
@@ -78,7 +78,7 @@ testo: a owl:Ontology ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
     vann:preferredNamespacePrefix "ontostart" ;
     vann:preferredNamespaceUri ontostart: ;
-    dcat:accessURL ontostart:template.ttl ;
+    dcat:accessURL ontostart:default.ttl ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
     schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/replace_me> ;
     mod:definitionProperty rdfs:comment ;
