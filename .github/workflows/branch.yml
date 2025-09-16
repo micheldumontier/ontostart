@@ -181,8 +181,8 @@ jobs:
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
         run: |
-         #python scripts/bump_version.py
          echo "simulating bump_versioning"
+        #python scripts/bump_version.py
 
       - name: Badge — Version update
         if: always()
