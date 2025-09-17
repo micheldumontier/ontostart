@@ -10,11 +10,11 @@ on:
       SOURCE_HTACCESS_PATH:
         description: "Path in this repo to the .htaccess to copy"
         required: true
-        default: "apache/web/.htaccess"
+        default: "apache/web/ontostart/.htaccess"
       SOURCE_README_PATH:
         description: "Path in this repo to the README.md file to copy"
         required: true
-        default: "apache/web/README.md"        
+        default: "apache/web/ontostart/README.md"        
       W3ID_FORK_OWNER:
         description: "Organization to own the fork (leave empty to fork under your user)"
         required: false
