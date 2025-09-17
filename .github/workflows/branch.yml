@@ -224,8 +224,9 @@ jobs:
       - name: Copy files to docs
         id: copy_to_docs
         run: |
-          mkdir -p "$DOCS_DIR/versions"
+          mkdir -p "$DOCS_DIR/versions/latest"
           cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
+          cp -r "$VERSION_DIR"/*/* "$DOCS_DIR/versions/latest/"
             
       - name: Checkout Forked Ontospy
         uses: actions/checkout@v3
