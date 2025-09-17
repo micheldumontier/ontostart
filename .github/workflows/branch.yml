@@ -244,8 +244,8 @@ jobs:
       - name: Generate documentation with Ontospy (branch-scoped)
         id: ontospy
         run: |
-          mkdir -p "$DOCS_DIR/ontospy"
-          python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/ontospy" "$ONTO_FILE"
+          mkdir -p "$DOCS_DIR/docs/ontospy"
+          python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/docs/ontospy" "$ONTO_FILE"
 
       - name: Badge — Ontospy
         if: always()
@@ -261,8 +261,8 @@ jobs:
       - name: Generate static site with Pylode (branch-scoped)
         id: pylode
         run: |
-          mkdir -p "$DOCS_DIR/pylode"
-          pylode -o "$DOCS_DIR/pylode/index" "$ONTO_FILE"
+          mkdir -p "$DOCS_DIR/docs/pylode"
+          pylode -o "$DOCS_DIR/docs/pylode/index" "$ONTO_FILE"
 
       - name: Badge — Pylode
         if: always()
@@ -302,8 +302,8 @@ jobs:
           jsonld = vers_url + ".jsonld"
           nt = vers_url + ".nt"
           owl = vers_url + ".owl"
-          ontospy_url = base + "ontospy/"
-          pylode_url  = base + "pylode/"
+          ontospy_url = base + "docs/ontospy/"
+          pylode_url  = base + "docs/pylode/"
           # badge URLs (shields endpoint -> gist JSON files)
           bbase = os.environ["BADGE_BASE"]
           sb = os.environ["SAFE_BRANCH"]
