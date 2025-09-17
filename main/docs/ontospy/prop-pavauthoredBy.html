@@ -361,11 +361,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
           
               <li class="second-level" style="line-height: 20px;" id="sd_25"><a   href="prop-modstatus.html">mod:status</a></li>
           
-              <li class="second-level" style="line-height: 20px;" id="sd_13"><a   href="prop-pavauthoredBy.html">pav:authoredBy</a></li>
+              <li class="second-level" style="line-height: 20px;" id="sd_13"><a class="active"  href="prop-pavauthoredBy.html">pav:authoredBy</a></li>
           
               <li class="second-level" style="line-height: 20px;" id="sd_19"><a   href="prop-schemafunding.html">schema:funding</a></li>
           
-              <li class="second-level" style="line-height: 20px;" id="sd_20"><a class="active"  href="prop-schemaincludedInDataCatalog.html">schema:includedInDataCatalog</a></li>
+              <li class="second-level" style="line-height: 20px;" id="sd_20"><a   href="prop-schemaincludedInDataCatalog.html">schema:includedInDataCatalog</a></li>
           
               <li class="second-level" style="line-height: 20px;" id="sd_16"><a   href="prop-skosexample.html">skos:example</a></li>
           
@@ -476,7 +476,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
           <a href="entities-tree-properties.html">Properties</a>
     </li>
       <li class="active">
-            schema:includedInDataCatalog
+            pav:authoredBy
         </li>
   </ol>
 
@@ -500,7 +500,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
             <h1>
 
-                schema:includedInDataCatalog
+                pav:authoredBy
                 
                     <small class="label label-info label-xs ">leaf node</small>
                   
@@ -519,7 +519,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
                         <li><a href="entities-tree-properties.html">rdf:Property</a>
 
                           <ul>
-                            <li><a style="font-weight: bold;" title="'includedInDataCatalog'">schema:includedInDataCatalog</a>
+                            <li><a style="font-weight: bold;" title="'authoredBy'">pav:authoredBy</a>
 
                             
                               </li>
@@ -543,7 +543,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
              </div>
              <div class="panel-body">
 
-                 <code>https://schema.org/includedInDataCatalog</code>
+                 <code>http://purl.org/pav/authoredBy</code>
              </div>
            </div>
             </div></div>
@@ -558,7 +558,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
              </div>
              <div class="panel-body">
 
-                 includedInDataCatalog
+                 authoredBy
              </div>
            </div>
             </div></div>
@@ -595,7 +595,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
                    </td>
 
                     <td>
-                      schema:includedInDataCatalog
+                      pav:authoredBy
                     </td>
 
                     <td>
@@ -620,9 +620,9 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
                 
 
                     <div class="highlight"><pre><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span>
-<span class="k">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nv">&lt;https://schema.org/&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">pav:</span><span class="w"> </span><span class="nv">&lt;http://purl.org/pav/&gt;</span><span class="w"> </span><span class="p">.</span>
 
-<span class="nn">schema</span><span class="p">:</span><span class="nt">includedInDataCatalog</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">AnnotationProperty</span> <span class="p">.</span>
+<span class="nn">pav</span><span class="p">:</span><span class="nt">authoredBy</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">AnnotationProperty</span> <span class="p">.</span>
 </pre></div>
 
 
@@ -661,7 +661,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   <footer class="footer">
     <div class="container">
     
-      <p class="text-muted">Documentation automatically generated on Tue, 16 Sep 2025 05:55:33 with <a href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> (&lt;module &#39;ontospy.VERSION&#39; from &#39;/home/runner/work/ontostart/ontostart/ontospy/ontospy/VERSION.py&#39;&gt;)</p>
+      <p class="text-muted">Documentation automatically generated on Wed, 17 Sep 2025 05:28:19 with <a href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> (&lt;module &#39;ontospy.VERSION&#39; from &#39;/home/runner/work/ontostart/ontostart/ontospy/ontospy/VERSION.py&#39;&gt;)</p>
 
     
     </div>
@@ -722,7 +722,7 @@ $('#search-input-sidebar').keyup(function() {
 
     $(document).ready(function (){
       $('#sidebar-wrapper').animate({
-          scrollTop: $("#sd_20").offset().top - 100
+          scrollTop: $("#sd_13").offset().top - 100
       }, 100);
     });
 

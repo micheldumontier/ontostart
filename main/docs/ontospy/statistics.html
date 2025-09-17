@@ -178,8 +178,9 @@
 
 
 
-  
-      
+    
+
+    
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -203,12 +204,12 @@
         <li  ><a href="entities-az.html">Entities A-Z</a></li>
         
         
-        <li class="active"><a href="entities-tree-properties.html">Properties</a></li>
+        <li ><a href="entities-tree-properties.html">Properties</a></li>
         
         
         
         
-        <li  ><a href="statistics.html">Statistics</a></li>
+        <li class="active" ><a href="statistics.html">Statistics</a></li>
 
 
 
@@ -220,7 +221,8 @@
 
   </div>
 </nav>
-  
+
+    
 
 
 
@@ -249,7 +251,7 @@
         
 
         
-            <li class="-second-level" id="sd_properties"><a class="active" href="entities-tree-properties.html">Properties (24)</a>
+            <li class="-second-level" id="sd_properties"><a  href="entities-tree-properties.html">Properties (24)</a>
             </li>
 
             
@@ -346,32 +348,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <ol class="breadcrumb">
   <li>
     <a href="index.html">Home</a>
   </li>
-  <li>
-        <a href="entities-az.html">Entities</a>
+  <li class="active">
+        Statistics
     </li>
-    <li class="active">
-          Properties
-      </li>
 </ol>
 
 
@@ -413,84 +396,120 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
 
 
-  <div class="page-header">
+        <div class="page-header">
 
-      <h3>Properties Tree
-      </h3>
-      <input id="search-input" type="text" class="form-control" placeholder="Filter...">
+            <h3>Statistics
 
-  </div>
+            </h3>
+
+        </div>
 
 
 
-     <div class="row"><div class="col-md-12">
-        <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Tree</h3>
+
+      <div class="row">
+
+        
+        <div class="col-md-6">
+
+
+            <div class="row"><div class="col-md-12">
+                <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Entity Types</h3>
+              </div>
+              <div class="panel-body">
+
+
+                  <div class="row">
+
+
+                      <div class="col-md-12 ">
+                          <br />
+                          <canvas id="entitiesBarChart" ></canvas>
+                      </div>
+
+
+
+                  </div>
+
+
+              </div>
+            </div>
+             </div></div>
+
+
+
+
+
+              <div class="row"><div class="col-md-12">
+                 <div class="panel panel-default">
+               <div class="panel-heading">
+                 <h3 class="panel-title">Triples</h3>
+               </div>
+               <div class="panel-body">
+
+                   <div class="col-sm-3 col-md-3 ">
+                       <p id="chartsLegend">
+                           <span class="text-muted" style="text-transform: uppercase;">Triples</span>
+                           <br /><span style="font-size: 250%;"> 48</span>
+                       </p>
+                   </div>
+
+   	        	<canvas id="triplesStats" ></canvas>
+
+               </div>
+             </div>
+              </div></div>
+
+
+
+
+        </div>
+         
+
+
+        
+        <div class="col-md-6">
+
+
+
+
+        
+
+
+
+
+        
+
+
+
+
+        </div>
+         
+
       </div>
-      <div class="panel-body entities-list">
-
-          <table class="h"><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/elements/1.1/creator" class="treelinks" href="prop-dccreator.html">dc:creator</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://www.w3.org/ns/dcat#accessURL" class="treelinks" href="prop-dcataccessURL.html">dcat:accessURL</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/alternative" class="treelinks" href="prop-dctermsalternative.html">dcterms:alternative</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/bibliographicCitation" class="treelinks" href="prop-dctermsbibliographicCitation.html">dcterms:bibliographicCitation</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/contributor" class="treelinks" href="prop-dctermscontributor.html">dcterms:contributor</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/created" class="treelinks" href="prop-dctermscreated.html">dcterms:created</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/issued" class="treelinks" href="prop-dctermsissued.html">dcterms:issued</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/language" class="treelinks" href="prop-dctermslanguage.html">dcterms:language</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/license" class="treelinks" href="prop-dctermslicense.html">dcterms:license</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/modified" class="treelinks" href="prop-dctermsmodified.html">dcterms:modified</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/publisher" class="treelinks" href="prop-dctermspublisher.html">dcterms:publisher</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/title" class="treelinks" href="prop-dctermstitle.html">dcterms:title</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/homepage" class="treelinks" href="prop-foafhomepage.html">foaf:homepage</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://w3id.org/mod#definitionProperty" class="treelinks" href="prop-moddefinitionProperty.html">mod:definitionProperty</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://w3id.org/mod#hasRepresentationLanguage" class="treelinks" href="prop-modhasRepresentationLanguage.html">mod:hasRepresentationLanguage</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://w3id.org/mod#hasSyntax" class="treelinks" href="prop-modhasSyntax.html">mod:hasSyntax</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://w3id.org/mod#prefLabelProperty" class="treelinks" href="prop-modprefLabelProperty.html">mod:prefLabelProperty</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://w3id.org/mod#status" class="treelinks" href="prop-modstatus.html">mod:status</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/pav/authoredBy" class="treelinks" href="prop-pavauthoredBy.html">pav:authoredBy</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://schema.org/funding" class="treelinks" href="prop-schemafunding.html">schema:funding</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="https://schema.org/includedInDataCatalog" class="treelinks" href="prop-schemaincludedInDataCatalog.html">schema:includedInDataCatalog</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://www.w3.org/2004/02/skos/core#example" class="treelinks" href="prop-skosexample.html">skos:example</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/vocab/vann/preferredNamespacePrefix" class="treelinks" href="prop-vannpreferredNamespacePrefix.html">vann:preferredNamespacePrefix</a></td>
-						  </tr><tr>
-							<td class="tc" colspan=4><a title="http://purl.org/vocab/vann/preferredNamespaceUri" class="treelinks" href="prop-vannpreferredNamespaceUri.html">vann:preferredNamespaceUri</a></td>
-						  </tr></table>
-
-
-      </div>
-    </div>
-     </div></div>
-
-
 
 
 
@@ -519,7 +538,7 @@
   <footer class="footer">
     <div class="container">
     
-      <p class="text-muted">Documentation automatically generated on Tue, 16 Sep 2025 05:55:33 with <a href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> (&lt;module &#39;ontospy.VERSION&#39; from &#39;/home/runner/work/ontostart/ontostart/ontospy/ontospy/VERSION.py&#39;&gt;)</p>
+      <p class="text-muted">Documentation automatically generated on Wed, 17 Sep 2025 05:28:19 with <a href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> (&lt;module &#39;ontospy.VERSION&#39; from &#39;/home/runner/work/ontostart/ontostart/ontospy/ontospy/VERSION.py&#39;&gt;)</p>
 
     
     </div>
@@ -576,39 +595,216 @@ $('#search-input-sidebar').keyup(function() {
 
 
 
+
+
 <script type="text/javascript">
 
-// http://stackoverflow.com/questions/9127498/how-to-perform-a-real-time-search-and-filter-on-a-html-table
+    // utility to assign colors dynamically at js level
 
-  $('#search-input').keyup(function() {
+    function getColor(i) {
+        var colors = [["#F7464A", "#FF5A5E"],    // color , highlightColor
+                       ["#46BFBD", "#5AD3D1"],
+                       ["#FDB45C", "#FFC870"],
+                       ["#6588A8", "#CCD3FF"],
+                       ["#6960EC", "#736AFF"],
+                       ["#FFA62F", "#FBB917"],
+                       ["#7D0552", "#7E354D"],
+                       ["#FDB45C", "#FFC870"],
+                        ];
+        return colors[i]
+    }
 
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
-    // var $rows = $(this).next(".entities-list").find("div");
-    var $rows = $(this).parent().next().find(".entities-list tr");
 
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
+// FIRST CHART : types of entities
+
+
+	var ctx = document.getElementById("entitiesBarChart").getContext("2d");
+
+    var data = {
+    // labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: [
+             
+                
+            
+                
+            
+                "Classes"
+                     , 
+                
+            
+                "Properties"
+                     , 
+                
+            
+                "Annotation Properties"
+                     , 
+                
+            
+                "Object Properties"
+                     , 
+                
+            
+                "Datatype Properties"
+                     , 
+                
+            
+                "Skos Concepts"
+                     , 
+                
+            
+                "Data Shapes"
+                     , 
+                
+            
+                
+            
+    ],
+    datasets: [
+        {
+            label: "Entities Count",
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(108, 240, 92, 0.2)',
+                'rgba(186, 186, 186, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(33, 178, 15, 1)',
+                'rgba(74, 69, 69, 1)'
+            ],
+            borderWidth: 1,
+          // data: [65, 59, 80, 81, 56, 55, 40],
+            data: [
+             
+                
+            
+                
+            
+                0
+                     , 
+                
+            
+                24
+                     , 
+                
+            
+                24
+                     , 
+                
+            
+                0
+                     , 
+                
+            
+                0
+                     , 
+                
+            
+                0
+                     , 
+                
+            
+                0
+                     , 
+                
+            
+                
+            
+                 ],
+            }
+        ]
+        };
+
+    var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+        legend: {
+            display: false,
+        }
+        }
+    });
+
+
+
+
+// SECOND CHART : top layer Classes
+
+	
+
+
+
+
+// SECOND CHART : top layer SKOS
+
+
+
+
+
+
+
+
+// THIRD CHART: triples
+
+	var ctxTriples = document.getElementById("triplesStats").getContext("2d");
+	var dataTriples = {
+    labels: ["Triples"],
+    datasets: [
+                {
+                    label: "Triples Count",
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    data: [48],
+                }
+            ]
+        };
+
+    var myBarChart = new Chart(ctxTriples, {
+    type: 'bar',
+    data: dataTriples,
+    options: {
+        legend: {
+            display: false,
+            },
+        scales: {
+            yAxes: [{
+                stacked: true
+            }]
+        }
+        }
+    });
+
+
 
 
 </script>
 
-
-
-<!-- Scroll Sidebar Script -->
-
-<script type="text/javascript">
-
-  $(document).ready(function (){
-    $('#sidebar-wrapper').animate({
-        scrollTop: $("#sd_properties").offset().top - 100
-    }, 100);
-  });
-
-</script>
 
 
 
