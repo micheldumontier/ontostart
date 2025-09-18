@@ -155,7 +155,7 @@ jobs:
           with open(os.environ["GITHUB_ENV"], "a") as f:
             f.write(f"ONTO_IRI={iri}")
 
-          echo f"Ontology IRI: {iri}"
+          echo "Ontology IRI: "+ iri
           
       - name: Validate ontology profile
         id: profile
