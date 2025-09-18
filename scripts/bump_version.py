@@ -24,14 +24,14 @@ else:
     onto_file = f"{onto_abbrev}.ttl"
     print(f"Info: Using default filename: {onto_file}")
 
-if "BASE_IRI" in os.environ:
-    base_iri = os.environ["BASE_IRI"]
+if "ONTO_IRI" in os.environ:
+    base_iri = os.environ["ONTO_IRI"]
     # add a trailing slash if not present
     if not base_iri.endswith("/"):
         base_iri += "/"
 else:
     # write error
-    print("Warning: BASE_IRI not found in environment variables.")
+    print("Warning: ONTO_IRI not found in environment variables.")
     base_iri = f"https://w3id.org/{onto_abbrev}/"
     print(f"Info: Using default base IRI: {base_iri}")
 
