@@ -188,7 +188,7 @@ jobs:
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
         run: |
-          if [ ${{ inputs.bump_version = "true" ]; then
+          if [ ${{ inputs.bump_version }} = "true" ]; then
             python scripts/bump_version.py
           fi
 
