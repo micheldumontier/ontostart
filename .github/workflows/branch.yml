@@ -138,6 +138,25 @@ jobs:
           curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
           chmod +x robot
 
+      - name: Get Ontology IRI
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          
+          # Find the ontology node (owl:Ontology)
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          onto = ontos[0] if ontos else None
+          iri = str(onto) if onto else ""
+          
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write(f"ONTO_IRI={iri}")
+
+          echo f"Ontology IRI: {iri}"
+          
       - name: Validate ontology profile
         id: profile
         run: |
