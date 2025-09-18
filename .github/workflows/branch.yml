@@ -6,11 +6,11 @@ on:
       branch:
         description: "Branch to build (leave empty to use current ref)"
         required: false
-        default: "main"
+        default: ""
       onto_abbrev:
         description: "Ontology name (leave empty to use the branch name)"
         required: false
-        default: "ontostart"
+        default: ""
       format:
         description: "Ontology file extension (e.g., ttl, owl, rdf, jsonld)"
         required: true
@@ -18,10 +18,7 @@ on:
       bump_version:
         description: "Bump the version and commit to the repo"
         required: false
-        default: "true"
-      onto_uri:
-        description: "Ontology URI"
-        required: false    
+        default: "true" 
 
 jobs:
   build:
@@ -65,7 +62,7 @@ jobs:
           if [ -z "$RAW_ABBREV" ]; then
             RAW_ABBREV="$BRANCH"
           fi
-
+          
           # 3) Sanitize abbrev for safety (slashes->-, spaces->_)
           SAFE_ABBREV="${RAW_ABBREV//\//-}"
           SAFE_ABBREV="${SAFE_ABBREV// /_}"
