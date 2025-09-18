@@ -12,6 +12,8 @@
 @prefix ontostart: <https://w3id.org/ontostart/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix testo: <https://w3id.org/ontostart/testo/> .
+
 
 dc:creator a owl:AnnotationProperty .
 
@@ -63,24 +65,26 @@ mod:prefLabelProperty a owl:AnnotationProperty .
 
 mod:status a owl:AnnotationProperty .
 
-ontostart: a owl:Ontology ;
-    dcterms:title "Ontostart Template Ontology"@en ;
-    rdfs:label "Ontostart Template Ontology"@en ;
-    rdfs:comment "Ontostart Template Ontology."@en ;
-    dcterms:alternative "ontostart"@en ;
-    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
-    dc:creator <https://orcid.org/0000-0000-0000-0000> ;
-    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:publisher <https://github.org/micheldumontier/ontostart> ;
-    dcterms:bibliographicCitation "Unpublished"@en ;
+testo: a owl:Ontology ;
+    rdfs:label "Ontostart Test Ontology"@en ;
+    rdfs:comment "The Ontostart Test Ontology."@en ;
+    dcterms:alternative "TESTO"@en ;
+    vann:preferredNamespacePrefix "testo" ;
+    vann:preferredNamespaceUri testo: ;
+    dc:creator <https://orcid.org/0000-0003-4727-9435> ;
+    pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
-    vann:preferredNamespacePrefix "ontostart" ;
-    vann:preferredNamespaceUri ontostart: ;
-    dcat:accessURL ontostart:default.ttl ;
+    dcterms:publisher <https://maastrichtuniversity.nl/ids> ;
+    dcterms:bibliographicCitation "Unpublished"@en ;       
+    dcterms:title "Ontostart Test Ontology"@en ;
+    vann:preferredNamespacePrefix "testo" ;
+    vann:preferredNamespaceUri testo: ;
+    dcat:accessURL <https://w3id.org/ontostart/testo/versions/latest/testo.ttl> ;
+    foaf:homepage <https://micheldumontier.github.io/ontostart/testo/> ;
+    owl:imports <https://w3id.org/sulo/> ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
-    schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/replace_me> ;
+    schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/testo> ;
     mod:definitionProperty rdfs:comment ;
     mod:hasRepresentationLanguage omv:OWL ;
     mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
