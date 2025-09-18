@@ -18,7 +18,7 @@ on:
       bump_version:
         description: "Bump the version and commit to the repo"
         required: false
-        default: true
+        default: "true"
       onto_uri:
         description: "Ontology URI"
         required: false    
@@ -188,7 +188,7 @@ jobs:
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
         run: |
-          if [ ${{ inputs.bump_version = true ]; then
+          if [ ${{ inputs.bump_version = "true" ]; then
             python scripts/bump_version.py
           fi
 
