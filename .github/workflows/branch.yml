@@ -18,11 +18,7 @@ on:
       onto_uri:
         description: "Ontology URI"
         required: false
-      no_bump:
-        description: "Ontology URI"
-        required: false
-        default: false
-    
+        default: "https://micheldumontier.github.io/ontostart/main/versions/0.0.1/ontostart.ttl"        
 
 jobs:
   build:
@@ -189,7 +185,8 @@ jobs:
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
         run: |
-         python scripts/bump_version.py
+         echo "simulating bump_versioning"
+        #python scripts/bump_version.py
 
       - name: Badge — Version update
         if: always()
@@ -302,7 +299,6 @@ jobs:
 
           with open(os.environ["GITHUB_ENV"], "a") as f:
             f.write(f"GITHUB_ONTO_URI={ttl}")
-            f.write(f"ONTO_IRI={iri}")
             
           jsonld = vers_url + ".jsonld"
           nt = vers_url + ".nt"
@@ -418,7 +414,7 @@ jobs:
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"${{ env.ONTO_IRI }}\"}" \
+              -d "{  \"ontologyUri\": \"${{ env.GITHUB_ONTO_URI }}\"}" \
               -o foops-results.json
 
       - name: Upload foops results
