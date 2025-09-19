@@ -4,12 +4,12 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix mod: <https://w3id.org/mod#> .
 @prefix omv: <http://omv.ontoware.org/2005/05/ontology#> .
+@prefix ontostart: <https://w3id.org/ontostart/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix pav: <http://purl.org/pav/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix ontostart: <https://w3id.org/ontostart/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -64,21 +64,26 @@ mod:prefLabelProperty a owl:AnnotationProperty .
 mod:status a owl:AnnotationProperty .
 
 ontostart: a owl:Ontology ;
-    dcterms:title "Ontostart Template Ontology"@en ;
     rdfs:label "Ontostart Template Ontology"@en ;
-    rdfs:comment "Ontostart Template Ontology."@en ;
-    dcterms:alternative "ontostart"@en ;
-    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
     dc:creator <https://orcid.org/0000-0000-0000-0000> ;
-    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
-    dcterms:publisher <https://github.org/micheldumontier> ;
+    dcterms:alternative "ontostart"@en ;
     dcterms:bibliographicCitation "Unpublished"@en ;
+    dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:created "2025-09-19T06:12:47.543282+00:00"^^xsd:dateTime ;
+    dcterms:issued "2025-09-19"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
+    dcterms:modified "2025-09-19T06:12:47.543282+00:00"^^xsd:dateTime ;
+    dcterms:publisher <https://github.org/micheldumontier> ;
+    dcterms:title "Ontostart Template Ontology"@en ;
+    pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
     vann:preferredNamespacePrefix "ontostart" ;
     vann:preferredNamespaceUri ontostart: ;
+    rdfs:comment "Ontostart Template Ontology."@en ;
+    owl:versionIRI ontostart:0.0.1 ;
+    owl:versionInfo "0.0.1"^^xsd:string ;
     dcat:accessURL ontostart: ;
+    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
     schema:includedInDataCatalog <https://lov.linkeddata.es/dataset/lov/vocabs/replace_me> ;
     mod:definitionProperty rdfs:comment ;
