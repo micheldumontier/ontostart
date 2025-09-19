@@ -18,6 +18,21 @@ Features
  
 See an [example](https://micheldumontier.github.io/ontostart/main/) processing of the Ontostart default ontology template.
 
+Retrieve different syntaxes of the ontology with content-type negotiation
+```
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/
+curl -L -H "Accept: application/rdf+xml" https://w3id.org/ontostart/
+curl -L -H "Accept: application/ld+json" https://w3id.org/ontostart/
+curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/
+```
+
+Retrieve the latest or specific verisons of the ontology
+```
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/latest/
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/0.0.1/
+```
+
+
 ## Getting Started 
 1. Devise a short name or acronym for the ontology. I'll use `myawesomeontology` as a short name for illustrative purposes. A lot of the automatic processing depends on this.
 
