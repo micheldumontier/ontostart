@@ -53,7 +53,8 @@ curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/0.0.1/
    b) Create a classic PAT with repo and org:read scope and store it as a secret named W3ID_TOKEN in this repo.
    
 8 Customize a pull request to w3id.org.
-  * Edit the `apache/web/README.md` file to describe your ontology and put in your contact info.
+  * Edit the `apache/web/ontostart/README.md` to describe your ontology and add your contact info.
+  * Edit the `apache/web/ontostart/.htaccess` file to change the owner and repo names.
   * Manually run the `Propose w3id.org redirects` GitHub Action. You can see the pull request at [https://github.com/perma-id/w3id.org/pulls](https://github.com/perma-id/w3id.org/pulls)
   * It will take which will yield an ontology IRI of the form `https://w3id.org/myawesomeontology/`
 
