@@ -1,6 +1,8 @@
 name: ontology CI
 on:
   push:
+    branches:
+      - main
     paths:
       - '*.ttl'
   workflow_dispatch:
@@ -38,7 +40,7 @@ jobs:
     - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
       run: |
         python -m pip install --upgrade pip
-        pip install rdflib dotenv pylode
+        pip install rdflib dotenv "pylode==2.13.2"
         wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
         curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
         chmod +x robot
@@ -183,8 +185,7 @@ jobs:
       id: pylode
       run: |
           mkdir -p "$DOCS_DIR/docs/pylode/"
-          pylode -o "$DOCS_DIR/docs/pylode/index" \
-            "$ONTO_FILE"
+          pylode -i "$ONTO_FILE" -o "$DOCS_DIR/docs/pylode/index.html"
 
     - name: Badge — Pylode
       if: always()
