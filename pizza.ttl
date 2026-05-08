@@ -1,0 +1,1008 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mod: <https://w3id.org/mod#> .
+@prefix omv: <http://omv.ontoware.org/2005/05/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix pizza: <https://w3id.org/ontostart/pizza/> .
+@prefix pro: <https://w3id.org/ontostart/pro/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sulo: <https://w3id.org/sulo/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:creator a owl:AnnotationProperty .
+
+dcterms:alternative a owl:AnnotationProperty .
+
+dcterms:bibliographicCitation a owl:AnnotationProperty .
+
+dcterms:contributor a owl:AnnotationProperty .
+
+dcterms:created a owl:AnnotationProperty .
+
+dcterms:issued a owl:AnnotationProperty .
+
+dcterms:language a owl:AnnotationProperty .
+
+dcterms:license a owl:AnnotationProperty .
+
+dcterms:modified a owl:AnnotationProperty .
+
+dcterms:publisher a owl:AnnotationProperty .
+
+dcterms:title a owl:AnnotationProperty .
+
+pav:authoredBy a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+
+xsd:date a owl:AnnotationProperty .
+
+skos:example a owl:AnnotationProperty .
+
+dcat:accessURL a owl:AnnotationProperty .
+
+foaf:homepage a owl:AnnotationProperty .
+
+schema:funding a owl:AnnotationProperty .
+
+mod:definitionProperty a owl:AnnotationProperty .
+
+mod:hasRepresentationLanguage a owl:AnnotationProperty .
+
+mod:hasSyntax a owl:AnnotationProperty .
+
+mod:prefLabelProperty a owl:AnnotationProperty .
+
+mod:status a owl:AnnotationProperty .
+
+pizza:AnchovyPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:PizzaSauce ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:AnchovyIngredient ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( pizza:AnchovyIngredient pizza:PizzaSauce ) ] ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:BakingDuration a owl:Class ;
+    rdfs:subClassOf sulo:Duration ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:Duration [ a owl:Restriction ;
+                        owl:onProperty sulo:hasValue ;
+                        owl:someValuesFrom [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:decimal ;
+                                owl:withRestrictions ( [ xsd:maxInclusive 15.0 ] [ xsd:minInclusive 8.0 ] ) ] ] ) ] .
+
+pizza:BoxedPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onProperty sulo:isIn ;
+                        owl:someValuesFrom pizza:PizzaDeliveryBox ] ) ] .
+
+pizza:DeliveryTime a owl:Class ;
+    rdfs:subClassOf sulo:TimeInstant ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:TimeInstant [ a owl:Restriction ;
+                        owl:onProperty sulo:isTimeOf ;
+                        owl:someValuesFrom pizza:DeliveringThePizza ] ) ] .
+
+pizza:DesaltedAnchovyPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:PizzaSauce ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:DesaltedAnchovyIngredient ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( pizza:DesaltedAnchovyIngredient pizza:PizzaSauce ) ] ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:ExpressPizzaDelivery a owl:Class ;
+    rdfs:subClassOf pizza:DeliveringThePizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:DeliveringThePizza [ a owl:Restriction ;
+                        owl:onProperty sulo:atTime ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pizza:DeliveryDuration [ a owl:Restriction ;
+                                            owl:onProperty sulo:hasValue ;
+                                            owl:someValuesFrom [ a rdfs:Datatype ;
+                                                    owl:onDatatype xsd:decimal ;
+                                                    owl:withRestrictions ( [ xsd:maxInclusive 30.0 ] ) ] ] ) ] ] ) ] .
+
+pizza:HotPepperPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:PizzaSauce ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:HotPepper ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom pizza:HotPepper ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:OrderForFourCheesePizza a owl:Class ;
+    rdfs:subClassOf pizza:PizzaOrder ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:PizzaOrder [ a owl:Restriction ;
+                        owl:onProperty sulo:refersTo ;
+                        owl:someValuesFrom pizza:FourCheesePizza ] ) ] .
+
+pizza:OrderForSpicyPizza a owl:Class ;
+    rdfs:subClassOf pizza:PizzaOrder ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:PizzaOrder [ a owl:Restriction ;
+                        owl:onProperty sulo:refersTo ;
+                        owl:someValuesFrom pizza:SpicyPizza ] ) ] .
+
+pizza:PizzaRecipe a owl:Class ;
+    rdfs:subClassOf sulo:InformationObject ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:InformationObject [ a owl:Restriction ;
+                        owl:onProperty sulo:refersTo ;
+                        owl:someValuesFrom pizza:PizzaMakingProcess ] ) ] .
+
+pizza:ProsciuttoMozzarellaPizza a owl:Class ;
+    rdfs:comment "A pizza with exactly one mozzarella and one prosciutto topping and nothing else."^^xsd:string ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:Mozzarella ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:Prosciutto ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( pizza:Mozzarella pizza:Prosciutto ) ] ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:SaltyPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:someValuesFrom [ a owl:Restriction ;
+                                owl:onProperty sulo:hasFeature ;
+                                owl:someValuesFrom pizza:HighSalt ] ] ) ],
+        [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:someValuesFrom [ a owl:Restriction ;
+                                owl:onProperty sulo:hasFeature ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:intersectionOf ( pizza:SodiumMeasurement [ a owl:Restriction ;
+                                                    owl:onProperty sulo:hasValue ;
+                                                    owl:someValuesFrom [ a rdfs:Datatype ;
+                                                            owl:onDatatype xsd:integer ;
+                                                            owl:withRestrictions ( [ xsd:minInclusive 1400 ] ) ] ] ) ] ] ] ) ] .
+
+pizza:SpicySalamiPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:PizzaSauce ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:SpicySalami ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( pizza:SpicySalami pizza:PizzaSauce ) ] ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:baking_event_001 a owl:NamedIndividual,
+        pizza:BakingThePizza ;
+    sulo:atTime pizza:t_bake_end_001,
+        pizza:t_bake_start_001 .
+
+pizza:delivering_event_001 a owl:NamedIndividual,
+        pizza:DeliveringThePizza ;
+    sulo:atTime pizza:delivery_duration_001 .
+
+pizza:making_event_001 a owl:NamedIndividual,
+        pizza:MakingThePizzaDough .
+
+pizza:ordering_event_001 a owl:NamedIndividual,
+        pizza:OrderingProcess .
+
+pizza:pizza_boxing_001 a owl:NamedIndividual,
+        pizza:BoxingThePizza ;
+    sulo:hasParticipant pizza:box_containment_role_001,
+        pizza:pizza_contained_role_001 ;
+    sulo:precedes pizza:pizza_unboxing_001 .
+
+pizza:recipe_001 a owl:NamedIndividual,
+        sulo:InformationObject ;
+    rdfs:label "Traditional Neapolitan Pizza Recipe"^^xsd:string ;
+    sulo:refersTo pizza:making_001 .
+
+pizza:t_order_001 a owl:NamedIndividual,
+        pizza:OrderReceivedTime ;
+    rdfs:label "Order received time for order #001"^^xsd:string .
+
+pizza:BoxingThePizza a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:ContainedRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Pizza ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:ContainmentRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaDeliveryBox ] ) ] ],
+        sulo:Process .
+
+pizza:CheeseMelting a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:DevelopmentRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Cheese ] ) ] ],
+        pro:DevelopmentalProcess .
+
+pizza:Cornicione a owl:Class ;
+    rdfs:comment "A cornicione is the outer edge of a pizza crust"^^xsd:string ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:DenseTexture a owl:Class ;
+    rdfs:subClassOf pizza:DoughTexture ;
+    owl:disjointWith pizza:AiryTexture .
+
+pizza:DoughBaking a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:DevelopmentRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaCrust ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:DevelopmentRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaDough ] ) ] ],
+        pro:DevelopmentalProcess .
+
+pizza:FourCheesePizza a owl:Class ;
+    rdfs:comment "A Four Cheese Pizza is a pizza that contains exactly four different types of cheese as toppings."^^xsd:string ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:Cheese ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "4"^^xsd:nonNegativeInteger ] ) ] .
+
+pizza:LowSalt a owl:Class ;
+    rdfs:comment "A low level of saltiness."^^xsd:string ;
+    rdfs:subClassOf pizza:Saltiness .
+
+pizza:MediumSalt a owl:Class ;
+    rdfs:comment "A moderate level of saltiness."^^xsd:string ;
+    rdfs:subClassOf pizza:Saltiness .
+
+pizza:OliveOil a owl:Class ;
+    rdfs:comment "Olive oil used as an ingredient in pizza sauce."^^xsd:string ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:OnlineOrder a owl:Class ;
+    rdfs:subClassOf pizza:PizzaOrder ;
+    owl:disjointWith pizza:PhoneOrder .
+
+pizza:OrderAmount a owl:Class ;
+    rdfs:subClassOf sulo:Quantity .
+
+pizza:OrderReceivedTime a owl:Class ;
+    rdfs:subClassOf sulo:StartTime ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:StartTime [ a owl:Restriction ;
+                        owl:onProperty sulo:isTimeOf ;
+                        owl:someValuesFrom pizza:OrderingProcess ] ) ] .
+
+pizza:PhoneOrder a owl:Class ;
+    rdfs:subClassOf pizza:PizzaOrder .
+
+pizza:PizzaOven a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom pro:ContainmentRole ],
+        sulo:SpatialObject .
+
+pizza:PizzaReceipt a owl:Class ;
+    rdfs:subClassOf sulo:InformationObject .
+
+pizza:PizzaSlice a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:PlacingPizzaOnTable a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:SurfacePositionRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Table ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:OnTopPositionRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Pizza ] ) ] ],
+        sulo:Process .
+
+pizza:ScovilleHeatUnit a owl:Class ;
+    rdfs:comment """A unit to measure the spiciness or "heat" of chili peppers and substances based on their concentration of capsaicinoids. 
+                    The scale indicates how many times a chili extract must be diluted in sugar water before its heat is undetectable to tasters."""^^xsd:string ;
+    rdfs:subClassOf sulo:Unit .
+
+pizza:SpicyMild a owl:Class ;
+    rdfs:comment "A low level of spiciness with minimal heat sensation."^^xsd:string ;
+    rdfs:subClassOf pizza:Spiciness .
+
+pizza:SpicyPizza a owl:Class ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:someValuesFrom [ a owl:Restriction ;
+                                owl:onProperty sulo:hasFeature ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:unionOf ( pizza:SpicyHot pizza:SpicyMedium ) ] ] ] ) ],
+        [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onProperty sulo:hasPart ;
+                        owl:someValuesFrom [ a owl:Restriction ;
+                                owl:onProperty sulo:hasFeature ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:intersectionOf ( pizza:SpicinessMeasurement [ a owl:Restriction ;
+                                                    owl:onProperty sulo:hasValue ;
+                                                    owl:someValuesFrom [ a rdfs:Datatype ;
+                                                            owl:onDatatype xsd:integer ;
+                                                            owl:withRestrictions ( [ xsd:minInclusive 300000 ] ) ] ] ) ] ] ] ) ] .
+
+pizza:UnboxingThePizza a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:ContainmentRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaDeliveryBox ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:ContainedRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Pizza ] ) ] ],
+        sulo:Process .
+
+pizza:UnproofedDoughRole a owl:Class ;
+    rdfs:subClassOf sulo:Role ;
+    owl:disjointWith pizza:ProofedDoughRole .
+
+pizza:amount_001 a owl:NamedIndividual,
+        pizza:OrderAmount ;
+    sulo:hasValue 12.5 .
+
+pizza:delivery_duration_001 a owl:NamedIndividual,
+        pizza:DeliveryDuration ;
+    sulo:hasValue 25.0 .
+
+pizza:fridge_001 a owl:NamedIndividual,
+        sulo:SpatialObject ;
+    sulo:contains pizza:delivery_box_001 .
+
+pizza:id_001 a owl:NamedIndividual,
+        pizza:OrderIdentifier ;
+    sulo:hasValue "ORD-001"^^xsd:string .
+
+pizza:id_002 a owl:NamedIndividual,
+        pizza:OrderIdentifier ;
+    sulo:hasValue "ORD-002"^^xsd:string .
+
+pizza:legacy_id a owl:NamedIndividual,
+        pizza:OrderIdentifier ;
+    sulo:hasValue "LEGACY-001"^^xsd:string .
+
+pizza:making_001 a owl:NamedIndividual,
+        pizza:PizzaMakingProcess .
+
+pizza:order_001_legacy a owl:NamedIndividual,
+        pizza:PizzaOrder ;
+    rdfs:label "ORD-001 (legacy system)"^^xsd:string ;
+    sulo:hasFeature pizza:legacy_id .
+
+pizza:order_002 a owl:NamedIndividual,
+        pizza:OnlineOrder ;
+    rdfs:label "Pizza Order #002 (online)"^^xsd:string ;
+    sulo:hasFeature pizza:id_002 .
+
+pizza:pizza_ontop_position_role_001 a owl:NamedIndividual,
+        pro:OnTopPositionRole ;
+    sulo:isFeatureOf pizza:pizza_001 .
+
+pizza:pizza_unboxing_001 a owl:NamedIndividual,
+        pizza:UnboxingThePizza ;
+    sulo:hasParticipant pizza:box_containment_role_001,
+        pizza:pizza_contained_role_001 ;
+    sulo:precedes pizza:placing_pizza_on_table_001 .
+
+pizza:placing_pizza_on_table_001 a owl:NamedIndividual,
+        pizza:PlacingPizzaOnTable ;
+    sulo:hasParticipant pizza:pizza_ontop_position_role_001,
+        pizza:table_surface_role_001 .
+
+pizza:quattro_formaggi_001 a owl:NamedIndividual,
+        pizza:TraditionalFourCheesePizza .
+
+pizza:receipt_001 a owl:NamedIndividual,
+        pizza:PizzaReceipt ;
+    rdfs:label "Receipt #001"^^xsd:string ;
+    sulo:hasFeature pizza:amount_001 ;
+    sulo:refersTo pizza:order_001 .
+
+pizza:t_bake_end_001 a owl:NamedIndividual,
+        pizza:BakingEndTime ;
+    rdfs:label "Baking end for order #001"^^xsd:string .
+
+pizza:t_bake_start_001 a owl:NamedIndividual,
+        pizza:BakingStartTime ;
+    rdfs:label "Baking start for order #001"^^xsd:string .
+
+pizza:table_001 a owl:NamedIndividual,
+        pizza:Table .
+
+pizza:table_surface_role_001 a owl:NamedIndividual,
+        pro:SurfacePositionRole ;
+    sulo:isFeatureOf pizza:table_001 .
+
+pizza: a owl:Ontology ;
+    rdfs:label "SULO Pizza Tutorial Ontology"@en ;
+    dc:creator <https://orcid.org/0000-0003-4727-9435> ;
+    dcterms:alternative "pizza"@en ;
+    dcterms:bibliographicCitation "Unpublished"@en ;
+    dcterms:contributor <https://orcid.org/0000-0003-4727-9435> ;
+    dcterms:created "2026-05-08T19:34:06.758055+00:00"^^xsd:dateTime ;
+    dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."@en ;
+    dcterms:issued "2026-05-08"^^xsd:date ;
+    dcterms:language <http://lexvo.org/id/iso639-1/en> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-05-08T19:34:06.758055+00:00"^^xsd:dateTime ;
+    dcterms:publisher <https://github.com/micheldumontier> ;
+    dcterms:title "SULO Pizza Tutorial Ontology"@en ;
+    pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
+    vann:preferredNamespacePrefix "pizza" ;
+    vann:preferredNamespaceUri pizza: ;
+    rdfs:comment "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."@en ;
+    owl:imports <https://w3id.org/ontostart/pro>,
+        <https://w3id.org/sulo> ;
+    owl:versionIRI pizza:0.0.1 ;
+    owl:versionInfo "0.0.1"^^xsd:string ;
+    dcat:accessURL pizza: ;
+    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
+    schema:funding "This work is supported by the SULO Pizza Tutorial at ESWC 2026."@en ;
+    mod:definitionProperty rdfs:comment ;
+    mod:hasRepresentationLanguage omv:OWL ;
+    mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
+    mod:prefLabelProperty rdfs:label ;
+    mod:status "active" .
+
+pizza:AiryTexture a owl:Class ;
+    rdfs:subClassOf pizza:DoughTexture .
+
+pizza:AnchovyIngredient a owl:Class ;
+    rdfs:comment "An anchovy topping, known for very high salt content."^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom pizza:HighSalt ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:SodiumMeasurement [ a owl:Restriction ;
+                                owl:onProperty sulo:hasPart ;
+                                owl:someValuesFrom pizza:Milligram ] [ a owl:Restriction ;
+                                owl:onProperty sulo:hasValue ;
+                                owl:someValuesFrom [ a rdfs:Datatype ;
+                                        owl:onDatatype xsd:integer ;
+                                        owl:withRestrictions ( [ xsd:minInclusive 1400 ] ) ] ] ) ] ],
+        pizza:FoodMaterial ;
+    owl:disjointWith pizza:DesaltedAnchovyIngredient .
+
+pizza:BakerRole a owl:Class ;
+    rdfs:subClassOf pro:AgentRole .
+
+pizza:BakersYeast a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:BakingEndTime a owl:Class ;
+    rdfs:subClassOf sulo:EndTime ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:EndTime [ a owl:Restriction ;
+                        owl:onProperty sulo:isTimeOf ;
+                        owl:someValuesFrom pizza:BakingThePizza ] ) ] .
+
+pizza:BakingStartTime a owl:Class ;
+    rdfs:subClassOf sulo:StartTime ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( sulo:StartTime [ a owl:Restriction ;
+                        owl:onProperty sulo:isTimeOf ;
+                        owl:someValuesFrom pizza:BakingThePizza ] ) ] .
+
+pizza:DeliveryDuration a owl:Class ;
+    rdfs:subClassOf sulo:Duration .
+
+pizza:DoughTexture a owl:Class ;
+    rdfs:subClassOf sulo:Quality .
+
+pizza:Flour a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:HotPepper a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:SpicinessMeasurement [ a owl:Restriction ;
+                                owl:onProperty sulo:hasPart ;
+                                owl:someValuesFrom pizza:ScovilleHeatUnit ] [ a owl:Restriction ;
+                                owl:onProperty sulo:hasValue ;
+                                owl:someValuesFrom [ a rdfs:Datatype ;
+                                        owl:onDatatype xsd:integer ;
+                                        owl:withRestrictions ( [ xsd:minInclusive 500000 ] ) ] ] ) ] ],
+        pizza:FoodMaterial ;
+    owl:disjointWith pizza:SpicySalami .
+
+pizza:Milligram a owl:Class ;
+    rdfs:comment "A unit of mass equal to one thousandth of a gram, used here for sodium content."^^xsd:string ;
+    rdfs:subClassOf sulo:Unit .
+
+pizza:OrderingProcess a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:MakingThePizzaDough ],
+        pro:TransformationProcess .
+
+pizza:PizzaMakingProcess a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:BakingThePizza [ a owl:Restriction ;
+                                owl:onProperty sulo:precedes ;
+                                owl:someValuesFrom pizza:SlicingThePizza ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:MakingThePizzaDough [ a owl:Restriction ;
+                                owl:onProperty sulo:precedes ;
+                                owl:someValuesFrom pizza:ProofingTheDough ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:ProofingTheDough [ a owl:Restriction ;
+                                owl:onProperty sulo:precedes ;
+                                owl:someValuesFrom pizza:AssemblingThePizza ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom pizza:SlicingThePizza ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:AssemblingThePizza [ a owl:Restriction ;
+                                owl:onProperty sulo:precedes ;
+                                owl:someValuesFrom pizza:BakingThePizza ] ) ] ],
+        sulo:Process .
+
+pizza:ProofedDoughRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pizza:Salt a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:SpicinessMeasurement a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:refersTo ;
+            owl:someValuesFrom pizza:Spiciness ],
+        sulo:Quantity .
+
+pizza:Sugar a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:TraditionalFourCheesePizza a owl:Class ;
+    rdfs:comment "A Traditional Four Cheese Pizza is a pizza made with mozzarella, gorgonzola, parmesan, and pecorino romano."^^xsd:string ;
+    rdfs:subClassOf pizza:Pizza ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( pizza:Pizza [ a owl:Restriction ;
+                        owl:onClass pizza:Mozzarella ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:Gorgonzola ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:Parmesan ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:onClass pizza:PecorinoRomano ;
+                        owl:onProperty sulo:hasDirectPart ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( pizza:Mozzarella pizza:Gorgonzola pizza:Parmesan pizza:PecorinoRomano ) ] ;
+                        owl:onProperty sulo:hasDirectPart ] ) ] .
+
+pizza:Water a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:box_containment_role_001 a owl:NamedIndividual,
+        pro:ContainmentRole ;
+    sulo:isFeatureOf pizza:delivery_box_001 .
+
+pizza:crust_of_my_pizza a owl:NamedIndividual,
+        pizza:PizzaCrust .
+
+pizza:order_001 a owl:NamedIndividual,
+        pizza:PizzaOrder ;
+    rdfs:label "Pizza Order #001"^^xsd:string ;
+    rdfs:comment "Order for a TraditionalFourCheesePizza, placed at the counter."^^xsd:string ;
+    owl:sameAs pizza:order_001_legacy ;
+    sulo:hasFeature pizza:id_001 ;
+    sulo:refersTo pizza:quattro_formaggi_001 .
+
+pizza:pizza_contained_role_001 a owl:NamedIndividual,
+        pro:ContainedRole ;
+    sulo:isFeatureOf pizza:pizza_001 .
+
+pizza:AssemblingThePizza a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:PersistingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom owl:Thing ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:EmergingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Pizza ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:PersistingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaSauce ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:BakingThePizza ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:BakerRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Person ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:PersistingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaDough ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:PersistingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Cheese ] ) ] ],
+        pro:TransformationProcess .
+
+pizza:DesaltedAnchovyIngredient a owl:Class ;
+    rdfs:comment "An anchovy desalted to below 400 mg sodium per 100 g."^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pizza:SodiumMeasurement [ a owl:Restriction ;
+                                owl:onProperty sulo:hasPart ;
+                                owl:someValuesFrom pizza:Milligram ] [ a owl:Restriction ;
+                                owl:onProperty sulo:hasValue ;
+                                owl:someValuesFrom [ a rdfs:Datatype ;
+                                        owl:onDatatype xsd:integer ;
+                                        owl:withRestrictions ( [ xsd:maxInclusive 400 ] ) ] ] ) ] ],
+        pizza:FoodMaterial .
+
+pizza:HighSalt a owl:Class ;
+    rdfs:comment "A high level of saltiness causing a strong savoury flavour."^^xsd:string ;
+    rdfs:subClassOf pizza:Saltiness .
+
+pizza:MakingThePizzaDough a owl:Class ;
+    rdfs:subClassOf [ a owl:Class ;
+            owl:intersectionOf ( sulo:Process [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:Flour ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:Water ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:Sugar ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:BakersYeast ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:Salt ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:PizzaDough ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom pizza:Person ] ) ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:ProofingTheDough ],
+        [ a owl:Class ;
+            owl:intersectionOf ( pro:TransformationProcess [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:Flour ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:Water ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:Sugar ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:BakersYeast ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:Salt ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pro:EmergingRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:PizzaDough ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:hasParticipant ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( pizza:BakerRole [ a owl:Restriction ;
+                                            owl:onProperty sulo:isFeatureOf ;
+                                            owl:someValuesFrom pizza:Person ] ) ] ] ) ],
+        pro:TransformationProcess,
+        sulo:Process .
+
+pizza:OrderIdentifier a owl:Class ;
+    rdfs:subClassOf sulo:InformationObject .
+
+pizza:Person a owl:Class ;
+    rdfs:subClassOf sulo:SpatialObject .
+
+pizza:PizzaCrust a owl:Class ;
+    rdfs:comment """A pizza crust is a food material resulting from the cooking of a dough 
+                    and forms the base of a pizza upon which sauce and toppings are added."""^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasDirectPart ;
+            owl:someValuesFrom pizza:Cornicione ],
+        pizza:FoodMaterial .
+
+pizza:ProofingTheDough a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:AssemblingThePizza ],
+        [ a owl:Class ;
+            owl:intersectionOf ( [ a owl:Restriction ;
+                        owl:onProperty sulo:hasPart ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( [ a owl:Restriction ;
+                                            owl:onProperty sulo:hasParticipant ;
+                                            owl:someValuesFrom [ a owl:Class ;
+                                                    owl:intersectionOf ( pizza:UnproofedDoughRole [ a owl:Restriction ;
+                                                                owl:onProperty sulo:isFeatureOf ;
+                                                                owl:someValuesFrom pizza:PizzaDough ] ) ] ] [ a owl:Restriction ;
+                                            owl:onProperty sulo:hasParticipant ;
+                                            owl:someValuesFrom [ a owl:Class ;
+                                                    owl:intersectionOf ( pizza:DenseTexture [ a owl:Restriction ;
+                                                                owl:onProperty sulo:isFeatureOf ;
+                                                                owl:someValuesFrom pizza:PizzaDough ] ) ] ] ) ] ] [ a owl:Restriction ;
+                        owl:onProperty sulo:precedes ;
+                        owl:someValuesFrom [ a owl:Restriction ;
+                                owl:onProperty sulo:hasPart ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:intersectionOf ( [ a owl:Restriction ;
+                                                    owl:onProperty sulo:hasParticipant ;
+                                                    owl:someValuesFrom [ a owl:Class ;
+                                                            owl:intersectionOf ( pizza:ProofedDoughRole [ a owl:Restriction ;
+                                                                        owl:onProperty sulo:isFeatureOf ;
+                                                                        owl:someValuesFrom pizza:PizzaDough ] ) ] ] [ a owl:Restriction ;
+                                                    owl:onProperty sulo:hasParticipant ;
+                                                    owl:someValuesFrom [ a owl:Class ;
+                                                            owl:intersectionOf ( pizza:AiryTexture [ a owl:Restriction ;
+                                                                        owl:onProperty sulo:isFeatureOf ;
+                                                                        owl:someValuesFrom pizza:PizzaDough ] ) ] ] ) ] ] ] ) ],
+        pro:DevelopmentalProcess .
+
+pizza:Prosciutto a owl:Class ;
+    rdfs:comment "A dry-cured Italian ham."^^xsd:string ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:SlicingThePizza a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:EmergingRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:PizzaSlice ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:DeliveringThePizza ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( pro:ConsumedRole [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom pizza:Pizza ] ) ] ],
+        pro:TransformationProcess .
+
+pizza:SodiumMeasurement a owl:Class ;
+    rdfs:comment "A measurement of sodium content in milligrams."^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:refersTo ;
+            owl:someValuesFrom pizza:Saltiness ],
+        sulo:Quantity .
+
+pizza:SpicyHot a owl:Class ;
+    rdfs:comment "A high level of spiciness causing intense heat sensation."^^xsd:string ;
+    rdfs:subClassOf pizza:Spiciness .
+
+pizza:SpicyMedium a owl:Class ;
+    rdfs:comment "A moderate level of spiciness."^^xsd:string ;
+    rdfs:subClassOf pizza:Spiciness .
+
+pizza:SpicySalami a owl:Class ;
+    rdfs:comment "A salami with a hot or medium spiciness quality."^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:unionOf ( pizza:SpicyHot pizza:SpicyMedium ) ] ],
+        pizza:FoodMaterial .
+
+pizza:Table a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom pro:SurfacePositionRole ],
+        sulo:SpatialObject .
+
+pizza:delivery_box_001 a owl:NamedIndividual,
+        pizza:PizzaDeliveryBox ;
+    sulo:contains pizza:pizza_001 .
+
+pizza:Gorgonzola a owl:Class ;
+    rdfs:comment "Gorgonzola is a veined Italian blue cheese, made from unskimmed cow's milk."^^xsd:string ;
+    rdfs:subClassOf pizza:Cheese .
+
+pizza:Parmesan a owl:Class ;
+    rdfs:comment "Parmesan is a hard, granular cheese named after the producing areas near Parma, Italy."^^xsd:string ;
+    rdfs:subClassOf pizza:Cheese .
+
+pizza:PecorinoRomano a owl:Class ;
+    rdfs:comment "Pecorino Romano is a hard, salty Italian cheese, often used for grating, made out of sheep's milk."^^xsd:string ;
+    rdfs:subClassOf pizza:Cheese .
+
+pizza:Saltiness a owl:Class ;
+    rdfs:comment "Saltiness is a quality describing the perceived salt content of a food material."^^xsd:string ;
+    rdfs:subClassOf sulo:Quality .
+
+pizza:Spiciness a owl:Class ;
+    rdfs:comment "Spiciness is a quality that represents the perceived heat or pungency of a food material."^^xsd:string ;
+    rdfs:subClassOf sulo:Quality .
+
+pizza:pizza_001 a owl:NamedIndividual,
+        pizza:TraditionalFourCheesePizza ;
+    sulo:hasDirectPart pizza:crust_of_my_pizza .
+
+pizza:DeliveringThePizza a owl:Class ;
+    rdfs:subClassOf pro:TransformationProcess .
+
+pizza:PizzaDeliveryBox a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasFeature ;
+            owl:someValuesFrom pro:ContainmentRole ],
+        sulo:SpatialObject .
+
+pizza:BakingThePizza a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom pizza:DoughBaking ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom pizza:SlicingThePizza ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasPart ;
+            owl:someValuesFrom pizza:CheeseMelting ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:atTime ;
+            owl:someValuesFrom pizza:BakingEndTime ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:atTime ;
+            owl:someValuesFrom pizza:BakingStartTime ],
+        pro:DevelopmentalProcess .
+
+pizza:Mozzarella a owl:Class ;
+    rdfs:comment "Mozzarella is a traditionally southern Italian cheese made from Italian buffalo's milk by the pasta filata method."^^xsd:string ;
+    rdfs:subClassOf pizza:Cheese .
+
+pizza:Cheese a owl:Class ;
+    rdfs:comment "A cheese is a food material derived from milk and produced in a wide range of flavors, textures, and forms by coagulation of the milk protein casein."^^xsd:string ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:PizzaDough a owl:Class ;
+    rdfs:subClassOf pizza:FoodMaterial .
+
+pizza:PizzaOrder a owl:Class ;
+    rdfs:subClassOf sulo:InformationObject .
+
+pizza:PizzaSauce a owl:Class ;
+    rdfs:comment """A pizza sauce is a food material used in the preparation of pizza,
+                    typically made from tomatoes and various herbs and spices."""@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasDirectPart ;
+            owl:someValuesFrom pizza:OliveOil ],
+        pizza:FoodMaterial .
+
+pizza:FoodMaterial a owl:Class ;
+    rdfs:comment "A food material is a spatial object that is intended for consumption as food."^^xsd:string ;
+    rdfs:subClassOf sulo:SpatialObject .
+
+pizza:Pizza a owl:Class ;
+    rdfs:comment """A pizza is a food material minimally consisting of a pizza crust (baked dough) and optionally topped with 
+                    tomatoes or tomato sauce, cheese, and often various other ingredients (such as anchovies, mushrooms, onions, olives, 
+                    vegetables, meat, etc.) baked at a high temperature."""^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:hasDirectPart ;
+            owl:someValuesFrom pizza:PizzaSauce ],
+        [ a owl:Restriction ;
+            owl:onClass pizza:PizzaCrust ;
+            owl:onProperty sulo:hasDirectPart ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        pizza:FoodMaterial .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pizza:LowSalt pizza:MediumSalt pizza:HighSalt ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( pizza:order_001 pizza:order_002 pizza:receipt_001 ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( pizza:pizza_001 pizza:delivery_box_001 pizza:crust_of_my_pizza pizza:fridge_001 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pizza:Mozzarella pizza:Gorgonzola pizza:Parmesan pizza:PecorinoRomano ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pizza:PizzaOven pizza:PizzaDeliveryBox pizza:Table ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pizza:SpicyHot pizza:SpicyMedium pizza:SpicyMild ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pizza:Prosciutto pizza:Mozzarella pizza:Gorgonzola pizza:Parmesan pizza:PecorinoRomano ) .
+
