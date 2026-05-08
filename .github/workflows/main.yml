@@ -1,6 +1,8 @@
 name: ontology CI
 on:
   push:
+    branches:
+      - main
     paths:
       - '*.ttl'
   workflow_dispatch:
