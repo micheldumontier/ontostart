@@ -1,0 +1,144 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mod: <https://w3id.org/mod#> .
+@prefix omv: <http://omv.ontoware.org/2005/05/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix pro: <https://w3id.org/ontostart/pro/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sulo: <https://w3id.org/sulo/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:creator a owl:AnnotationProperty .
+
+dcterms:alternative a owl:AnnotationProperty .
+
+dcterms:bibliographicCitation a owl:AnnotationProperty .
+
+dcterms:contributor a owl:AnnotationProperty .
+
+dcterms:created a owl:AnnotationProperty .
+
+dcterms:description a owl:AnnotationProperty .
+
+dcterms:issued a owl:AnnotationProperty .
+
+dcterms:language a owl:AnnotationProperty .
+
+dcterms:license a owl:AnnotationProperty .
+
+dcterms:modified a owl:AnnotationProperty .
+
+dcterms:publisher a owl:AnnotationProperty .
+
+dcterms:title a owl:AnnotationProperty .
+
+pav:authoredBy a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+
+skos:example a owl:AnnotationProperty .
+
+dcat:accessURL a owl:AnnotationProperty .
+
+foaf:homepage a owl:AnnotationProperty .
+
+schema:funding a owl:AnnotationProperty .
+
+mod:definitionProperty a owl:AnnotationProperty .
+
+mod:hasRepresentationLanguage a owl:AnnotationProperty .
+
+mod:hasSyntax a owl:AnnotationProperty .
+
+mod:prefLabelProperty a owl:AnnotationProperty .
+
+mod:status a owl:AnnotationProperty .
+
+pro:ConsumedRole a owl:Class ;
+    rdfs:subClassOf pro:PatientRole .
+
+pro:DevelopmentRole a owl:Class ;
+    rdfs:subClassOf pro:PatientRole .
+
+pro:DevelopmentalProcess a owl:Class ;
+    rdfs:subClassOf sulo:Process ;
+    owl:disjointWith pro:TransformationProcess .
+
+pro:AgentRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pro:ContainedRole a owl:Class ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:ContainmentRole a owl:Class ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:EmergingRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pro:InstrumentRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pro:OnTopPositionRole a owl:Class ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:PersistingRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pro:SurfacePositionRole a owl:Class ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:TransformationProcess a owl:Class ;
+    rdfs:subClassOf sulo:Process .
+
+pro: a owl:Ontology ;
+    rdfs:label "SULO Process Role Ontology"@en ;
+    dc:creator <https://orcid.org/0000-0003-4727-9435> ;
+    dcterms:alternative "pro"@en ;
+    dcterms:bibliographicCitation "Unpublished"@en ;
+    dcterms:contributor <https://orcid.org/0000-0003-4727-9435> ;
+    dcterms:created "2026-05-08T20:04:55.460748+00:00"^^xsd:dateTime ;
+    dcterms:description "An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling."@en ;
+    dcterms:issued "2026-05-08"^^xsd:date ;
+    dcterms:language <http://lexvo.org/id/iso639-1/en> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-05-08T20:04:55.460748+00:00"^^xsd:dateTime ;
+    dcterms:publisher <https://github.com/micheldumontier> ;
+    dcterms:title "SULO Process Role Ontology"@en ;
+    pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
+    vann:preferredNamespacePrefix "pro" ;
+    vann:preferredNamespaceUri pro: ;
+    rdfs:comment "An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling."@en ;
+    owl:imports <https://w3id.org/sulo> ;
+    owl:versionIRI pro:0.0.4 ;
+    owl:versionInfo "0.0.4"^^xsd:string ;
+    dcat:accessURL pro: ;
+    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
+    schema:funding "This work is supported by the SULO Pizza Tutorial at ESWC 2026."@en ;
+    mod:definitionProperty rdfs:comment ;
+    mod:hasRepresentationLanguage omv:OWL ;
+    mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
+    mod:prefLabelProperty rdfs:label ;
+    mod:status "active" .
+
+pro:PatientRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+pro:LocationRole a owl:Class ;
+    rdfs:subClassOf sulo:Role .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pro:AgentRole pro:PatientRole pro:InstrumentRole pro:LocationRole pro:PersistingRole pro:EmergingRole ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pro:ContainmentRole pro:ContainedRole pro:OnTopPositionRole pro:SurfacePositionRole ) .
+

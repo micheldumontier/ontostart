@@ -1,0 +1,515 @@
+[
+  {
+    "@id": "https://w3id.org/mod#hasRepresentationLanguage",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#status",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#hasSyntax",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/alternative",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/creator",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/DevelopmentRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/PatientRole"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/bibliographicCitation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/license",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/issued",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://xmlns.com/foaf/0.1/homepage",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/contributor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/dcat#accessURL",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/pav/authoredBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#example",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/PatientRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/language",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "_:n33c740afe1c54c618ef68241ace4e09fb8",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainmentRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainedRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/OnTopPositionRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/EmergingRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/vocab/vann/preferredNamespacePrefix",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#prefLabelProperty",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Ontology"
+    ],
+    "http://purl.org/dc/elements/1.1/creator": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/dc/terms/alternative": [
+      {
+        "@language": "en",
+        "@value": "pro"
+      }
+    ],
+    "http://purl.org/dc/terms/bibliographicCitation": [
+      {
+        "@language": "en",
+        "@value": "Unpublished"
+      }
+    ],
+    "http://purl.org/dc/terms/contributor": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-05-08T20:04:55.460748+00:00"
+      }
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@language": "en",
+        "@value": "An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling."
+      }
+    ],
+    "http://purl.org/dc/terms/issued": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2026-05-08"
+      }
+    ],
+    "http://purl.org/dc/terms/language": [
+      {
+        "@id": "http://lexvo.org/id/iso639-1/en"
+      }
+    ],
+    "http://purl.org/dc/terms/license": [
+      {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-05-08T20:04:55.460748+00:00"
+      }
+    ],
+    "http://purl.org/dc/terms/publisher": [
+      {
+        "@id": "https://github.com/micheldumontier"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@language": "en",
+        "@value": "SULO Process Role Ontology"
+      }
+    ],
+    "http://purl.org/pav/authoredBy": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespacePrefix": [
+      {
+        "@value": "pro"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespaceUri": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "SULO Process Role Ontology"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#imports": [
+      {
+        "@id": "https://w3id.org/sulo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionIRI": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/0.0.4"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "0.0.4"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#accessURL": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/homepage": [
+      {
+        "@id": "https://github.com/micheldumontier/ontostart"
+      }
+    ],
+    "https://schema.org/funding": [
+      {
+        "@language": "en",
+        "@value": "This work is supported by the SULO Pizza Tutorial at ESWC 2026."
+      }
+    ],
+    "https://w3id.org/mod#definitionProperty": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#comment"
+      }
+    ],
+    "https://w3id.org/mod#hasRepresentationLanguage": [
+      {
+        "@id": "http://omv.ontoware.org/2005/05/ontology#OWL"
+      }
+    ],
+    "https://w3id.org/mod#hasSyntax": [
+      {
+        "@id": "http://www.w3.org/ns/formats/Turtle"
+      }
+    ],
+    "https://w3id.org/mod#prefLabelProperty": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#label"
+      }
+    ],
+    "https://w3id.org/mod#status": [
+      {
+        "@value": "active"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/InstrumentRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/created",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/title",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ContainedRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "_:n33c740afe1c54c618ef68241ace4e09fb1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/AgentRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/PatientRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/InstrumentRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/LocationRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/vocab/vann/preferredNamespaceUri",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/AgentRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#definitionProperty",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/description",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/LocationRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "https://schema.org/funding",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/OnTopPositionRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ConsumedRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/PatientRole"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/publisher",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/modified",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/PersistingRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ContainmentRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/TransformationProcess",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  }
+]

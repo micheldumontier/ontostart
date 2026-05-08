@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcat="http://www.w3.org/ns/dcat#"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:mod="https://w3id.org/mod#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:pav="http://purl.org/pav/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:schema="https://schema.org/"
+   xmlns:vann="http://purl.org/vocab/vann/"
+>
+  <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/InstrumentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label xml:lang="en">SULO Process Role Ontology</rdfs:label>
+    <dc:creator rdf:resource="https://orcid.org/0000-0003-4727-9435"/>
+    <dcterms:alternative xml:lang="en">pro</dcterms:alternative>
+    <dcterms:bibliographicCitation xml:lang="en">Unpublished</dcterms:bibliographicCitation>
+    <dcterms:contributor rdf:resource="https://orcid.org/0000-0003-4727-9435"/>
+    <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-08T20:04:55.460748+00:00</dcterms:created>
+    <dcterms:description xml:lang="en">An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling.</dcterms:description>
+    <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-08</dcterms:issued>
+    <dcterms:language rdf:resource="http://lexvo.org/id/iso639-1/en"/>
+    <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-08T20:04:55.460748+00:00</dcterms:modified>
+    <dcterms:publisher rdf:resource="https://github.com/micheldumontier"/>
+    <dcterms:title xml:lang="en">SULO Process Role Ontology</dcterms:title>
+    <pav:authoredBy rdf:resource="https://orcid.org/0000-0003-4727-9435"/>
+    <vann:preferredNamespacePrefix>pro</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri rdf:resource="https://w3id.org/ontostart/pro/"/>
+    <rdfs:comment xml:lang="en">An OWL ontology of process roles extending SULO. Provides agent, patient, instrument, location, containment, surface-position, and related role classes for use in process modelling.</rdfs:comment>
+    <owl:imports rdf:resource="https://w3id.org/sulo"/>
+    <owl:versionIRI rdf:resource="https://w3id.org/ontostart/pro/0.0.4"/>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0.4</owl:versionInfo>
+    <dcat:accessURL rdf:resource="https://w3id.org/ontostart/pro/"/>
+    <foaf:homepage rdf:resource="https://github.com/micheldumontier/ontostart"/>
+    <schema:funding xml:lang="en">This work is supported by the SULO Pizza Tutorial at ESWC 2026.</schema:funding>
+    <mod:definitionProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    <mod:hasRepresentationLanguage rdf:resource="http://omv.ontoware.org/2005/05/ontology#OWL"/>
+    <mod:hasSyntax rdf:resource="http://www.w3.org/ns/formats/Turtle"/>
+    <mod:prefLabelProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#label"/>
+    <mod:status>active</mod:status>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ContainmentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb9">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/created">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb3">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/PatientRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ContainedRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/EmergingRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/AgentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#example">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/TransformationProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/mod#status">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/OnTopPositionRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb6">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/license">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/mod#hasRepresentationLanguage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb12">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/SurfacePositionRole"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/DevelopmentalProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/publisher">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/LocationRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/pav/authoredBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb7">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/EmergingRole"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/language">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/contributor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb5">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/SurfacePositionRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb2">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/AgentRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb10">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainedRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb11"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/issued">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ConsumedRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/homepage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/mod#definitionProperty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/PersistingRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/DevelopmentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb4">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/InstrumentRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb11">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/OnTopPositionRole"/>
+    <rdf:rest rdf:nodeID="n33c740afe1c54c618ef68241ace4e09fb12"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/bibliographicCitation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/dcat#accessURL">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/mod#prefLabelProperty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/description">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/modified">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/alternative">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/mod#hasSyntax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://schema.org/funding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/elements/1.1/creator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+</rdf:RDF>
