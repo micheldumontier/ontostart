@@ -292,7 +292,7 @@ jobs:
         id: pylode
         run: |
           mkdir -p "$DOCS_DIR/docs/pylode"
-          pylode -o "$DOCS_DIR/docs/pylode/index" "$ONTO_FILE"
+          pylode -i "$ONTO_FILE" -o "$DOCS_DIR/docs/pylode/index.html"
 
       - name: Badge — Pylode
         if: always()
