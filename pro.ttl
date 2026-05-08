@@ -25,6 +25,8 @@ dcterms:contributor a owl:AnnotationProperty .
 
 dcterms:created a owl:AnnotationProperty .
 
+dcterms:description a owl:AnnotationProperty .
+
 dcterms:issued a owl:AnnotationProperty .
 
 dcterms:language a owl:AnnotationProperty .
@@ -42,8 +44,6 @@ pav:authoredBy a owl:AnnotationProperty .
 vann:preferredNamespacePrefix a owl:AnnotationProperty .
 
 vann:preferredNamespaceUri a owl:AnnotationProperty .
-
-xsd:date a owl:AnnotationProperty .
 
 skos:example a owl:AnnotationProperty .
 
