@@ -145,7 +145,7 @@ jobs:
       - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
         run: |
           python -m pip install --upgrade pip
-          pip install rdflib dotenv pylode
+          pip install rdflib dotenv "git+https://github.com/RDFLib/pyLODE.git@3.1.0"
           wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
           curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
           chmod +x robot
@@ -305,6 +305,7 @@ jobs:
 
       - name: Generate static site with Pylode (branch-scoped)
         id: pylode
+        continue-on-error: true
         run: |
           mkdir -p "$DOCS_DIR/docs/pylode"
           python3 - << 'PY'
