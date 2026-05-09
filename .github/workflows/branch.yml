@@ -310,8 +310,8 @@ jobs:
           mkdir -p "$DOCS_DIR/docs/pylode"
           python3 - << 'PY'
           import os
-          from pylode import OntDoc
-          od = OntDoc(os.environ["ONTO_FILE"])
+          from pylode import OntPub
+          od = OntPub(os.environ["ONTO_FILE"])
           od.make_html(destination=f"{os.environ['DOCS_DIR']}/docs/pylode/index.html")
           print("Pylode HTML generated.")
           PY
