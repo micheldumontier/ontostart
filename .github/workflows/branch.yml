@@ -1,24 +1,31 @@
 name: branch-based CI
 
 on:
+  push:
+    branches-ignore:
+      - main
+      - gh-pages
+    paths:
+      - "*.ttl"
+      - "*.turtle"
   workflow_dispatch:
     inputs:
       branch:
         description: "Branch to build (leave empty to use current ref)"
         required: false
-        default: "main"
+        default: ""
       onto_abbrev:
         description: "Ontology name (leave empty to use the branch name)"
         required: false
-        default: "ontostart"
+        default: ""
       format:
         description: "Ontology file extension (e.g., ttl, owl, rdf, jsonld)"
         required: true
         default: "ttl"
-      onto_uri:
-        description: "Ontology URI"
+      bump_version:
+        description: "Bump the version and commit to the repo"
         required: false
-        default: "https://micheldumontier.github.io/ontostart/main/versions/0.0.1/ontostart.ttl"        
+        default: "true"
 
 jobs:
   build:
@@ -62,15 +69,23 @@ jobs:
           if [ -z "$RAW_ABBREV" ]; then
             RAW_ABBREV="$BRANCH"
           fi
-
+          
           # 3) Sanitize abbrev for safety (slashes->-, spaces->_)
           SAFE_ABBREV="${RAW_ABBREV//\//-}"
           SAFE_ABBREV="${SAFE_ABBREV// /_}"
           echo "ONTO_ABBREV=$SAFE_ABBREV" >> "$GITHUB_ENV"
           echo "onto_abbrev=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
 
-          # 4) Resolve ontology format (default already set by inputs)
-          ONTO_FORMAT="${{ inputs.format != '' && inputs.format || 'ttl' }}"
+          # 4) Resolve ontology format
+          # On push: detect from changed files; fall back to ttl.
+          # On workflow_dispatch: use the explicit input.
+          if [ -n "${{ inputs.format }}" ]; then
+            ONTO_FORMAT="${{ inputs.format }}"
+          elif git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -qE '\.turtle$'; then
+            ONTO_FORMAT="turtle"
+          else
+            ONTO_FORMAT="ttl"
+          fi
           echo "ONTO_FORMAT=$ONTO_FORMAT" >> "$GITHUB_ENV"
           echo "onto_format=$ONTO_FORMAT" >> "$GITHUB_OUTPUT"
 
@@ -130,11 +145,28 @@ jobs:
       - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
         run: |
           python -m pip install --upgrade pip
-          pip install rdflib dotenv pylode
+          pip install rdflib dotenv "git+https://github.com/RDFLib/pyLODE.git@3.1.0"
           wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
           curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
           chmod +x robot
 
+      - name: Get Ontology IRI
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          
+          # Find the ontology node (owl:Ontology)
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          onto = ontos[0] if ontos else None
+          iri = str(onto) if onto else ""
+          
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write(f"ONTO_IRI={iri}")
+          
       - name: Validate ontology profile
         id: profile
         run: |
@@ -185,8 +217,9 @@ jobs:
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
         run: |
-         echo "simulating bump_versioning"
-        #python scripts/bump_version.py
+          if [ ${{ inputs.bump_version }} = "true" ]; then
+            python scripts/bump_version.py
+          fi
 
       - name: Badge — Version update
         if: always()
@@ -221,6 +254,17 @@ jobs:
             f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
           PY
 
+      - name: Commit bumped ontology back to main 
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add $ONTO_FILE
+          git commit -m "chore(ontology): bump version to ${{ env.NEW_VERSION }} [skip ci]" || echo "Nothing to commit."
+          git push
+
+        # git add $ONTO_FILE ${{ env.NEW_FILES }}
+          
       - name: Copy files to docs
         id: copy_to_docs
         run: |
@@ -261,9 +305,16 @@ jobs:
 
       - name: Generate static site with Pylode (branch-scoped)
         id: pylode
+        continue-on-error: true
         run: |
           mkdir -p "$DOCS_DIR/docs/pylode"
-          pylode -o "$DOCS_DIR/docs/pylode/index" "$ONTO_FILE"
+          python3 - << 'PY'
+          import os
+          from pylode import OntDoc
+          od = OntDoc(os.environ["ONTO_FILE"])
+          od.make_html(destination=f"{os.environ['DOCS_DIR']}/docs/pylode/index.html")
+          print("Pylode HTML generated.")
+          PY
 
       - name: Badge — Pylode
         if: always()
@@ -299,6 +350,7 @@ jobs:
 
           with open(os.environ["GITHUB_ENV"], "a") as f:
             f.write(f"GITHUB_ONTO_URI={ttl}")
+            f.write(f"ONTO_IRI={iri}")
             
           jsonld = vers_url + ".jsonld"
           nt = vers_url + ".nt"
@@ -414,7 +466,7 @@ jobs:
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
               -H  "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"${{ env.GITHUB_ONTO_URI }}\"}" \
+              -d "{  \"ontologyUri\": \"${{ env.ONTO_IRI }}\"}" \
               -o foops-results.json
 
       - name: Upload foops results
