@@ -44,8 +44,6 @@ vann:preferredNamespacePrefix a owl:AnnotationProperty .
 
 vann:preferredNamespaceUri a owl:AnnotationProperty .
 
-xsd:date a owl:AnnotationProperty .
-
 skos:example a owl:AnnotationProperty .
 
 dcat:accessURL a owl:AnnotationProperty .
