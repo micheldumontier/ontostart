@@ -1,6 +1,13 @@
 name: branch-based CI
 
 on:
+  push:
+    branches-ignore:
+      - main
+      - gh-pages
+    paths:
+      - "*.ttl"
+      - "*.turtle"
   workflow_dispatch:
     inputs:
       branch:
@@ -18,7 +25,7 @@ on:
       bump_version:
         description: "Bump the version and commit to the repo"
         required: false
-        default: "true" 
+        default: "true"
 
 jobs:
   build:
@@ -69,8 +76,16 @@ jobs:
           echo "ONTO_ABBREV=$SAFE_ABBREV" >> "$GITHUB_ENV"
           echo "onto_abbrev=$SAFE_ABBREV" >> "$GITHUB_OUTPUT"
 
-          # 4) Resolve ontology format (default already set by inputs)
-          ONTO_FORMAT="${{ inputs.format != '' && inputs.format || 'ttl' }}"
+          # 4) Resolve ontology format
+          # On push: detect from changed files; fall back to ttl.
+          # On workflow_dispatch: use the explicit input.
+          if [ -n "${{ inputs.format }}" ]; then
+            ONTO_FORMAT="${{ inputs.format }}"
+          elif git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -qE '\.turtle$'; then
+            ONTO_FORMAT="turtle"
+          else
+            ONTO_FORMAT="ttl"
+          fi
           echo "ONTO_FORMAT=$ONTO_FORMAT" >> "$GITHUB_ENV"
           echo "onto_format=$ONTO_FORMAT" >> "$GITHUB_OUTPUT"
 
