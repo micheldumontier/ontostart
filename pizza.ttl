@@ -499,7 +499,7 @@ pizza: a owl:Ontology ;
     owl:versionInfo "0.0.4"^^xsd:string ;
     dcat:accessURL pizza: ;
     foaf:homepage <https://github.com/micheldumontier/ontostart> ;
-    schema:funding "This work is supported by the SULO Pizza Tutorial at ESWC 2026."@en ;
+    schema:funding "This work is supported by the AIDAVA project."@en ;
     mod:definitionProperty rdfs:comment ;
     mod:hasRepresentationLanguage omv:OWL ;
     mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
