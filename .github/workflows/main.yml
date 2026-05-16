@@ -10,8 +10,8 @@ on:
 jobs:
   build:
     env:
-      ONTO_FILE: testo.ttl
-      ONTO_ABBREV: testo
+      ONTO_FILE: ontostart.ttl
+      ONTO_ABBREV: ontostart
       VERSION_DIR: versions
       DOCS_DIR: docs
       GIST_ID: ${{ vars.GIST_ID }}
