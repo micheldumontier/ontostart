@@ -476,17 +476,17 @@ pizza:table_surface_role_001 a owl:NamedIndividual,
     sulo:isFeatureOf pizza:table_001 .
 
 pizza: a owl:Ontology ;
-    rdfs:label "SULO Pizza Tutorial Ontology"@en ;
+    rdfs:label "SULO Pizza Tutorial ontology"@en ;
     dc:creator <https://orcid.org/0000-0003-4727-9435> ;
     dcterms:alternative "pizza"@en ;
     dcterms:bibliographicCitation "Unpublished"@en ;
     dcterms:contributor <https://orcid.org/0000-0003-4727-9435> ;
-    dcterms:created "2026-05-09T07:24:20.644617+00:00"^^xsd:dateTime ;
+    dcterms:created "2026-05-16T12:53:19.679111+00:00"^^xsd:dateTime ;
     dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."@en ;
-    dcterms:issued "2026-05-09"^^xsd:date ;
+    dcterms:issued "2026-05-16"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:modified "2026-05-09T07:24:20.644617+00:00"^^xsd:dateTime ;
+    dcterms:modified "2026-05-16T12:53:19.679111+00:00"^^xsd:dateTime ;
     dcterms:publisher <https://github.com/micheldumontier> ;
     dcterms:title "SULO Pizza Tutorial Ontology"@en ;
     pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
@@ -495,8 +495,8 @@ pizza: a owl:Ontology ;
     rdfs:comment "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."@en ;
     owl:imports <https://w3id.org/ontostart/pro>,
         <https://w3id.org/sulo> ;
-    owl:versionIRI pizza:0.0.4 ;
-    owl:versionInfo "0.0.4"^^xsd:string ;
+    owl:versionIRI pizza:0.0.5 ;
+    owl:versionInfo "0.0.5"^^xsd:string ;
     dcat:accessURL pizza: ;
     foaf:homepage <https://github.com/micheldumontier/ontostart> ;
     schema:funding "This work is supported by the AIDAVA project."@en ;
