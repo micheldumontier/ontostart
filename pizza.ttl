@@ -476,7 +476,7 @@ pizza:table_surface_role_001 a owl:NamedIndividual,
     sulo:isFeatureOf pizza:table_001 .
 
 pizza: a owl:Ontology ;
-    rdfs:label "SULO Pizza Tutorial ontology"@en ;
+    rdfs:label "SULO Pizza Tutorial Ontology"@en ;
     dc:creator <https://orcid.org/0000-0003-4727-9435> ;
     dcterms:alternative "pizza"@en ;
     dcterms:bibliographicCitation "Unpublished"@en ;
