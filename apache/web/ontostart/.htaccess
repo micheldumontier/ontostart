@@ -78,16 +78,23 @@ RewriteCond %1 !^(github|docs|versions)$
 RewriteRule ^([A-Z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/docs/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
 
 
-# Content-type redirections to the latest version for branch-based path
-# Accept: text/turtle https://w3id.org/ontostart/testo/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/ontostart.ttl
+# Content-type redirections — main branch uses ONTO abbrev ('ontostart'), not branch name
+# Accept: text/turtle https://w3id.org/ontostart/main/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.ttl
 RewriteCond %{ENV:EXT} .
-RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteRule ^(main)/?$ %{ENV:GH_PAGE}/main/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 
-# Content-type redirections to provided path
-# Accept: text/turtle https://w3id.org/ontostart/versions/latest/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.ttl
-# Accept: text/turtle https://w3id.org/ontostart/versions/1.0.0/ -> https://micheldumontier.github.io/ontostart/main/versions/1.0.0/ontostart.ttl
+# Accept: text/turtle https://w3id.org/ontostart/main/0.0.1 -> https://micheldumontier.github.io/ontostart/main/0.0.1/ontostart.ttl
 RewriteCond %{ENV:EXT} .
-RewriteRule ^(.+?)/?$ %{ENV:GH_PAGE}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteRule ^(main)/(.+?)/?$ %{ENV:GH_PAGE}/main/$2/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+
+# Content-type redirections — other branches: branch name = onto abbreviation
+# Accept: text/turtle https://w3id.org/ontostart/pizza/ -> https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.ttl
+RewriteCond %{ENV:EXT} .
+RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/$1.%{ENV:EXT} [R=303,L]
+
+# Accept: text/turtle https://w3id.org/ontostart/pizza/0.0.5 -> https://micheldumontier.github.io/ontostart/pizza/0.0.5/pizza.ttl
+RewriteCond %{ENV:EXT} .
+RewriteRule ^([^/]+)/(.+?)/?$ %{ENV:GH_PAGE}/$1/$2/$1.%{ENV:EXT} [R=303,L]
 
 # Path provided, no content type redirections
 # https://w3id.org/ontostart/main/ -> https://micheldumontier.github.io/ontostart/main
