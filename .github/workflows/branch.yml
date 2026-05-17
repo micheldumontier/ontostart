@@ -270,7 +270,90 @@ jobs:
           mkdir -p "$DOCS_DIR/versions/latest"
           cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
           cp -r "$VERSION_DIR/$NEW_VERSION/"* "$DOCS_DIR/versions/latest/"
-            
+
+      - name: Generate per-version landing pages
+        run: |
+          python3 - << 'PY'
+          import os, re
+
+          docs_dir  = os.environ["DOCS_DIR"]
+          base      = os.environ["PUBLIC_BASE_URL"]
+          abbrev    = os.environ["ONTO_ABBREV"]
+          ver_dir   = os.environ["VERSION_DIR"]
+          cur_ver   = os.environ.get("NEW_VERSION", "")
+
+          def semver_key(v):
+            m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', v)
+            return tuple(map(int, m.groups())) if m else (0, 0, 0)
+
+          versions = sorted(
+            [d for d in os.listdir(ver_dir) if os.path.isdir(os.path.join(ver_dir, d)) and d != "latest"],
+            key=semver_key, reverse=True
+          )
+
+          exts = ["ttl", "jsonld", "nt", "owl"]
+
+          for v in versions:
+            out_dir = f"{docs_dir}/{v}"
+            os.makedirs(out_dir, exist_ok=True)
+
+            # copy format files so content negotiation can serve them
+            for ext in exts:
+              src = f"{ver_dir}/{v}/{abbrev}.{ext}"
+              if os.path.exists(src):
+                import shutil
+                shutil.copy(src, f"{out_dir}/{abbrev}.{ext}")
+
+            is_current = v == cur_ver
+            current_tag = " <strong>(current)</strong>" if is_current else ""
+            links = "\n".join(
+              f'            <li><a href="{abbrev}.{ext}">{abbrev}.{ext}</a></li>'
+              for ext in exts if os.path.exists(f"{ver_dir}/{v}/{abbrev}.{ext}")
+            )
+            other_versions = "\n".join(
+              f'            <li><a href="../{ov}/">{ov}</a>{"  (current)" if ov == cur_ver else ""}</li>'
+              for ov in versions if ov != v
+            )
+
+            html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <title>{abbrev} {v}</title>
+            <style>
+              body {{ font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }}
+              h1 {{ margin-bottom: .25rem; }}
+              .meta {{ color: #555; margin-bottom: 1.5rem; }}
+              a {{ color: #0b5fff; }}
+              ul {{ margin: .25rem 0 .5rem 1.25rem; }}
+              .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; max-width: 600px; margin-bottom: 1rem; }}
+            </style>
+          </head>
+          <body>
+            <h1>{abbrev} <code>{v}</code>{current_tag}</h1>
+            <div class="meta"><a href="../">← back to {abbrev}</a></div>
+            <div class="card">
+              <h2>Downloads</h2>
+              <ul>
+          {links}
+              </ul>
+            </div>
+            <div class="card">
+              <h2>Other versions</h2>
+              <ul>
+          {other_versions}
+              </ul>
+            </div>
+          </body>
+          </html>"""
+
+            with open(f"{out_dir}/index.html", "w", encoding="utf-8") as f:
+              f.write(html)
+
+          print(f"Generated landing pages for: {', '.join(versions)}")
+          PY
+
       - name: Checkout Forked Ontospy
         uses: actions/checkout@v4
         with:
