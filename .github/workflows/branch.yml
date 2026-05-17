@@ -355,6 +355,7 @@ jobs:
           owl = vers_url + ".owl"
           ontospy_url = base + "docs/ontospy/"
           pylode_url  = base + "docs/pylode/"
+          foops_url   = base + "foops/"
 
           # build sorted list of all committed versions
           import re
@@ -440,6 +441,7 @@ jobs:
                 <ul>
                   <li><a href="{pylode_url}">PyLODE</a></li>
                   <li><a href="{ontospy_url}">Ontospy</a></li>
+                  <li><a href="{foops_url}">FOOPS! detailed report</a></li>
                 </ul>
               </section>
 
@@ -527,3 +529,80 @@ jobs:
           label: FOOPS!
           message: ${{ env.FOOPS_SCORE }}
           color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Generate FOOPS! report page
+        if: always()
+        run: |
+          python3 - << 'PY'
+          import json, os
+
+          docs_dir = os.environ["DOCS_DIR"]
+          base     = os.environ["PUBLIC_BASE_URL"]
+          abbrev   = os.environ["ONTO_ABBREV"]
+          version  = os.environ.get("NEW_VERSION", "")
+          iri      = os.environ.get("ONTO_IRI", "")
+          overall  = os.environ.get("FOOPS_SCORE", "N/A")
+
+          os.makedirs(f"{docs_dir}/foops", exist_ok=True)
+
+          try:
+            with open("foops-results.json") as f:
+              data = json.load(f)
+            checks = data.get("checks", [])
+            error_msg = ""
+          except Exception as e:
+            checks = []
+            error_msg = f"<p style='color:red'>Could not load FOOPS results: {e}</p>"
+
+          rows = ""
+          for c in checks:
+            cid   = c.get("id", "")
+            title = c.get("title", cid)
+            passed = c.get("total_passed_tests", 0)
+            total  = c.get("total_tests_run", 1)
+            explanation = c.get("explanation", c.get("description", ""))
+            score_str = f"{passed}/{total}"
+            if passed == total:
+              color = "#16a34a"
+            elif passed == 0:
+              color = "#dc2626"
+            else:
+              color = "#d97706"
+            rows += f"<tr><td><code>{cid}</code></td><td>{title}</td><td style='color:{color};font-weight:bold;white-space:nowrap'>{score_str}</td><td>{explanation}</td></tr>\n"
+
+          html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <title>FOOPS! Report — {abbrev} {version}</title>
+            <style>
+              body {{ font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }}
+              h1 {{ margin-bottom: .25rem; }}
+              .meta {{ color: #555; margin-bottom: 1.5rem; }}
+              a {{ color: #0b5fff; }}
+              table {{ border-collapse: collapse; width: 100%; max-width: 1100px; font-size: .9rem; }}
+              th, td {{ border: 1px solid #e5e7eb; padding: .5rem .75rem; text-align: left; vertical-align: top; }}
+              th {{ background: #f9fafb; }}
+              tr:hover {{ background: #f0f9ff; }}
+              code {{ color: #0b5fff; }}
+            </style>
+          </head>
+          <body>
+            <h1>FOOPS! Report</h1>
+            <div class="meta">
+              <div><strong>Ontology:</strong> <a href="{base}">{abbrev} {version}</a></div>
+              <div><strong>IRI:</strong> <code>{iri}</code></div>
+              <div><strong>Overall score:</strong> {overall}</div>
+            </div>
+            {error_msg}
+            <table>
+              <thead><tr><th>ID</th><th>Check</th><th>Score</th><th>Explanation</th></tr></thead>
+              <tbody>{rows}</tbody>
+            </table>
+          </body>
+          </html>"""
+
+          with open(f"{docs_dir}/foops/index.html", "w", encoding="utf-8") as f:
+            f.write(html)
+          PY
