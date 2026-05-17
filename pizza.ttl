@@ -492,7 +492,6 @@ pizza: a owl:Ontology ;
     pav:authoredBy <https://orcid.org/0000-0003-4727-9435> ;
     vann:preferredNamespacePrefix "pizza" ;
     vann:preferredNamespaceUri pizza: ;
-    rdfs:comment "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."@en ;
     owl:imports <https://w3id.org/ontostart/pro>,
         <https://w3id.org/sulo> ;
     owl:versionIRI pizza:0.0.6 ;
