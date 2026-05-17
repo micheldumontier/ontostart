@@ -497,7 +497,7 @@ pizza: a owl:Ontology ;
     owl:versionIRI pizza:0.0.7 ;
     owl:versionInfo "0.0.7"^^xsd:string ;
     dcat:accessURL pizza: ;
-    foaf:homepage <https://github.com/micheldumontier/ontostart> ;
+    foaf:homepage <https://micheldumontier.github.io/ontostart/pizza/> ;
     schema:funding "This work is supported by the AIDAVA project."@en ;
     mod:definitionProperty rdfs:comment ;
     mod:hasRepresentationLanguage omv:OWL ;
