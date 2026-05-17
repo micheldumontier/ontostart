@@ -41,6 +41,7 @@ jobs:
       GIST_ID: ${{ vars.GIST_ID }}
       # Prefer org/repo owner if no explicit GIST_OWNER is set in repo variables
       GIST_OWNER: ${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Determine target branch & derive names
@@ -271,7 +272,7 @@ jobs:
           cp -r "$VERSION_DIR/$NEW_VERSION/"* "$DOCS_DIR/versions/latest/"
             
       - name: Checkout Forked Ontospy
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: micheldumontier/Ontospy
           path: './ontospy'
