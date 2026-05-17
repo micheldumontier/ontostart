@@ -355,6 +355,25 @@ jobs:
           owl = vers_url + ".owl"
           ontospy_url = base + "docs/ontospy/"
           pylode_url  = base + "docs/pylode/"
+
+          # build sorted list of all committed versions
+          import re
+          version_dir = os.environ["VERSION_DIR"]
+          all_versions = []
+          if os.path.isdir(version_dir):
+            for d in os.listdir(version_dir):
+              if d != "latest" and os.path.isdir(os.path.join(version_dir, d)):
+                all_versions.append(d)
+          def semver_key(v):
+            m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', v)
+            return tuple(map(int, m.groups())) if m else (0, 0, 0)
+          all_versions.sort(key=semver_key, reverse=True)
+          version_rows = ""
+          for v in all_versions:
+            v_url = f"{base}versions/{v}/{abbrev}"
+            current = " <strong>(current)</strong>" if v == version else ""
+            version_rows += f'<li><a href="{v_url}.ttl">{v}</a> — <a href="{v_url}.ttl">ttl</a> | <a href="{v_url}.jsonld">jsonld</a> | <a href="{v_url}.nt">nt</a> | <a href="{v_url}.owl">owl</a>{current}</li>\n                  '
+
           # badge URLs (shields endpoint -> gist JSON files)
           bbase = os.environ["BADGE_BASE"]
           sb = os.environ["SAFE_BRANCH"]
@@ -421,6 +440,13 @@ jobs:
                 <ul>
                   <li><a href="{pylode_url}">PyLODE</a></li>
                   <li><a href="{ontospy_url}">Ontospy</a></li>
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>All Versions</h2>
+                <ul>
+                  {version_rows}
                 </ul>
               </section>
             </div>
