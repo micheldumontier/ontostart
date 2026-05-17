@@ -174,7 +174,7 @@ jobs:
           (echo "Profile check failed." && exit 1)
 
       - name: Badge — Syntax
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -204,7 +204,7 @@ jobs:
             reason.summary
 
       - name: Badge — Reason
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -222,7 +222,7 @@ jobs:
           fi
 
       - name: Badge — Version update
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -291,7 +291,7 @@ jobs:
           python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/docs/ontospy" "$ONTO_FILE"
 
       - name: Badge — Ontospy
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -315,7 +315,7 @@ jobs:
           PY
 
       - name: Badge — Pylode
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -463,6 +463,7 @@ jobs:
           
       - name: Deploy to gh-pages (keep other branches)
         id: ghpages
+        if: ${{ !env.ACT }}
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -475,7 +476,7 @@ jobs:
 
 
       - name: Badge — Deploy (Shields endpoint)
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -520,7 +521,7 @@ jobs:
           PY
           
       - name: Badge — FOOPS
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
