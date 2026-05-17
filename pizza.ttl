@@ -482,7 +482,7 @@ pizza: a owl:Ontology ;
     dcterms:bibliographicCitation "Unpublished"@en ;
     dcterms:contributor <https://orcid.org/0000-0003-4727-9435> ;
     dcterms:created "2026-05-17T06:26:42.008396+00:00"^^xsd:dateTime ;
-    dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment. Built for ESWC 2026."@en ;
+    dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment. Built for ESWC 2026. "@en ;
     dcterms:issued "2026-05-17"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
