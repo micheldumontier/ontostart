@@ -462,31 +462,6 @@ jobs:
             f.write(html)
           PY
           
-      - name: Deploy to gh-pages (keep other branches)
-        id: ghpages
-        if: ${{ !env.ACT }}
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ env.DOCS_DIR }}
-          destination_dir: ${{ env.SAFE_BRANCH }}
-          keep_files: false
-          enable_jekyll: false
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
-
-
-      - name: Badge — Deploy (Shields endpoint)
-        if: ${{ always() && !env.ACT }}
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
-          label: deploy
-          message: ${{ steps.ghpages.outcome }}
-          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
-    
       - name: Call FOOPS! API
         id: foops
         # @todo replace with the w3id ontology URI when available.
@@ -503,7 +478,7 @@ jobs:
         with:
           name: foops-results
           path: foops-results.json
-          
+
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
@@ -514,23 +489,12 @@ jobs:
               tot_checks = len(data["checks"])
               for check in data["checks"]:
                   total_score += check["total_passed_tests"] / check["total_tests_run"]
-                  
+
               overall_score = total_score / tot_checks * 100
               label = f"{overall_score:.1f}% ({total_score:.2f} in {tot_checks} tests)"
               with open(os.environ["GITHUB_ENV"], "a") as f:
-                f.write(f"FOOPS_SCORE={label}\n")  
+                f.write(f"FOOPS_SCORE={label}\n")
           PY
-          
-      - name: Badge — FOOPS
-        if: ${{ always() && !env.ACT }}
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-foops-${{ env.SAFE_BRANCH }}.json
-          label: FOOPS!
-          message: ${{ env.FOOPS_SCORE }}
-          color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
 
       - name: Generate FOOPS! report page
         if: always()
@@ -608,3 +572,38 @@ jobs:
           with open(f"{docs_dir}/foops/index.html", "w", encoding="utf-8") as f:
             f.write(html)
           PY
+
+      - name: Deploy to gh-pages (keep other branches)
+        id: ghpages
+        if: ${{ !env.ACT }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DOCS_DIR }}
+          destination_dir: ${{ env.SAFE_BRANCH }}
+          keep_files: false
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+
+      - name: Badge — Deploy (Shields endpoint)
+        if: ${{ always() && !env.ACT }}
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
+          label: deploy
+          message: ${{ steps.ghpages.outcome }}
+          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Badge — FOOPS
+        if: ${{ always() && !env.ACT }}
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-foops-${{ env.SAFE_BRANCH }}.json
+          label: FOOPS!
+          message: ${{ env.FOOPS_SCORE }}
+          color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
