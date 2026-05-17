@@ -268,7 +268,7 @@ jobs:
         run: |
           mkdir -p "$DOCS_DIR/versions/latest"
           cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
-          cp -r "$VERSION_DIR"/*/* "$DOCS_DIR/versions/latest/"
+          cp -r "$VERSION_DIR/$NEW_VERSION/"* "$DOCS_DIR/versions/latest/"
             
       - name: Checkout Forked Ontospy
         uses: actions/checkout@v3
