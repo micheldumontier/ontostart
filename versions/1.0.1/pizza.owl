@@ -1,0 +1,2107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcat="http://www.w3.org/ns/dcat#"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:mod="https://w3id.org/mod#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:pav="http://purl.org/pav/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:sulo="https://w3id.org/sulo/"
+   xmlns:vann="http://purl.org/vocab/vann/"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/recipe_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/sulo/InformationObject"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Traditional Neapolitan Pizza Recipe</rdfs:label>
+    <sulo:refersTo rdf:resource="https://w3id.org/ontostart/pizza/making_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/item_001">
+    <rdf:type rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb103"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1x Traditional Four Cheese Pizza</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/pizza_ontop_position_role_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pro/OnTopPositionRole"/>
+    <sulo:isFeatureOf rdf:resource="https://w3id.org/ontostart/pizza/pizza_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb172">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb167"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb212">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DenseTexture">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">dense texture</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/DoughTexture"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/ontostart/pizza/AiryTexture"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SlicingThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">slicing the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb293"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb298"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb303"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/pizza_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza"/>
+    <sulo:hasDirectPart rdf:resource="https://w3id.org/ontostart/pizza/crust_of_my_pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb273">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb253"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb274"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb16">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb21"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb302">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb300"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb123">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/ProofingTheDough"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb124"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb200">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb201"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb203">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb204"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb20">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb19"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Cornicione">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">cornicione</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A cornicione is the outer edge of a pizza crust</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb170">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb169"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb3">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:withRestrictions rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_order_received_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/OrderReceivedTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Order received — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T17:00:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb229">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb230"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb148">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb142"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ProofingTheDough">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">proofing the dough</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb279"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb292"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/DevelopmentalProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb118">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/MakingThePizzaDough"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb119"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb55">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb56"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaSlice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza slice</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb92">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb85"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb47">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDeliveryBox"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_StartPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">proofed dough role</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb149"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/MakingThePizzaDough">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">making the pizza dough</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb231"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb232"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb276"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb277"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb109">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:withRestrictions rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb111"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb297">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb295"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb74">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Table"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SULO Pizza Tutorial Ontology</rdfs:label>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</dc:creator>
+    <dcterms:alternative rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pizza</dcterms:alternative>
+    <dcterms:bibliographicCitation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unpublished</dcterms:bibliographicCitation>
+    <dcterms:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</dcterms:contributor>
+    <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-19T07:37:38.845348+00:00</dcterms:created>
+    <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment.</dcterms:description>
+    <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-19</dcterms:issued>
+    <dcterms:language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://lexvo.org/id/iso639-1/en</dcterms:language>
+    <dcterms:license rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://creativecommons.org/licenses/by/4.0/</dcterms:license>
+    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-19T07:37:38.845348+00:00</dcterms:modified>
+    <dcterms:publisher rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://github.com/micheldumontier</dcterms:publisher>
+    <dcterms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SULO Pizza Tutorial Ontology</dcterms:title>
+    <pav:authoredBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</pav:authoredBy>
+    <vann:preferredNamespacePrefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pizza</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://w3id.org/ontostart/pizza/</vann:preferredNamespaceUri>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment.</rdfs:comment>
+    <owl:imports rdf:resource="https://w3id.org/ontostart/pro"/>
+    <owl:imports rdf:resource="https://w3id.org/sulo"/>
+    <owl:versionIRI rdf:resource="https://w3id.org/ontostart/pizza/1.0.1"/>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.0.1</owl:versionInfo>
+    <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://w3id.org/ontostart/pizza/</dcat:accessURL>
+    <foaf:homepage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://github.com/micheldumontier/ontostart</foaf:homepage>
+    <mod:definitionProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2000/01/rdf-schema#comment</mod:definitionProperty>
+    <mod:hasRepresentationLanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://omv.ontoware.org/2005/05/ontology#OWL</mod:hasRepresentationLanguage>
+    <mod:hasSyntax rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/ns/formats/Turtle</mod:hasSyntax>
+    <mod:prefLabelProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2000/01/rdf-schema#label</mod:prefLabelProperty>
+    <mod:status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">active</mod:status>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb207">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb300">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb231">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/atTime"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/MakingStartTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/HotPepperPizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">hot pepper pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb29"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/order_items_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/sulo/Collection"/>
+    <sulo:hasItem rdf:resource="https://w3id.org/ontostart/pizza/item_001"/>
+    <sulo:hasItem rdf:resource="https://w3id.org/ontostart/pizza/item_002"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb318">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyMedium"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb319"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/FourCheesePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">four cheese pizza</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Four Cheese Pizza is a pizza that contains exactly four different types of cheese as toppings.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb25"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb146">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb144"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/AssemblingThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">assembling the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb200"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb205"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb210"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb215"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb220"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb221"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb226"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/making_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/PizzaMakingProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb126">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb128"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb83">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/PizzaSauce"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb46">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb48"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb312">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/DoughBaking"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Order">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">order</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/InformationObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb98">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb99"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicySalami">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy salami</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A salami with a hot or medium spiciness quality.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb304"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb32">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/HotPepper"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb290">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb280"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb291"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaRecipe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza recipe</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/InformationObject"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb37"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaMakingProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza making process</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb115"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb120"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb125"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb130"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb135"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb323">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Table"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaOven">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza oven</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb71"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Flour">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">flour</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicyMild">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy mild</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A low level of spiciness with minimal heat sensation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Spiciness"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/fridge_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+    <sulo:contains rdf:resource="https://w3id.org/ontostart/pizza/delivery_box_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb135">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/SlicingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb67">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaCrust"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb263">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb264"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb41">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb43"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">person</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb322">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/PizzaDeliveryBox"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb323"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/placing_pizza_on_table_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/PlacingPizzaOnTable"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/pizza_ontop_position_role_001"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/table_surface_role_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb42">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/refersTo"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/SpicyPizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb190">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Mozzarella"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb191"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_bake_end_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/BakingEndTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Baking end — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T17:58:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/pizza_contained_role_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pro/ContainedRole"/>
+    <sulo:isFeatureOf rdf:resource="https://w3id.org/ontostart/pizza/pizza_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb306">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyHot"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb307"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb206">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb208"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakerRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baker role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/AgentRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/baking_event_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/BakingThePizza"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_bake_end_001"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_bake_start_001"/>
+    <sulo:precedes rdf:resource="https://w3id.org/ontostart/pizza/delivering_event_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DoughBaking">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">dough baking</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb60"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb65"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/DevelopmentalProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb219">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb217"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb26">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">4</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaCrust">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza crust</rdfs:label>
+    <rdfs:comment xml:lang="en">A pizza crust is a food material resulting from the cooking of a dough 
+                    and forms the base of a pizza upon which sauce and toppings are added.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb278"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb22">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb17"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb153">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/UnproofedDoughRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb154"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb38">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/refersTo"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaMakingProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb177">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb178"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/HotPepper">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">hot pepper</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb105"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/ontostart/pizza/SpicySalami"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb221">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb222"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DoughTexture">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">dough texture</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Quality"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb127">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/SlicingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb44">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb42"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb117">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/ProofingTheDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb36">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb32"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb129">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb127"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb156">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb158"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb17">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasValue"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb18"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb19">
+    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</xsd:maxInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb235">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Flour"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb95">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb288">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_EndPhase"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb289"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb18">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:withRestrictions rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb20"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/order_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/Order"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pizza Order #001</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Order for a Traditional Four Cheese Pizza and a Spicy Salami Pizza.</rdfs:comment>
+    <sulo:hasPart rdf:resource="https://w3id.org/ontostart/pizza/id_001"/>
+    <sulo:hasPart rdf:resource="https://w3id.org/ontostart/pizza/order_items_001"/>
+    <sulo:refersTo rdf:resource="https://w3id.org/ontostart/pizza/spicy_salami_pizza_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb298">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb299"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb7">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb5"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb100">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDeliveryBox"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb329">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+    <owl:distinctMembers rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb330"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb276">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/ProofingTheDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb280">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb281"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb314">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb333">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/fridge_001"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb168">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:withRestrictions rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb170"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/MakingStartTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">making start time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/StartTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BoxedPizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">boxed pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/pizza_unboxing_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/UnboxingThePizza"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/box_containment_role_001"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/pizza_contained_role_001"/>
+    <sulo:precedes rdf:resource="https://w3id.org/ontostart/pizza/placing_pizza_on_table_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb187">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/PecorinoRomano"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb237">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb235"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb243">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb244"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicyHot">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy hot</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A high level of spiciness causing intense heat sensation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Spiciness"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb257">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb255"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb30">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/PizzaSauce"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb143">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb145"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaSauce">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza sauce</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb211">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb213"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb226">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb227"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DeliveringThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">delivering the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb163">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb173"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb106">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb112"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb176">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb177"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb39">
+    <rdf:first rdf:resource="https://w3id.org/sulo/InformationObject"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb40"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb94">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb96"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/OrderIdentifier">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">order identifier</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/InformationObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Spiciness">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spiciness</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Spiciness is a quality that represents the perceived heat or pungency of a food material.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Quality"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb266">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/BakerRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb267"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/table_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/Table"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaDeliveryBox">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza delivery box</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb314"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb25">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb27"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicyPizzaOrder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">order for spicy pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Order"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb41"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb220">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/BakingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb122">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/AssemblingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb268">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb269"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakingThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baking the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb309"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb310"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb311"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb312"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb313"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/DevelopmentalProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb76">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb74"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb258">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb259"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ExpressPizzaDelivery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">express pizza delivery</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/DeliveringThePizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb14"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb173">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb174"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb281">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb283"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb232">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb268"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb305">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb306"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_making_start_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/MakingStartTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dough-making start — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T17:01:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PlacingPizzaOnTable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">placing pizza on table</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb72"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb77"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicySalamiPizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy salami pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb82"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicyMedium">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy medium</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A moderate level of spiciness.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Spiciness"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb328">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/PecorinoRomano"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb137">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb138"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb150">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb151"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb45">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb46"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb287">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isPrecededBy"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_StartPhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb209">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb207"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/box_containment_role_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+    <sulo:isFeatureOf rdf:resource="https://w3id.org/ontostart/pizza/delivery_box_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb103">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/refersTo"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb57">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb242">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb240"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb251">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb252"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb96">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb97"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb136">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb147"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb28">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb26"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb132">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/BakingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb205">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb206"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb82">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb89"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ProofedDoughRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">proofed dough role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb285">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb286"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb238">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb239"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/delivery_duration_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/DeliveryDuration"/>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25.0</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb210">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb211"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasValue"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb182">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb176"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb186">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/Parmesan"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb240">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Water"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DeliveryDuration">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">delivery duration</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Duration"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/making_event_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/MakingThePizzaDough"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_making_end_001"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_making_start_001"/>
+    <sulo:precedes rdf:resource="https://w3id.org/ontostart/pizza/baking_event_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Pizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A pizza is a food material minimally consisting of a pizza crust (baked dough) and optionally topped with 
+                    tomatoes or tomato sauce, cheese, and often various other ingredients (such as anchovies, mushrooms, onions, olives, 
+                    vegetables, meat, etc.) baked at a high temperature.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb315"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicyPizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spicy pizza</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb163"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb175"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb12">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb13"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">traditional four cheese pizza</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Traditional Four Cheese Pizza is a pizza made with mozzarella, gorgonzola, parmesan, and pecorino romano.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb183"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb277">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/atTime"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/MakingEndTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/UnboxingThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">unboxing the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb93"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb98"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb130">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb131"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb166">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb171"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb56">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb58"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb299">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb301"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PecorinoRomano">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pecorino romano</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pecorino Romano is a hard, salty Italian cheese, often used for grating, made out of sheep's milk.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakersYeast">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baker's yeast</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Mozzarella">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">mozzarella</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mozzarella is a traditionally southern Italian cheese made from Italian buffalo's milk by the pasta filata method.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb248">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb249"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb308">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pro/SurfacePositionRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb213">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/BakerRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb214"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb228">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaSauce"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb147">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb137"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb148"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb144">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb293">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb294"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb165">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb166"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb152">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb89">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb90"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb241">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb242"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb264">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb266"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/SpicinessMeasurement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">spiciness measurement</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb162"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Quantity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb223">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb188">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb189"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb40">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb38"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/AiryTexture">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">airy texture</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/DoughTexture"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb178">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb179"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb174">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb164"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb70">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/MakingThePizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb116">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb118"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb53">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb54"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb112">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicinessMeasurement"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb113"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb195">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb184"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb196"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb291">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb285"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb253">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb254"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BoxingThePizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">boxing the pizza</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb45"/>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb50"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb49">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb47"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb84">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/SpicySalami"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb245">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Sugar"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_delivery_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/DeliveryTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Delivery time — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T18:23:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb303">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/DeliveringThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb72">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb73"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb60">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb61"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb194">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb195"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb296">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/EmergingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb297"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/MakingEndTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">making end time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/EndTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb77">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb78"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb330">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/pizza_001"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb331"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb85">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb86"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb75">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/SurfacePositionRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb76"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb93">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb94"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_EndPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">proofed dough role</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb136"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb324">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb325"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb225">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb223"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/UnproofedDoughRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">unproofed dough role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/ontostart/pizza/ProofedDoughRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb332">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/crust_of_my_pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb333"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb289">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb287"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb105">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb106"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Parmesan">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">parmesan</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Parmesan is a hard, granular cheese named after the producing areas near Parma, Italy.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb284">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb282"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/table_surface_role_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pro/SurfacePositionRole"/>
+    <sulo:isFeatureOf rdf:resource="https://w3id.org/ontostart/pizza/table_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb114">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb108"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb81">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb79"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb233">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb234"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/FoodMaterial">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">food material</rdfs:label>
+    <rdfs:label xml:lang="en">food material</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A food material is a spatial object that is intended for consumption as food.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb31">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/HotPepper"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb160">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb150"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb161"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb208">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/EmergingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb209"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb61">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb63"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakingDuration">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baking duration</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Duration"/>
+    <owl:equivalentClass rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb1"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb104">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/refersTo"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/SpicyPizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb69">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb67"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Salt">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">salt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb201">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb203"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb311">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/atTime"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/BakingStartTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/delivery_box_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/PizzaDeliveryBox"/>
+    <sulo:contains rdf:resource="https://w3id.org/ontostart/pizza/pizza_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakingEndTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baking end time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/EndTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb260">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb58">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/DevelopmentRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb59"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb236">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb237"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb254">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb256"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ordering_event_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/OrderingProcess"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_order_received_001"/>
+    <sulo:precedes rdf:resource="https://w3id.org/ontostart/pizza/making_event_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/delivering_event_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/DeliveringThePizza"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/delivery_duration_001"/>
+    <sulo:atTime rdf:resource="https://w3id.org/ontostart/pizza/t_delivery_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb180">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyMedium"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb202">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb286">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb288"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/BakingStartTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">baking start time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/StartTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/id_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/OrderIdentifier"/>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ORDER-001</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Table">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">table</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb308"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/SpatialObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb134">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb132"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb259">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb261"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb90">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb83"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb91"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb255">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Salt"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/item_002">
+    <rdf:type rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb104"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1x Spicy Pizza</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb199">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb188"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb262">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb260"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb181">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb182"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb35">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb31"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb36"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/CheeseMelting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">cheese melting</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb55"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/DevelopmentalProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb161">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb155"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb139">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb159">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb157"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb63">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/DevelopmentRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb64"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb33">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb34"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb65">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb66"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb50">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb51"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/PizzaDough">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">pizza dough</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb64">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb62"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/pizza_boxing_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/BoxingThePizza"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/box_containment_role_001"/>
+    <sulo:hasParticipant rdf:resource="https://w3id.org/ontostart/pizza/pizza_contained_role_001"/>
+    <sulo:precedes rdf:resource="https://w3id.org/ontostart/pizza/pizza_unboxing_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb267">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb265"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb218">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb219"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb71">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_bake_start_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/BakingStartTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Baking start — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T17:46:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb15">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/atTime"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb16"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb191">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Gorgonzola"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb192"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb108">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasValue"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb109"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb327">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Parmesan"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb328"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb185">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/Gorgonzola"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb59">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb57"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb27">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb28"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/OrderingProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">ordering process</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb70"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb309">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/atTime"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/BakingEndTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb24">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb15"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb113">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb107"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb114"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb224">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb225"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb304">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasFeature"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb305"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb157">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb244">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb246"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb272">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb248"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb273"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb164">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb165"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb222">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb224"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Cheese">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">cheese</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A cheese is a food material derived from milk and produced in a wide range of flavors, textures, and forms by coagulation of the milk protein casein.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Water">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">water</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb87">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicySalami"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb88"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb6">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb4"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb7"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb261">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/EmergingRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb262"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb193">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/PecorinoRomano"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb167">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasValue"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb168"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb184">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/Mozzarella"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb294">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb296"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb145">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/AiryTexture"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb146"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb51">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb53"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb256">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb257"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb292">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/AssemblingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb325">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Mozzarella"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb326"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb37">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb39"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb120">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb121"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb8"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb140">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/ProofedDoughRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb141"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb282">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_EndPhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb151">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb153"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb319">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyMild"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb125">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb126"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb317">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyHot"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb318"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb192">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Parmesan"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb193"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb8">
+    <rdf:first rdf:resource="https://w3id.org/sulo/Duration"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb142">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb143"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb78">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb80"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb115">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb116"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb249">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb251"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb155">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb156"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb265">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb274">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb258"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb275"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb198">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb187"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb199"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb9">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb2"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb216">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb218"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb179">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyHot"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb180"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb158">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/DenseTexture"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb159"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb316">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb317"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb183">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb194"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb234">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb236"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb215">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasParticipant"/>
+    <owl:someValuesFrom rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb216"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb283">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/ProofingThePizzaDough_StartPhase"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb284"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb128">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/BakingThePizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb129"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Sugar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">sugar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/FoodMaterial"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb295">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaSlice"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb315">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/ontostart/pizza/PizzaCrust"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb23">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/DeliveringThePizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb24"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb34">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb30"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb35"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb252">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb250"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb278">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasDirectPart"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Cornicione"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb230">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb228"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb68">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/DevelopmentRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb69"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb331">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/delivery_box_001"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb332"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb29">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb33"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/crust_of_my_pizza">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/PizzaCrust"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb88">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/PizzaSauce"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/t_making_end_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/MakingEndTime"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dough-making end — order #001</rdfs:label>
+    <sulo:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2026-04-30T17:46:00Z</sulo:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb250">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/BakersYeast"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb269">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb233"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb270"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb270">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb238"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb271"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb21">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/DeliveryDuration"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb22"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb102">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb100"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb91">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb84"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb92"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb149">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb160"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb204">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb202"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb4">
+    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.0</xsd:maxInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb246">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb247"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/spicy_salami_pizza_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://w3id.org/ontostart/pizza/SpicySalamiPizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/ScovilleHeatUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Scoville heat unit</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A unit to measure the spiciness or "heat" of chili peppers and substances based on their concentration of capsaicinoids. 
+                    The scale indicates how many times a chili extract must be diluted in sugar water before its heat is undetectable to tasters.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Unit"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb141">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb139"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/Gorgonzola">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">gorgonzola</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gorgonzola is a veined Italian blue cheese, made from unskimmed cow's milk.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pizza/Cheese"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb326">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Gorgonzola"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb327"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb54">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb52"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb214">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb212"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb320">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb321"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb321">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/PizzaOven"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb322"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb62">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDough"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb196">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb185"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb197"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb138">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb140"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb11">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isIn"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/PizzaDeliveryBox"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb189">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb190"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/OrderReceivedTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">order received time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/TimeInstant"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb217">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb43">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/Order"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb44"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb79">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb307">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicyMedium"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb197">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb186"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb198"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb12"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb99">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb101"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb80">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/OnTopPositionRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb81"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb247">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb245"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb279">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb290"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb14">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb23"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb107">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/ScovilleHeatUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb271">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb243"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb272"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb169">
+    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">300000</xsd:minInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb310">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/hasPart"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/CheeseMelting"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb175">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb181"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb131">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb133"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb119">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb117"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb73">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb75"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb162">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/refersTo"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Spiciness"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb111">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb110"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb66">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb68"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb101">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb102"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb227">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb229"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb52">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/isFeatureOf"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/Pizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb86">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb87"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb124">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb122"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb154">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb152"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb48">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb49"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb110">
+    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500000</xsd:minInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pizza/DeliveryTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">delivery time</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/TimeInstant"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb13">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb11"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb275">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb263"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb239">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb241"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb121">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb123"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb97">
+    <rdf:first rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb95"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb171">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/SpicinessMeasurement"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb172"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb5">
+    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</xsd:minInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb313">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/sulo/precedes"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/ontostart/pizza/SlicingThePizza"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb133">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pizza/AssemblingThePizza"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb134"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb301">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ConsumedRole"/>
+    <rdf:rest rdf:nodeID="n35ebf881948e49b28b12cfb4b7e00e9cb302"/>
+  </rdf:Description>
+</rdf:RDF>
