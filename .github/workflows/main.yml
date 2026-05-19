@@ -9,9 +9,13 @@ on:
 
 jobs:
   build:
+    # === Per-branch overrides ===
+    # Only these two values may differ across branches. Everything else is
+    # canonical and kept identical with sibling branches' main.yml.
     env:
       ONTO_FILE: ontostart.ttl
       ONTO_ABBREV: ontostart
+      # === Canonical (do not change per branch) ===
       VERSION_DIR: versions
       DOCS_DIR: docs
       GIST_ID: ${{ vars.GIST_ID }}
@@ -23,238 +27,253 @@ jobs:
       pages: write
       id-token: write
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-  
-    - name: Set up Java (for ROBOT/HermiT)
-      uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: '17'
-  
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-  
-    - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
-      run: |
-        python -m pip install --upgrade pip
-        pip install rdflib dotenv "pylode==2.13.2"
-        wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
-        curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
-        chmod +x robot
-     
-    - name: Validate ontology profile
-      id: profile
-      run: |
-        # If parsing fails, this step will exit non-zero
-        ./robot validate-profile --input "$ONTO_FILE" --profile DL|| \
-        (echo "Profile check failed." && exit 1)
-  
-    - name: Badge — Syntax
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-profile.json
-        label: OWL DL Profile
-        message: ${{ steps.profile.outcome }}
-        color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
-  
-    - name: Reasoning and consistency check (HermiT)
-      id: reason
-      run: |
-       ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
-        > reason.stdout 2> reason.stderr \
-        && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
-        || echo "REASON_RESULT=inconstent" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Upload reasoning logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: reasoning-logs
-        path: |
-          reason.stdout
-          reason.stderr
-          reason.summary
-          
-    - name: Badge — Reason
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-reason.json
-        label: Reasoning
-        message: ${{ env.REASON_RESULT }}
-        color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
-        
-    - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) and write new file
-      id: bump_version
-      run: |
-        python scripts/bump_version.py
+      - name: Set up Java (for ROBOT/HermiT)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-    - name: Badge — Version update
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-version.json
-        label: Version
-        message: ${{ env.NEW_VERSION }}
-        color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Generate syntax variants
-      id: syntax_variants
-      run: |
+      - name: Install tooling (ROBOT, HermiT, Pylode, RDFLib)
+        run: |
+          python -m pip install --upgrade pip
+          pip install rdflib dotenv "git+https://github.com/RDFLib/pyLODE.git@3.1.0"
+          wget -q https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar -O robot.jar
+          curl -sL https://raw.githubusercontent.com/ontodev/robot/master/bin/robot > robot
+          chmod +x robot
+
+      - name: Get Ontology IRI
+        run: |
+          python3 - << 'PY'
+          import os
+          from rdflib import Graph, Namespace, RDF
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          iri = str(ontos[0]) if ontos else ""
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write(f"ONTO_IRI={iri}\n")
+          PY
+
+      - name: Validate ontology profile
+        id: profile
+        run: |
+          ./robot validate-profile --input "$ONTO_FILE" --profile DL || \
+          (echo "Profile check failed." && exit 1)
+
+      - name: Badge — Syntax
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-profile.json
+          label: OWL DL Profile
+          message: ${{ steps.profile.outcome }}
+          color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Reasoning and consistency check (HermiT)
+        id: reason
+        run: |
+          ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+            > reason.stdout 2> reason.stderr \
+            && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
+            || echo "REASON_RESULT=inconsistent" >> $GITHUB_ENV
+
+      - name: Upload reasoning logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reasoning-logs
+          path: |
+            reason.stdout
+            reason.stderr
+            reason.summary
+
+      - name: Badge — Reason
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-reason.json
+          label: Reasoning
+          message: ${{ env.REASON_RESULT }}
+          color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+
+      - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith)
+        id: bump_version
+        run: |
+          python scripts/bump_version.py
+
+      - name: Badge — Version update
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-version.json
+          label: Version
+          message: ${{ env.NEW_VERSION }}
+          color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
+
+      - name: Generate syntax variants
+        id: syntax_variants
+        run: |
           python3 - << 'PY'
           import os
           from rdflib import Graph
-
-          target_dir = f"{os.environ['VERSION_DIR']}/{os.environ['NEW_VERSION']}"       
+          target_dir = f"{os.environ['VERSION_DIR']}/{os.environ['NEW_VERSION']}"
           os.makedirs(target_dir, exist_ok=True)
-          
           g = Graph()
           g.parse(os.environ["ONTO_FILE"])
-          target_fmts = [
-              ("ttl","turtle"),
-              ("jsonld", "json-ld"),
-              ("nt", "nt"),
-              ("owl", "xml")
-          ]
-          
+          targets = [("ttl","turtle"), ("jsonld","json-ld"), ("nt","nt"), ("owl","xml")]
           files_to_commit = set()
-          for fmt in target_fmts:
-              target_file = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{fmt[0]}"
-              print(f"Creating {target_file}")
-              g.serialize(destination=target_file, format=fmt[1], encoding="utf-8")
-              files_to_commit.add(target_file)
-         
+          for ext, fmt in targets:
+            out = f"{target_dir}/{os.environ['ONTO_ABBREV']}.{ext}"
+            print(f"Creating {out}")
+            g.serialize(destination=out, format=fmt, encoding="utf-8")
+            files_to_commit.add(out)
           with open(os.environ["GITHUB_ENV"], "a") as f:
-              f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
+            f.write("NEW_FILES=" + " ".join(files_to_commit) + "\n")
           PY
-          
-    - name: Commit bumped ontology back to main in both root and version directory (skip CI)
-      id: commit
-      run: |
+
+      - name: Commit bumped ontology back to main
+        id: commit
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add $ONTO_FILE ${{ env.NEW_FILES }}
           git commit -m "chore(ontology): bump version to ${{ env.NEW_VERSION }} [skip ci]" || echo "Nothing to commit."
           git push
 
-    - name: Checkout Forked Ontospy
-      uses: actions/checkout@v3
-      with:
+      - name: Checkout Forked Ontospy
+        uses: actions/checkout@v4
+        with:
           repository: micheldumontier/Ontospy
           path: './ontospy'
 
-    - name: Install Forked Ontospy
-      run: |
-         python -m pip install --upgrade pip
-         cd ./ontospy 
-         pip install -r requirements.txt
-         pip install -e .
-         cd ..
-         
-    - name: Generate documentation with Ontospy
-      id: ontospy
-      run: |
+      - name: Install Forked Ontospy
+        run: |
+          python -m pip install --upgrade pip
+          cd ./ontospy
+          pip install -r requirements.txt
+          pip install -e .
+          cd ..
+
+      - name: Generate documentation with Ontospy
+        id: ontospy
+        run: |
           mkdir -p "$DOCS_DIR/docs/ontospy"
-          python -m ontospy.cli gendocs --type 2 \
-            -o "$DOCS_DIR/docs/ontospy" \
-            "$ONTO_FILE"
+          python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/docs/ontospy" "$ONTO_FILE"
 
+      - name: Badge — Ontospy
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-ontospy.json
+          label: ontospy
+          message: ${{ steps.ontospy.outcome }}
+          color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
 
-    - name: Badge — Ontospy
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-ontospy.json
-        label: ontospy
-        message: ${{ steps.ontospy.outcome }}
-        color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
+      - name: Generate static site with Pylode
+        id: pylode
+        continue-on-error: true
+        run: |
+          mkdir -p "$DOCS_DIR/docs/pylode"
+          python3 - << 'PY'
+          import os
+          from pylode import OntPub
+          od = OntPub(os.environ["ONTO_FILE"])
+          od.make_html(destination=f"{os.environ['DOCS_DIR']}/docs/pylode/index.html")
+          print("Pylode HTML generated.")
+          PY
 
-    - name: Generate static site with Pylode
-      id: pylode
-      run: |
-          mkdir -p "$DOCS_DIR/docs/pylode/"
-          pylode -i "$ONTO_FILE" -o "$DOCS_DIR/docs/pylode/index.html"
+      - name: Badge — Pylode
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-pylode.json
+          label: pylode
+          message: ${{ steps.pylode.outcome }}
+          color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
 
-    - name: Badge — Pylode
-      if: always()
-      uses: schneegans/dynamic-badges-action@v1.7.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{ env.GIST_ID }}
-        filename: ontology-ci-pylode.json
-        label: pylode
-        message: ${{ steps.pylode.outcome }}
-        color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
+      - name: Export ONTO_IRI for downstream jobs
+        id: vars
+        run: |
+          echo "onto_iri=${ONTO_IRI}" >> "$GITHUB_OUTPUT"
 
-    - name: Configure Pages
-      uses: actions/configure-pages@v5
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-    - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ${{ env.DOCS_DIR }}
-        
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.DOCS_DIR }}
+
+    outputs:
+      onto_iri: ${{ steps.vars.outputs.onto_iri }}
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-      
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     env:
       GIST_ID: ${{ vars.GIST_ID }}
-      
-    steps: 
-        - name: Deploy to GitHub Pages
-          uses: actions/deploy-pages@v4
-          id: deployment
-          with:
-              preview: false 
-        
-        - name: Badge — Deploy (Shields endpoint)
-          if: always()
-          uses: schneegans/dynamic-badges-action@v1.7.0
-          with:
-            auth: ${{ secrets.GIST_TOKEN }}
-            gistID: ${{ env.GIST_ID }}
-            filename: ontology-ci-deploy.json
-            label: deploy
-            message: ${{ steps.deployment.outcome }}
-            color: ${{ steps.deployment.outcome == 'success' && 'brightgreen' || steps.deployment.outcome == 'cancelled' && 'yellow' || 'red' }}
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        id: deployment
+        with:
+          preview: false
+
+      - name: Badge — Deploy (Shields endpoint)
+        if: always()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-deploy.json
+          label: deploy
+          message: ${{ steps.deployment.outcome }}
+          color: ${{ steps.deployment.outcome == 'success' && 'brightgreen' || steps.deployment.outcome == 'cancelled' && 'yellow' || 'red' }}
 
   foops:
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: build
     env:
-      #ONTO_URI: https://w3id.org/testo/
-      ONTO_URI: https://raw.githubusercontent.com/micheldumontier/ontostart/refs/heads/main/versions/0.0.1/testo.ttl
       GIST_ID: ${{ vars.GIST_ID }}
-    
+      ONTO_URI: ${{ needs.build.outputs.onto_iri }}
+
     steps:
       - name: Call FOOPS! API
         id: foops
         run: |
+          if [ -z "$ONTO_URI" ]; then
+            echo "::error::ONTO_URI is empty — could not derive ontology IRI from build job."
+            exit 1
+          fi
           curl -X POST "https://foops.linkeddata.es/assessOntology" \
-              -H  "accept: application/json" \
+              -H "accept: application/json" \
               -H "Content-Type: application/json" \
-              -d "{  \"ontologyUri\": \"$ONTO_URI\"}" \
+              -d "{\"ontologyUri\": \"$ONTO_URI\"}" \
               -o foops-results.json
 
       - name: Upload foops results
@@ -263,29 +282,23 @@ jobs:
         with:
           name: foops-results
           path: foops-results.json
-          
+
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
-          import json, pathlib, os
+          import json, os
           total_score = 0
           with open('foops-results.json') as f:
-              data = json.load(f)
-              tot_checks = len(data["checks"])
-              passed_checks = 0
-              for check in data["checks"]:
-                  pas=check["total_passed_tests"]
-                  tot=check["total_tests_run"]
-              
-                  check_score = pas / tot
-                  total_score += check_score
-                  
-              overall_score = total_score / tot_checks * 100
-              label = f"{overall_score:.1f}% ({total_score}/{tot_checks} tests)"
-              with open(os.environ["GITHUB_ENV"], "a") as f:
-                f.write(f"FOOPS_SCORE={label}\n")  
+            data = json.load(f)
+            tot_checks = len(data["checks"])
+            for check in data["checks"]:
+              total_score += check["total_passed_tests"] / check["total_tests_run"]
+            overall_score = total_score / tot_checks * 100
+            label = f"{overall_score:.1f}% ({total_score:.2f} in {tot_checks} tests)"
+            with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write(f"FOOPS_SCORE={label}\n")
           PY
-          
+
       - name: Badge — FOOPS
         if: always()
         uses: schneegans/dynamic-badges-action@v1.7.0
@@ -296,4 +309,3 @@ jobs:
           label: FOOPS!
           message: ${{ env.FOOPS_SCORE }}
           color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}
-
