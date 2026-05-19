@@ -19,6 +19,18 @@ on:
         description: "Organization to own the fork (leave empty to fork under your user)"
         required: false
         default: ""
+      COMMIT_MESSAGE:
+        description: "Git commit message for the .htaccess/README change"
+        required: false
+        default: ""
+      PR_TITLE:
+        description: "Pull request title"
+        required: false
+        default: ""
+      PR_BODY:
+        description: "Pull request body / description"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -125,8 +137,12 @@ jobs:
           git checkout -b "${BRANCH}"
           git add "${W3ID_FOLDER}/.htaccess" "${W3ID_FOLDER}/README.md" || true
           
+          COMMIT_MSG="${{ inputs.COMMIT_MESSAGE }}"
+          if [ -z "${COMMIT_MSG}" ]; then
+            COMMIT_MSG="Adding ${W3ID_FOLDER} .htaccess and/or README.md"
+          fi
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Adding ${W3ID_FOLDER} .htaccess and/or README.md"
+            git commit -m "${COMMIT_MSG}"
           else
             echo "No changes to commit; proceeding without commit."
           fi
@@ -142,12 +158,20 @@ jobs:
         run: |
           set -e
           # Try to create the PR; if it already exists, just show it
+          PR_TITLE="${{ inputs.PR_TITLE }}"
+          if [ -z "${PR_TITLE}" ]; then
+            PR_TITLE="Add ${W3ID_FOLDER} redirects"
+          fi
+          PR_BODY="${{ inputs.PR_BODY }}"
+          if [ -z "${PR_BODY}" ]; then
+            PR_BODY="This PR adds \`${W3ID_FOLDER}/.htaccess\` with redirects for the \`${W3ID_FOLDER}\` namespace."
+          fi
           if gh pr create \
               --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
               --head "${FORK_OWNER}:${BRANCH}" \
               --base "${BASE_BRANCH}" \
-              --title "Add ${W3ID_FOLDER} redirects" \
-              --body "This PR adds \`${W3ID_FOLDER}/.htaccess\` with redirects for the \`${W3ID_FOLDER}\` namespace."; then
+              --title "${PR_TITLE}" \
+              --body "${PR_BODY}"; then
             echo "PR created."
           else
             echo "PR may already exist; showing matching PRs..."
