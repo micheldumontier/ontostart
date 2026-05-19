@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FOOPS! Report — pro 1.0.1</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }
+    h1 { margin-bottom: .25rem; }
+    .meta { color: #555; margin-bottom: 1.5rem; }
+    a { color: #0b5fff; }
+    table { border-collapse: collapse; width: 100%; max-width: 1100px; font-size: .9rem; }
+    th, td { border: 1px solid #e5e7eb; padding: .5rem .75rem; text-align: left; vertical-align: top; }
+    th { background: #f9fafb; }
+    tr:hover { background: #f0f9ff; }
+    code { color: #0b5fff; }
+  </style>
+</head>
+<body>
+  <h1>FOOPS! Report</h1>
+  <div class="meta">
+    <div><strong>Ontology:</strong> <a href="https://micheldumontier.github.io/ontostart/pro/">pro 1.0.1</a></div>
+    <div><strong>IRI:</strong> <code>https://w3id.org/ontostart/pro/</code></div>
+    <div><strong>Overall score:</strong> 66.0% (15.83 in 24 tests)</div>
+  </div>
+  
+  <table>
+    <thead><tr><th>ID</th><th>Check</th><th>Score</th><th>Explanation</th></tr></thead>
+    <tbody><tr><td><code>https://w3id.org/foops/test/PURL1</code></td><td>Ontology has a persistent URL</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Ontology URI follows a follows a persistent URI scheme (URI: https://w3id.org/sulo )</td></tr>
+<tr><td><code>https://w3id.org/foops/test/URI1</code></td><td>Ontology URI is resolvable</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Ontology URL is resolvable in application/rdf+xml</td></tr>
+<tr><td><code>https://w3id.org/foops/test/CN1</code></td><td>Ontology has content negotiation for RDF in RDF/XML, TTL, NTriples or JSON-LD serializations</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>2/2</td><td>Ontology available in: HTML, RDF</td></tr>
+<tr><td><code>https://w3id.org/foops/test/DOC1</code></td><td>Ontology has HTML documentation</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Ontology available in HTML</td></tr>
+<tr><td><code>https://w3id.org/foops/test/RDF1</code></td><td>Ontology is available in RDF (TTL, N3, RDF/XML or JSON-LD)</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Ontology available in RDF</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM1</code></td><td>Ontology minimum metadata is declared</td><td style='color:#d97706;font-weight:bold;white-space:nowrap'>5/6</td><td>The following metadata was not found: version iri</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM2</code></td><td>Ontology declares recommended metadata</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>4/4</td><td>All recommended metadata found!</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM3</code></td><td>Ontology declares detailed metadata</td><td style='color:#d97706;font-weight:bold;white-space:nowrap'>3/6</td><td>The following metadata was not found: doi, logo, source. Warning: The following OPTIONAL detailed metadata could not be found: previous version, backwards compatibility. Please consider adding them if appropriate.</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM4.1</code></td><td>Ontology has a license available</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>A license was found https://creativecommons.org/licenses/by/4.0/</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM4.2</code></td><td>Ontology license is resolvable</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>License could be resolved</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM5.1</code></td><td>Ontology declares basic provenance metadata</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>2/2</td><td>All basic provenance metadata found!. Warning: The following OPTIONAL provenance metadata could not be found: previous version. Please consider adding them if appropriate.</td></tr>
+<tr><td><code>https://w3id.org/foops/test/OM5.2</code></td><td>Ontology declares detailed provenance metadata</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>2/2</td><td>All detailed provenance metadata found!</td></tr>
+<tr><td><code>https://w3id.org/foops/test/FIND1</code></td><td>Ontology prefix is declared</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Prefix declaration found in the ontology: pro</td></tr>
+<tr><td><code>https://w3id.org/foops/test/FIND2</code></td><td>Ontology prefix is found in prefix.cc or LOV</td><td style='color:#d97706;font-weight:bold;white-space:nowrap'>1/2</td><td>Prefix declaration found, but with incorrect namespace. Prefix found in prefix.cc: http://purl.org/hpi/patchr</td></tr>
+<tr><td><code>https://w3id.org/foops/test/FIND3</code></td><td>Ontology found in community registry</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/1</td><td>Ontology not found in a public registry</td></tr>
+<tr><td><code>https://w3id.org/foops/test/FIND_3_BIS</code></td><td>Ontology metadata are accessible, even when the ontology is not</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/1</td><td>Ontology not found in a public registry</td></tr>
+<tr><td><code>https://w3id.org/foops/test/HTTP1</code></td><td>Ontology uses an open protocol</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>The ontology uses an open protocol</td></tr>
+<tr><td><code>https://w3id.org/foops/test/VOC1</code></td><td>Ontology reuses existing vocabularies for metadata annotations</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>Ontology reuses existing vocabularies for declaring metadata. </td></tr>
+<tr><td><code>https://w3id.org/foops/test/VOC2</code></td><td>Ontology imports or reuses well established vocabularies</td><td style='color:#16a34a;font-weight:bold;white-space:nowrap'>1/1</td><td>The ontology imports the following vocabularies: </td></tr>
+<tr><td><code>https://w3id.org/foops/test/VOC3</code></td><td>Ontology documentation: all terms have labels</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/16</td><td>Labels found for 0 out of 16 terms. </td></tr>
+<tr><td><code>https://w3id.org/foops/test/VOC4</code></td><td>Ontology documentation: all terms have definitions</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/16</td><td>Descriptions found for 0 out of 16 terms.</td></tr>
+<tr><td><code>https://w3id.org/foops/test/VER1</code></td><td>A version IRI is declared in the ontology metadata</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/2</td><td>Version IRI  not defined. Version info found (0.0.4).</td></tr>
+<tr><td><code>https://w3id.org/foops/test/VER2</code></td><td>Ontology version IRI resolves</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/1</td><td>Version IRI is not available, so it could not be resolved</td></tr>
+<tr><td><code>https://w3id.org/foops/test/URI2</code></td><td>Consistent ontology IDs are employed</td><td style='color:#dc2626;font-weight:bold;white-space:nowrap'>0/1</td><td>Ontology URI is different from ontology ID. Your ontologyURI (e.g., its w3id) should be the same as the one used within the ontology itself. Ontology URI: https://w3id.org/sulo. Provided URI: https://w3id.org/ontostart/pro</td></tr>
+</tbody>
+  </table>
+</body>
+</html>
