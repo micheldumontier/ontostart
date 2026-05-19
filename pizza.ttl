@@ -20,12 +20,12 @@ dcterms:description a owl:AnnotationProperty .
     dcterms:alternative "pizza"^^xsd:string ;
     dcterms:bibliographicCitation "Unpublished"^^xsd:string ;
     dcterms:contributor "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
-    dcterms:created "2026-05-19T07:03:48.254645+00:00"^^xsd:string ;
+    dcterms:created "2026-05-19T07:14:51.543290+00:00"^^xsd:string ;
     dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment."^^xsd:string ;
     dcterms:issued "2026-05-19"^^xsd:string ;
     dcterms:language "http://lexvo.org/id/iso639-1/en"^^xsd:string ;
     dcterms:license "https://creativecommons.org/licenses/by/4.0/"^^xsd:string ;
-    dcterms:modified "2026-05-19T07:03:48.254645+00:00"^^xsd:string ;
+    dcterms:modified "2026-05-19T07:14:51.543290+00:00"^^xsd:string ;
     dcterms:publisher "https://github.com/micheldumontier"^^xsd:string ;
     dcterms:title "SULO Pizza Tutorial Ontology"^^xsd:string ;
     pav:authoredBy "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
@@ -34,7 +34,7 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:comment "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment."^^xsd:string ;
     owl:imports <https://w3id.org/ontostart/pro>,
         <https://w3id.org/sulo> ;
-    owl:versionIRI "https://w3id.org/ontostart/pizza/releases/1.0.0/pizza.owl"^^xsd:string ;
+    owl:versionIRI <https://w3id.org/ontostart/pizza/releases/1.0.0/pizza.owl> ;
     owl:versionInfo "1.0.0"^^xsd:string ;
     dcat:accessURL "https://w3id.org/ontostart/pizza/"^^xsd:string ;
     foaf:homepage "https://github.com/micheldumontier/ontostart"^^xsd:string ;
@@ -466,9 +466,9 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :MakingThePizzaDough [ a owl:Restriction ;
+                    owl:intersectionOf ( :AssemblingThePizza [ a owl:Restriction ;
                                 owl:onProperty sulo:precedes ;
-                                owl:someValuesFrom :ProofingTheDough ] ) ] ],
+                                owl:someValuesFrom :BakingThePizza ] ) ] ],
         [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
@@ -478,18 +478,18 @@ dcterms:description a owl:AnnotationProperty .
         [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :AssemblingThePizza [ a owl:Restriction ;
+                    owl:intersectionOf ( :ProofingTheDough [ a owl:Restriction ;
                                 owl:onProperty sulo:precedes ;
-                                owl:someValuesFrom :BakingThePizza ] ) ] ],
+                                owl:someValuesFrom :AssemblingThePizza ] ) ] ],
         [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
             owl:someValuesFrom :SlicingThePizza ],
         [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :ProofingTheDough [ a owl:Restriction ;
+                    owl:intersectionOf ( :MakingThePizzaDough [ a owl:Restriction ;
                                 owl:onProperty sulo:precedes ;
-                                owl:someValuesFrom :AssemblingThePizza ] ) ] ],
+                                owl:someValuesFrom :ProofingTheDough ] ) ] ],
         sulo:Process .
 
 :ProofedDoughRole a owl:Class ;
@@ -595,24 +595,6 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty sulo:hasParticipant ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
-                                owl:onProperty sulo:isFeatureOf ;
-                                owl:someValuesFrom :Cheese ] ) ] ],
-        [ a owl:Restriction ;
-            owl:onProperty sulo:hasParticipant ;
-            owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
-                                owl:onProperty sulo:isFeatureOf ;
-                                owl:someValuesFrom :PizzaSauce ] ) ] ],
-        [ a owl:Restriction ;
-            owl:onProperty sulo:hasParticipant ;
-            owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
-                                owl:onProperty sulo:isFeatureOf ;
-                                owl:someValuesFrom :PizzaDough ] ) ] ],
-        [ a owl:Restriction ;
-            owl:onProperty sulo:hasParticipant ;
-            owl:someValuesFrom [ a owl:Class ;
                     owl:intersectionOf ( :BakerRole [ a owl:Restriction ;
                                 owl:onProperty sulo:isFeatureOf ;
                                 owl:someValuesFrom :Person ] ) ] ],
@@ -625,12 +607,30 @@ dcterms:description a owl:AnnotationProperty .
         [ a owl:Restriction ;
             owl:onProperty sulo:hasParticipant ;
             owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom :Cheese ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom :PizzaSauce ] ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom :BakingThePizza ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
                     owl:intersectionOf ( <https://w3id.org/ontostart/pro/EmergingRole> [ a owl:Restriction ;
                                 owl:onProperty sulo:isFeatureOf ;
                                 owl:someValuesFrom :Pizza ] ) ] ],
         [ a owl:Restriction ;
-            owl:onProperty sulo:precedes ;
-            owl:someValuesFrom :BakingThePizza ],
+            owl:onProperty sulo:hasParticipant ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <https://w3id.org/ontostart/pro/PersistingRole> [ a owl:Restriction ;
+                                owl:onProperty sulo:isFeatureOf ;
+                                owl:someValuesFrom :PizzaDough ] ) ] ],
         <https://w3id.org/ontostart/pro/TransformationProcess> .
 
 :Gorgonzola a owl:Class ;
@@ -640,10 +640,7 @@ dcterms:description a owl:AnnotationProperty .
 
 :MakingThePizzaDough a owl:Class ;
     rdfs:label "making the pizza dough"@en ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty sulo:atTime ;
-            owl:someValuesFrom :MakingStartTime ],
-        [ a owl:Class ;
+    rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( <https://w3id.org/ontostart/pro/TransformationProcess> [ a owl:Restriction ;
                         owl:onProperty sulo:hasParticipant ;
                         owl:someValuesFrom [ a owl:Class ;
@@ -681,11 +678,14 @@ dcterms:description a owl:AnnotationProperty .
                                             owl:onProperty sulo:isFeatureOf ;
                                             owl:someValuesFrom :Person ] ) ] ] ) ],
         [ a owl:Restriction ;
+            owl:onProperty sulo:atTime ;
+            owl:someValuesFrom :MakingEndTime ],
+        [ a owl:Restriction ;
             owl:onProperty sulo:precedes ;
             owl:someValuesFrom :ProofingTheDough ],
         [ a owl:Restriction ;
             owl:onProperty sulo:atTime ;
-            owl:someValuesFrom :MakingEndTime ],
+            owl:someValuesFrom :MakingStartTime ],
         <https://w3id.org/ontostart/pro/TransformationProcess> .
 
 :Mozzarella a owl:Class ;
@@ -738,14 +738,14 @@ dcterms:description a owl:AnnotationProperty .
 :SlicingThePizza a owl:Class ;
     rdfs:label "slicing the pizza"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom :DeliveringThePizza ],
+        [ a owl:Restriction ;
             owl:onProperty sulo:hasParticipant ;
             owl:someValuesFrom [ a owl:Class ;
                     owl:intersectionOf ( <https://w3id.org/ontostart/pro/EmergingRole> [ a owl:Restriction ;
                                 owl:onProperty sulo:isFeatureOf ;
                                 owl:someValuesFrom :PizzaSlice ] ) ] ],
-        [ a owl:Restriction ;
-            owl:onProperty sulo:precedes ;
-            owl:someValuesFrom :DeliveringThePizza ],
         [ a owl:Restriction ;
             owl:onProperty sulo:hasParticipant ;
             owl:someValuesFrom [ a owl:Class ;
@@ -787,20 +787,20 @@ dcterms:description a owl:AnnotationProperty .
 :BakingThePizza a owl:Class ;
     rdfs:label "baking the pizza"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty sulo:precedes ;
-            owl:someValuesFrom :SlicingThePizza ],
-        [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
-            owl:someValuesFrom :DoughBaking ],
+            owl:someValuesFrom :CheeseMelting ],
         [ a owl:Restriction ;
             owl:onProperty sulo:atTime ;
             owl:someValuesFrom :BakingStartTime ],
         [ a owl:Restriction ;
             owl:onProperty sulo:hasPart ;
-            owl:someValuesFrom :CheeseMelting ],
+            owl:someValuesFrom :DoughBaking ],
         [ a owl:Restriction ;
             owl:onProperty sulo:atTime ;
             owl:someValuesFrom :BakingEndTime ],
+        [ a owl:Restriction ;
+            owl:onProperty sulo:precedes ;
+            owl:someValuesFrom :SlicingThePizza ],
         <https://w3id.org/ontostart/pro/DevelopmentalProcess> .
 
 :DeliveringThePizza a owl:Class ;
@@ -853,11 +853,11 @@ dcterms:description a owl:AnnotationProperty .
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         :FoodMaterial .
 
-[] a owl:AllDisjointClasses ;
-    owl:members ( :SpicyHot :SpicyMedium :SpicyMild ) .
-
 [] a owl:AllDifferent ;
     owl:distinctMembers ( :pizza_001 :delivery_box_001 :crust_of_my_pizza :fridge_001 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :SpicyHot :SpicyMedium :SpicyMild ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :PizzaOven :PizzaDeliveryBox :Table ) .
