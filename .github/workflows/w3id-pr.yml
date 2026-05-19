@@ -3,8 +3,8 @@ name: Propose w3id.org redirects
 on:
   workflow_dispatch:
     inputs:
-      ONTO_ABBREV:
-        description: "Short directory name to create in w3id.org (e.g., 'testo')"
+      W3ID_FOLDER:
+        description: "Single word directory name to create in w3id.org (e.g., 'ontostart')"
         required: true
         default: "testo"
       SOURCE_HTACCESS_PATH:
@@ -17,6 +17,18 @@ on:
         default: "scripts/w3id.org/README.md"        
       W3ID_FORK_OWNER:
         description: "Organization to own the fork (leave empty to fork under your user)"
+        required: false
+        default: ""
+      COMMIT_MESSAGE:
+        description: "Git commit message for the .htaccess/README change"
+        required: false
+        default: ""
+      PR_TITLE:
+        description: "Pull request title"
+        required: false
+        default: ""
+      PR_BODY:
+        description: "Pull request body / description"
         required: false
         default: ""
 
@@ -53,7 +65,7 @@ jobs:
 
       - name: Capture inputs
         run: |
-          echo "ONTO_ABBREV=${{ inputs.ONTO_ABBREV }}"          >> "$GITHUB_ENV"
+          echo "W3ID_FOLDER=${{ inputs.W3ID_FOLDER }}"          >> "$GITHUB_ENV"
           echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> "$GITHUB_ENV"
           echo "SOURCE_README_PATH=${{ inputs.SOURCE_README_PATH }}" >> "$GITHUB_ENV"
           echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}"         >> "$GITHUB_ENV"
@@ -110,23 +122,27 @@ jobs:
       - name: Create branch and copy .htaccess AND README.md
         run: |
           cd "${CLONED_DIR}"
-          BRANCH="add-${ONTO_ABBREV}-$(date +%Y%m%d%H%M%S)"
+          BRANCH="add-${W3ID_FOLDER}-$(date +%Y%m%d%H%M%S)"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
-          mkdir -p "${ONTO_ABBREV}"
+          mkdir -p "${W3ID_FOLDER}"
           if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
             echo "Source ${SOURCE_HTACCESS_PATH} not found." >&2
             exit 1
           fi
 
-          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ONTO_ABBREV}/.htaccess"
-          cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${ONTO_ABBREV}/README.md"
+          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${W3ID_FOLDER}/.htaccess"
+          cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${W3ID_FOLDER}/README.md"
           
           git checkout -b "${BRANCH}"
-          git add "${ONTO_ABBREV}/.htaccess" "${ONTO_ABBREV}/README.md" || true
+          git add "${W3ID_FOLDER}/.htaccess" "${W3ID_FOLDER}/README.md" || true
           
+          COMMIT_MSG="${{ inputs.COMMIT_MESSAGE }}"
+          if [ -z "${COMMIT_MSG}" ]; then
+            COMMIT_MSG="Adding ${W3ID_FOLDER} .htaccess and/or README.md"
+          fi
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Adding ${ONTO_ABBREV} .htaccess and/or README.md"
+            git commit -m "${COMMIT_MSG}"
           else
             echo "No changes to commit; proceeding without commit."
           fi
@@ -142,12 +158,20 @@ jobs:
         run: |
           set -e
           # Try to create the PR; if it already exists, just show it
+          PR_TITLE="${{ inputs.PR_TITLE }}"
+          if [ -z "${PR_TITLE}" ]; then
+            PR_TITLE="Add ${W3ID_FOLDER} redirects"
+          fi
+          PR_BODY="${{ inputs.PR_BODY }}"
+          if [ -z "${PR_BODY}" ]; then
+            PR_BODY="This PR adds \`${W3ID_FOLDER}/.htaccess\` with redirects for the \`${W3ID_FOLDER}\` namespace."
+          fi
           if gh pr create \
               --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
               --head "${FORK_OWNER}:${BRANCH}" \
               --base "${BASE_BRANCH}" \
-              --title "Add ${ONTO_ABBREV} redirects" \
-              --body "This PR adds \`${ONTO_ABBREV}/.htaccess\` with redirects for the \`${ONTO_ABBREV}\` namespace."; then
+              --title "${PR_TITLE}" \
+              --body "${PR_BODY}"; then
             echo "PR created."
           else
             echo "PR may already exist; showing matching PRs..."
