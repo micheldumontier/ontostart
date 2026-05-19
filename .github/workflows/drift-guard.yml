@@ -1,0 +1,132 @@
+name: Workflow Drift Guard
+
+# Fails CI if the workflow files on any tracked ontology branch diverge
+# from main's, modulo the documented per-branch override lines.
+#
+# To update the shared template: change main first, then update each
+# branch in TRACKED_BRANCHES so the body hashes match. Until that is
+# done, this guard will fail on the diverging branch(es) -- which is
+# the point. There is no bypass; fix the drift.
+#
+# NOTE: scheduled triggers only fire from the default branch's copy of
+# this file. Cron edits on non-main copies have no effect.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+  schedule:
+    - cron: '17 3 * * *'  # Daily at 03:17 UTC (only fires from main)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all branch refs
+        run: |
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+
+      - name: Compare workflow files across branches
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          # Tracked ontology branches. Add new branches here when they
+          # graduate from experiments and should follow the template.
+          TRACKED_BRANCHES="pizza pro testo ensar"
+
+          # Expected set of workflow files. Branches with extra or
+          # missing files are considered drifted.
+          EXPECTED_FILES="branch.yml main.yml test.yml w3id-pr.yml drift-guard.yml"
+
+          # Per-file documented override surface. Lines matching the
+          # pattern are stripped before comparing body hashes -- so a
+          # branch is free to set its own value there, but cannot
+          # otherwise diverge from main without tripping the guard.
+          strip_overrides() {
+            local file="$1"
+            case "$file" in
+              main.yml)
+                grep -v -E '^ {6}ONTO_(FILE|ABBREV):'
+                ;;
+              w3id-pr.yml)
+                grep -v -E '^ {8}default:'
+                ;;
+              *)
+                cat
+                ;;
+            esac
+          }
+
+          fail() {
+            echo "::error::$*"
+            DRIFT=1
+          }
+
+          DRIFT=0
+
+          # Canonical body hashes from main
+          declare -A canonical
+          for f in $EXPECTED_FILES; do
+            if ! git show "origin/main:.github/workflows/$f" >/dev/null 2>&1; then
+              fail "main is missing .github/workflows/$f"
+              continue
+            fi
+            h=$(git show "origin/main:.github/workflows/$f" | strip_overrides "$f" | sha256sum | cut -c1-12)
+            canonical[$f]=$h
+            echo "main:$f body=$h"
+          done
+
+          # Compare each tracked branch
+          for b in $TRACKED_BRANCHES; do
+            echo "::group::branch $b"
+
+            # File set check: must match exactly
+            actual=$(git ls-tree --name-only "origin/$b" -- .github/workflows/ | sed 's|.github/workflows/||' | sort | tr '\n' ' ' | sed 's/ $//')
+            expected=$(echo $EXPECTED_FILES | tr ' ' '\n' | sort | tr '\n' ' ' | sed 's/ $//')
+            if [ "$actual" != "$expected" ]; then
+              fail "$b has unexpected workflow file set"
+              echo "  expected: $expected"
+              echo "  actual:   $actual"
+            fi
+
+            # Body hash check per file
+            for f in $EXPECTED_FILES; do
+              if ! git show "origin/$b:.github/workflows/$f" >/dev/null 2>&1; then
+                continue  # already reported above
+              fi
+              h=$(git show "origin/$b:.github/workflows/$f" | strip_overrides "$f" | sha256sum | cut -c1-12)
+              if [ "${canonical[$f]:-}" = "" ]; then
+                continue
+              fi
+              if [ "$h" != "${canonical[$f]}" ]; then
+                fail "$b:.github/workflows/$f body differs from main (expected ${canonical[$f]}, got $h)"
+                echo "  Diff (overrides stripped):"
+                diff <(git show "origin/main:.github/workflows/$f" | strip_overrides "$f") \
+                     <(git show "origin/$b:.github/workflows/$f"   | strip_overrides "$f") \
+                  | sed 's/^/    /' || true
+              else
+                echo "$b:$f body=$h OK"
+              fi
+            done
+
+            echo "::endgroup::"
+          done
+
+          if [ $DRIFT -ne 0 ]; then
+            echo "::error::Workflow drift detected across tracked branches. Sync the diverging branch(es) with main."
+            exit 1
+          fi
+          echo "All tracked branches in sync with main."
