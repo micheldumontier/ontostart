@@ -38,6 +38,7 @@ permissions:
 
 env:
   W3ID_UPSTREAM_REPO: perma-id/w3id.org
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   make-pr:
