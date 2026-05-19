@@ -41,6 +41,7 @@ jobs:
       GIST_ID: ${{ vars.GIST_ID }}
       # Prefer org/repo owner if no explicit GIST_OWNER is set in repo variables
       GIST_OWNER: ${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Determine target branch & derive names
@@ -174,7 +175,7 @@ jobs:
           (echo "Profile check failed." && exit 1)
 
       - name: Badge — Syntax
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -204,7 +205,7 @@ jobs:
             reason.summary
 
       - name: Badge — Reason
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -222,7 +223,7 @@ jobs:
           fi
 
       - name: Badge — Version update
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -269,9 +270,92 @@ jobs:
           mkdir -p "$DOCS_DIR/versions/latest"
           cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
           cp -r "$VERSION_DIR/$NEW_VERSION/"* "$DOCS_DIR/versions/latest/"
-            
+
+      - name: Generate per-version landing pages
+        run: |
+          python3 - << 'PY'
+          import os, re
+
+          docs_dir  = os.environ["DOCS_DIR"]
+          base      = os.environ["PUBLIC_BASE_URL"]
+          abbrev    = os.environ["ONTO_ABBREV"]
+          ver_dir   = os.environ["VERSION_DIR"]
+          cur_ver   = os.environ.get("NEW_VERSION", "")
+
+          def semver_key(v):
+            m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', v)
+            return tuple(map(int, m.groups())) if m else (0, 0, 0)
+
+          versions = sorted(
+            [d for d in os.listdir(ver_dir) if os.path.isdir(os.path.join(ver_dir, d)) and d != "latest"],
+            key=semver_key, reverse=True
+          )
+
+          exts = ["ttl", "jsonld", "nt", "owl"]
+
+          for v in versions:
+            out_dir = f"{docs_dir}/{v}"
+            os.makedirs(out_dir, exist_ok=True)
+
+            # copy format files so content negotiation can serve them
+            for ext in exts:
+              src = f"{ver_dir}/{v}/{abbrev}.{ext}"
+              if os.path.exists(src):
+                import shutil
+                shutil.copy(src, f"{out_dir}/{abbrev}.{ext}")
+
+            is_current = v == cur_ver
+            current_tag = " <strong>(current)</strong>" if is_current else ""
+            links = "\n".join(
+              f'            <li><a href="{abbrev}.{ext}">{abbrev}.{ext}</a></li>'
+              for ext in exts if os.path.exists(f"{ver_dir}/{v}/{abbrev}.{ext}")
+            )
+            other_versions = "\n".join(
+              f'            <li><a href="../{ov}/">{ov}</a>{"  (current)" if ov == cur_ver else ""}</li>'
+              for ov in versions if ov != v
+            )
+
+            html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <title>{abbrev} {v}</title>
+            <style>
+              body {{ font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }}
+              h1 {{ margin-bottom: .25rem; }}
+              .meta {{ color: #555; margin-bottom: 1.5rem; }}
+              a {{ color: #0b5fff; }}
+              ul {{ margin: .25rem 0 .5rem 1.25rem; }}
+              .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; max-width: 600px; margin-bottom: 1rem; }}
+            </style>
+          </head>
+          <body>
+            <h1>{abbrev} <code>{v}</code>{current_tag}</h1>
+            <div class="meta"><a href="../">← back to {abbrev}</a></div>
+            <div class="card">
+              <h2>Downloads</h2>
+              <ul>
+          {links}
+              </ul>
+            </div>
+            <div class="card">
+              <h2>Other versions</h2>
+              <ul>
+          {other_versions}
+              </ul>
+            </div>
+          </body>
+          </html>"""
+
+            with open(f"{out_dir}/index.html", "w", encoding="utf-8") as f:
+              f.write(html)
+
+          print(f"Generated landing pages for: {', '.join(versions)}")
+          PY
+
       - name: Checkout Forked Ontospy
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: micheldumontier/Ontospy
           path: './ontospy'
@@ -291,7 +375,7 @@ jobs:
           python -m ontospy.cli gendocs --type 2 -o "$DOCS_DIR/docs/ontospy" "$ONTO_FILE"
 
       - name: Badge — Ontospy
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -315,7 +399,7 @@ jobs:
           PY
 
       - name: Badge — Pylode
-        if: always()
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -355,6 +439,26 @@ jobs:
           owl = vers_url + ".owl"
           ontospy_url = base + "docs/ontospy/"
           pylode_url  = base + "docs/pylode/"
+          foops_url   = base + "foops/"
+
+          # build sorted list of all committed versions
+          import re
+          version_dir = os.environ["VERSION_DIR"]
+          all_versions = []
+          if os.path.isdir(version_dir):
+            for d in os.listdir(version_dir):
+              if d != "latest" and os.path.isdir(os.path.join(version_dir, d)):
+                all_versions.append(d)
+          def semver_key(v):
+            m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', v)
+            return tuple(map(int, m.groups())) if m else (0, 0, 0)
+          all_versions.sort(key=semver_key, reverse=True)
+          version_rows = ""
+          for v in all_versions:
+            v_url = f"{base}versions/{v}/{abbrev}"
+            current = " <strong>(current)</strong>" if v == version else ""
+            version_rows += f'<li><a href="{v_url}.ttl">{v}</a> — <a href="{v_url}.ttl">ttl</a> | <a href="{v_url}.jsonld">jsonld</a> | <a href="{v_url}.nt">nt</a> | <a href="{v_url}.owl">owl</a>{current}</li>\n                  '
+
           # badge URLs (shields endpoint -> gist JSON files)
           bbase = os.environ["BADGE_BASE"]
           sb = os.environ["SAFE_BRANCH"]
@@ -421,6 +525,14 @@ jobs:
                 <ul>
                   <li><a href="{pylode_url}">PyLODE</a></li>
                   <li><a href="{ontospy_url}">Ontospy</a></li>
+                  <li><a href="{foops_url}">FOOPS! detailed report</a></li>
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>All Versions</h2>
+                <ul>
+                  {version_rows}
                 </ul>
               </section>
             </div>
@@ -433,30 +545,6 @@ jobs:
             f.write(html)
           PY
           
-      - name: Deploy to gh-pages (keep other branches)
-        id: ghpages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ env.DOCS_DIR }}
-          destination_dir: ${{ env.SAFE_BRANCH }}
-          keep_files: false
-          enable_jekyll: false
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
-
-
-      - name: Badge — Deploy (Shields endpoint)
-        if: always()
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
-          label: deploy
-          message: ${{ steps.ghpages.outcome }}
-          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
-    
       - name: Call FOOPS! API
         id: foops
         # @todo replace with the w3id ontology URI when available.
@@ -473,7 +561,7 @@ jobs:
         with:
           name: foops-results
           path: foops-results.json
-          
+
       - name: Process FOOPS! results
         run: |
           python3 - << 'PY'
@@ -484,15 +572,116 @@ jobs:
               tot_checks = len(data["checks"])
               for check in data["checks"]:
                   total_score += check["total_passed_tests"] / check["total_tests_run"]
-                  
+
               overall_score = total_score / tot_checks * 100
               label = f"{overall_score:.1f}% ({total_score:.2f} in {tot_checks} tests)"
               with open(os.environ["GITHUB_ENV"], "a") as f:
-                f.write(f"FOOPS_SCORE={label}\n")  
+                f.write(f"FOOPS_SCORE={label}\n")
           PY
-          
-      - name: Badge — FOOPS
+
+      - name: Generate FOOPS! report page
         if: always()
+        run: |
+          python3 - << 'PY'
+          import json, os
+
+          docs_dir = os.environ["DOCS_DIR"]
+          base     = os.environ["PUBLIC_BASE_URL"]
+          abbrev   = os.environ["ONTO_ABBREV"]
+          version  = os.environ.get("NEW_VERSION", "")
+          iri      = os.environ.get("ONTO_IRI", "")
+          overall  = os.environ.get("FOOPS_SCORE", "N/A")
+
+          os.makedirs(f"{docs_dir}/foops", exist_ok=True)
+
+          try:
+            with open("foops-results.json") as f:
+              data = json.load(f)
+            checks = data.get("checks", [])
+            error_msg = ""
+          except Exception as e:
+            checks = []
+            error_msg = f"<p style='color:red'>Could not load FOOPS results: {e}</p>"
+
+          rows = ""
+          for c in checks:
+            cid   = c.get("id", "")
+            title = c.get("title", cid)
+            passed = c.get("total_passed_tests", 0)
+            total  = c.get("total_tests_run", 1)
+            explanation = c.get("explanation", c.get("description", ""))
+            score_str = f"{passed}/{total}"
+            if passed == total:
+              color = "#16a34a"
+            elif passed == 0:
+              color = "#dc2626"
+            else:
+              color = "#d97706"
+            rows += f"<tr><td><code>{cid}</code></td><td>{title}</td><td style='color:{color};font-weight:bold;white-space:nowrap'>{score_str}</td><td>{explanation}</td></tr>\n"
+
+          html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <title>FOOPS! Report — {abbrev} {version}</title>
+            <style>
+              body {{ font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }}
+              h1 {{ margin-bottom: .25rem; }}
+              .meta {{ color: #555; margin-bottom: 1.5rem; }}
+              a {{ color: #0b5fff; }}
+              table {{ border-collapse: collapse; width: 100%; max-width: 1100px; font-size: .9rem; }}
+              th, td {{ border: 1px solid #e5e7eb; padding: .5rem .75rem; text-align: left; vertical-align: top; }}
+              th {{ background: #f9fafb; }}
+              tr:hover {{ background: #f0f9ff; }}
+              code {{ color: #0b5fff; }}
+            </style>
+          </head>
+          <body>
+            <h1>FOOPS! Report</h1>
+            <div class="meta">
+              <div><strong>Ontology:</strong> <a href="{base}">{abbrev} {version}</a></div>
+              <div><strong>IRI:</strong> <code>{iri}</code></div>
+              <div><strong>Overall score:</strong> {overall}</div>
+            </div>
+            {error_msg}
+            <table>
+              <thead><tr><th>ID</th><th>Check</th><th>Score</th><th>Explanation</th></tr></thead>
+              <tbody>{rows}</tbody>
+            </table>
+          </body>
+          </html>"""
+
+          with open(f"{docs_dir}/foops/index.html", "w", encoding="utf-8") as f:
+            f.write(html)
+          PY
+
+      - name: Deploy to gh-pages (keep other branches)
+        id: ghpages
+        if: ${{ !env.ACT }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DOCS_DIR }}
+          destination_dir: ${{ env.SAFE_BRANCH }}
+          keep_files: false
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+
+      - name: Badge — Deploy (Shields endpoint)
+        if: ${{ always() && !env.ACT }}
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: ontology-ci-deploy-${{ env.SAFE_BRANCH }}.json
+          label: deploy
+          message: ${{ steps.ghpages.outcome }}
+          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+      - name: Badge — FOOPS
+        if: ${{ always() && !env.ACT }}
         uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
