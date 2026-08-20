@@ -115,3 +115,18 @@ pro:LocationRole a owl:Class ;
 [] a owl:AllDisjointClasses ;
     owl:members ( pro:ContainmentRole pro:ContainedRole pro:OnTopPositionRole pro:SurfacePositionRole ) .
 
+
+pro:MereologicalRole a owl:Class ;
+    rdfs:label "mereological role"@en ;
+    rdfs:comment "A role borne by an entity by virtue of participating in a part-whole composition process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:WholeRole a owl:Class ;
+    rdfs:label "whole role"@en ;
+    rdfs:comment "A mereological role borne by the whole that a composition process assembles from its parts."@en ;
+    rdfs:subClassOf pro:MereologicalRole .
+
+pro:PartRole a owl:Class ;
+    rdfs:label "part role"@en ;
+    rdfs:comment "A mereological role borne by a part that a composition process assembles into a whole."@en ;
+    rdfs:subClassOf pro:MereologicalRole .
