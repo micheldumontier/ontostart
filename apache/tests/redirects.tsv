@@ -20,16 +20,16 @@ text/turtle, application/rdf+xml;q=0.5	/	{pages}/main/versions/latest/ontostart.
 */*;q=0.1, text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	-
 text/html, text/turtle	/	{pages}/main/	-
 # --- main version IRIs (owl:versionIRI = {base}/x.y.z)
-text/turtle	/0.0.1	{pages}/main/versions/0.0.1/ontostart.ttl	y
-text/html	/0.0.1	{pages}/main/0.0.1/	y
+text/turtle	/0.0.2	{pages}/main/versions/0.0.2/ontostart.ttl	y
+text/html	/0.0.2	{pages}/main/0.0.2/	y
 # --- main branch folder
 text/turtle	/main/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/main/	{pages}/main/	y
 text/html	/main	{base}/main/	-
-text/turtle	/main/versions/0.0.1/	{pages}/main/versions/0.0.1/ontostart.ttl	y
+text/turtle	/main/versions/0.0.2/	{pages}/main/versions/0.0.2/ontostart.ttl	y
 text/turtle	/main/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/main/versions/latest/	{pages}/main/	y
-text/html	/main/versions/0.0.1/	{pages}/main/0.0.1/	y
+text/html	/main/versions/0.0.2/	{pages}/main/0.0.2/	y
 text/turtle	/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/versions	{base}/versions/	-
 text/html	/docs/ontospy/index.html	{pages}/main/docs/ontospy/index.html	y
