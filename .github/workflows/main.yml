@@ -27,8 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -218,34 +216,26 @@ jobs:
         run: |
           echo "onto_iri=${ONTO_IRI}" >> "$GITHUB_OUTPUT"
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
+      - name: Copy versioned files to docs
+        run: |
+          mkdir -p "$DOCS_DIR/versions/latest"
+          cp -r "$VERSION_DIR"/* "$DOCS_DIR/versions/"
+          cp -r "$VERSION_DIR/$NEW_VERSION/"* "$DOCS_DIR/versions/latest/"
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      # Pages is served from the gh-pages branch (branch.yml publishes each
+      # branch into its own subfolder), so main publishes into gh-pages/main.
+      # keep_files preserves pages generated there by earlier branch-CI runs.
+      - name: Deploy to gh-pages (main/)
+        id: ghpages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ${{ env.DOCS_DIR }}
-
-    outputs:
-      onto_iri: ${{ steps.vars.outputs.onto_iri }}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      GIST_ID: ${{ vars.GIST_ID }}
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
-        id: deployment
-        with:
-          preview: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DOCS_DIR }}
+          destination_dir: main
+          keep_files: true
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
 
       - name: Badge — Deploy (Shields endpoint)
         if: always()
@@ -255,8 +245,11 @@ jobs:
           gistID: ${{ env.GIST_ID }}
           filename: ontology-ci-deploy.json
           label: deploy
-          message: ${{ steps.deployment.outcome }}
-          color: ${{ steps.deployment.outcome == 'success' && 'brightgreen' || steps.deployment.outcome == 'cancelled' && 'yellow' || 'red' }}
+          message: ${{ steps.ghpages.outcome }}
+          color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
+
+    outputs:
+      onto_iri: ${{ steps.vars.outputs.onto_iri }}
 
   foops:
     runs-on: ubuntu-latest
