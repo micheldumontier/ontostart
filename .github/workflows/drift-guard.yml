@@ -48,7 +48,7 @@ jobs:
 
           # Tracked ontology branches. Add new branches here when they
           # graduate from experiments and should follow the template.
-          TRACKED_BRANCHES="pizza pro testo ensar"
+          TRACKED_BRANCHES="pizza pro testo"
 
           # Expected set of workflow files. Branches with extra or
           # missing files are considered drifted.
