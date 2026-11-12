@@ -1,46 +1,43 @@
-[![ontology CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml/badge.svg)](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml)
+[![branch CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml/badge.svg?branch=testo)](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml?query=branch%3Atesto)
+![Version](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-version-testo.json) ![OWL DL profile](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-profile-testo.json) ![Reasoning](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-reason-testo.json) ![FOOPS!](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-foops-testo.json)
 
-# OntoStart 
+# Ontostart Test Ontology
 
-OntoStart is a project to create FAIR (Findable, Accessible, Interoperable, and Reusable) OWL ontologies through predefined GitHub Actions.
+The Ontostart Test Ontology.
 
-Features
-* w3id.org persistent identifier for versioned ontologies
-* content-type negotiation to get the ontology in different formats
-* rich ontology metadata, as per the FAIR principles
-* github actions to:
-   * automatically setup w3id.org redirects
-   * automatically increment the ontology version on commit
-   * automatically check the consistency of the ontology using Robot with Hermit reasoner
-   * automatically generate ontology documentation using OntoSpy and Pylode
-   * automatically run FAIRness asssessment using FOOPS!
-   * automatically publish the website to github pages
- 
-See an [example](https://micheldumontier.github.io/ontostart/main/) processing of the Ontostart default ontology template.
+A test ontology with no terms of its own. It exists to exercise the OntoStart CI on a branch; it isn't meant for reuse.
 
-## Getting Started 
-1. Devise a short name or acronym for the ontology. I'll use `myawesomeontology` as a short name for illustrative purposes. A lot of the automatic processing depends on this.
+| | |
+|---|---|
+| IRI | <https://w3id.org/ontostart/testo/> |
+| Prefix | `testo:` |
+| Documentation | [Website](https://micheldumontier.github.io/ontostart/testo/) · [OntoSpy](https://micheldumontier.github.io/ontostart/testo/docs/ontospy/index.html) · [pyLODE](https://micheldumontier.github.io/ontostart/testo/docs/pylode/index.html) |
+| License | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) |
+| Imports | [SULO](https://w3id.org/sulo/) |
+| Source | [`testo.ttl`](https://github.com/micheldumontier/ontostart/blob/testo/testo.ttl) on the `testo` branch |
 
-2. Fork and rename the repository with your short name. In doing so, it should be at `youruserororg/myawesomeontology`
+## Get the ontology
 
-4. Rename `ontostart.ttl` to `myawesomeontology.ttl`. 
+The IRI resolves to the website in a browser, and to the ontology file when you ask for an RDF format:
 
-5. Modify the ontology metadata. I recommend to use a tool such as VScode or Protege to make sure that you don't introduce syntax errors.
+```
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/testo/
+curl -L -H "Accept: application/rdf+xml" https://w3id.org/ontostart/testo/
+curl -L -H "Accept: application/ld+json" https://w3id.org/ontostart/testo/
+curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/testo/
+```
 
-6. Setup for GitHub Actions.
-7. 
-   i) Set up a Public Gist that will store the information to create the GitHub badges. From your github user account (top right hand corner), select 'Gists' on the menu. Create a new Gist (+ sign next to user account). The content of the gist can't be empty, so add a character. Create a Public Gist - click on the drop down list to the right of "Create a Secret Gist) and pick "Create Public Gist). Copy the Gist Id (gist:xxxxxxxx) to the clipboard, without the "gist" prefix.  Now go to your forked ontostart repo settings, select Actions under Secrets and Variables, select Variables, and Create a New Repository Variable called GIST_ID. Paste the gist Id (without the gist:) prefix into the value fiedl and click on Add Variable.
-   
-   ii) Set up two Personal Access Tokens (PAT), one for GitHub Actions to write the badge info to the Gist, and the second for a GitHub action to make a pull request to the w3id repo. Go to your account, select Settings, then Developer settings, then Personal Access Tokens, then Tokens (classic).
-   
-   a) Create a classic PAT with gist scope and store it as a secret named GIST_TOKEN in this repo. Generate a new token (classic) and name it "gists for ontostart badges". Choose a long term expiration date. Check the box "gists" to give permission to create gists. click on generate token. Copy the personal access token. Go to the repo settings, Secrets and Variables, and create a new repository secret. Create a new Repository Secret named GIST_TOKEN and paste the PAT to the Secret. Click on Add Secret.
-   
-   b) Create a classic PAT with repo and org:read scope and store it as a secret named W3ID_TOKEN in this repo.
-   
-8 Customize a pull request to w3id.org.
-  * Edit the `apache/web/README.md` file to describe your ontology and put in your contact info.
-  * Manually run the `Propose w3id.org redirects` GitHub Action. You can see the pull request at [https://github.com/perma-id/w3id.org/pulls](https://github.com/perma-id/w3id.org/pulls)
-  * It will take which will yield an ontology IRI of the form `https://w3id.org/myawesomeontology/`
+## Making changes
 
+Edit `testo.ttl` on this branch and push. The [branch CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml) then:
 
+1. checks the OWL 2 DL profile and consistency (ROBOT with HermiT),
+2. bumps the patch version and commits it, with the Turtle, RDF/XML, JSON-LD and N-Triples files under `versions/`,
+3. regenerates the OntoSpy and pyLODE documentation and the FOOPS! FAIRness report,
+4. publishes everything to the [website](https://micheldumontier.github.io/ontostart/testo/).
 
+Don't edit `versions/` by hand: CI writes it.
+
+## About OntoStart
+
+This ontology is published with [OntoStart](https://github.com/micheldumontier/ontostart), a template for publishing FAIR OWL ontologies with w3id.org IRIs and GitHub Actions. Each branch of the repository holds one ontology. See the [`main` branch](https://github.com/micheldumontier/ontostart/tree/main#readme) to set up your own.
