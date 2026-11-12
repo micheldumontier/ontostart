@@ -23,6 +23,8 @@ dcterms:contributor a owl:AnnotationProperty .
 
 dcterms:created a owl:AnnotationProperty .
 
+dcterms:description a owl:AnnotationProperty .
+
 dcterms:issued a owl:AnnotationProperty .
 
 dcterms:language a owl:AnnotationProperty .
@@ -70,18 +72,21 @@ ontostart: a owl:Ontology ;
     dcterms:bibliographicCitation "Unpublished"@en ;
     dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
     dcterms:created "2025-09-19T06:12:47.543282+00:00"^^xsd:dateTime ;
+    dcterms:description "A template ontology for OntoStart. Replace this description with a few sentences on what your ontology covers and who it is for."@en ;
     dcterms:issued "2026-11-12"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
-    dcterms:modified "2026-11-12T12:17:03.261030+00:00"^^xsd:dateTime ;
+    dcterms:modified "2026-11-12T18:26:44.645967+00:00"^^xsd:dateTime ;
     dcterms:publisher <https://github.com/micheldumontier> ;
     dcterms:title "Ontostart Template Ontology"@en ;
     pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
     vann:preferredNamespacePrefix "ontostart" ;
     vann:preferredNamespaceUri ontostart: ;
     rdfs:comment "Ontostart Template Ontology."@en ;
-    owl:versionIRI ontostart:0.0.2 ;
-    owl:versionInfo "0.0.2"^^xsd:string ;
+    owl:backwardCompatibleWith ontostart:0.0.2 ;
+    owl:priorVersion ontostart:0.0.2 ;
+    owl:versionIRI ontostart:0.0.3 ;
+    owl:versionInfo "0.0.3"^^xsd:string ;
     dcat:accessURL ontostart: ;
     foaf:homepage <https://github.com/micheldumontier/ontostart> ;
     schema:funding "This work is supported by my overwhelming enthusiasm for ontology."@en ;
