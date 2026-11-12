@@ -26,12 +26,21 @@ curl -L -H "Accept: application/ld+json" https://w3id.org/ontostart/
 curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/
 ```
 
-Retrieve the latest or specific versions of the ontology
+Retrieve the latest or specific versions of the ontology (the version IRI, or its folder)
 ```
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/0.0.1
 curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/latest/
 curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/0.0.1/
 ```
 
+Each branch publishes its own ontology under its own IRI, e.g. the `pizza` branch:
+```
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/pizza/
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/pizza/1.0.1
+curl -L https://w3id.org/ontostart/pizza/BakingDuration    # term page in a browser
+```
+
+The full URL layout is described at the top of [`apache/web/ontostart/.htaccess`](apache/web/ontostart/.htaccess).
 
 ## Getting Started
 1. Devise a short name or acronym for the ontology. I'll use `myawesomeontology` as a short name for illustrative purposes. A lot of the automatic processing depends on this.
@@ -60,6 +69,7 @@ curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/0.0.1/
 
 6. Customize a pull request to w3id.org.
    * Edit `apache/web/ontostart/README.md` to describe your ontology and add your contact info.
-   * Edit `apache/web/ontostart/.htaccess` to change the owner and repository names.
+   * Edit the parameters at the top of `apache/web/ontostart/.htaccess`: owner, repository, main branch, ontology file name, and the branches that should also resolve without a trailing slash.
+   * Update the expected redirects in `apache/tests/redirects.tsv` to your names, and run `apache/test-redirects.sh` (needs Docker). Add `--targets` to also check that every target page exists on your GitHub Pages site, or `--url https://w3id.org/myawesomeontology` to test the live redirects. The GitHub Action below runs the same test before opening the pull request.
    * Manually run the `Propose w3id.org redirects` GitHub Action. You can see the pull request at [https://github.com/perma-id/w3id.org/pulls](https://github.com/perma-id/w3id.org/pulls).
    * Once the w3id.org maintainers merge the pull request, your ontology IRI will be of the form `https://w3id.org/myawesomeontology/`.

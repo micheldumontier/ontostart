@@ -1,0 +1,58 @@
+# Expected w3id.org redirects, tested by apache/test-redirects.sh
+#
+# Columns (tab-separated): Accept header, path, expected Location, target check
+#   path starts with "/" and is relative to the w3id folder ("/" = the folder itself)
+#   {pages} = https://<GH_USER>.github.io/<GH_REPONAME>   {base} = the w3id folder being tested
+#   target check: "y" = the Location must exist on GitHub Pages (--targets); "-" = skip
+#
+# accept	path	expected location	check
+# --- main ontology and content negotiation
+text/html	/	{pages}/main/	y
+text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	y
+application/rdf+xml	/	{pages}/main/versions/latest/ontostart.owl	y
+application/ld+json	/	{pages}/main/versions/latest/ontostart.jsonld	y
+application/n-triples	/	{pages}/main/versions/latest/ontostart.nt	y
+*/*	/	{pages}/main/	y
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8	/	{pages}/main/	y
+application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6, text/plain; q=0.1, */*; q=0.09	/	{pages}/main/versions/latest/ontostart.owl	y
+application/rdf+xml, text/turtle;q=0.1	/	{pages}/main/versions/latest/ontostart.owl	-
+text/turtle, application/rdf+xml;q=0.5	/	{pages}/main/versions/latest/ontostart.ttl	-
+*/*;q=0.1, text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	-
+text/html, text/turtle	/	{pages}/main/	-
+# --- main version IRIs (owl:versionIRI = {base}/x.y.z)
+text/turtle	/0.0.1	{pages}/main/versions/0.0.1/ontostart.ttl	y
+text/html	/0.0.1	{pages}/main/0.0.1/	y
+# --- main branch folder
+text/turtle	/main/	{pages}/main/versions/latest/ontostart.ttl	y
+text/html	/main/	{pages}/main/	y
+text/html	/main	{base}/main/	-
+text/turtle	/main/versions/0.0.1/	{pages}/main/versions/0.0.1/ontostart.ttl	y
+text/turtle	/main/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
+text/html	/main/versions/latest/	{pages}/main/	y
+text/html	/main/versions/0.0.1/	{pages}/main/0.0.1/	y
+text/turtle	/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
+text/html	/versions	{base}/versions/	-
+text/html	/docs/ontospy/index.html	{pages}/main/docs/ontospy/index.html	y
+text/html	/ontostart.ttl	{pages}/main/versions/latest/ontostart.ttl	y
+# --- main terms
+text/html	/Thing	{pages}/main/docs/ontospy/class-ontostartThing.html	-
+text/html	/hasUnit	{pages}/main/docs/ontospy/prop-ontostarthasUnit.html	-
+text/turtle	/hasUnit	{pages}/main/versions/latest/ontostart.ttl	y
+# --- branch ontologies
+text/turtle	/pizza/	{pages}/pizza/versions/latest/pizza.ttl	y
+text/html	/pizza/	{pages}/pizza/	y
+text/html	/pizza	{base}/pizza/	-
+text/turtle	/pizza	{base}/pizza/	-
+application/rdf+xml	/suloized-pizza/	{pages}/suloized-pizza/versions/latest/suloized-pizza.owl	y
+text/turtle	/pizza/1.0.1	{pages}/pizza/versions/1.0.1/pizza.ttl	y
+text/html	/pizza/1.0.1	{pages}/pizza/1.0.1/	y
+application/rdf+xml	/pizza/versions/0.0.9/	{pages}/pizza/versions/0.0.9/pizza.owl	y
+text/html	/pizza/versions/1.0.1/	{pages}/pizza/1.0.1/	y
+text/html	/pizza/docs	{base}/pizza/docs/	-
+text/html	/pizza/docs/pylode/index.html	{pages}/pizza/docs/pylode/index.html	y
+text/html	/pizza/pizza.owl	{pages}/pizza/versions/latest/pizza.owl	y
+# --- branch terms
+text/html	/pizza/BakingDuration	{pages}/pizza/docs/ontospy/class-pizzaBakingDuration.html	y
+text/turtle	/pizza/BakingDuration	{pages}/pizza/versions/latest/pizza.ttl	y
+text/html	/pro/AgentRole	{pages}/pro/docs/ontospy/class-proAgentRole.html	y
+text/html	/pizza/hasTopping	{pages}/pizza/docs/ontospy/prop-pizzahasTopping.html	-
