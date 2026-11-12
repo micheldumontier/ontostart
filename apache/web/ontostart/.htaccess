@@ -102,7 +102,7 @@ RewriteRule ^(.+?)/?$ %{ENV:GH_PAGE}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 # https://w3id.org/ontostart/main/ -> https://micheldumontier.github.io/ontostart/main
 # https://w3id.org/ontostart/main/versions/latest -> https://micheldumontier.github.io/ontostart/main/versions/latest
 # https://w3id.org/ontostart/main/docs/ontospy/index.html -> https://micheldumontier.github.io/ontostart/main/docs/ontospy/index.html
-RewriteCond !%{ENV:EXT} .
+RewriteCond %{ENV:EXT} !.
 RewriteRule ^(.+)$ %{ENV:GH_PAGE}/$1 [R=303,L]
 
 # Root, content-type redirects to main branch

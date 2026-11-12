@@ -74,7 +74,7 @@ ontostart: a owl:Ontology ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
     dcterms:modified "2025-09-19T06:12:47.543282+00:00"^^xsd:dateTime ;
-    dcterms:publisher <https://github.org/micheldumontier> ;
+    dcterms:publisher <https://github.com/micheldumontier> ;
     dcterms:title "Ontostart Template Ontology"@en ;
     pav:authoredBy <https://orcid.org/0000-0000-0000-0000> ;
     vann:preferredNamespacePrefix "ontostart" ;

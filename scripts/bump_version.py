@@ -76,12 +76,11 @@ if current_vi is None:
     current_vi = "0.0.0"
 
 m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', current_vi.strip())
-if not m:
-# If not semver, start at 0.0.0
-    m = (0,0,0)
-    major, minor, patch = 0,0,0
-else:
+if m:
     major, minor, patch = map(int, m.groups())
+else:
+    # If not semver, start at 0.0.0
+    major, minor, patch = 0, 0, 0
 
 current_version_dir = f"{version_dir}/{current_vi}"
 current_version_iri = URIRef(f"{base_iri}{current_vi}")
@@ -97,7 +96,6 @@ new_version_file = f"{new_version_dir}/{onto_abbrev}.ttl"
 
 g.remove((onto_iri, OWL.versionIRI, None))
 g.remove((onto_iri, OWL.versionInfo, None))
-g.remove((onto_iri, DCTERMS.created, None))
 g.remove((onto_iri, DCTERMS.modified, None))
 g.remove((onto_iri, DCTERMS.issued, None))
 g.remove((onto_iri, OWL.priorVersion, None))
@@ -105,7 +103,9 @@ g.remove((onto_iri, OWL.backwardCompatibleWith, None))
 
 g.add((onto_iri, OWL.versionIRI, new_version_iri))
 g.add((onto_iri, OWL.versionInfo, Literal(new_vi, datatype=XSD.string)))
-g.add((onto_iri, DCTERMS.created, Literal(today_datetime, datatype=XSD.dateTime)))
+# dcterms:created records when the ontology was first created: keep it, set it only if missing
+if (onto_iri, DCTERMS.created, None) not in g:
+    g.add((onto_iri, DCTERMS.created, Literal(today_datetime, datatype=XSD.dateTime)))
 g.add((onto_iri, DCTERMS.modified, Literal(today_datetime, datatype=XSD.dateTime)))
 g.add((onto_iri, DCTERMS.issued, Literal(today, datatype=XSD.date)))
 if os.path.exists(current_version_file):
