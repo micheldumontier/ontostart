@@ -712,7 +712,7 @@ suloized-pizza: a owl:Ontology ;
     vann:preferredNamespacePrefix "suloized-pizza" ;
     vann:preferredNamespaceUri "https://w3id.org/ontostart/suloized-pizza/" ;
     rdfs:comment "Release note (recursive expression rewriting): SpicyPizzaEquivalent now carries a full EquivalentClasses SULO definition (Pizza and hasPart some (PizzaTopping and hasFeature some Hot)); named-pizza topping/base restrictions use sulo:hasPart and topping spiciness sulo:hasFeature, with exact range guards so negated contexts (e.g. VegetarianPizza) stay faithful; Spiciness re-parented under sulo:Quality. Additive; validated consistent by rustdl." ;
-    owl:imports <https://ontoexplorer.dev.k8s.semanticscience.org/api/v1/ontologies/4e8bd8d2-e9fc-418f-ab92-fb2c727a26fa/b2abd4fb-8d44-4a5f-969d-43b25f1f3844/download>,
+    owl:imports <https://protege.stanford.edu/ontologies/pizza/pizza.owl>,
         <https://w3id.org/ontostart/pro/>,
         <https://w3id.org/sulo> ;
     owl:versionIRI suloized-pizza:0.0.1 ;

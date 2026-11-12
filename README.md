@@ -7,7 +7,7 @@ The community Pizza ontology re-expressed in SULO-canonical form by ontointegrat
 
 Its classes keep their original co-ode.org IRIs (`http://www.co-ode.org/ontologies/pizza/pizza.owl#...`). For the pizza ontology built by hand in the SULO Pizza Tutorial, see the [`pizza`](https://github.com/micheldumontier/ontostart/tree/pizza) branch.
 
-> ⚠️ **Broken import:** the original Pizza ontology is imported from a development server (`ontoexplorer.dev.k8s.semanticscience.org`) that currently returns 404, so tools that follow `owl:imports` can't load it. The import needs to point at a stable copy of Pizza.
+The source Pizza ontology (2.0.0, CC BY 3.0) is kept in [`imports/pizza.owl`](imports/pizza.owl), and [`catalog-v001.xml`](catalog-v001.xml) maps the import to it, so ROBOT and Protégé load it locally.
 
 | | |
 |---|---|
@@ -15,7 +15,7 @@ Its classes keep their original co-ode.org IRIs (`http://www.co-ode.org/ontologi
 | Prefix | `suloized-pizza:` |
 | Documentation | [Website](https://micheldumontier.github.io/ontostart/suloized-pizza/) · [OntoSpy](https://micheldumontier.github.io/ontostart/suloized-pizza/docs/ontospy/index.html) · [pyLODE](https://micheldumontier.github.io/ontostart/suloized-pizza/docs/pylode/index.html) · [FOOPS! report](https://micheldumontier.github.io/ontostart/suloized-pizza/foops/) |
 | License | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| Imports | [Pizza (co-ode.org), from ontoexplorer](https://ontoexplorer.dev.k8s.semanticscience.org/api/v1/ontologies/4e8bd8d2-e9fc-418f-ab92-fb2c727a26fa/b2abd4fb-8d44-4a5f-969d-43b25f1f3844/download) ⚠️<br>[PRO (the `pro` branch)](https://w3id.org/ontostart/pro/)<br>[SULO](https://w3id.org/sulo) |
+| Imports | [Pizza 2.0.0 (co-ode.org)](https://protege.stanford.edu/ontologies/pizza/pizza.owl)<br>[PRO (the `pro` branch)](https://w3id.org/ontostart/pro/)<br>[SULO](https://w3id.org/sulo) |
 | Source | [`suloized-pizza.ttl`](https://github.com/micheldumontier/ontostart/blob/suloized-pizza/suloized-pizza.ttl) on the `suloized-pizza` branch |
 
 ## Get the ontology
