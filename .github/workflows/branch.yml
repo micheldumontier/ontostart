@@ -189,10 +189,30 @@ jobs:
       - name: Reasoning and consistency check (HermiT)
         id: reason
         run: |
-          ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
-            > reason.stdout 2> reason.stderr \
-            && echo "REASON_RESULT=consistent" >> $GITHUB_ENV \
-            || echo "REASON_RESULT=inconsistent" >> $GITHUB_ENV
+          # Outcome: consistent | N unsatisfiable | inconsistent.
+          # When not consistent, ROBOT explains why in reason.explanation.md.
+          if ./robot reason --reasoner HermiT --input "$ONTO_FILE" --output reasoned.owl \
+               > reason.stdout 2> reason.stderr; then
+            RESULT="consistent"; COLOR="brightgreen"
+          elif grep -q "ontology is inconsistent" reason.stdout reason.stderr; then
+            RESULT="inconsistent"; COLOR="red"
+            ./robot explain --reasoner HermiT --input "$ONTO_FILE" --mode inconsistency \
+              --explanation reason.explanation.md >> reason.stdout 2>> reason.stderr || true
+          elif N=$(grep -ohE "There are [0-9]+ unsatisfiable classes|There is 1 unsatisfiable class" reason.stdout reason.stderr | grep -oE "[0-9]+" | head -1); [ -n "$N" ]; then
+            RESULT="$N unsatisfiable"; COLOR="orange"
+            ./robot explain --reasoner HermiT --input "$ONTO_FILE" --mode unsatisfiability --unsatisfiable all \
+              --explanation reason.explanation.md >> reason.stdout 2>> reason.stderr || true
+          else
+            RESULT="error"; COLOR="red"
+          fi
+          echo "REASON_RESULT=$RESULT" >> "$GITHUB_ENV"
+          echo "REASON_COLOR=$COLOR" >> "$GITHUB_ENV"
+          echo "Reasoning: $RESULT"
+          cat reason.stdout reason.stderr
+          if [ -f reason.explanation.md ]; then
+            echo "::group::Explanation"; cat reason.explanation.md; echo "::endgroup::"
+            { echo "## Reasoning: $RESULT"; echo; cat reason.explanation.md; } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Upload reasoning logs
         if: always()
@@ -203,6 +223,7 @@ jobs:
             reason.stdout
             reason.stderr
             reason.summary
+            reason.explanation.md
 
       - name: Badge — Reason
         if: ${{ always() && !env.ACT }}
@@ -213,7 +234,7 @@ jobs:
           filename: ontology-ci-reason-${{ env.SAFE_BRANCH }}.json
           label: Reasoning
           message: ${{ env.REASON_RESULT }}
-          color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
+          color: ${{ env.REASON_COLOR || 'red' }}
 
       - name: Bump version (owl:versionInfo, owl:versionIRI, dcterms:modified, owl:priorVersion, owl:backwardsCompatibleWith) 
         id: bump_version
