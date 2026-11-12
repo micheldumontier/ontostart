@@ -1,62 +1,47 @@
-[![ontology CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml/badge.svg)](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml)
+[![branch CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml/badge.svg?branch=suloized-pizza)](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml?query=branch%3Asuloized-pizza)
+![Version](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-version-suloized-pizza.json) ![OWL DL profile](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-profile-suloized-pizza.json) ![Reasoning](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-reason-suloized-pizza.json) ![FOOPS!](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-foops-suloized-pizza.json)
 
-# OntoStart 
+# Suloized Pizza
 
-OntoStart is a project to create FAIR (Findable, Accessible, Interoperable, and Reusable) OWL ontologies through predefined GitHub Actions.
+The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza).
 
-Features
-* w3id.org persistent identifier for versioned ontologies
-* content-type negotiation to get the ontology in different formats
-* rich ontology metadata, as per the FAIR principles
-* github actions to:
-   * automatically setup w3id.org redirects
-   * automatically increment the ontology version on commit
-   * automatically check the consistency of the ontology using Robot with Hermit reasoner
-   * automatically generate ontology documentation using OntoSpy and Pylode
-   * automatically run FAIRness asssessment using FOOPS!
-   * automatically publish the website to github pages
- 
-See an [example](https://micheldumontier.github.io/ontostart/main/) processing of the Ontostart default ontology template.
+Its classes keep their original co-ode.org IRIs (`http://www.co-ode.org/ontologies/pizza/pizza.owl#...`). For the pizza ontology built by hand in the SULO Pizza Tutorial, see the [`pizza`](https://github.com/micheldumontier/ontostart/tree/pizza) branch.
 
-Retrieve different syntaxes of the ontology with content-type negotiation
+> ⚠️ **Broken import:** the original Pizza ontology is imported from a development server (`ontoexplorer.dev.k8s.semanticscience.org`) that currently returns 404, so tools that follow `owl:imports` can't load it. The import needs to point at a stable copy of Pizza.
+
+| | |
+|---|---|
+| IRI | <https://w3id.org/ontostart/suloized-pizza/> |
+| Prefix | `suloized-pizza:` |
+| Documentation | [Website](https://micheldumontier.github.io/ontostart/suloized-pizza/) · [OntoSpy](https://micheldumontier.github.io/ontostart/suloized-pizza/docs/ontospy/index.html) · [pyLODE](https://micheldumontier.github.io/ontostart/suloized-pizza/docs/pylode/index.html) · [FOOPS! report](https://micheldumontier.github.io/ontostart/suloized-pizza/foops/) |
+| License | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Imports | [Pizza (co-ode.org), from ontoexplorer](https://ontoexplorer.dev.k8s.semanticscience.org/api/v1/ontologies/4e8bd8d2-e9fc-418f-ab92-fb2c727a26fa/b2abd4fb-8d44-4a5f-969d-43b25f1f3844/download) ⚠️<br>[PRO (the `pro` branch)](https://w3id.org/ontostart/pro/)<br>[SULO](https://w3id.org/sulo) |
+| Source | [`suloized-pizza.ttl`](https://github.com/micheldumontier/ontostart/blob/suloized-pizza/suloized-pizza.ttl) on the `suloized-pizza` branch |
+
+## Get the ontology
+
+The IRI resolves to the website in a browser, and to the ontology file when you ask for an RDF format:
+
 ```
-curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/
-curl -L -H "Accept: application/rdf+xml" https://w3id.org/ontostart/
-curl -L -H "Accept: application/ld+json" https://w3id.org/ontostart/
-curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/
-```
-
-Retrieve the latest or specific verisons of the ontology
-```
-curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/latest/
-curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/main/versions/0.0.1/
+curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/suloized-pizza/
+curl -L -H "Accept: application/rdf+xml" https://w3id.org/ontostart/suloized-pizza/
+curl -L -H "Accept: application/ld+json" https://w3id.org/ontostart/suloized-pizza/
+curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/suloized-pizza/
 ```
 
+Each release has its own version IRI, for example `https://w3id.org/ontostart/suloized-pizza/0.0.1`. All versions are listed on the [website](https://micheldumontier.github.io/ontostart/suloized-pizza/).
 
-## Getting Started 
-1. Devise a short name or acronym for the ontology. I'll use `myawesomeontology` as a short name for illustrative purposes. A lot of the automatic processing depends on this.
+## Making changes
 
-2. Fork and rename the repository with your short name. In doing so, it should be at `youruserororg/myawesomeontology`
+Edit `suloized-pizza.ttl` on this branch and push. The [branch CI](https://github.com/micheldumontier/ontostart/actions/workflows/branch.yml) then:
 
-4. Rename `ontostart.ttl` to `myawesomeontology.ttl`. 
+1. checks the OWL 2 DL profile and consistency (ROBOT with HermiT),
+2. bumps the patch version and commits it, with the Turtle, RDF/XML, JSON-LD and N-Triples files under `versions/`,
+3. regenerates the OntoSpy and pyLODE documentation and the FOOPS! FAIRness report,
+4. publishes everything to the [website](https://micheldumontier.github.io/ontostart/suloized-pizza/).
 
-5. Modify the ontology metadata. I recommend to use a tool such as VScode or Protege to make sure that you don't introduce syntax errors.
+Don't edit `versions/` by hand: CI writes it.
 
-6. Setup for GitHub Actions.
-7. 
-   i) Set up a Public Gist that will store the information to create the GitHub badges. From your github user account (top right hand corner), select 'Gists' on the menu. Create a new Gist (+ sign next to user account). The content of the gist can't be empty, so add a character. Create a Public Gist - click on the drop down list to the right of "Create a Secret Gist) and pick "Create Public Gist). Copy the Gist Id (gist:xxxxxxxx) to the clipboard, without the "gist" prefix.  Now go to your forked ontostart repo settings, select Actions under Secrets and Variables, select Variables, and Create a New Repository Variable called GIST_ID. Paste the gist Id (without the gist:) prefix into the value fiedl and click on Add Variable.
-   
-   ii) Set up two Personal Access Tokens (PAT), one for GitHub Actions to write the badge info to the Gist, and the second for a GitHub action to make a pull request to the w3id repo. Go to your account, select Settings, then Developer settings, then Personal Access Tokens, then Tokens (classic).
-   
-   a) Create a classic PAT with gist scope and store it as a secret named GIST_TOKEN in this repo. Generate a new token (classic) and name it "gists for ontostart badges". Choose a long term expiration date. Check the box "gists" to give permission to create gists. click on generate token. Copy the personal access token. Go to the repo settings, Secrets and Variables, and create a new repository secret. Create a new Repository Secret named GIST_TOKEN and paste the PAT to the Secret. Click on Add Secret.
-   
-   b) Create a classic PAT with repo and org:read scope and store it as a secret named W3ID_TOKEN in this repo.
-   
-8 Customize a pull request to w3id.org.
-  * Edit the `apache/web/ontostart/README.md` to describe your ontology and add your contact info.
-  * Edit the `apache/web/ontostart/.htaccess` file to change the owner and repo names.
-  * Manually run the `Propose w3id.org redirects` GitHub Action. You can see the pull request at [https://github.com/perma-id/w3id.org/pulls](https://github.com/perma-id/w3id.org/pulls)
-  * It will take which will yield an ontology IRI of the form `https://w3id.org/myawesomeontology/`
+## About OntoStart
 
-
-
+This ontology is published with [OntoStart](https://github.com/micheldumontier/ontostart), a template for publishing FAIR OWL ontologies with w3id.org IRIs and GitHub Actions. Each branch of the repository holds one ontology. See the [`main` branch](https://github.com/micheldumontier/ontostart/tree/main#readme) to set up your own.
