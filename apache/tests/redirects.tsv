@@ -56,3 +56,4 @@ text/html	/pizza/BakingDuration	{pages}/pizza/docs/ontospy/class-pizzaBakingDura
 text/turtle	/pizza/BakingDuration	{pages}/pizza/versions/latest/pizza.ttl	y
 text/html	/pro/AgentRole	{pages}/pro/docs/ontospy/class-proAgentRole.html	y
 text/html	/pizza/hasTopping	{pages}/pizza/docs/ontospy/prop-pizzahasTopping.html	-
+text/turtle	/pro	{base}/pro/	-
