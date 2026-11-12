@@ -220,6 +220,22 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.bump_version }}" = "true" ]; then
             python scripts/bump_version.py
+          else
+            # No bump: keep the ontology's current owl:versionInfo
+            # (otherwise NEW_VERSION stays at the 0.0.1 default set above)
+            python3 - << 'PY'
+          import os
+          from rdflib import Graph, RDF, OWL
+          g = Graph(); g.parse(os.environ["ONTO_FILE"])
+          onto = next(g.subjects(RDF.type, OWL.Ontology), None)
+          vi = g.value(onto, OWL.versionInfo) if onto is not None else None
+          if vi:
+            with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write(f"NEW_VERSION={str(vi).strip()}\n")
+            print(f"Keeping current version {vi}")
+          else:
+            print("No owl:versionInfo; keeping NEW_VERSION default")
+          PY
           fi
 
       - name: Badge — Version update
