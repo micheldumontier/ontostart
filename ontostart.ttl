@@ -23,6 +23,8 @@ dcterms:contributor a owl:AnnotationProperty .
 
 dcterms:created a owl:AnnotationProperty .
 
+dcterms:description a owl:AnnotationProperty .
+
 dcterms:issued a owl:AnnotationProperty .
 
 dcterms:language a owl:AnnotationProperty .
@@ -69,6 +71,7 @@ ontostart: a owl:Ontology ;
     dcterms:alternative "ontostart"@en ;
     dcterms:bibliographicCitation "Unpublished"@en ;
     dcterms:contributor <https://orcid.org/0000-0000-0000-0000> ;
+    dcterms:description "A template ontology for OntoStart. Replace this description with a few sentences on what your ontology covers and who it is for."@en ;
     dcterms:created "2025-09-19T06:12:47.543282+00:00"^^xsd:dateTime ;
     dcterms:issued "2026-11-12"^^xsd:date ;
     dcterms:language <http://lexvo.org/id/iso639-1/en> ;
