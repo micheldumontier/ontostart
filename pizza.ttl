@@ -18,22 +18,24 @@ pizza: a owl:Ontology ;
     dcterms:alternative "pizza"^^xsd:string ;
     dcterms:bibliographicCitation "Unpublished"^^xsd:string ;
     dcterms:contributor "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
-    dcterms:created "2026-05-19T07:37:38.845348+00:00"^^xsd:dateTime ;
+    dcterms:created "2026-11-12T18:58:29.971347+00:00"^^xsd:dateTime ;
     dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment."^^xsd:string ;
-    dcterms:issued "2026-05-19"^^xsd:date ;
+    dcterms:issued "2026-11-12"^^xsd:date ;
     dcterms:language "http://lexvo.org/id/iso639-1/en"^^xsd:string ;
     dcterms:license "https://creativecommons.org/licenses/by/4.0/"^^xsd:string ;
-    dcterms:modified "2026-05-19T07:37:38.845348+00:00"^^xsd:dateTime ;
+    dcterms:modified "2026-11-12T18:58:29.971347+00:00"^^xsd:dateTime ;
     dcterms:publisher "https://github.com/micheldumontier"^^xsd:string ;
     dcterms:title "SULO Pizza Tutorial Ontology"^^xsd:string ;
     pav:authoredBy "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
     vann:preferredNamespacePrefix "pizza"^^xsd:string ;
     vann:preferredNamespaceUri "https://w3id.org/ontostart/pizza/"^^xsd:string ;
     rdfs:comment "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment."^^xsd:string ;
+    owl:backwardCompatibleWith pizza:1.0.1 ;
     owl:imports <https://w3id.org/ontostart/pro>,
         <https://w3id.org/sulo> ;
-    owl:versionIRI pizza:1.0.1 ;
-    owl:versionInfo "1.0.1"^^xsd:string ;
+    owl:priorVersion pizza:1.0.1 ;
+    owl:versionIRI pizza:1.0.2 ;
+    owl:versionInfo "1.0.2"^^xsd:string ;
     dcat:accessURL "https://w3id.org/ontostart/pizza/"^^xsd:string ;
     foaf:homepage "https://github.com/micheldumontier/ontostart"^^xsd:string ;
     mod:definitionProperty "http://www.w3.org/2000/01/rdf-schema#comment"^^xsd:string ;
@@ -374,32 +376,32 @@ pizza:spicy_salami_pizza_001 a owl:NamedIndividual,
 pizza:t_bake_end_001 a owl:NamedIndividual,
         pizza:BakingEndTime ;
     rdfs:label "Baking end — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T17:58:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T17:58:00+00:00"^^xsd:dateTime .
 
 pizza:t_bake_start_001 a owl:NamedIndividual,
         pizza:BakingStartTime ;
     rdfs:label "Baking start — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T17:46:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T17:46:00+00:00"^^xsd:dateTime .
 
 pizza:t_delivery_001 a owl:NamedIndividual,
         pizza:DeliveryTime ;
     rdfs:label "Delivery time — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T18:23:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T18:23:00+00:00"^^xsd:dateTime .
 
 pizza:t_making_end_001 a owl:NamedIndividual,
         pizza:MakingEndTime ;
     rdfs:label "Dough-making end — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T17:46:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T17:46:00+00:00"^^xsd:dateTime .
 
 pizza:t_making_start_001 a owl:NamedIndividual,
         pizza:MakingStartTime ;
     rdfs:label "Dough-making start — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T17:01:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T17:01:00+00:00"^^xsd:dateTime .
 
 pizza:t_order_received_001 a owl:NamedIndividual,
         pizza:OrderReceivedTime ;
     rdfs:label "Order received — order #001"^^xsd:string ;
-    sulo:hasValue "2026-04-30T17:00:00Z"^^xsd:dateTime .
+    sulo:hasValue "2026-04-30T17:00:00+00:00"^^xsd:dateTime .
 
 pizza:table_001 a owl:NamedIndividual,
         pizza:Table .
