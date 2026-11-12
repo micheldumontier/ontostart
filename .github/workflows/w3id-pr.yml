@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       W3ID_FOLDER:
-        description: "Single word directory name to create in w3id.org (e.g., 'ontostart')"
+        description: "Identifier: the w3id.org directory ids/<name>, serving https://w3id.org/<name>/ (e.g., 'ontostart')"
         required: true
         default: "ontostart"
       SOURCE_HTACCESS_PATH:
@@ -130,33 +130,48 @@ jobs:
           git clone "https://github.com/${FORK_FULLNAME}.git"
           echo "CLONED_DIR=$(basename '${{ env.W3ID_UPSTREAM_REPO }}')" >> "$GITHUB_ENV"
 
+          # Branch from upstream, not from the fork's default branch, which may be stale
+          cd "$(basename '${{ env.W3ID_UPSTREAM_REPO }}')"
+          git remote add upstream "https://github.com/${{ env.W3ID_UPSTREAM_REPO }}.git"
+          git fetch upstream "${BASE_BRANCH}"
+
       - name: Create branch and copy .htaccess AND README.md
         run: |
           cd "${CLONED_DIR}"
-          BRANCH="add-${W3ID_FOLDER}-$(date +%Y%m%d%H%M%S)"
+          BRANCH="${W3ID_FOLDER}-$(date +%Y%m%d%H%M%S)"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
+          git checkout -b "${BRANCH}" "upstream/${BASE_BRANCH}"
 
-          mkdir -p "${W3ID_FOLDER}"
+          # w3id.org keeps every identifier under ids/
+          ID_DIR="ids/${W3ID_FOLDER}"
+          echo "ID_DIR=${ID_DIR}" >> "$GITHUB_ENV"
+          mkdir -p "${ID_DIR}"
           if [ ! -f "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" ]; then
             echo "Source ${SOURCE_HTACCESS_PATH} not found." >&2
             exit 1
           fi
 
-          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${W3ID_FOLDER}/.htaccess"
-          cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${W3ID_FOLDER}/README.md"
-          
-          git checkout -b "${BRANCH}"
-          git add "${W3ID_FOLDER}/.htaccess" "${W3ID_FOLDER}/README.md" || true
-          
+          cp "${GITHUB_WORKSPACE}/${SOURCE_HTACCESS_PATH}" "${ID_DIR}/.htaccess"
+          cp "${GITHUB_WORKSPACE}/${SOURCE_README_PATH}" "${ID_DIR}/README.md"
+
+          git add "${ID_DIR}/.htaccess" "${ID_DIR}/README.md" || true
+
           COMMIT_MSG="${{ inputs.COMMIT_MESSAGE }}"
           if [ -z "${COMMIT_MSG}" ]; then
-            COMMIT_MSG="Adding ${W3ID_FOLDER} .htaccess and/or README.md"
+            COMMIT_MSG="${W3ID_FOLDER}: update redirects"
           fi
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "${COMMIT_MSG}"
           else
             echo "No changes to commit; proceeding without commit."
           fi
+
+      # w3id.org's own checker (https://w3id.org/docs/rules/); errors block the PR
+      - name: Run the w3id.org checker
+        run: |
+          cd "${CLONED_DIR}"
+          (cd tools/check && npm ci --no-audit --no-fund)
+          node tools/check/bin/w3id-check.js "${ID_DIR}"
 
       - name: Push branch to fork
         run: |
@@ -171,11 +186,11 @@ jobs:
           # Try to create the PR; if it already exists, just show it
           PR_TITLE="${{ inputs.PR_TITLE }}"
           if [ -z "${PR_TITLE}" ]; then
-            PR_TITLE="Add ${W3ID_FOLDER} redirects"
+            PR_TITLE="${W3ID_FOLDER}: update redirects"
           fi
           PR_BODY="${{ inputs.PR_BODY }}"
           if [ -z "${PR_BODY}" ]; then
-            PR_BODY="This PR adds \`${W3ID_FOLDER}/.htaccess\` with redirects for the \`${W3ID_FOLDER}\` namespace."
+            PR_BODY="Updates \`${ID_DIR}/.htaccess\` (and README.md) with the redirects for https://w3id.org/${W3ID_FOLDER}/."
           fi
           if gh pr create \
               --repo "${{ env.W3ID_UPSTREAM_REPO }}" \
