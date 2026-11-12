@@ -71,6 +71,16 @@ jobs:
           echo "SOURCE_README_PATH=${{ inputs.SOURCE_README_PATH }}" >> "$GITHUB_ENV"
           echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}"         >> "$GITHUB_ENV"
 
+      # Runs the .htaccess in Apache and checks it against the expected redirects
+      # before proposing it to w3id.org.
+      - name: Test redirects
+        run: |
+          if [ -f apache/test-redirects.sh ] && [ -f apache/tests/redirects.tsv ]; then
+            bash apache/test-redirects.sh --htaccess "$SOURCE_HTACCESS_PATH" --folder "$W3ID_FOLDER"
+          else
+            echo "::warning::apache/test-redirects.sh or apache/tests/redirects.tsv not found; skipping redirect tests."
+          fi
+
       - name: Determine upstream default branch
         run: |
           BASE_BRANCH="$(gh api repos/${{ env.W3ID_UPSTREAM_REPO }} -q .default_branch)"
