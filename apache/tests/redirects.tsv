@@ -2,7 +2,7 @@
 #
 # Columns (tab-separated): Accept header, path, expected Location, target check
 #   path starts with "/" and is relative to the w3id folder ("/" = the folder itself)
-#   {pages} = https://<GH_USER>.github.io/<GH_REPONAME>   {base} = the w3id folder being tested
+#   {pages} = the https://<user>.github.io/<repo> site the .htaccess redirects to
 #   target check: "y" = the Location must exist on GitHub Pages (--targets); "-" = skip
 #
 # accept	path	expected location	check
@@ -19,19 +19,19 @@ application/rdf+xml, text/turtle;q=0.1	/	{pages}/main/versions/latest/ontostart.
 text/turtle, application/rdf+xml;q=0.5	/	{pages}/main/versions/latest/ontostart.ttl	-
 */*;q=0.1, text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	-
 text/html, text/turtle	/	{pages}/main/	-
-# --- main version IRIs (owl:versionIRI = {base}/x.y.z)
+# --- main version IRIs (owl:versionIRI = <w3id folder>/x.y.z)
 text/turtle	/0.0.2	{pages}/main/versions/0.0.2/ontostart.ttl	y
 text/html	/0.0.2	{pages}/main/0.0.2/	y
 # --- main branch folder
 text/turtle	/main/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/main/	{pages}/main/	y
-text/html	/main	{base}/main/	-
+text/html	/main	{pages}/main/	y
 text/turtle	/main/versions/0.0.2/	{pages}/main/versions/0.0.2/ontostart.ttl	y
 text/turtle	/main/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/main/versions/latest/	{pages}/main/	y
 text/html	/main/versions/0.0.2/	{pages}/main/0.0.2/	y
 text/turtle	/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
-text/html	/versions	{base}/versions/	-
+text/html	/versions	{pages}/main/versions/	-
 text/html	/docs/ontospy/index.html	{pages}/main/docs/ontospy/index.html	y
 text/html	/ontostart.ttl	{pages}/main/versions/latest/ontostart.ttl	y
 # --- main terms
@@ -41,14 +41,14 @@ text/turtle	/hasUnit	{pages}/main/versions/latest/ontostart.ttl	y
 # --- branch ontologies
 text/turtle	/pizza/	{pages}/pizza/versions/latest/pizza.ttl	y
 text/html	/pizza/	{pages}/pizza/	y
-text/html	/pizza	{base}/pizza/	-
-text/turtle	/pizza	{base}/pizza/	-
+text/html	/pizza	{pages}/pizza/	y
+text/turtle	/pizza	{pages}/pizza/versions/latest/pizza.ttl	y
 application/rdf+xml	/suloized-pizza/	{pages}/suloized-pizza/versions/latest/suloized-pizza.owl	y
 text/turtle	/pizza/1.0.1	{pages}/pizza/versions/1.0.1/pizza.ttl	y
 text/html	/pizza/1.0.1	{pages}/pizza/1.0.1/	y
 application/rdf+xml	/pizza/versions/0.0.9/	{pages}/pizza/versions/0.0.9/pizza.owl	y
 text/html	/pizza/versions/1.0.1/	{pages}/pizza/1.0.1/	y
-text/html	/pizza/docs	{base}/pizza/docs/	-
+text/html	/pizza/docs	{pages}/pizza/docs/	-
 text/html	/pizza/docs/pylode/index.html	{pages}/pizza/docs/pylode/index.html	y
 text/html	/pizza/pizza.owl	{pages}/pizza/versions/latest/pizza.owl	y
 # --- branch terms
@@ -56,4 +56,4 @@ text/html	/pizza/BakingDuration	{pages}/pizza/docs/ontospy/class-pizzaBakingDura
 text/turtle	/pizza/BakingDuration	{pages}/pizza/versions/latest/pizza.ttl	y
 text/html	/pro/AgentRole	{pages}/pro/docs/ontospy/class-proAgentRole.html	y
 text/html	/pizza/hasTopping	{pages}/pizza/docs/ontospy/prop-pizzahasTopping.html	-
-text/turtle	/pro	{base}/pro/	-
+text/turtle	/pro	{pages}/pro/versions/latest/pro.ttl	y

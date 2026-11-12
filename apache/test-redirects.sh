@@ -39,8 +39,9 @@ done
 htaccess="$(cd "$(dirname "$htaccess")" && pwd)/$(basename "$htaccess")"
 [ -n "$folder" ] || folder="$(basename "$(dirname "$htaccess")")"
 
-param() { sed -n "s/^RewriteRule \^ - \[E=$1:\([^]]*\)\]$/\1/p" "$htaccess" | head -1; }
-pages="https://$(param GH_USER).github.io/$(param GH_REPONAME)"
+# GitHub Pages site the .htaccess redirects to, e.g. https://user.github.io/repo
+pages="$(grep -oE 'https://[A-Za-z0-9-]+\.github\.io/[A-Za-z0-9._-]+' "$htaccess" | head -1)"
+[ -n "$pages" ] || { echo "no https://<user>.github.io/<repo> target found in $htaccess" >&2; exit 2; }
 
 container=""
 cleanup() { [ -n "$container" ] && docker rm -f "$container" >/dev/null 2>&1; }
@@ -70,7 +71,7 @@ while IFS=$'\t' read -r accept path expected check; do
   case "$accept" in ''|'#'*) continue ;; esac
   expected="${expected//\{pages\}/$pages}"
   expected="${expected//\{base\}/$url}"
-  case "$expected" in "$url"*) want_code=301 ;; *) want_code=303 ;; esac
+  want_code=303
 
   got="$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' -H "Accept: $accept" "$url$path")"
   if [ "$got" = "$want_code $expected" ]; then
