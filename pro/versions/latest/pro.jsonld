@@ -1,29 +1,53 @@
 [
   {
-    "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess",
+    "@id": "https://w3id.org/ontostart/pro/EmergingRole",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A process in which a participant undergoes ordered internal change toward a mature state."
+        "@value": "A role borne by an entity that comes into existence as an outcome of the process."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "developmental process"
+        "@value": "emerging role"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "https://w3id.org/sulo/Process"
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/description",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/MereologicalRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A role borne by an entity by virtue of participating in a part-whole composition process."
       }
     ],
-    "http://www.w3.org/2002/07/owl#disjointWith": [
+    "http://www.w3.org/2000/01/rdf-schema#label": [
       {
-        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+        "@language": "en",
+        "@value": "mereological role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
       }
     ]
   },
@@ -42,69 +66,6 @@
       {
         "@language": "en",
         "@value": "instrument role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/sulo/Role"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/ContainedRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "contained role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/LocationRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/WholeRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A mereological role borne by the whole that a composition process assembles from its parts."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "whole role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/MereologicalRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/PersistingRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A role borne by an entity that continues to exist, in essentially the same form, throughout the process."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "persisting role"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
@@ -137,12 +98,6 @@
     ]
   },
   {
-    "@id": "http://purl.org/dc/terms/description",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
     "@id": "https://w3id.org/ontostart/pro/TransformationProcess",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -166,145 +121,30 @@
     ]
   },
   {
-    "@id": "https://w3id.org/ontostart/pro/PatientRole",
+    "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A role borne by an entity that undergoes a change as a result of a process."
+        "@value": "A process in which a participant undergoes ordered internal change toward a mature state."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "patient role"
+        "@value": "developmental process"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "https://w3id.org/sulo/Role"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/ContainmentRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "containment role"
+        "@id": "https://w3id.org/sulo/Process"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+    "http://www.w3.org/2002/07/owl#disjointWith": [
       {
-        "@id": "https://w3id.org/ontostart/pro/LocationRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/LocationRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A role borne by an entity that serves as the spatial setting in which a process occurs."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "location role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/sulo/Role"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/DevelopmentRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A patient role in which the entity undergoes ordered, internally driven change toward a mature state (e.g. growth, maturation)."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "development role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/PatientRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/ConsumedRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A patient role in which the entity is incorporated into, or destroyed by, the process (e.g. an ingredient that is mixed into a dough)."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "consumed role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/PatientRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "surface position role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/LocationRole"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/ontostart/pro/OnTopPositionRole",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "on top position role"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
       }
     ]
   },
@@ -332,32 +172,25 @@
     ]
   },
   {
-    "@id": "_:n49c0ee514a96430e9751ee70cc6d940ab1",
+    "@id": "https://w3id.org/ontostart/pro/DevelopmentRole",
     "@type": [
-      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+      "http://www.w3.org/2002/07/owl#Class"
     ],
-    "http://www.w3.org/2002/07/owl#members": [
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
-        "@list": [
-          {
-            "@id": "https://w3id.org/ontostart/pro/AgentRole"
-          },
-          {
-            "@id": "https://w3id.org/ontostart/pro/PatientRole"
-          },
-          {
-            "@id": "https://w3id.org/ontostart/pro/InstrumentRole"
-          },
-          {
-            "@id": "https://w3id.org/ontostart/pro/LocationRole"
-          },
-          {
-            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
-          },
-          {
-            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
-          }
-        ]
+        "@language": "en",
+        "@value": "A patient role in which the entity undergoes ordered, internally driven change toward a mature state (e.g. growth, maturation)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "development role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/PatientRole"
       }
     ]
   },
@@ -538,20 +371,50 @@
     ]
   },
   {
-    "@id": "https://w3id.org/ontostart/pro/EmergingRole",
+    "@id": "_:n46dc1aa3a51844a893bf3685f8d87ab6b1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/AgentRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/PatientRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/InstrumentRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/LocationRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/LocationRole",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A role borne by an entity that comes into existence as an outcome of the process."
+        "@value": "A role borne by an entity that serves as the spatial setting in which a process occurs."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "emerging role"
+        "@value": "location role"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
@@ -561,20 +424,20 @@
     ]
   },
   {
-    "@id": "https://w3id.org/ontostart/pro/MereologicalRole",
+    "@id": "https://w3id.org/ontostart/pro/PersistingRole",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A role borne by an entity by virtue of participating in a part-whole composition process."
+        "@value": "A role borne by an entity that continues to exist, in essentially the same form, throughout the process."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "mereological role"
+        "@value": "persisting role"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
@@ -584,7 +447,47 @@
     ]
   },
   {
-    "@id": "_:n49c0ee514a96430e9751ee70cc6d940ab8",
+    "@id": "https://w3id.org/ontostart/pro/WholeRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A mereological role borne by the whole that a composition process assembles from its parts."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "whole role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/MereologicalRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ContainmentRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "containment role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "_:n46dc1aa3a51844a893bf3685f8d87ab6b8",
     "@type": [
       "http://www.w3.org/2002/07/owl#AllDisjointClasses"
     ],
@@ -604,6 +507,103 @@
             "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole"
           }
         ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/PatientRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A role borne by an entity that undergoes a change as a result of a process."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "patient role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/OnTopPositionRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "on top position role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ContainedRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "contained role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/ConsumedRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A patient role in which the entity is incorporated into, or destroyed by, the process (e.g. an ingredient that is mixed into a dough)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "consumed role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/PatientRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "surface position role"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/LocationRole"
       }
     ]
   }
