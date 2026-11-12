@@ -76,7 +76,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-profile.json
+          filename: ontology-ci-profile-main.json
           label: OWL DL Profile
           message: ${{ steps.profile.outcome }}
           color: ${{ steps.profile.outcome == 'success' && 'brightgreen' || steps.profile.outcome == 'cancelled' && 'yellow' || 'red' }}
@@ -105,7 +105,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-reason.json
+          filename: ontology-ci-reason-main.json
           label: Reasoning
           message: ${{ env.REASON_RESULT }}
           color: ${{ env.REASON_RESULT == 'consistent' && 'brightgreen' || 'red' }}
@@ -121,7 +121,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-version.json
+          filename: ontology-ci-version-main.json
           label: Version
           message: ${{ env.NEW_VERSION }}
           color: ${{ steps.bump_version.outcome == 'success' && 'brightgreen' || 'red' }}
@@ -182,7 +182,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-ontospy.json
+          filename: ontology-ci-ontospy-main.json
           label: ontospy
           message: ${{ steps.ontospy.outcome }}
           color: ${{ steps.ontospy.outcome == 'success' && 'brightgreen' || steps.ontospy.outcome == 'cancelled' && 'yellow' || 'red' }}
@@ -206,7 +206,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-pylode.json
+          filename: ontology-ci-pylode-main.json
           label: pylode
           message: ${{ steps.pylode.outcome }}
           color: ${{ steps.pylode.outcome == 'success' && 'brightgreen' || steps.pylode.outcome == 'cancelled' && 'yellow' || 'red' }}
@@ -304,6 +304,168 @@ jobs:
           print(f"Generated landing pages for: {', '.join(versions)}")
           PY
 
+      - name: Generate site page (index.html with metadata + badges)
+        env:
+          BRANCH: ${{ github.ref_name }}
+          SAFE_BRANCH: main
+          PUBLIC_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/main/
+          BADGE_BASE: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/${{ vars.GIST_OWNER != '' && vars.GIST_OWNER || github.repository_owner }}/${{ vars.GIST_ID }}/raw/
+          FOOPS_REPORT: "false"
+        run: |
+          python3 - << 'PY'
+          import os, html as h
+          from urllib.parse import quote
+          from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
+          g = Graph()
+          g.parse(os.environ["ONTO_FILE"])
+          OWL = Namespace("http://www.w3.org/2002/07/owl#")
+          DCT = Namespace("http://purl.org/dc/terms/")
+          # Find the ontology node (owl:Ontology)
+          ontos = list(g.subjects(RDF.type, OWL.Ontology))
+          onto = ontos[0] if ontos else None
+          label = str(next(g.objects(onto, RDFS.label), "")) if onto else ""
+          version = os.environ.get("NEW_VERSION","")
+          modified = str(next(g.objects(onto, DCT.modified), "")) if onto else ""
+          iri = str(onto) if onto else ""
+
+          # Description: dcterms:description, else rdfs:comment (English preferred)
+          def text(prop):
+            vals = list(g.objects(onto, prop)) if onto else []
+            for v in vals:
+              if getattr(v, "language", None) in ("en", None):
+                return str(v).strip()
+            return str(vals[0]).strip() if vals else ""
+          description = text(DCT.description) or text(RDFS.comment)
+          description_html = f'<p class="description">{h.escape(description)}</p>' if description else ""
+
+          # Source repository: this branch on GitHub
+          gh_repo = f'{os.environ.get("GITHUB_SERVER_URL", "https://github.com")}/{os.environ["GITHUB_REPOSITORY"]}'
+          gh_branch = os.environ["BRANCH"]
+          gh_tree = f"{gh_repo}/tree/{quote(gh_branch, safe='/')}"
+          gh_file = f"{gh_repo}/blob/{quote(gh_branch, safe='/')}/{os.environ['ONTO_FILE']}"
+          base = os.environ["PUBLIC_BASE_URL"]
+          abbrev = os.environ["ONTO_ABBREV"]
+          vers_url = f"{base}versions/{version}/{abbrev}"
+          ttl  = vers_url + ".ttl"
+
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+            f.write(f"GITHUB_ONTO_URI={ttl}\n")
+            f.write(f"ONTO_IRI={iri}\n")
+            
+          jsonld = vers_url + ".jsonld"
+          nt = vers_url + ".nt"
+          owl = vers_url + ".owl"
+          ontospy_url = base + "docs/ontospy/"
+          pylode_url  = base + "docs/pylode/"
+          foops_url   = base + "foops/"
+          foops_item  = f'<li><a href="{foops_url}">FOOPS! detailed report</a></li>' if os.environ.get("FOOPS_REPORT", "true") == "true" else ""
+
+          # build sorted list of all committed versions
+          import re
+          version_dir = os.environ["VERSION_DIR"]
+          all_versions = []
+          if os.path.isdir(version_dir):
+            for d in os.listdir(version_dir):
+              if d != "latest" and os.path.isdir(os.path.join(version_dir, d)):
+                all_versions.append(d)
+          def semver_key(v):
+            m = re.match(r'^(\d+)\.(\d+)\.(\d+)$', v)
+            return tuple(map(int, m.groups())) if m else (0, 0, 0)
+          all_versions.sort(key=semver_key, reverse=True)
+          version_rows = ""
+          for v in all_versions:
+            v_url = f"{base}versions/{v}/{abbrev}"
+            current = " <strong>(current)</strong>" if v == version else ""
+            version_rows += f'<li><a href="{v_url}.ttl">{v}</a> — <a href="{v_url}.ttl">ttl</a> | <a href="{v_url}.jsonld">jsonld</a> | <a href="{v_url}.nt">nt</a> | <a href="{v_url}.owl">owl</a>{current}</li>\n                  '
+
+          # badge URLs (shields endpoint -> gist JSON files)
+          bbase = os.environ["BADGE_BASE"]
+          sb = os.environ["SAFE_BRANCH"]
+          badges = {
+            "profile": f"{bbase}ontology-ci-profile-{sb}.json",
+            "reason":  f"{bbase}ontology-ci-reason-{sb}.json",
+            "version": f"{bbase}ontology-ci-version-{sb}.json",
+            "ontospy": f"{bbase}ontology-ci-ontospy-{sb}.json",
+            "pylode":  f"{bbase}ontology-ci-pylode-{sb}.json",
+            "deploy":  f"{bbase}ontology-ci-deploy-{sb}.json",
+            "foops":   f"{bbase}ontology-ci-foops-{sb}.json",
+          }
+          html = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>{h.escape(label or abbrev)} — {version} ({sb})</title>
+            <style>
+              body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }}
+              header h1 {{ margin: 0 0 .25rem 0; }}
+              .description {{ max-width: 900px; margin: .25rem 0 1rem 0; font-size: 1.05rem; }}
+              .meta {{ color: #555; margin-bottom: 1rem; }}
+              .badges img {{ margin-right: .5rem; vertical-align: middle; }}
+              .grid {{ display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }}
+              .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; }}
+              code, a {{ color: #0b5fff; word-break: break-all; }}
+              ul {{ margin: .25rem 0 .5rem 1.25rem; }}
+            </style>
+          </head>
+          <body>
+            <header>
+              <h1>{h.escape(label or abbrev)}</h1>
+              {description_html}
+              <div class="meta">
+                <div><strong>Ontology IRI:</strong> <code>{iri}</code></div>
+                <div><strong>Source:</strong> <a href="{gh_tree}">{os.environ["GITHUB_REPOSITORY"]} (branch <code>{h.escape(gh_branch)}</code>)</a> · <a href="{gh_file}">{os.environ['ONTO_FILE']}</a></div>
+                <div><strong>Version:</strong> <code>{version}</code></div>
+                <div><strong>Modified:</strong> <code>{modified}</code></div>
+                <div><strong>Base URL:</strong> <a href="{base}">{base}</a></div>
+              </div>
+              <div class="badges">
+                <img alt="Profile" src="{badges['profile']}" />
+                <img alt="Reason"  src="{badges['reason']}" />
+                <img alt="Version" src="{badges['version']}" />
+                <img alt="Ontospy" src="{badges['ontospy']}" />
+                <img alt="Pylode"  src="{badges['pylode']}" />
+                <img alt="Deploy"  src="{badges['deploy']}" />
+                <img alt="FOOPS"   src="{badges['foops']}" />
+              </div>
+            </header>
+
+            <div class="grid">
+              <section class="card">
+                <h2>Downloads (version {version})</h2>
+                <ul>
+                  <li><a href="{ttl}">{abbrev}.ttl</a></li>
+                  <li><a href="{jsonld}">{abbrev}.jsonld</a></li>
+                  <li><a href="{nt}">{abbrev}.nt</a></li>
+                  <li><a href="{owl}">{abbrev}.owl</a></li>
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>Documentation</h2>
+                <ul>
+                  <li><a href="{pylode_url}">PyLODE</a></li>
+                  <li><a href="{ontospy_url}">Ontospy</a></li>
+                  {foops_item}
+                </ul>
+              </section>
+
+              <section class="card">
+                <h2>All Versions</h2>
+                <ul>
+                  {version_rows}
+                </ul>
+              </section>
+            </div>
+          </body>
+          </html>
+          """
+          outdir = os.environ["DOCS_DIR"]
+          os.makedirs(outdir, exist_ok=True)
+          with open(os.path.join(outdir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html)
+          PY
+
       # Pages is served from the gh-pages branch (branch.yml publishes each
       # branch into its own subfolder), so main publishes into gh-pages/main.
       # keep_files preserves pages generated there by earlier branch-CI runs.
@@ -325,7 +487,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-deploy.json
+          filename: ontology-ci-deploy-main.json
           label: deploy
           message: ${{ steps.ghpages.outcome }}
           color: ${{ steps.ghpages.outcome == 'success' && 'brightgreen' || steps.ghpages.outcome == 'cancelled' && 'yellow' || 'red' }}
@@ -383,7 +545,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: ${{ env.GIST_ID }}
-          filename: ontology-ci-foops.json
+          filename: ontology-ci-foops-main.json
           label: FOOPS!
           message: ${{ env.FOOPS_SCORE }}
           color: ${{ steps.foops.outcome == 'success' && 'brightgreen' || steps.foops.outcome == 'cancelled' && 'yellow' || 'red' }}

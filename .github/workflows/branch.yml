@@ -412,7 +412,8 @@ jobs:
       - name: Generate default branch page (index.html with metadata + badges)
         run: |
           python3 - << 'PY'
-          import os
+          import os, html as h
+          from urllib.parse import quote
           from rdflib import Graph, Namespace, URIRef, RDF, RDFS, Literal
           g = Graph()
           g.parse(os.environ["ONTO_FILE"])
@@ -425,14 +426,30 @@ jobs:
           version = os.environ.get("NEW_VERSION","")
           modified = str(next(g.objects(onto, DCT.modified), "")) if onto else ""
           iri = str(onto) if onto else ""
+
+          # Description: dcterms:description, else rdfs:comment (English preferred)
+          def text(prop):
+            vals = list(g.objects(onto, prop)) if onto else []
+            for v in vals:
+              if getattr(v, "language", None) in ("en", None):
+                return str(v).strip()
+            return str(vals[0]).strip() if vals else ""
+          description = text(DCT.description) or text(RDFS.comment)
+          description_html = f'<p class="description">{h.escape(description)}</p>' if description else ""
+
+          # Source repository: this branch on GitHub
+          gh_repo = f'{os.environ.get("GITHUB_SERVER_URL", "https://github.com")}/{os.environ["GITHUB_REPOSITORY"]}'
+          gh_branch = os.environ["BRANCH"]
+          gh_tree = f"{gh_repo}/tree/{quote(gh_branch, safe='/')}"
+          gh_file = f"{gh_repo}/blob/{quote(gh_branch, safe='/')}/{os.environ['ONTO_FILE']}"
           base = os.environ["PUBLIC_BASE_URL"]
           abbrev = os.environ["ONTO_ABBREV"]
           vers_url = f"{base}versions/{version}/{abbrev}"
           ttl  = vers_url + ".ttl"
 
           with open(os.environ["GITHUB_ENV"], "a") as f:
-            f.write(f"GITHUB_ONTO_URI={ttl}")
-            f.write(f"ONTO_IRI={iri}")
+            f.write(f"GITHUB_ONTO_URI={ttl}\n")
+            f.write(f"ONTO_IRI={iri}\n")
             
           jsonld = vers_url + ".jsonld"
           nt = vers_url + ".nt"
@@ -440,6 +457,7 @@ jobs:
           ontospy_url = base + "docs/ontospy/"
           pylode_url  = base + "docs/pylode/"
           foops_url   = base + "foops/"
+          foops_item  = f'<li><a href="{foops_url}">FOOPS! detailed report</a></li>' if os.environ.get("FOOPS_REPORT", "true") == "true" else ""
 
           # build sorted list of all committed versions
           import re
@@ -476,10 +494,11 @@ jobs:
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>{label or abbrev} — {version} ({sb})</title>
+            <title>{h.escape(label or abbrev)} — {version} ({sb})</title>
             <style>
               body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }}
               header h1 {{ margin: 0 0 .25rem 0; }}
+              .description {{ max-width: 900px; margin: .25rem 0 1rem 0; font-size: 1.05rem; }}
               .meta {{ color: #555; margin-bottom: 1rem; }}
               .badges img {{ margin-right: .5rem; vertical-align: middle; }}
               .grid {{ display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }}
@@ -490,10 +509,11 @@ jobs:
           </head>
           <body>
             <header>
-              <h1>{label or abbrev}</h1>
+              <h1>{h.escape(label or abbrev)}</h1>
+              {description_html}
               <div class="meta">
                 <div><strong>Ontology IRI:</strong> <code>{iri}</code></div>
-                <div><strong>Branch:</strong> <code>{sb}</code></div>
+                <div><strong>Source:</strong> <a href="{gh_tree}">{os.environ["GITHUB_REPOSITORY"]} (branch <code>{h.escape(gh_branch)}</code>)</a> · <a href="{gh_file}">{os.environ['ONTO_FILE']}</a></div>
                 <div><strong>Version:</strong> <code>{version}</code></div>
                 <div><strong>Modified:</strong> <code>{modified}</code></div>
                 <div><strong>Base URL:</strong> <a href="{base}">{base}</a></div>
@@ -525,7 +545,7 @@ jobs:
                 <ul>
                   <li><a href="{pylode_url}">PyLODE</a></li>
                   <li><a href="{ontospy_url}">Ontospy</a></li>
-                  <li><a href="{foops_url}">FOOPS! detailed report</a></li>
+                  {foops_item}
                 </ul>
               </section>
 
