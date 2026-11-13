@@ -5,10 +5,17 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from .config import ConfigError, load_config
-from .targets import make_plan
+from .targets import Target, make_plan
+from .versioning import (
+    OntologyIRIError,
+    bump_version,
+    current_version,
+    write_variants,
+)
 
 
 def _bool(value: str) -> bool:
@@ -33,6 +40,33 @@ def _plan(args: argparse.Namespace) -> int:
     return 0
 
 
+def _target(args: argparse.Namespace) -> Target:
+    return Target.from_json(json.loads(args.target_json), Path.cwd())
+
+
+def _version(args: argparse.Namespace) -> int:
+    target = _target(args)
+    if args.bump:
+        version = bump_version(
+            target.file, target.base_iri, target.folder / "versions", datetime.now(timezone.utc)
+        )
+    else:
+        version = current_version(target.file, target.base_iri)
+        if version is None:
+            print(f"error: no owl:versionInfo in {target.file}", file=sys.stderr)
+            return 1
+    print(version)
+    return 0
+
+
+def _variants(args: argparse.Namespace) -> int:
+    target = _target(args)
+    out = target.folder / "versions" / args.version
+    for path in write_variants(target.file, out, target.name):
+        print(path)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ontostart")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -43,10 +77,18 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--only")
     p.add_argument("--bump", type=_bool)
     p.set_defaults(func=_plan)
+    p = sub.add_parser("version", help="print or bump an ontology's version")
+    p.add_argument("--target-json", required=True)
+    p.add_argument("--bump", action="store_true")
+    p.set_defaults(func=_version)
+    p = sub.add_parser("variants", help="write syntax variants of a version")
+    p.add_argument("--target-json", required=True)
+    p.add_argument("--version", required=True)
+    p.set_defaults(func=_variants)
     args = parser.parse_args(argv)
     try:
         return args.func(args)
-    except ConfigError as e:
+    except (ConfigError, OntologyIRIError) as e:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
