@@ -64,7 +64,8 @@ def _row(c: dict) -> str:
     return (
         f"<tr><td><code>{h.escape(str(cid))}</code></td>"
         f"<td>{h.escape(str(c.get('title', cid)))}</td>"
-        f"<td style='color:{color};font-weight:bold;white-space:nowrap'>{passed}/{total}</td>"
+        f"<td style='color:{color};font-weight:bold;white-space:nowrap'>"
+        f"{h.escape(str(passed))}/{h.escape(str(total))}</td>"
         f"<td>{h.escape(str(explanation))}</td></tr>\n"
     )
 

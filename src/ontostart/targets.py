@@ -124,7 +124,9 @@ def make_plan(
 ) -> Plan:
     root = Path(root)
     all_targets = find_targets(root, config)
-    on_sandbox = ref.startswith("sandbox/")
+    # A sandbox/<name> branch builds only its own folder when pushed or run by hand;
+    # a pull request from such a branch is planned by its changed files like any other.
+    on_sandbox = ref.startswith("sandbox/") and event in ("push", "workflow_dispatch")
     on_main = ref == "main"
 
     if on_sandbox:

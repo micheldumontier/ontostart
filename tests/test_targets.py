@@ -82,6 +82,18 @@ def test_nested_sandbox_branch(repo):
         make_plan(repo, cfg(repo), "sandbox/a/b", "push", [])
 
 
+def test_plan_pr_from_sandbox_branch_uses_changed_files(repo):
+    p = make_plan(repo, cfg(repo), "sandbox/testo", "pull_request", ["ontologies/pizza/pizza.ttl"])
+    assert paths(p) == ["pizza"] and not p.publish and not p.bump
+    p = make_plan(repo, cfg(repo), "sandbox/a/b", "pull_request", ["sandbox/testo/testo.ttl"])
+    assert paths(p) == ["sandbox/testo"] and not p.publish
+
+
+def test_plan_dispatch_on_sandbox_branch(repo):
+    p = make_plan(repo, cfg(repo), "sandbox/testo", "workflow_dispatch", None)
+    assert paths(p) == ["sandbox/testo"] and p.publish and not p.bump
+
+
 def test_plan_other_branch_and_pr(repo):
     p = make_plan(repo, cfg(repo), "feature", "push", ["ontologies/pizza/pizza.ttl"])
     assert paths(p) == ["pizza"] and not p.publish and not p.bump

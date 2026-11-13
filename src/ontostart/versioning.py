@@ -5,15 +5,29 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from pathlib import Path
+from xml.sax import SAXParseException
 
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import DCTERMS, OWL, RDF, XSD
+from rdflib.plugins.parsers.notation3 import BadSyntax
 
 SEMVER_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
+
+# What rdflib raises for a file it cannot parse (Turtle/N3, RDF/XML, and the rest).
+PARSE_ERRORS = (BadSyntax, SAXParseException, ValueError)
 
 
 class OntologyIRIError(Exception):
     """The file has no owl:Ontology with the expected IRI."""
+
+
+def describe_parse_error(e: Exception) -> str:
+    """One line with the line number and the parser's message."""
+    if isinstance(e, BadSyntax):
+        return f"line {e.lines + 1}: {e._why}"
+    if isinstance(e, SAXParseException):
+        return f"line {e.getLineNumber()}: {e.getMessage()}"
+    return " ".join(str(e).split())
 
 
 def _load(file: Path, base_iri: str) -> Graph:
