@@ -31,3 +31,24 @@ def test_load_config_rejects_missing_w3id(tmp_path):
     p.write_text("pages: https://x\n")
     with pytest.raises(ConfigError, match="w3id"):
         load_config(p)
+
+
+@pytest.mark.parametrize("key", ["sandbox", "catalog", "docs", "versions", "main", "Testo", "te sto", "a/b"])
+def test_load_config_rejects_bad_alias_key(tmp_path, key):
+    p = tmp_path / "ontostart.yaml"
+    p.write_text(f"w3id: x\npages: p\naliases:\n  '{key}': sandbox/testo\n")
+    with pytest.raises(ConfigError, match="alias"):
+        load_config(p)
+
+
+def test_load_config_rejects_alias_to_alias(tmp_path):
+    p = tmp_path / "ontostart.yaml"
+    p.write_text("w3id: x\npages: p\naliases:\n  old: testo/x\n  testo: sandbox/testo\n")
+    with pytest.raises(ConfigError, match="alias"):
+        load_config(p)
+
+
+def test_load_config_accepts_alias_to_sandbox(tmp_path):
+    p = tmp_path / "ontostart.yaml"
+    p.write_text("w3id: x\npages: p\naliases:\n  testo: sandbox/testo\n  old-pizza: pizza\n")
+    assert load_config(p).aliases == {"testo": "sandbox/testo", "old-pizza": "pizza"}

@@ -10,8 +10,7 @@ from __future__ import annotations
 import re
 from importlib.resources import files
 
-from .config import Config, ConfigError
-from .targets import RESERVED
+from .config import RESERVED, Config, ConfigError
 
 _SEGMENT = r"[A-Za-z0-9_][A-Za-z0-9._-]*"
 _SAFE_PATH = re.compile(rf"^{_SEGMENT}(/{_SEGMENT})*$")
@@ -66,7 +65,7 @@ def _legacy(config: Config) -> tuple[str, str]:
     block = "\n".join([
         f"### Legacy root: the retired root ontology, in {path}/ as {name}.<ext>",
         f"### /x.y.z, /versions/..., /docs/... and /{name}.<ext> resolve as /{path}/... does",
-        f"RewriteCond %{{ENV:P}} ^(\\d+\\.\\d+\\.\\d+/?|versions(/.*)?|docs(/.*)?"
+        f"RewriteCond %{{ENV:P}} ^(\\d+\\.\\d+\\.\\d+(/.*)?|versions(/.*)?|docs(/.*)?"
         f"|{re.escape(name)}\\.{_EXT})$",
         f"RewriteRule ^ - [E=B:{path},E=REST:%1]",
         f"RewriteCond %{{ENV:P}} ^{re.escape(path)}(/(.*))?$",
@@ -92,6 +91,7 @@ def _layout(config: Config) -> str:
         path, name = config.legacy_root.path.strip("/"), config.legacy_root.name
         rows += [
             ("/x.y.z", f"retired root ontology, that version (as /{path}/x.y.z)"),
+            ("/x.y.z/...", f"same as /{path}/x.y.z/..."),
             (f"/versions/..., /docs/..., /{name}.<ext>", f"same as /{path}/..."),
         ]
     return "".join(

@@ -57,6 +57,7 @@ def test_alias_and_legacy_root_rendered():
     text = render_htaccess(config())
     assert "^testo(/.*)?$" in text and "E=P:sandbox/testo%1" in text
     assert "E=B:main" in text and "E=BONTO:ontostart" in text
+    assert r"^(\d+\.\d+\.\d+(/.*)?|versions(/.*)?|docs(/.*)?|ontostart\." in text
     bare = render_htaccess(replace(config(), legacy_root=None, aliases={}))
     assert "testo" not in bare
     assert "Legacy root" not in bare and "E=B:main" not in bare and "BONTO:ontostart" not in bare

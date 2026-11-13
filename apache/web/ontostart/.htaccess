@@ -18,6 +18,7 @@
 ###   /sandbox/N/...           sandbox ontology N, as /N/...
 ###   /testo/...               same as /sandbox/testo/... (alias)
 ###   /x.y.z                   retired root ontology, that version (as /main/x.y.z)
+###   /x.y.z/...               same as /main/x.y.z/...
 ###   /versions/..., /docs/..., /ontostart.<ext>   same as /main/...
 ###   anything else            passed through to GitHub Pages
 ###
@@ -101,7 +102,7 @@ RewriteRule ^ https://micheldumontier.github.io/ontostart/ [R=303,L]
 
 ### Legacy root: the retired root ontology, in main/ as ontostart.<ext>
 ### /x.y.z, /versions/..., /docs/... and /ontostart.<ext> resolve as /main/... does
-RewriteCond %{ENV:P} ^(\d+\.\d+\.\d+/?|versions(/.*)?|docs(/.*)?|ontostart\.(ttl|owl|jsonld|nt))$
+RewriteCond %{ENV:P} ^(\d+\.\d+\.\d+(/.*)?|versions(/.*)?|docs(/.*)?|ontostart\.(ttl|owl|jsonld|nt))$
 RewriteRule ^ - [E=B:main,E=REST:%1]
 RewriteCond %{ENV:P} ^main(/(.*))?$
 RewriteRule ^ - [E=B:main,E=REST:%2]

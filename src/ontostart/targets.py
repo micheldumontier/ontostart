@@ -2,14 +2,11 @@
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from .config import Config, ConfigError
+from .config import NAME_RE, RESERVED, Config, ConfigError
 
-NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-RESERVED = {"sandbox", "versions", "docs", "catalog", "main"}
 STATUSES = {"stable", "experimental"}
 
 

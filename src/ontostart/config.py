@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
+
+
+NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+RESERVED = {"sandbox", "versions", "docs", "catalog", "main"}
 
 
 class ConfigError(Exception):
@@ -55,6 +60,21 @@ def _flag(data: dict, key: str) -> bool:
     return value
 
 
+def _aliases(data: dict) -> dict[str, str]:
+    aliases = data.get("aliases") or {}
+    if not isinstance(aliases, dict):
+        raise ConfigError("ontostart.yaml: 'aliases' must be a mapping")
+    aliases = {str(k): str(v).strip("/") for k, v in aliases.items()}
+    for key, target in aliases.items():
+        if not NAME_RE.match(key) or key in RESERVED:
+            raise ConfigError(
+                f"ontostart.yaml: alias '{key}' must match {NAME_RE.pattern} and not be reserved"
+            )
+        if target.split("/")[0] in aliases:
+            raise ConfigError(f"ontostart.yaml: alias '{key}' points to another alias: '{target}'")
+    return aliases
+
+
 def load_config(path: Path) -> Config:
     try:
         data = yaml.safe_load(Path(path).read_text()) or {}
@@ -67,9 +87,7 @@ def load_config(path: Path) -> Config:
     if term_docs not in ("ontospy", "site"):
         raise ConfigError("ontostart.yaml: 'term_docs' must be 'ontospy' or 'site'")
 
-    aliases = data.get("aliases") or {}
-    if not isinstance(aliases, dict):
-        raise ConfigError("ontostart.yaml: 'aliases' must be a mapping")
+    aliases = _aliases(data)
 
     legacy = data.get("legacy_root")
     legacy_root = None
@@ -93,7 +111,7 @@ def load_config(path: Path) -> Config:
         sandbox=_flag(data, "sandbox"),
         foops=_flag(data, "foops"),
         term_docs=term_docs,
-        aliases={str(k): str(v) for k, v in aliases.items()},
+        aliases=aliases,
         legacy_root=legacy_root,
         ontologies=ontologies,
     )
