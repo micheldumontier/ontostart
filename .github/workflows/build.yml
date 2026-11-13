@@ -1,0 +1,452 @@
+# Reusable OntoStart build: plan -> build each ontology folder -> publish.
+#
+# Called from a collection repository's .github/workflows/ontostart.yml:
+#
+#   jobs:
+#     ontostart:
+#       uses: micheldumontier/ontostart/.github/workflows/build.yml@v1
+#       secrets: inherit
+#
+# Every inputs.* and github.event.* value reaches the shell only
+# through env:, never inline in run:.
+name: ontostart build
+
+on:
+  workflow_call:
+    inputs:
+      engine-ref:
+        description: >-
+          Engine version: a ref of micheldumontier/ontostart to pip install,
+          or "" to pip install the checked-out repository itself.
+        type: string
+        required: false
+        default: v1
+      only:
+        description: Build only this path (e.g. "pizza" or "sandbox/testo").
+        type: string
+        required: false
+        default: ""
+      bump:
+        description: '"" lets the plan decide; "true" or "false" overrides.'
+        type: string
+        required: false
+        default: ""
+    secrets:
+      GIST_TOKEN:
+        description: Token allowed to update the badge gist (optional).
+        required: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  ENGINE_REF: ${{ inputs.engine-ref }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      plan: ${{ steps.plan.outputs.plan }}
+      has-targets: ${{ steps.plan.outputs.has-targets }}
+      publish: ${{ steps.plan.outputs.publish }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install the engine
+        run: |
+          python -m pip install --upgrade pip
+          if [ -z "$ENGINE_REF" ]; then
+            pip install .
+          else
+            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
+          fi
+
+      - name: Plan
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          ONLY: ${{ inputs.only }}
+          BUMP: ${{ inputs.bump }}
+        run: |
+          case "$EVENT" in
+            push) base="$PUSH_BEFORE" ;;
+            pull_request) base="$PR_BASE" ;;
+            *) base="" ;;
+          esac
+          args=(--ref "$REF" --event "$EVENT")
+          changed="$RUNNER_TEMP/changed.txt"
+          if [ -n "$base" ] && ! [[ "$base" =~ ^0+$ ]]; then
+            if git fetch --no-tags --depth=1 origin "$base" && git diff --name-only "$base" HEAD > "$changed"; then
+              echo "Changed files ($base..HEAD):"
+              cat "$changed"
+              args+=(--changed-file "$changed")
+            else
+              echo "::warning::could not diff $base..HEAD; planning every ontology"
+            fi
+          fi
+          if [ -n "$ONLY" ]; then args+=(--only "$ONLY"); fi
+          if [ -n "$BUMP" ]; then args+=(--bump "$BUMP"); fi
+          plan="$(ontostart plan "${args[@]}")"
+          echo "$plan" | jq .
+          {
+            echo "plan=$plan"
+            echo "has-targets=$(jq -r '(.targets | length) > 0' <<<"$plan")"
+            echo "publish=$(jq -r '.publish' <<<"$plan")"
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: plan
+    if: needs.plan.outputs.has-targets == 'true'
+    name: build ${{ matrix.target.path }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(needs.plan.outputs.plan).targets }}
+    env:
+      TARGET_JSON: ${{ toJSON(matrix.target) }}
+      PLAN_BUMP: ${{ fromJSON(needs.plan.outputs.plan).bump }}
+      PLAN_FOOPS: ${{ fromJSON(needs.plan.outputs.plan).foops }}
+      GIST_ID: ${{ fromJSON(needs.plan.outputs.plan).gist_id }}
+      GIST_OWNER: ${{ vars.GIST_OWNER || github.repository_owner }}
+      REPO: ${{ github.repository }}
+      REF: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+      SERVER_URL: ${{ github.server_url }}
+      ONTO_NAME: ${{ matrix.target.name }}
+      ONTO_PATH: ${{ matrix.target.path }}
+      ONTO_FOLDER: ${{ matrix.target.folder }}
+      ONTO_FILE: ${{ matrix.target.file }}
+      ONTO_IRI: ${{ matrix.target.base_iri }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Set up Java (for ROBOT/HermiT)
+        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install the engine
+        run: |
+          python -m pip install --upgrade pip
+          if [ -z "$ENGINE_REF" ]; then
+            pip install .
+          else
+            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
+          fi
+          echo "OUT=$RUNNER_TEMP/out" >> "$GITHUB_ENV"
+
+      - name: Download ROBOT (checksum-verified)
+        run: |
+          mkdir -p "$RUNNER_TEMP/robot"
+          cd "$RUNNER_TEMP/robot"
+          curl -fsSL -o robot.jar https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar
+          echo "6f518b0293d8146d8a5a168c53607a952effb66bcaf3c6539996d7ec5c5f05f8  robot.jar" | sha256sum -c -
+
+      - name: Check (OWL DL profile, HermiT reasoning)
+        id: check
+        run: |
+          # ROBOT writes its working files next to the report; keep them out of the artifact.
+          work="$RUNNER_TEMP/check"
+          mkdir -p "$OUT" "$work"
+          ontostart check --target-json "$TARGET_JSON" --robot "$RUNNER_TEMP/robot/robot.jar" --out "$work/report.json"
+          cp "$work/report.json" "$OUT/"
+          if [ -f "$work/reason.explanation.md" ]; then cp "$work/reason.explanation.md" "$OUT/"; fi
+          cat "$OUT/report.json"
+          reason="$(ontostart blocked --report "$OUT/report.json")"
+          if [ -n "$reason" ]; then
+            echo "::error::$ONTO_PATH is blocked: $reason"
+            echo "blocked=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "blocked=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Version
+        id: version
+        env:
+          BLOCKED: ${{ steps.check.outputs.blocked }}
+        run: |
+          if [ "$PLAN_BUMP" = true ] && [ "$BLOCKED" = false ]; then
+            v="$(ontostart version --target-json "$TARGET_JSON" --bump)"
+          elif ! v="$(ontostart version --target-json "$TARGET_JSON")"; then
+            if [ "$BLOCKED" = true ]; then
+              v=""
+            else
+              exit 1
+            fi
+          fi
+          echo "Version: ${v:-none}"
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Syntax variants
+        if: steps.check.outputs.blocked == 'false'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ontostart variants --target-json "$TARGET_JSON" --version "$VERSION"
+
+      - name: Check out OntoSpy (fork)
+        id: ontospy-checkout
+        if: steps.check.outputs.blocked == 'false'
+        continue-on-error: true
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: micheldumontier/Ontospy
+          path: .ontospy-src
+          persist-credentials: false
+
+      - name: Install OntoSpy and pyLODE
+        if: steps.check.outputs.blocked == 'false'
+        continue-on-error: true
+        run: |
+          pip install "git+https://github.com/RDFLib/pyLODE.git@3.1.0"
+          cd .ontospy-src
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: OntoSpy docs
+        id: ontospy
+        if: steps.check.outputs.blocked == 'false'
+        continue-on-error: true
+        run: |
+          mkdir -p "$OUT/site/docs/ontospy"
+          python -m ontospy.cli gendocs --type 2 -o "$OUT/site/docs/ontospy" "$ONTO_FILE"
+
+      - name: pyLODE docs
+        id: pylode
+        if: steps.check.outputs.blocked == 'false'
+        continue-on-error: true
+        run: |
+          mkdir -p "$OUT/site/docs/pylode"
+          python - "$ONTO_FILE" "$OUT/site/docs/pylode/index.html" <<'PY'
+          import sys
+          from pylode import OntPub
+          OntPub(sys.argv[1]).make_html(destination=sys.argv[2])
+          PY
+
+      - name: FOOPS! assessment
+        id: foops
+        if: steps.check.outputs.blocked == 'false' && env.PLAN_FOOPS == 'true'
+        continue-on-error: true
+        run: |
+          body="$(jq -cn --arg iri "$ONTO_IRI" '{ontologyUri: $iri}')"
+          curl -fsS --max-time 120 -X POST "https://foops.linkeddata.es/assessOntology" \
+            -H 'accept: application/json' -H 'Content-Type: application/json' \
+            -d "$body" -o "$RUNNER_TEMP/foops.json"
+
+      - name: Site
+        if: steps.check.outputs.blocked == 'false'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          ONTOSPY_OK: ${{ steps.ontospy.outcome == 'success' }}
+          PYLODE_OK: ${{ steps.pylode.outcome == 'success' }}
+        run: |
+          args=(--target-json "$TARGET_JSON" --version "$VERSION" --out "$OUT/site"
+                --report "$OUT/report.json" --result "$OUT/result.json"
+                --repo "$REPO" --ref "$REF" --server-url "$SERVER_URL"
+                --step "ontospy=$ONTOSPY_OK" --step "pylode=$PYLODE_OK")
+          if [ "$PLAN_FOOPS" = true ]; then args+=(--foops-json "$RUNNER_TEMP/foops.json"); fi
+          if [ -n "$GIST_ID" ]; then
+            args+=(--badge-base "https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/$GIST_OWNER/$GIST_ID/raw/")
+          fi
+          ontostart site "${args[@]}"
+
+      - name: Result only (blocked)
+        if: steps.check.outputs.blocked == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          ontostart site --result-only --target-json "$TARGET_JSON" --version "$VERSION" \
+            --report "$OUT/report.json" --result "$OUT/result.json" \
+            --repo "$REPO" --ref "$REF" --server-url "$SERVER_URL"
+
+      - name: Stage bumped source
+        if: steps.check.outputs.blocked == 'false' && env.PLAN_BUMP == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p "$OUT/source/$ONTO_FOLDER/versions"
+          cp "$ONTO_FILE" "$OUT/source/$ONTO_FOLDER/"
+          cp -R "$ONTO_FOLDER/versions/$VERSION" "$OUT/source/$ONTO_FOLDER/versions/"
+
+      - name: Upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ontology-${{ matrix.target.safe }}
+          path: ${{ runner.temp }}/out/
+          if-no-files-found: error
+
+      - name: Fail if blocked
+        if: steps.check.outputs.blocked == 'true'
+        run: |
+          echo "::error::$ONTO_PATH: $(ontostart blocked --report "$OUT/report.json")"
+          exit 1
+
+  publish:
+    needs: [plan, build]
+    if: >-
+      always() && needs.plan.result == 'success'
+      && needs.plan.outputs.publish == 'true'
+      && needs.plan.outputs.has-targets == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      PLAN: ${{ needs.plan.outputs.plan }}
+      REF: ${{ github.ref_name }}
+      GIT_AUTHOR_NAME: github-actions[bot]
+      GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+      GIT_COMMITTER_NAME: github-actions[bot]
+      GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install the engine
+        run: |
+          python -m pip install --upgrade pip
+          if [ -z "$ENGINE_REF" ]; then
+            pip install .
+          else
+            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
+          fi
+          echo "ARTIFACTS=$RUNNER_TEMP/artifacts" >> "$GITHUB_ENV"
+
+      - name: Download build results
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ontology-*
+          path: ${{ runner.temp }}/artifacts
+
+      # ready.txt: "<safe> <path> <folder> <name> <version>" of targets to publish.
+      # blocked.txt: "<path>: <reason>" of targets that are not published.
+      - name: Sort targets
+        id: sort
+        run: |
+          : > "$RUNNER_TEMP/ready.txt"
+          : > "$RUNNER_TEMP/blocked.txt"
+          jq -r '.targets[] | [.safe, .path, .folder, .name] | @tsv' <<<"$PLAN" |
+          while IFS=$'\t' read -r safe path folder name; do
+            dir="$ARTIFACTS/ontology-$safe"
+            if [ ! -f "$dir/report.json" ] || [ ! -f "$dir/result.json" ]; then
+              echo "$path: build failed" >> "$RUNNER_TEMP/blocked.txt"
+              continue
+            fi
+            reason="$(ontostart blocked --report "$dir/report.json")"
+            if [ -n "$reason" ]; then
+              echo "$path: $reason" >> "$RUNNER_TEMP/blocked.txt"
+            elif [ ! -d "$dir/site" ]; then
+              echo "$path: build failed (no site)" >> "$RUNNER_TEMP/blocked.txt"
+            else
+              echo "$safe $path $folder $name $(jq -r .version "$dir/result.json")" >> "$RUNNER_TEMP/ready.txt"
+            fi
+          done
+          echo "Ready:"; cat "$RUNNER_TEMP/ready.txt"
+          echo "Blocked:"; cat "$RUNNER_TEMP/blocked.txt"
+
+      - name: Commit version bumps
+        run: |
+          if [ "$(jq -r .bump <<<"$PLAN")" != true ]; then
+            echo "No bump in this run."
+            exit 0
+          fi
+          parts=()
+          while read -r safe path folder name version; do
+            src="$ARTIFACTS/ontology-$safe/source"
+            [ -d "$src" ] || continue
+            cp -R "$src/." "$GITHUB_WORKSPACE/"
+            git add -- "$folder/$name.ttl" "$folder/versions/$version"
+            parts+=("$path@$version")
+          done < "$RUNNER_TEMP/ready.txt"
+          if [ "${#parts[@]}" -eq 0 ] || git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          joined="$(printf '%s, ' "${parts[@]}")"
+          git commit -m "chore(ontology): bump ${joined%, } [skip ci]"
+          if ! git push origin "HEAD:refs/heads/$REF"; then
+            git pull --rebase origin "$REF"
+            git push origin "HEAD:refs/heads/$REF"
+          fi
+
+      - name: Publish to gh-pages
+        id: pages
+        run: |
+          if [ ! -s "$RUNNER_TEMP/ready.txt" ]; then
+            echo "Nothing to publish."
+            exit 0
+          fi
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
+            git fetch --no-tags --depth=1 origin "+refs/heads/gh-pages:refs/remotes/origin/gh-pages"
+            git worktree add -B gh-pages gh-pages origin/gh-pages
+          else
+            git worktree add --orphan -b gh-pages gh-pages
+          fi
+          parts=()
+          while read -r safe path _ _ version; do
+            mkdir -p "gh-pages/$path"
+            rsync -a --delete "$ARTIFACTS/ontology-$safe/site/" "gh-pages/$path/"
+            parts+=("$path@$version")
+          done < "$RUNNER_TEMP/ready.txt"
+          ontostart catalogue --site gh-pages
+          touch gh-pages/.nojekyll
+          cd gh-pages
+          git add -A
+          if git diff --cached --quiet; then
+            echo "gh-pages is up to date."
+            exit 0
+          fi
+          joined="$(printf '%s, ' "${parts[@]}")"
+          git commit -m "chore(pages): publish ${joined%, } [skip ci]"
+          if ! git push origin gh-pages; then
+            git pull --rebase origin gh-pages
+            git push origin gh-pages
+          fi
+
+      - name: Badges
+        if: always() && steps.sort.outcome == 'success'
+        continue-on-error: true
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          PAGES_OK: ${{ steps.pages.outcome == 'success' }}
+        run: |
+          deployed=()
+          if [ "$PAGES_OK" = true ]; then
+            while read -r safe _; do deployed+=("$safe"); done < "$RUNNER_TEMP/ready.txt"
+          fi
+          ontostart badges --results "$ARTIFACTS" --gist "$(jq -r .gist_id <<<"$PLAN")" --deployed "${deployed[@]}"
+
+      - name: Report blocked ontologies
+        if: always() && steps.sort.outcome == 'success'
+        run: |
+          if [ ! -s "$RUNNER_TEMP/blocked.txt" ]; then
+            exit 0
+          fi
+          {
+            echo "### Not published"
+            sed 's/^/- /' "$RUNNER_TEMP/blocked.txt"
+          } >> "$GITHUB_STEP_SUMMARY"
+          while read -r line; do echo "::error::$line"; done < "$RUNNER_TEMP/blocked.txt"
+          exit 1

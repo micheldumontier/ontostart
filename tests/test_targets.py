@@ -126,3 +126,4 @@ def test_cli_plan(repo, capsys, monkeypatch):
     data = json.loads(out)
     assert [t["path"] for t in data["targets"]] == ["pizza"]
     assert data["publish"] is True and data["bump"] is True
+    assert data["foops"] is True and data["gist_id"] == "abc"

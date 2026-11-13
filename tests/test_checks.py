@@ -134,3 +134,18 @@ def test_check_cli_writes_report(tmp_path, monkeypatch, capsys):
     assert code == 0
     assert seen["target"].name == "demo" and seen["robot"] == Path("robot.jar")
     assert CheckReport.from_json(json.loads(out.read_text())) == expected
+
+
+def test_blocked_cli(tmp_path, capsys):
+    import json
+
+    from ontostart.cli import main
+
+    blocked = tmp_path / "blocked.json"
+    blocked.write_text(json.dumps(report(profile_ok=False).to_json()))
+    ok = tmp_path / "ok.json"
+    ok.write_text(json.dumps(report().to_json()))
+    assert main(["blocked", "--report", str(blocked)]) == 0
+    assert capsys.readouterr().out == "ontology is not in the OWL DL profile\n"
+    assert main(["blocked", "--report", str(ok)]) == 0
+    assert capsys.readouterr().out == "\n"

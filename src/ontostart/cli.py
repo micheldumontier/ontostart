@@ -43,6 +43,8 @@ def _plan(args: argparse.Namespace) -> int:
         "targets": [t.to_json() for t in plan.targets],
         "publish": plan.publish,
         "bump": plan.bump,
+        "foops": config.foops,
+        "gist_id": config.gist_id,
     }))
     return 0
 
@@ -82,6 +84,12 @@ def _check(args: argparse.Namespace) -> int:
     return 0
 
 
+def _blocked(args: argparse.Namespace) -> int:
+    report = CheckReport.from_json(json.loads(Path(args.report).read_text()))
+    print(report.blocked_reason() or "")
+    return 0
+
+
 def _step(value: str) -> tuple[str, bool]:
     kind, _, flag = value.partition("=")
     return kind, _bool(flag)
@@ -91,19 +99,25 @@ def _site(args: argparse.Namespace) -> int:
     target = _target(args)
     report = CheckReport.from_json(json.loads(Path(args.report).read_text()))
     steps = dict(args.step or [])
-    out = Path(args.out)
     foops = None
     foops_error = ""
+    if args.result_only:
+        steps, args.foops_json = {}, None
+    elif not args.out:
+        print("error: --out is required unless --result-only is given", file=sys.stderr)
+        return 1
     if args.foops_json:
         try:
             foops = summarize_foops(json.loads(Path(args.foops_json).read_text()))
         except (OSError, ValueError, KeyError, TypeError, ZeroDivisionError) as e:
             foops_error = str(e)
-    ctx = SiteContext(args.repo, args.ref, args.server_url, args.badge_base, bool(args.foops_json))
-    build_site(target, args.version, out, ctx)
-    if args.foops_json:
-        title, _, _ = _metadata(target)
-        write_foops_page(foops, out, title, target.base_iri, foops_error)
+    if not args.result_only:
+        out = Path(args.out)
+        ctx = SiteContext(args.repo, args.ref, args.server_url, args.badge_base, bool(args.foops_json))
+        build_site(target, args.version, out, ctx)
+        if args.foops_json:
+            title, _, _ = _metadata(target)
+            write_foops_page(foops, out, title, target.base_iri, foops_error)
     Path(args.result).write_text(json.dumps({
         "target": target.to_json(),
         "report": report.to_json(),
@@ -174,7 +188,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("site", help="build the site for one ontology")
     p.add_argument("--target-json", required=True)
     p.add_argument("--version", required=True)
-    p.add_argument("--out", required=True)
+    p.add_argument("--out", help="site folder; required unless --result-only")
     p.add_argument("--report", required=True)
     p.add_argument("--step", action="append", type=_step)
     p.add_argument("--foops-json")
@@ -183,7 +197,12 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--ref", required=True)
     p.add_argument("--server-url", default="https://github.com")
     p.add_argument("--badge-base", default="")
+    p.add_argument("--result-only", action="store_true",
+                   help="write only --result (no site), e.g. for a blocked ontology")
     p.set_defaults(func=_site)
+    p = sub.add_parser("blocked", help="print why a check report blocks publishing (empty if it does not)")
+    p.add_argument("--report", required=True)
+    p.set_defaults(func=_blocked)
     p = sub.add_parser("badges", help="push badge files to the gist")
     p.add_argument("--results", required=True)
     p.add_argument("--gist", required=True)

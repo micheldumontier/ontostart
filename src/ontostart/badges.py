@@ -26,13 +26,16 @@ def badge_files(
     deployed: bool | None,
     foops: FoopsSummary | None,
 ) -> dict[str, dict]:
+    """Badges for steps missing from ``steps``, an empty version, or None flags are omitted."""
     badges = {
         "profile": _badge("OWL DL Profile", *_ok(report.profile_ok)),
         "reason": _badge("Reasoning", report.reason.message, report.reason.color),
-        "version": _badge("Version", version, "brightgreen"),
-        "ontospy": _badge("ontospy", *_ok(steps.get("ontospy", False))),
-        "pylode": _badge("pylode", *_ok(steps.get("pylode", False))),
     }
+    if version:
+        badges["version"] = _badge("Version", version, "brightgreen")
+    for step in ("ontospy", "pylode"):
+        if step in steps:
+            badges[step] = _badge(step, *_ok(steps[step]))
     if deployed is not None:
         badges["deploy"] = _badge("deploy", *_ok(deployed))
     if foops is not None:

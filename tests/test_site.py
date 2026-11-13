@@ -135,3 +135,28 @@ def test_site_cli_bad_foops(tmp_path, monkeypatch):
                  "--result", "result.json", "--repo", "o/r", "--ref", "main"]) == 0
     assert json.loads((tmp_path / "result.json").read_text())["foops"] is None
     assert "Could not load FOOPS results" in (tmp_path / "site/foops/index.html").read_text()
+
+
+def test_site_cli_result_only(tmp_path, monkeypatch):
+    t = make(tmp_path, versions=())
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "report.json").write_text(json.dumps(
+        CheckReport(False, ReasonResult("error"), None, None, None).to_json()))
+    assert main(["site", "--target-json", json.dumps(t.to_json()), "--version", "",
+                 "--report", "report.json", "--result-only", "--result", "result.json",
+                 "--repo", "o/r", "--ref", "main"]) == 0
+    assert not (tmp_path / "site").exists()
+    result = json.loads((tmp_path / "result.json").read_text())
+    assert result["steps"] == {} and result["foops"] is None and result["version"] == ""
+    assert result["report"]["profile_ok"] is False
+
+
+def test_site_cli_requires_out_unless_result_only(tmp_path, monkeypatch, capsys):
+    t = make(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "report.json").write_text(json.dumps(
+        CheckReport(True, ReasonResult("consistent"), None, None, None).to_json()))
+    assert main(["site", "--target-json", json.dumps(t.to_json()), "--version", "1.0.2",
+                 "--report", "report.json", "--result", "result.json",
+                 "--repo", "o/r", "--ref", "main"]) == 1
+    assert "--out" in capsys.readouterr().err

@@ -37,6 +37,12 @@ def test_optional_badges_omitted():
         "ontology-ci-deploy-sandbox-testo.json"]["message"] == "failure"
 
 
+def test_missing_steps_and_version_omitted():
+    files = badge_files(target(), REPORT, "", {}, False, None)
+    kinds = {name.split("-")[2] for name in files}
+    assert kinds == {"profile", "reason", "deploy"}
+
+
 def test_push_badges_single_request(monkeypatch):
     calls = []
 
