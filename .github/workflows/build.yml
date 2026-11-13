@@ -421,6 +421,18 @@ jobs:
           pattern: ontology-*
           path: ${{ runner.temp }}/artifacts
 
+      # download-artifact unpacks a lone matching artifact straight into `path`
+      # instead of path/<artifact name>/ (always the case on sandbox branches).
+      - name: Give a single artifact its own folder
+        run: |
+          if [ -f "$ARTIFACTS/result.json" ]; then
+            safe="$(jq -r .target.safe "$ARTIFACTS/result.json")"
+            tmp="$(mktemp -d)"
+            find "$ARTIFACTS" -mindepth 1 -maxdepth 1 -exec mv {} "$tmp/" \;
+            mv "$tmp" "$ARTIFACTS/ontology-$safe"
+            echo "Moved the single artifact to ontology-$safe/"
+          fi
+
       # ready.txt: "<safe> <path> <folder> <name> <version>" of targets to publish.
       # blocked.txt: "<path>: <reason>" of targets that are not published.
       - name: Sort targets
