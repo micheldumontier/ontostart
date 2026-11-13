@@ -76,12 +76,15 @@ on:
         default: v1
     secrets:
       W3ID_TOKEN:
-        description: Token that can fork perma-id/w3id.org and open pull requests there.
-        required: true
+        description: >-
+          Token that can fork perma-id/w3id.org and open pull requests there.
+          Define it as a secret of the ontostart-secrets environment, limited to
+          main; the job reads it from there, so callers need not pass it.
+        required: false
 
+# Everything on GitHub is done with W3ID_TOKEN; GITHUB_TOKEN only checks out.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   W3ID_UPSTREAM_REPO: perma-id/w3id.org
@@ -93,6 +96,9 @@ env:
 jobs:
   make-pr:
     runs-on: ubuntu-latest
+    # W3ID_TOKEN is a secret of this environment, whose deployment branches are
+    # limited to main, so a workflow run on any other branch cannot read it.
+    environment: ontostart-secrets
     steps:
       - name: Check out this repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -110,6 +116,10 @@ jobs:
         env:
           W3ID_TOKEN: ${{ secrets.W3ID_TOKEN }}
         run: |
+          if [ -z "$W3ID_TOKEN" ]; then
+            echo "::error::W3ID_TOKEN is not set; add it as a secret of the ontostart-secrets environment."
+            exit 1
+          fi
           echo "$W3ID_TOKEN" | gh auth login --with-token
           gh auth status
           gh auth setup-git

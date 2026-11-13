@@ -4,23 +4,42 @@
 #
 #   permissions:
 #     contents: write
+#   concurrency:
+#     group: ontostart-${{ github.ref }}
+#     cancel-in-progress: false
 #   jobs:
 #     ontostart:
 #       uses: micheldumontier/ontostart/.github/workflows/build.yml@v1
-#       secrets: inherit
 #
 # Every inputs.* and github.event.* value reaches the shell only
 # through env:, never inline in run:.
 #
-# Runs on one ref are serialised by the caller's concurrency group, and every
-# publish job (from any ref) by the ontostart-gh-pages group below. For push and
-# workflow_dispatch the jobs check out the ref's tip, not github.sha, so a run
-# queued behind another builds on top of that run's bump commit instead of
-# bumping the same version again; the plan still diffs only this push's commits
-# (before..github.sha). GitHub keeps one pending run per concurrency group: if
-# three or more pushes land while a run is in progress, the middle pending run
-# is cancelled, and its folders are rebuilt only on their next change or a
-# manual run. The same holds for publish jobs queued on ontostart-gh-pages.
+# Commits. Runs on one ref are serialised by the caller's concurrency group. The
+# plan job checks out the ref's tip (push, workflow_dispatch) or github.sha
+# (pull_request) and passes that exact commit to build and publish, so every job
+# of a run sees the same tree, and a run queued behind another builds on top of
+# that run's bump commit instead of bumping the same version again. The plan
+# diffs only this event's commits (before..github.sha). Publish commits the
+# version bumps on that commit; if the ref has moved it rebases onto it, and if
+# a newer push changed the same files it fails without touching gh-pages: the
+# newer push's own run rebuilds them. GitHub keeps one pending run per
+# concurrency group: if three or more pushes land on one ref while a run is in
+# progress, the middle pending run is cancelled, and its folders are rebuilt only
+# on their next change or a manual run.
+#
+# gh-pages. Runs on different refs (main, sandbox/<name>) publish into the one
+# gh-pages branch at the same time. Each publish fetches gh-pages, copies its
+# ontologies in, regenerates the catalogue and pushes, and starts over from the
+# fetch (up to 5 attempts) when another run pushed first.
+#
+# Secrets. GIST_TOKEN (badges) and W3ID_TOKEN (w3id-pr.yml) must be secrets of
+# the environment "ontostart-secrets" whose deployment branches are limited to
+# main, not repository secrets: anyone who can push a branch can run a modified
+# workflow on it and read repository secrets. Set it up under Settings >
+# Environments > New environment "ontostart-secrets" > Deployment branches and
+# tags > Selected branches and tags > add "main"; add both secrets there and
+# delete the repository-level copies. Only the badges job (main only) and
+# w3id-pr.yml use that environment.
 name: ontostart build
 
 on:
@@ -45,7 +64,10 @@ on:
         default: ""
     secrets:
       GIST_TOKEN:
-        description: Token allowed to update the badge gist (optional).
+        description: >-
+          Token allowed to update the badge gist (optional). Define it as a secret
+          of the ontostart-secrets environment (see above); the badges job reads it
+          from there.
         required: false
 
 permissions:
@@ -62,12 +84,21 @@ jobs:
       plan: ${{ steps.plan.outputs.plan }}
       has-targets: ${{ steps.plan.outputs.has-targets }}
       publish: ${{ steps.plan.outputs.publish }}
+      sha: ${{ steps.sha.outputs.sha }}
     steps:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # The ref's tip (it may already hold an earlier run's bump commit); the PR merge commit for PRs.
           ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
+
+      # build and publish check out exactly this commit.
+      - name: Record the commit
+        id: sha
+        run: |
+          sha="$(git rev-parse HEAD)"
+          echo "Building $sha"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -128,6 +159,7 @@ jobs:
     if: needs.plan.outputs.has-targets == 'true'
     name: build ${{ matrix.target.path }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -150,7 +182,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
+          ref: ${{ needs.plan.outputs.sha }}
           persist-credentials: false
 
       - name: Set up Python
@@ -186,14 +218,35 @@ jobs:
         run: |
           # ROBOT writes its working files next to the report; keep them out of the artifact.
           work="$RUNNER_TEMP/check"
-          mkdir -p "$OUT" "$work"
+          mkdir -p "$OUT/logs" "$work"
           ontostart check --target-json "$TARGET_JSON" --robot "$RUNNER_TEMP/robot/robot.jar" --out "$work/report.json"
           cp "$work/report.json" "$OUT/"
           if [ -f "$work/reason.explanation.md" ]; then cp "$work/reason.explanation.md" "$OUT/"; fi
           cat "$OUT/report.json"
+          # Each ROBOT run's output, with workflow commands disabled while it prints.
+          stop="robot-log-$RANDOM$RANDOM"
+          jq -r '(.logs // {}) | to_entries[] | [.key, .value] | @tsv' "$OUT/report.json" |
+          while IFS=$'\t' read -r step log; do
+            echo "::group::ROBOT $step output"
+            echo "::stop-commands::$stop"
+            cat "$log"
+            echo    # the end token must start a line even if the log does not end with one
+            echo "::$stop::"
+            echo "::endgroup::"
+            cp "$log" "$OUT/logs/"
+          done
           reason="$(ontostart blocked --report "$OUT/report.json")"
           if [ -n "$reason" ]; then
             echo "::error::$ONTO_PATH is blocked: $reason"
+            {
+              echo "### $ONTO_PATH is blocked"
+              echo
+              echo "$reason"
+              if [ -f "$OUT/reason.explanation.md" ]; then
+                echo
+                cat "$OUT/reason.explanation.md"
+              fi
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "blocked=true" >> "$GITHUB_OUTPUT"
           else
             echo "blocked=false" >> "$GITHUB_OUTPUT"
@@ -326,14 +379,15 @@ jobs:
       && needs.plan.outputs.publish == 'true'
       && needs.plan.outputs.has-targets == 'true'
     runs-on: ubuntu-latest
-    # Every ref publishes into the one gh-pages branch and regenerates the catalogue.
-    concurrency:
-      group: ontostart-gh-pages
-      cancel-in-progress: false
+    timeout-minutes: 15
     permissions:
       contents: write
+    outputs:
+      sorted: ${{ steps.sort.outputs.sorted }}
+      deployed: ${{ steps.pages.outputs.deployed }}
     env:
       PLAN: ${{ needs.plan.outputs.plan }}
+      PLAN_SHA: ${{ needs.plan.outputs.sha }}
       REF: ${{ github.ref_name }}
       GIT_AUTHOR_NAME: github-actions[bot]
       GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
@@ -343,8 +397,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # The ref's tip (it may already hold an earlier run's bump commit); the PR merge commit for PRs.
-          ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
+          # The commit the plan and the builds used; the bumps are committed on it.
+          ref: ${{ needs.plan.outputs.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -392,6 +446,7 @@ jobs:
           done
           echo "Ready:"; cat "$RUNNER_TEMP/ready.txt"
           echo "Blocked:"; cat "$RUNNER_TEMP/blocked.txt"
+          echo "sorted=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit version bumps
         run: |
@@ -413,57 +468,92 @@ jobs:
           fi
           joined="$(printf '%s, ' "${parts[@]}")"
           git commit -m "chore(ontology): bump ${joined%, } [skip ci]"
-          if ! git push origin "HEAD:refs/heads/$REF"; then
-            git pull --rebase origin "$REF"
-            git push origin "HEAD:refs/heads/$REF"
+          if git push origin "HEAD:refs/heads/$REF"; then
+            exit 0
           fi
+          echo "$REF has moved since $PLAN_SHA; rebasing the bump commit onto it."
+          if ! git pull --rebase origin "$REF"; then
+            conflicts="$(git diff --name-only --diff-filter=U | tr '\n' ' ')"
+            git rebase --abort || true
+            if [ -n "$conflicts" ]; then
+              echo "::error::a newer push changed ${conflicts% }; not publishing. The queued run will rebuild."
+            else
+              echo "::error::could not rebase the bump commit onto $REF; not publishing."
+            fi
+            exit 1
+          fi
+          git push origin "HEAD:refs/heads/$REF"
 
+      # Other refs publish into gh-pages at the same time: on a rejected push, start
+      # over from a fresh fetch of gh-pages (up to 5 attempts).
       - name: Publish to gh-pages
         id: pages
         run: |
           if [ ! -s "$RUNNER_TEMP/ready.txt" ]; then
             echo "Nothing to publish."
+            echo "deployed=" >> "$GITHUB_OUTPUT"
             exit 0
-          fi
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
-            git fetch --no-tags --depth=1 origin "+refs/heads/gh-pages:refs/remotes/origin/gh-pages"
-            git worktree add -B gh-pages gh-pages origin/gh-pages
-          else
-            git worktree add --orphan -b gh-pages gh-pages
           fi
           parts=()
-          while read -r safe path _ _ version; do
-            mkdir -p "gh-pages/$path"
-            rsync -a --delete "$ARTIFACTS/ontology-$safe/site/" "gh-pages/$path/"
-            parts+=("$path@$version")
-          done < "$RUNNER_TEMP/ready.txt"
-          ontostart catalogue --site gh-pages
-          touch gh-pages/.nojekyll
-          cd gh-pages
-          git add -A
-          if git diff --cached --quiet; then
-            echo "gh-pages is up to date."
-            exit 0
-          fi
-          joined="$(printf '%s, ' "${parts[@]}")"
-          git commit -m "chore(pages): publish ${joined%, } [skip ci]"
-          if ! git push origin gh-pages; then
-            git pull --rebase origin gh-pages
-            git push origin gh-pages
-          fi
-
-      - name: Badges
-        if: ${{ !cancelled() && steps.sort.outcome == 'success' }}
-        continue-on-error: true
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
-          PAGES_OK: ${{ steps.pages.outcome == 'success' }}
-        run: |
           deployed=()
-          if [ "$PAGES_OK" = true ]; then
-            while read -r safe _; do deployed+=("$safe"); done < "$RUNNER_TEMP/ready.txt"
+          while read -r safe path _ _ version; do
+            parts+=("$path@$version")
+            deployed+=("$safe")
+          done < "$RUNNER_TEMP/ready.txt"
+          joined="$(printf '%s, ' "${parts[@]}")"
+          pushed=false
+          for attempt in 1 2 3 4 5; do
+            if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
+              git fetch --no-tags --depth=1 origin "+refs/heads/gh-pages:refs/remotes/origin/gh-pages"
+              if [ -d gh-pages ]; then
+                git -C gh-pages reset -q --hard origin/gh-pages
+                git -C gh-pages clean -q -ffdx
+              else
+                git worktree add -B gh-pages gh-pages origin/gh-pages
+              fi
+            else
+              if [ -d gh-pages ]; then
+                git worktree remove --force gh-pages
+                git branch -D gh-pages
+              fi
+              git worktree add --orphan -b gh-pages gh-pages
+            fi
+            while read -r safe path _ _ _; do
+              # Keep the published OntoSpy/pyLODE docs when this build could not regenerate them.
+              keep=()
+              for doc in ontospy pylode; do
+                if [ "$(jq -r --arg d "$doc" '.steps[$d]' "$ARTIFACTS/ontology-$safe/result.json")" = false ]; then
+                  keep+=("--exclude=/docs/$doc/")
+                fi
+              done
+              mkdir -p "gh-pages/$path"
+              # --checksum: a file of the same size checked out in the same second as the
+              # artifact was downloaded (e.g. 1.0.4 -> 1.0.5) would otherwise be skipped.
+              rsync -a --checksum --delete "${keep[@]}" "$ARTIFACTS/ontology-$safe/site/" "gh-pages/$path/"
+            done < "$RUNNER_TEMP/ready.txt"
+            ontostart catalogue --site gh-pages
+            touch gh-pages/.nojekyll
+            git -C gh-pages add -A
+            if git -C gh-pages diff --cached --quiet; then
+              echo "gh-pages is up to date."
+              pushed=true
+              break
+            fi
+            git -C gh-pages commit -q -m "chore(pages): publish ${joined%, } [skip ci]"
+            if git -C gh-pages push origin gh-pages; then
+              pushed=true
+              break
+            fi
+            if [ "$attempt" -lt 5 ]; then
+              echo "::warning::gh-pages push rejected (attempt $attempt of 5); retrying from a fresh fetch."
+              sleep $((attempt * 3))
+            fi
+          done
+          if [ "$pushed" != true ]; then
+            echo "::error::could not push gh-pages after 5 attempts."
+            exit 1
           fi
-          ontostart badges --results "$ARTIFACTS" --gist "$(jq -r '.gist_id // empty' <<<"$PLAN")" --deployed "${deployed[@]}"
+          echo "deployed=${deployed[*]}" >> "$GITHUB_OUTPUT"
 
       - name: Report blocked ontologies
         if: ${{ !cancelled() && steps.sort.outcome == 'success' }}
@@ -477,3 +567,52 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           while read -r line; do echo "::error::$line"; done < "$RUNNER_TEMP/blocked.txt"
           exit 1
+
+  # Badges are pushed from main only, in the one job that can read GIST_TOKEN:
+  # the ontostart-secrets environment is limited to main (see the header).
+  badges:
+    needs: [plan, publish]
+    if: >-
+      !cancelled() && github.ref == 'refs/heads/main'
+      && needs.publish.outputs.sorted == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ontostart-secrets
+    env:
+      PLAN: ${{ needs.plan.outputs.plan }}
+      DEPLOYED_SAFES: ${{ needs.publish.outputs.deployed }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.plan.outputs.sha }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install the engine
+        run: |
+          python -m pip install --upgrade pip
+          if [ -z "$ENGINE_REF" ]; then
+            pip install .
+          else
+            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
+          fi
+
+      - name: Download build results
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ontology-*
+          path: ${{ runner.temp }}/artifacts
+
+      # DEPLOYED_SAFES lists the targets this run pushed to gh-pages; the others get a red deploy badge.
+      - name: Badges
+        continue-on-error: true
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          read -ra safes <<<"$DEPLOYED_SAFES"
+          ontostart badges --results "$RUNNER_TEMP/artifacts" --gist "$(jq -r '.gist_id // empty' <<<"$PLAN")" --deployed "${safes[@]}"

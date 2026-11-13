@@ -2,6 +2,12 @@
 # build workflow. This repository is also the engine, so it installs the engine
 # from its own checkout (engine-ref: ""); other collections use
 # micheldumontier/ontostart/.github/workflows/build.yml@v1 and leave engine-ref out.
+# A sandbox/<name> branch installs the engine from main instead, so an old
+# student branch does not regenerate the root catalogue with a stale engine.
+#
+# GIST_TOKEN (and W3ID_TOKEN for w3id-pr.yml) are secrets of the environment
+# "ontostart-secrets", limited to the main branch; they are not passed from here.
+# See the header of build.yml for how to set that environment up.
 name: ontostart
 
 on:
@@ -42,8 +48,6 @@ jobs:
     if: github.actor != 'github-actions[bot]'
     uses: ./.github/workflows/build.yml
     with:
-      engine-ref: ""
+      engine-ref: ${{ startsWith(github.ref_name, 'sandbox/') && 'main' || '' }}
       only: ${{ inputs.only || '' }}
       bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}
-    secrets:
-      GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
