@@ -101,3 +101,36 @@ def test_run_checks_command_lines(tmp_path):
     ]
     assert rep == CheckReport(True, ReasonResult("unsatisfiable", 3), 2, None, work / "reason.explanation.md")
     assert rep.blocked_reason() == "3 unsatisfiable classes, source has 2"
+
+
+def test_compare_fewer_also_blocks():
+    r = report(reason=ReasonResult("unsatisfiable", 1), expected_unsatisfiable=2)
+    assert r.blocked_reason() == "1 unsatisfiable classes, source has 2"
+
+
+def test_check_cli_writes_report(tmp_path, monkeypatch, capsys):
+    import json
+
+    from ontostart import cli
+
+    folder = tmp_path / "ontologies" / "demo"
+    folder.mkdir(parents=True)
+    (folder / "demo.ttl").write_text("")
+    target = Target("demo", "demo", folder, folder / "demo.ttl", "stable", "demo",
+                    "https://w3id.org/x/demo/", None, None)
+    expected = report(reason=ReasonResult("unsatisfiable", 2), expected_unsatisfiable=2,
+                      explanation=tmp_path / "reason.explanation.md")
+    seen = {}
+
+    def fake_run_checks(t, robot, workdir):
+        seen.update(target=t, robot=robot, workdir=workdir)
+        return expected
+
+    monkeypatch.setattr(cli, "run_checks", fake_run_checks)
+    monkeypatch.chdir(tmp_path)
+    out = tmp_path / "report.json"
+    code = cli.main(["check", "--target-json", json.dumps(target.to_json()),
+                     "--robot", "robot.jar", "--out", str(out)])
+    assert code == 0
+    assert seen["target"].name == "demo" and seen["robot"] == Path("robot.jar")
+    assert CheckReport.from_json(json.loads(out.read_text())) == expected

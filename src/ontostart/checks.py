@@ -61,7 +61,7 @@ class CheckReport:
             return "reasoning error"
         if (
             self.expected_unsatisfiable is not None
-            and self.reason.unsatisfiable > self.expected_unsatisfiable
+            and self.reason.unsatisfiable != self.expected_unsatisfiable
         ):
             return (
                 f"{self.reason.unsatisfiable} unsatisfiable classes, "
