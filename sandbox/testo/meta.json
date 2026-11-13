@@ -1,0 +1,13 @@
+{
+  "name": "testo",
+  "path": "sandbox/testo",
+  "status": "sandbox",
+  "title": "Ontostart Test Ontology",
+  "description": "The Ontostart Test Ontology.",
+  "iri": "https://w3id.org/ontostart/sandbox/testo/",
+  "version": "0.0.1",
+  "versions": [
+    "0.0.1"
+  ],
+  "modified": ""
+}

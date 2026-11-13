@@ -1,0 +1,64 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<https://w3id.org/ontostart/> a dcat:Catalog ;
+    dcterms:title "ontostart ontologies" ;
+    dcat:dataset <https://w3id.org/ontostart/pizza/>,
+        <https://w3id.org/ontostart/pro/>,
+        <https://w3id.org/ontostart/suloized-pizza/> .
+
+<https://w3id.org/ontostart/pizza/> a dcat:Dataset ;
+    dcterms:description "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment." ;
+    dcterms:title "SULO Pizza Tutorial Ontology" ;
+    owl:versionInfo "1.0.2" ;
+    dcat:distribution [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.jsonld> ;
+            dcat:mediaType "application/ld+json" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.nt> ;
+            dcat:mediaType "application/n-triples" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.owl> ;
+            dcat:mediaType "application/rdf+xml" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.ttl> ;
+            dcat:mediaType "text/turtle" ] ;
+    dcat:landingPage <https://micheldumontier.github.io/ontostart/pizza/> .
+
+<https://w3id.org/ontostart/pro/> a dcat:Dataset ;
+    dcterms:description "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants." ;
+    dcterms:title "Process Roles Ontology (PRO)" ;
+    owl:versionInfo "1.0.2" ;
+    dcat:distribution [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.jsonld> ;
+            dcat:mediaType "application/ld+json" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.nt> ;
+            dcat:mediaType "application/n-triples" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.owl> ;
+            dcat:mediaType "application/rdf+xml" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.ttl> ;
+            dcat:mediaType "text/turtle" ] ;
+    dcat:landingPage <https://micheldumontier.github.io/ontostart/pro/> .
+
+<https://w3id.org/ontostart/suloized-pizza/> a dcat:Dataset ;
+    dcterms:description "The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza)." ;
+    dcterms:title "Suloized Pizza" ;
+    owl:versionInfo "0.0.2" ;
+    dcat:distribution [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.jsonld> ;
+            dcat:mediaType "application/ld+json" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.nt> ;
+            dcat:mediaType "application/n-triples" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.owl> ;
+            dcat:mediaType "application/rdf+xml" ],
+        [ a dcat:Distribution ;
+            dcat:downloadURL <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.ttl> ;
+            dcat:mediaType "text/turtle" ] ;
+    dcat:landingPage <https://micheldumontier.github.io/ontostart/suloized-pizza/> .
+

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ontostart ontologies</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }
+    h1 { margin: 0 0 .25rem 0; }
+    .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; max-width: 900px; margin-bottom: 1rem; }
+    .description { margin: .25rem 0; }
+    code, a { color: #0b5fff; word-break: break-all; }
+    ul { margin: .25rem 0 .5rem 1.25rem; }
+  </style>
+</head>
+<body>
+  <h1>ontostart ontologies</h1>
+  <p>Catalogue files: <a href="catalog.ttl">catalog.ttl</a> | <a href="catalog.jsonld">catalog.jsonld</a> | <a href="catalog.nt">catalog.nt</a> | <a href="catalog.owl">catalog.owl</a></p>
+  <section class="card">
+    <h2>Ontologies</h2>
+    <div><a href="pro/">Process Roles Ontology (PRO)</a> <code>1.0.2</code><p class="description">A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants.</p></div>
+    <div><a href="pizza/">SULO Pizza Tutorial Ontology</a> <code>1.0.2</code><p class="description">An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment.</p></div>
+  </section>
+  <section class="card">
+    <h2>Experimental</h2>
+    <div><a href="suloized-pizza/">Suloized Pizza</a> <code>0.0.2</code><p class="description">The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza).</p></div>
+  </section>
+  <section class="card">
+    <h2>Sandbox</h2>
+    <div><a href="sandbox/testo/">Ontostart Test Ontology</a> <code>0.0.1</code><p class="description">The Ontostart Test Ontology.</p></div>
+  </section>
+</body>
+</html>

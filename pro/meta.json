@@ -1,0 +1,14 @@
+{
+  "name": "pro",
+  "path": "pro",
+  "status": "stable",
+  "title": "Process Roles Ontology (PRO)",
+  "description": "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants.",
+  "iri": "https://w3id.org/ontostart/pro/",
+  "version": "1.0.2",
+  "versions": [
+    "1.0.2",
+    "1.0.1"
+  ],
+  "modified": "2026-08-20T08:54:45.630444+00:00"
+}

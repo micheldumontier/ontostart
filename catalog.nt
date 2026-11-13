@@ -1,0 +1,68 @@
+<https://w3id.org/ontostart/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Catalog> .
+<https://w3id.org/ontostart/> <http://purl.org/dc/terms/title> "ontostart ontologies" .
+<https://w3id.org/ontostart/> <http://www.w3.org/ns/dcat#dataset> <https://w3id.org/ontostart/pizza/> .
+<https://w3id.org/ontostart/> <http://www.w3.org/ns/dcat#dataset> <https://w3id.org/ontostart/pro/> .
+<https://w3id.org/ontostart/> <http://www.w3.org/ns/dcat#dataset> <https://w3id.org/ontostart/suloized-pizza/> .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
+<https://w3id.org/ontostart/pizza/> <http://purl.org/dc/terms/title> "SULO Pizza Tutorial Ontology" .
+<https://w3id.org/ontostart/pizza/> <http://purl.org/dc/terms/description> "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment." .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/2002/07/owl#versionInfo> "1.0.2" .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/ns/dcat#landingPage> <https://micheldumontier.github.io/ontostart/pizza/> .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-pizza-ttl .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-pizza-jsonld .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-pizza-nt .
+<https://w3id.org/ontostart/pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-pizza-owl .
+_:dist-pizza-ttl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pizza-ttl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.ttl> .
+_:dist-pizza-ttl <http://www.w3.org/ns/dcat#mediaType> "text/turtle" .
+_:dist-pizza-jsonld <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pizza-jsonld <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.jsonld> .
+_:dist-pizza-jsonld <http://www.w3.org/ns/dcat#mediaType> "application/ld+json" .
+_:dist-pizza-nt <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pizza-nt <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.nt> .
+_:dist-pizza-nt <http://www.w3.org/ns/dcat#mediaType> "application/n-triples" .
+_:dist-pizza-owl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pizza-owl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.owl> .
+_:dist-pizza-owl <http://www.w3.org/ns/dcat#mediaType> "application/rdf+xml" .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/title> "Process Roles Ontology (PRO)" .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/description> "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants." .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2002/07/owl#versionInfo> "1.0.2" .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#landingPage> <https://micheldumontier.github.io/ontostart/pro/> .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#distribution> _:dist-pro-ttl .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#distribution> _:dist-pro-jsonld .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#distribution> _:dist-pro-nt .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#distribution> _:dist-pro-owl .
+_:dist-pro-ttl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pro-ttl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.ttl> .
+_:dist-pro-ttl <http://www.w3.org/ns/dcat#mediaType> "text/turtle" .
+_:dist-pro-jsonld <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pro-jsonld <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.jsonld> .
+_:dist-pro-jsonld <http://www.w3.org/ns/dcat#mediaType> "application/ld+json" .
+_:dist-pro-nt <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pro-nt <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.nt> .
+_:dist-pro-nt <http://www.w3.org/ns/dcat#mediaType> "application/n-triples" .
+_:dist-pro-owl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-pro-owl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.owl> .
+_:dist-pro-owl <http://www.w3.org/ns/dcat#mediaType> "application/rdf+xml" .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
+<https://w3id.org/ontostart/suloized-pizza/> <http://purl.org/dc/terms/title> "Suloized Pizza" .
+<https://w3id.org/ontostart/suloized-pizza/> <http://purl.org/dc/terms/description> "The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza)." .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/2002/07/owl#versionInfo> "0.0.2" .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/ns/dcat#landingPage> <https://micheldumontier.github.io/ontostart/suloized-pizza/> .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-suloized-pizza-ttl .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-suloized-pizza-jsonld .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-suloized-pizza-nt .
+<https://w3id.org/ontostart/suloized-pizza/> <http://www.w3.org/ns/dcat#distribution> _:dist-suloized-pizza-owl .
+_:dist-suloized-pizza-ttl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-suloized-pizza-ttl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.ttl> .
+_:dist-suloized-pizza-ttl <http://www.w3.org/ns/dcat#mediaType> "text/turtle" .
+_:dist-suloized-pizza-jsonld <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-suloized-pizza-jsonld <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.jsonld> .
+_:dist-suloized-pizza-jsonld <http://www.w3.org/ns/dcat#mediaType> "application/ld+json" .
+_:dist-suloized-pizza-nt <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-suloized-pizza-nt <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.nt> .
+_:dist-suloized-pizza-nt <http://www.w3.org/ns/dcat#mediaType> "application/n-triples" .
+_:dist-suloized-pizza-owl <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+_:dist-suloized-pizza-owl <http://www.w3.org/ns/dcat#downloadURL> <https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.owl> .
+_:dist-suloized-pizza-owl <http://www.w3.org/ns/dcat#mediaType> "application/rdf+xml" .

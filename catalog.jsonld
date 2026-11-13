@@ -1,0 +1,336 @@
+[
+  {
+    "@id": "_:dist-pizza-jsonld",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.jsonld"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/ld+json"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pizza-nt",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.nt"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/n-triples"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pizza-owl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/rdf+xml"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pizza-ttl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/versions/latest/pizza.ttl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "text/turtle"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pro-jsonld",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.jsonld"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/ld+json"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pro-nt",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.nt"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/n-triples"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pro-owl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/rdf+xml"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-pro-ttl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pro/versions/latest/pro.ttl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "text/turtle"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-suloized-pizza-jsonld",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.jsonld"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/ld+json"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-suloized-pizza-nt",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.nt"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/n-triples"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-suloized-pizza-owl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "application/rdf+xml"
+      }
+    ]
+  },
+  {
+    "@id": "_:dist-suloized-pizza-ttl",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Distribution"
+    ],
+    "http://www.w3.org/ns/dcat#downloadURL": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/suloized-pizza/versions/latest/suloized-pizza.ttl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#mediaType": [
+      {
+        "@value": "text/turtle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Catalog"
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "ontostart ontologies"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#dataset": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/suloized-pizza/"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Dataset"
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@value": "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment."
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "SULO Pizza Tutorial Ontology"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "1.0.2"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#distribution": [
+      {
+        "@id": "_:dist-pizza-ttl"
+      },
+      {
+        "@id": "_:dist-pizza-jsonld"
+      },
+      {
+        "@id": "_:dist-pizza-nt"
+      },
+      {
+        "@id": "_:dist-pizza-owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#landingPage": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pro/",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Dataset"
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@value": "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants."
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "Process Roles Ontology (PRO)"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "1.0.2"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#distribution": [
+      {
+        "@id": "_:dist-pro-ttl"
+      },
+      {
+        "@id": "_:dist-pro-jsonld"
+      },
+      {
+        "@id": "_:dist-pro-nt"
+      },
+      {
+        "@id": "_:dist-pro-owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#landingPage": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pro/"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/suloized-pizza/",
+    "@type": [
+      "http://www.w3.org/ns/dcat#Dataset"
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@value": "The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza)."
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "Suloized Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "0.0.2"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#distribution": [
+      {
+        "@id": "_:dist-suloized-pizza-ttl"
+      },
+      {
+        "@id": "_:dist-suloized-pizza-jsonld"
+      },
+      {
+        "@id": "_:dist-suloized-pizza-nt"
+      },
+      {
+        "@id": "_:dist-suloized-pizza-owl"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#landingPage": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/suloized-pizza/"
+      }
+    ]
+  }
+]

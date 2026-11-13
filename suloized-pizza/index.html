@@ -8,6 +8,9 @@
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; margin: 2rem; line-height: 1.5; }
     header h1 { margin: 0 0 .25rem 0; }
     .description { max-width: 900px; margin: .25rem 0 1rem 0; font-size: 1.05rem; }
+    .banner { max-width: 900px; padding: .5rem .75rem; border-radius: 8px; margin: 0 0 1rem 0; }
+    .banner-experimental { background: #fef3c7; border: 1px solid #d97706; }
+    .banner-sandbox { background: #dbeafe; border: 1px solid #2563eb; }
     .meta { color: #555; margin-bottom: 1rem; }
     .badges img { margin-right: .5rem; vertical-align: middle; }
     .grid { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }
@@ -20,21 +23,21 @@
   <header>
     <h1>Suloized Pizza</h1>
     <p class="description">The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza).</p>
+    <div class="banner banner-experimental">Experimental: this ontology is generated or still changing, and may change without notice.</div>
     <div class="meta">
       <div><strong>Ontology IRI:</strong> <code>https://w3id.org/ontostart/suloized-pizza/</code></div>
-      <div><strong>Source:</strong> <a href="https://github.com/micheldumontier/ontostart/tree/suloized-pizza">micheldumontier/ontostart (branch <code>suloized-pizza</code>)</a> · <a href="https://github.com/micheldumontier/ontostart/blob/suloized-pizza/suloized-pizza.ttl">suloized-pizza.ttl</a></div>
+      <div><strong>Source:</strong> <a href="https://github.com/micheldumontier/ontostart/tree/main/ontologies/suloized-pizza">micheldumontier/ontostart (<code>main</code>)</a> · <a href="https://github.com/micheldumontier/ontostart/blob/main/ontologies/suloized-pizza/suloized-pizza.ttl">ontologies/suloized-pizza/suloized-pizza.ttl</a></div>
       <div><strong>Version:</strong> <code>0.0.2</code></div>
       <div><strong>Modified:</strong> <code>2026-11-12T18:42:07.566202+00:00</code></div>
-      <div><strong>Base URL:</strong> <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/">https://micheldumontier.github.io/ontostart/suloized-pizza/</a></div>
     </div>
     <div class="badges">
-      <img alt="Profile" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-profile-suloized-pizza.json" />
-      <img alt="Reason"  src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-reason-suloized-pizza.json" />
-      <img alt="Version" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-version-suloized-pizza.json" />
-      <img alt="Ontospy" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-ontospy-suloized-pizza.json" />
-      <img alt="Pylode"  src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-pylode-suloized-pizza.json" />
-      <img alt="Deploy"  src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-deploy-suloized-pizza.json" />
-      <img alt="FOOPS"   src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-foops-suloized-pizza.json" />
+      <img alt="profile" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-profile-suloized-pizza.json" />
+      <img alt="reason" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-reason-suloized-pizza.json" />
+      <img alt="version" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-version-suloized-pizza.json" />
+      <img alt="ontospy" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-ontospy-suloized-pizza.json" />
+      <img alt="pylode" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-pylode-suloized-pizza.json" />
+      <img alt="deploy" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-deploy-suloized-pizza.json" />
+      <img alt="foops" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/micheldumontier/9affe51b863c5144fa82d7b1d23449aa/raw/ontology-ci-foops-suloized-pizza.json" />
     </div>
   </header>
 
@@ -42,28 +45,27 @@
     <section class="card">
       <h2>Downloads (version 0.0.2)</h2>
       <ul>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.ttl">suloized-pizza.ttl</a></li>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.jsonld">suloized-pizza.jsonld</a></li>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.nt">suloized-pizza.nt</a></li>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.owl">suloized-pizza.owl</a></li>
+        <li><a href="versions/0.0.2/suloized-pizza.ttl">suloized-pizza.ttl</a></li>
+        <li><a href="versions/0.0.2/suloized-pizza.jsonld">suloized-pizza.jsonld</a></li>
+        <li><a href="versions/0.0.2/suloized-pizza.nt">suloized-pizza.nt</a></li>
+        <li><a href="versions/0.0.2/suloized-pizza.owl">suloized-pizza.owl</a></li>
       </ul>
     </section>
 
     <section class="card">
       <h2>Documentation</h2>
       <ul>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/docs/pylode/">PyLODE</a></li>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/docs/ontospy/">Ontospy</a></li>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/foops/">FOOPS! detailed report</a></li>
+        <li><a href="docs/pylode/">PyLODE</a></li>
+        <li><a href="docs/ontospy/">Ontospy</a></li>
+        <li><a href="foops/">FOOPS! detailed report</a></li>
       </ul>
     </section>
 
     <section class="card">
       <h2>All Versions</h2>
       <ul>
-        <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.ttl">0.0.2</a> — <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.ttl">ttl</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.jsonld">jsonld</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.nt">nt</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.2/suloized-pizza.owl">owl</a> <strong>(current)</strong></li>
-                  <li><a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.1/suloized-pizza.ttl">0.0.1</a> — <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.1/suloized-pizza.ttl">ttl</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.1/suloized-pizza.jsonld">jsonld</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.1/suloized-pizza.nt">nt</a> | <a href="https://micheldumontier.github.io/ontostart/suloized-pizza/versions/0.0.1/suloized-pizza.owl">owl</a></li>
-                  
+        <li><a href="versions/0.0.2/suloized-pizza.ttl">0.0.2</a> — <a href="versions/0.0.2/suloized-pizza.ttl">ttl</a> | <a href="versions/0.0.2/suloized-pizza.jsonld">jsonld</a> | <a href="versions/0.0.2/suloized-pizza.nt">nt</a> | <a href="versions/0.0.2/suloized-pizza.owl">owl</a> <strong>(current)</strong></li>
+        <li><a href="versions/0.0.1/suloized-pizza.ttl">0.0.1</a> — <a href="versions/0.0.1/suloized-pizza.ttl">ttl</a> | <a href="versions/0.0.1/suloized-pizza.jsonld">jsonld</a> | <a href="versions/0.0.1/suloized-pizza.nt">nt</a> | <a href="versions/0.0.1/suloized-pizza.owl">owl</a></li>
       </ul>
     </section>
   </div>

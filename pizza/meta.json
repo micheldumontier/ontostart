@@ -1,0 +1,20 @@
+{
+  "name": "pizza",
+  "path": "pizza",
+  "status": "stable",
+  "title": "SULO Pizza Tutorial Ontology",
+  "description": "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, information entities, time, and spatial containment.",
+  "iri": "https://w3id.org/ontostart/pizza/",
+  "version": "1.0.2",
+  "versions": [
+    "1.0.2",
+    "1.0.1",
+    "0.0.12",
+    "0.0.11",
+    "0.0.10",
+    "0.0.9",
+    "0.0.8",
+    "0.0.7"
+  ],
+  "modified": "2026-11-12T18:58:29.971347+00:00"
+}

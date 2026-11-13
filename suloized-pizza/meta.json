@@ -1,0 +1,14 @@
+{
+  "name": "suloized-pizza",
+  "path": "suloized-pizza",
+  "status": "experimental",
+  "title": "Suloized Pizza",
+  "description": "The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza).",
+  "iri": "https://w3id.org/ontostart/suloized-pizza/",
+  "version": "0.0.2",
+  "versions": [
+    "0.0.2",
+    "0.0.1"
+  ],
+  "modified": "2026-11-12T18:42:07.566202+00:00"
+}
