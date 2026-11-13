@@ -7,22 +7,22 @@
 #
 # accept	path	expected location	check
 # --- catalogue root and content negotiation
-text/html	/	{pages}/	-
-text/turtle	/	{pages}/catalog.ttl	-
-application/rdf+xml	/	{pages}/catalog.owl	-
-application/ld+json	/	{pages}/catalog.jsonld	-
-application/n-triples	/	{pages}/catalog.nt	-
-*/*	/	{pages}/	-
-text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8	/	{pages}/	-
-application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6, text/plain; q=0.1, */*; q=0.09	/	{pages}/catalog.owl	-
-application/rdf+xml, text/turtle;q=0.1	/	{pages}/catalog.owl	-
-text/turtle, application/rdf+xml;q=0.5	/	{pages}/catalog.ttl	-
-*/*;q=0.1, text/turtle	/	{pages}/catalog.ttl	-
-text/html, text/turtle	/	{pages}/	-
-application/ld+json	/catalog.jsonld	{pages}/catalog.jsonld	-
-text/html	/catalog.ttl	{pages}/catalog.ttl	-
-text/html	/sandbox	{pages}/	-
-text/turtle	/sandbox/	{pages}/	-
+text/html	/	{pages}/	y
+text/turtle	/	{pages}/catalog.ttl	y
+application/rdf+xml	/	{pages}/catalog.owl	y
+application/ld+json	/	{pages}/catalog.jsonld	y
+application/n-triples	/	{pages}/catalog.nt	y
+*/*	/	{pages}/	y
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8	/	{pages}/	y
+application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6, text/plain; q=0.1, */*; q=0.09	/	{pages}/catalog.owl	y
+application/rdf+xml, text/turtle;q=0.1	/	{pages}/catalog.owl	y
+text/turtle, application/rdf+xml;q=0.5	/	{pages}/catalog.ttl	y
+*/*;q=0.1, text/turtle	/	{pages}/catalog.ttl	y
+text/html, text/turtle	/	{pages}/	y
+application/ld+json	/catalog.jsonld	{pages}/catalog.jsonld	y
+text/html	/catalog.ttl	{pages}/catalog.ttl	y
+text/html	/sandbox	{pages}/	y
+text/turtle	/sandbox/	{pages}/	y
 # --- legacy root ontology (legacy_root: main/ontostart.ttl), version IRIs = <w3id folder>/x.y.z
 text/turtle	/0.0.2	{pages}/main/versions/0.0.2/ontostart.ttl	y
 text/html	/0.0.2	{pages}/main/0.0.2/	y
@@ -42,8 +42,8 @@ text/html	/ontostart.ttl	{pages}/main/versions/latest/ontostart.ttl	y
 # --- root-level terms of the retired root ontology no longer resolve (passed through)
 text/html	/hasUnit	{pages}/hasUnit	-
 # --- aliases (testo: sandbox/testo), straight to GitHub Pages
-text/turtle	/testo/	{pages}/sandbox/testo/versions/latest/testo.ttl	-
-text/html	/testo	{pages}/sandbox/testo/	-
+text/turtle	/testo/	{pages}/sandbox/testo/versions/latest/testo.ttl	y
+text/html	/testo	{pages}/sandbox/testo/	y
 text/html	/testo/Pizza	{pages}/sandbox/testo/docs/ontospy/class-testoPizza.html	-
 # --- sandbox ontologies
 text/turtle	/sandbox/alice/	{pages}/sandbox/alice/versions/latest/alice.ttl	-
