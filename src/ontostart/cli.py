@@ -8,6 +8,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .checks import run_checks
 from .config import ConfigError, load_config
 from .targets import Target, make_plan
 from .versioning import (
@@ -67,6 +68,14 @@ def _variants(args: argparse.Namespace) -> int:
     return 0
 
 
+def _check(args: argparse.Namespace) -> int:
+    target = _target(args)
+    out = Path(args.out)
+    report = run_checks(target, Path(args.robot), out.resolve().parent)
+    out.write_text(json.dumps(report.to_json(), indent=2) + "\n")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ontostart")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -85,6 +94,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--target-json", required=True)
     p.add_argument("--version", required=True)
     p.set_defaults(func=_variants)
+    p = sub.add_parser("check", help="run profile and reasoning checks")
+    p.add_argument("--target-json", required=True)
+    p.add_argument("--robot", required=True)
+    p.add_argument("--out", required=True)
+    p.set_defaults(func=_check)
     args = parser.parse_args(argv)
     try:
         return args.func(args)

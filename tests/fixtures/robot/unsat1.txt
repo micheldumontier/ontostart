@@ -1,0 +1,2 @@
+ERROR There is 1 unsatisfiable class in the ontology.
+ERROR Unsatisfiable: <https://w3id.org/x/a/A>

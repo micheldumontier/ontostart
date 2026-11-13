@@ -1,0 +1,3 @@
+ERROR There are 2 unsatisfiable classes in the ontology.
+ERROR Unsatisfiable: <https://w3id.org/x/a/A>
+ERROR Unsatisfiable: <https://w3id.org/x/a/B>
