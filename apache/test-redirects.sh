@@ -88,6 +88,10 @@ headers="$(curl -s -o /dev/null -D - -H 'Accept: text/turtle' "$url/")"
 for h in 'Vary: .*Accept' 'Access-Control-Allow-Origin: \*'; do
   if printf '%s' "$headers" | grep -qiE "^$h"; then
     pass=$((pass + 1))
+  elif [ -z "$container" ] && [ "$h" = 'Vary: .*Accept' ]; then
+    # w3id.org's server drops Vary from redirects; the 303s carry no caching
+    # headers, so shared caches don't store them. Only the local run must have it.
+    echo "WARN  $url does not send Vary: Accept on redirects (w3id.org drops it)"
   else
     fail=$((fail + 1)); echo "FAIL  header missing on redirect: $h"
   fi
