@@ -89,5 +89,7 @@ testo: a owl:Ontology ;
     mod:hasRepresentationLanguage omv:OWL ;
     mod:hasSyntax <http://www.w3.org/ns/formats/Turtle> ;
     mod:prefLabelProperty rdfs:label ;
+    owl:versionInfo "0.0.1"^^xsd:string ;
+    owl:versionIRI <https://w3id.org/ontostart/sandbox/testo/0.0.1> ;
     mod:status "active" .
 
