@@ -14,6 +14,7 @@ from .catalogue import build_catalogue
 from .checks import CheckReport, run_checks
 from .config import ConfigError, load_config
 from .foops import FoopsSummary, summarize_foops, write_foops_page
+from .htaccess import render_htaccess
 from .site import SiteContext, _metadata, build_site
 from .targets import Target, make_plan
 from .versioning import (
@@ -138,6 +139,15 @@ def _catalogue(args: argparse.Namespace) -> int:
     return 0
 
 
+def _htaccess(args: argparse.Namespace) -> int:
+    config = load_config(Path.cwd() / "ontostart.yaml")
+    out = Path(args.out or f"apache/web/{config.w3id}/.htaccess")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(render_htaccess(config))
+    print(out)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ontostart")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -182,6 +192,9 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("catalogue", help="build the root catalogue page and DCAT files")
     p.add_argument("--site", required=True)
     p.set_defaults(func=_catalogue)
+    p = sub.add_parser("htaccess", help="write the w3id.org .htaccess")
+    p.add_argument("--out", help="default: apache/web/<w3id>/.htaccess")
+    p.set_defaults(func=_htaccess)
     args = parser.parse_args(argv)
     try:
         return args.func(args)
