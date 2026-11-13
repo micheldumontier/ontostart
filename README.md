@@ -66,7 +66,7 @@ docs/classroom.md                 how students publish a sandbox ontology
 |---|---|---|---|
 | push to `main` | folders with changed files (all, if `ontostart.yaml` changed) | yes | yes |
 | push to `sandbox/<name>` | `sandbox/<name>/` only | yes | yes |
-| push to any other branch, or pull request | folders with changed files | no | no |
+| push to any other branch, or pull request (from any branch, `sandbox/<name>` included) | folders with changed files | no | no |
 | manual run | one folder or all; the bump is an input (default no) | per input | yes, on `main` and `sandbox/*` |
 
 Per target: OWL DL profile check, HermiT reasoning (using the folder's `catalog-v001.xml` when present), version bump, four syntaxes, OntoSpy and pyLODE docs, FOOPS! (if enabled), site page.
@@ -97,7 +97,7 @@ ontologies:
 
 ## Publishing a sandbox ontology
 
-Students and workshop participants copy `sandbox/testo/` to `sandbox/<name>/`, rename the file, and push a branch `sandbox/<name>`. CI publishes it at `https://micheldumontier.github.io/ontostart/sandbox/<name>/`, with the IRI `https://w3id.org/ontostart/sandbox/<name>/`. No w3id.org pull request is needed. See [docs/classroom.md](docs/classroom.md).
+Students and workshop participants copy `sandbox/testo/` to `sandbox/<name>/`, rename the file, and open a pull request from their fork; CI checks it, and it is published when the pull request is merged into `main`. Students you trust with write access can instead push a branch `sandbox/<name>`, which publishes on every push. Either way it is published at `https://micheldumontier.github.io/ontostart/sandbox/<name>/`, with the IRI `https://w3id.org/ontostart/sandbox/<name>/`. No w3id.org pull request is needed. See [docs/classroom.md](docs/classroom.md).
 
 ## Redirects
 
@@ -127,9 +127,11 @@ Run the `Propose w3id.org redirects` workflow (`w3id-pr.yml`). It tests the redi
 
 ## Secrets and variables
 
-* `GIST_TOKEN` (secret): classic PAT with the `gist` scope, used to write the badge data.
+* `GIST_TOKEN` (secret): classic PAT with the `gist` scope, used to write the badge data. Badges are pushed from `main` only.
 * The badge gist is a public gist; its id is `gist_id` in `ontostart.yaml`.
 * `W3ID_TOKEN` (secret): see above.
+
+Both tokens must be secrets of the environment `ontostart-secrets`, not repository secrets. Anyone with write access can push a branch with a modified workflow and run it, and such a run can read every repository secret; an environment limited to `main` keeps the tokens out of those runs. To set it up: Settings → Environments → New environment `ontostart-secrets` → Deployment branches and tags: Selected branches and tags, add `main`; add `GIST_TOKEN` and `W3ID_TOKEN` as environment secrets; delete the repository-level copies. Only the badges job and `w3id-pr.yml` use that environment.
 
 ## Running the engine locally
 

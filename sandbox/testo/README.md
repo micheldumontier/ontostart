@@ -20,7 +20,7 @@ A test ontology with no terms of its own. It exists to exercise the OntoStart CI
 
 ## Get the ontology
 
-The IRI resolves to the website in a browser, and to the ontology file when you ask for an RDF format:
+The IRI resolves to the website in a browser, and to the ontology file when you ask for an RDF format. This works only once the w3id.org redirect update for `sandbox/` has been merged; until then, use the [website](https://micheldumontier.github.io/ontostart/sandbox/testo/) and its download links on GitHub Pages.
 
 ```
 curl -L -H "Accept: text/turtle" https://w3id.org/ontostart/sandbox/testo/
@@ -31,7 +31,7 @@ curl -L -H "Accept: application/n-triples" https://w3id.org/ontostart/sandbox/te
 
 ## Making changes
 
-Edit `testo.ttl` on `main` (or a pull request) and push. The [CI](https://github.com/micheldumontier/ontostart/actions/workflows/ontostart.yml) then:
+Edit `testo.ttl` in a pull request against `main`. On the pull request, the [CI](https://github.com/micheldumontier/ontostart/actions/workflows/ontostart.yml) only checks the ontology; nothing is published. When the change reaches `main` (the pull request is merged, or someone with write access pushes to `main`), the CI:
 
 1. checks the OWL 2 DL profile and consistency (ROBOT with HermiT),
 2. bumps the patch version and commits it, with the Turtle, RDF/XML, JSON-LD and N-Triples files under `versions/`,
