@@ -1,0 +1,938 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix suloized-pizza: <https://w3id.org/ontostart/suloized-pizza/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dcterms:created a owl:AnnotationProperty .
+
+dcterms:creator a owl:AnnotationProperty .
+
+dcterms:description a owl:AnnotationProperty .
+
+dcterms:license a owl:AnnotationProperty .
+
+dcterms:title a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#American> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#AmericanHot> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Cajun> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Capricciosa> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Caprina> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseyPizza> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Fiorentina> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourSeasons> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#FruttiDiMare> rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Giardiniera> rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#IceCream> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#FruitTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#LaReine> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Margherita> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatyPizza> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Mushroom> rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Napoletana> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmaHamTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Parmense> rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PolloAdAstra> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PrinceCarlo> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#QuattroFormaggi> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#RealItalianPizza> rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ThinAndCrispyBase> [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Rosa> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SloppyGiuseppe> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Soho> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyPizza> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyPizzaEquivalent> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( [ a owl:Class ;
+                                            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> [ a owl:Restriction ;
+                                                        owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+                                                        owl:someValuesFrom [ a owl:Class ;
+                                                                owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] ) ] <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#ThinAndCrispyPizza> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#ThinAndCrispyBase> [ a owl:Class ;
+                                            owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase> ] ) ] ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#UnclosedPizza> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizza> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Class ;
+                        owl:complementOf [ a owl:Restriction ;
+                                owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#FishTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ] [ a owl:Class ;
+                        owl:complementOf [ a owl:Restriction ;
+                                owl:onProperty <https://w3id.org/sulo/hasPart> ;
+                                owl:someValuesFrom [ a owl:Class ;
+                                        owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent1> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianTopping> [ a owl:Class ;
+                                            owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent2> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> [ a owl:Restriction ;
+                        owl:allValuesFrom [ a owl:Class ;
+                                owl:unionOf ( [ a owl:Class ;
+                                            owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#FruitTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HerbSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#NutTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SauceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetableTopping> ) ] [ a owl:Class ;
+                                            owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+                        owl:onProperty <https://w3id.org/sulo/hasPart> ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( [ a owl:Class ;
+                                owl:unionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> ) ] [ a owl:Class ;
+                                owl:complementOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] ) ] ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ) ] ] .
+
+suloized-pizza: a owl:Ontology ;
+    rdfs:label "Suloized Pizza"@en ;
+    dcterms:created "2026-08-20T09:09:03.574228+00:00"^^xsd:dateTime ;
+    dcterms:creator "https://github.com/micheldumontier" ;
+    dcterms:description "The community Pizza ontology re-expressed in SULO-canonical form by ontointegrator. Object-property usages are rewritten to SULO relations (hasPart, hasFeature) with exact range guards, recursively through nested class expressions, and imported alongside SULO and PRO. Distinct from the SULO pizza tutorial ontology (https://w3id.org/ontostart/pizza)." ;
+    dcterms:issued "2026-08-20"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-08-20T09:09:03.574228+00:00"^^xsd:dateTime ;
+    dcterms:title "Suloized Pizza" ;
+    vann:preferredNamespacePrefix "suloized-pizza" ;
+    vann:preferredNamespaceUri "https://w3id.org/ontostart/suloized-pizza/" ;
+    rdfs:comment "Release note (recursive expression rewriting): SpicyPizzaEquivalent now carries a full EquivalentClasses SULO definition (Pizza and hasPart some (PizzaTopping and hasFeature some Hot)); named-pizza topping/base restrictions use sulo:hasPart and topping spiciness sulo:hasFeature, with exact range guards so negated contexts (e.g. VegetarianPizza) stay faithful; Spiciness re-parented under sulo:Quality. Additive; validated consistent by rustdl." ;
+    owl:imports <https://ontoexplorer.dev.k8s.semanticscience.org/api/v1/ontologies/4e8bd8d2-e9fc-418f-ab92-fb2c727a26fa/b2abd4fb-8d44-4a5f-969d-43b25f1f3844/download>,
+        <https://w3id.org/ontostart/pro/>,
+        <https://w3id.org/sulo> ;
+    owl:versionIRI suloized-pizza:0.0.1 ;
+    owl:versionInfo "0.0.1"^^xsd:string .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#FishTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#NutTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBaseRole> a owl:Class ;
+    rdfs:comment "placeholder minted by ontointegrator" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/isFeatureOf> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase> ],
+        <https://w3id.org/ontostart/pro/ContainmentRole>,
+        <https://w3id.org/ontostart/pro/PartRole> .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaCompositionProcess> a owl:Class ;
+    rdfs:comment "placeholder minted by ontointegrator" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasParticipant> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaToppingRole> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasParticipant> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBaseRole> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasParticipant> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaWholeRole> ],
+        <https://w3id.org/ontostart/pro/TransformationProcess> .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaToppingRole> a owl:Class ;
+    rdfs:comment "placeholder minted by ontointegrator" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/isFeatureOf> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ],
+        <https://w3id.org/ontostart/pro/OnTopPositionRole>,
+        <https://w3id.org/ontostart/pro/PartRole> .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaWholeRole> a owl:Class ;
+    rdfs:comment "placeholder minted by ontointegrator" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/isFeatureOf> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> ],
+        <https://w3id.org/ontostart/pro/WholeRole> .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyTopping> owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> [ a owl:Restriction ;
+                        owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+                        owl:someValuesFrom [ a owl:Class ;
+                                owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] ) ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/isParticipantIn> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaCompositionProcess> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase> ],
+        [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasPart> ;
+            owl:someValuesFrom <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping> ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> rdfs:subClassOf <https://w3id.org/sulo/Quality> .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <https://w3id.org/sulo/hasFeature> ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( <http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness> ) ] ] .
+

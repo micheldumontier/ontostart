@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Resolve owl:imports from local copies, so ROBOT (in CI) and Protégé
+     don't need the network for these. ROBOT and Protégé read this file
+     automatically when it sits next to the ontology. -->
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <!-- Community Pizza ontology 2.0.0 (co-ode.org, CC BY 3.0): the source
+         that suloized-pizza was generated from -->
+    <uri name="https://protege.stanford.edu/ontologies/pizza/pizza.owl" uri="imports/pizza.owl"/>
+</catalog>

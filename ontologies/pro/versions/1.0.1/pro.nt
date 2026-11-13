@@ -1,0 +1,106 @@
+<https://w3id.org/ontostart/pro/AgentRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/DevelopmentalProcess> <http://www.w3.org/2000/01/rdf-schema#label> "developmental process"@en .
+<https://w3id.org/ontostart/pro/ContainedRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/LocationRole> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/contributor> "https://orcid.org/0000-0000-0000-0000"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/created> "2026-05-19T10:53:33.335878+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:n2dae7800efde462e916f6301ae24d498b3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b4 .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/description> "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants."^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b10 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/ContainedRole> .
+<https://w3id.org/ontostart/pro/EmergingRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that comes into existence as an outcome of the process."@en .
+<https://w3id.org/ontostart/pro/InstrumentRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+_:n2dae7800efde462e916f6301ae24d498b4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/InstrumentRole> .
+<https://w3id.org/ontostart/pro/> <http://xmlns.com/foaf/0.1/homepage> "https://github.com/micheldumontier/ontostart"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b5 .
+_:n2dae7800efde462e916f6301ae24d498b12 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/alternative> "pro"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/ontostart/pro/"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b1 <http://www.w3.org/2002/07/owl#members> _:n2dae7800efde462e916f6301ae24d498b2 .
+<https://w3id.org/ontostart/pro/ConsumedRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/ConsumedRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A patient role in which the entity is incorporated into, or destroyed by, the process (e.g. an ingredient that is mixed into a dough)."@en .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/ontostart/pro/1.0.1> .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/ns/dcat#accessURL> "https://w3id.org/ontostart/pro/"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/> <https://w3id.org/mod#hasSyntax> "http://www.w3.org/ns/formats/Turtle"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/ConsumedRole> <http://www.w3.org/2000/01/rdf-schema#label> "consumed role"@en .
+_:n2dae7800efde462e916f6301ae24d498b7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/EmergingRole> .
+<https://w3id.org/ontostart/pro/LocationRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/PersistingRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that continues to exist, in essentially the same form, throughout the process."@en .
+<https://w3id.org/ontostart/pro/TransformationProcess> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+_:n2dae7800efde462e916f6301ae24d498b5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b6 .
+_:n2dae7800efde462e916f6301ae24d498b6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b7 .
+<https://w3id.org/ontostart/pro/AgentRole> <http://www.w3.org/2000/01/rdf-schema#label> "agent role"@en .
+<https://w3id.org/ontostart/pro/PersistingRole> <http://www.w3.org/2000/01/rdf-schema#label> "persisting role"@en .
+<https://w3id.org/ontostart/pro/DevelopmentalProcess> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Process> .
+<https://w3id.org/ontostart/pro/> <https://w3id.org/mod#hasRepresentationLanguage> "http://omv.ontoware.org/2005/05/ontology#OWL"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/EmergingRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+<https://w3id.org/ontostart/pro/PatientRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+<https://w3id.org/ontostart/pro/DevelopmentRole> <http://www.w3.org/2000/01/rdf-schema#label> "development role"@en .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/license> "https://creativecommons.org/licenses/by/4.0/"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/OnTopPositionRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/AgentRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2002/07/owl#imports> <https://w3id.org/sulo> .
+<https://w3id.org/ontostart/pro/LocationRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that serves as the spatial setting in which a process occurs."@en .
+<https://w3id.org/ontostart/pro/PatientRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/> <https://w3id.org/mod#definitionProperty> "http://www.w3.org/2000/01/rdf-schema#comment"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b11 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b12 .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://w3id.org/ontostart/pro/SurfacePositionRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/PersistingRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/SurfacePositionRole> <http://www.w3.org/2000/01/rdf-schema#label> "surface position role"@en .
+<https://w3id.org/ontostart/pro/ContainedRole> <http://www.w3.org/2000/01/rdf-schema#label> "contained role"@en .
+<https://w3id.org/ontostart/pro/SurfacePositionRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/LocationRole> .
+_:n2dae7800efde462e916f6301ae24d498b10 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b11 .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/title> "Process Roles Ontology (PRO)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/DevelopmentRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/PatientRole> .
+_:n2dae7800efde462e916f6301ae24d498b3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/PatientRole> .
+<https://w3id.org/ontostart/pro/InstrumentRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that is used by an agent to bring about a change during a process, without itself being changed."@en .
+_:n2dae7800efde462e916f6301ae24d498b12 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/SurfacePositionRole> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/elements/1.1/creator> "https://orcid.org/0000-0000-0000-0000"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/ContainedRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/ContainmentRole> <http://www.w3.org/2000/01/rdf-schema#label> "containment role"@en .
+<https://w3id.org/ontostart/pro/ContainmentRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/LocationRole> .
+_:n2dae7800efde462e916f6301ae24d498b6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/PersistingRole> .
+<http://purl.org/dc/terms/description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/publisher> "https://github.com/micheldumontier"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/ConsumedRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/PatientRole> .
+<https://w3id.org/ontostart/pro/ContainmentRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+_:n2dae7800efde462e916f6301ae24d498b11 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/OnTopPositionRole> .
+<https://w3id.org/ontostart/pro/LocationRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+<https://w3id.org/ontostart/pro/LocationRole> <http://www.w3.org/2000/01/rdf-schema#label> "location role"@en .
+<https://w3id.org/ontostart/pro/InstrumentRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/> <https://w3id.org/mod#prefLabelProperty> "http://www.w3.org/2000/01/rdf-schema#label"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/> <https://w3id.org/mod#status> "active"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AllDisjointClasses> .
+<https://w3id.org/ontostart/pro/TransformationProcess> <http://www.w3.org/2000/01/rdf-schema#comment> "A process in which one or more participants change their qualities, composition, or identity (e.g. baking, cooking)."@en .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/bibliographicCitation> "Unpublished"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/DevelopmentRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A patient role in which the entity undergoes ordered, internally driven change toward a mature state (e.g. growth, maturation)."@en .
+<https://w3id.org/ontostart/pro/DevelopmentalProcess> <http://www.w3.org/2002/07/owl#disjointWith> <https://w3id.org/ontostart/pro/TransformationProcess> .
+_:n2dae7800efde462e916f6301ae24d498b7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:n2dae7800efde462e916f6301ae24d498b8 <http://www.w3.org/2002/07/owl#members> _:n2dae7800efde462e916f6301ae24d498b9 .
+<https://w3id.org/ontostart/pro/TransformationProcess> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Process> .
+<https://w3id.org/ontostart/pro/OnTopPositionRole> <http://www.w3.org/2000/01/rdf-schema#label> "on top position role"@en .
+_:n2dae7800efde462e916f6301ae24d498b5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/LocationRole> .
+<https://w3id.org/ontostart/pro/OnTopPositionRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/ontostart/pro/LocationRole> .
+<https://w3id.org/ontostart/pro/EmergingRole> <http://www.w3.org/2000/01/rdf-schema#label> "emerging role"@en .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/issued> "2026-05-19"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://w3id.org/ontostart/pro/DevelopmentalProcess> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/AgentRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that actively brings about a change during a process."@en .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/modified> "2026-05-19T10:53:33.335878+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<https://w3id.org/ontostart/pro/EmergingRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/dc/terms/language> "http://lexvo.org/id/iso639-1/en"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:n2dae7800efde462e916f6301ae24d498b8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AllDisjointClasses> .
+<https://w3id.org/ontostart/pro/DevelopmentRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/ontostart/pro/InstrumentRole> <http://www.w3.org/2000/01/rdf-schema#label> "instrument role"@en .
+<https://w3id.org/ontostart/pro/> <http://purl.org/vocab/vann/preferredNamespacePrefix> "pro"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/PatientRole> <http://www.w3.org/2000/01/rdf-schema#comment> "A role borne by an entity that undergoes a change as a result of a process."@en .
+_:n2dae7800efde462e916f6301ae24d498b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b3 .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2000/01/rdf-schema#label> "Process Roles Ontology (PRO)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/PersistingRole> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/sulo/Role> .
+<https://w3id.org/ontostart/pro/DevelopmentalProcess> <http://www.w3.org/2000/01/rdf-schema#comment> "A process in which a participant undergoes ordered internal change toward a mature state."@en .
+_:n2dae7800efde462e916f6301ae24d498b9 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/ContainmentRole> .
+<https://w3id.org/ontostart/pro/> <http://purl.org/pav/authoredBy> "https://orcid.org/0000-0000-0000-0000"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2000/01/rdf-schema#comment> "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants."^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/PatientRole> <http://www.w3.org/2000/01/rdf-schema#label> "patient role"@en .
+<https://w3id.org/ontostart/pro/> <http://www.w3.org/2002/07/owl#versionInfo> "1.0.1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<https://w3id.org/ontostart/pro/TransformationProcess> <http://www.w3.org/2000/01/rdf-schema#label> "transformation process"@en .
+_:n2dae7800efde462e916f6301ae24d498b9 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n2dae7800efde462e916f6301ae24d498b10 .
+_:n2dae7800efde462e916f6301ae24d498b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://w3id.org/ontostart/pro/AgentRole> .

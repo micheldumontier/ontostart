@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcat="http://www.w3.org/ns/dcat#"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:mod="https://w3id.org/mod#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:pav="http://purl.org/pav/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:vann="http://purl.org/vocab/vann/"
+>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/AgentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">agent role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that actively brings about a change during a process.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/DevelopmentalProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">developmental process</rdfs:label>
+    <rdfs:comment xml:lang="en">A process in which a participant undergoes ordered internal change toward a mature state.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/ontostart/pro/TransformationProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ContainedRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">contained role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Process Roles Ontology (PRO)</rdfs:label>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</dc:creator>
+    <dcterms:alternative rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pro</dcterms:alternative>
+    <dcterms:bibliographicCitation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unpublished</dcterms:bibliographicCitation>
+    <dcterms:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</dcterms:contributor>
+    <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-19T10:53:33.335878+00:00</dcterms:created>
+    <dcterms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants.</dcterms:description>
+    <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-19</dcterms:issued>
+    <dcterms:language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://lexvo.org/id/iso639-1/en</dcterms:language>
+    <dcterms:license rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://creativecommons.org/licenses/by/4.0/</dcterms:license>
+    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-19T10:53:33.335878+00:00</dcterms:modified>
+    <dcterms:publisher rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://github.com/micheldumontier</dcterms:publisher>
+    <dcterms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Process Roles Ontology (PRO)</dcterms:title>
+    <pav:authoredBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://orcid.org/0000-0000-0000-0000</pav:authoredBy>
+    <vann:preferredNamespacePrefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pro</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://w3id.org/ontostart/pro/</vann:preferredNamespaceUri>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants.</rdfs:comment>
+    <owl:imports rdf:resource="https://w3id.org/sulo"/>
+    <owl:versionIRI rdf:resource="https://w3id.org/ontostart/pro/1.0.1"/>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.0.1</owl:versionInfo>
+    <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://w3id.org/ontostart/pro/</dcat:accessURL>
+    <foaf:homepage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://github.com/micheldumontier/ontostart</foaf:homepage>
+    <mod:definitionProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2000/01/rdf-schema#comment</mod:definitionProperty>
+    <mod:hasRepresentationLanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://omv.ontoware.org/2005/05/ontology#OWL</mod:hasRepresentationLanguage>
+    <mod:hasSyntax rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/ns/formats/Turtle</mod:hasSyntax>
+    <mod:prefLabelProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2000/01/rdf-schema#label</mod:prefLabelProperty>
+    <mod:status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">active</mod:status>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b3">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b10">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainedRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b11"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/EmergingRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">emerging role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that comes into existence as an outcome of the process.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/InstrumentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">instrument role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that is used by an agent to bring about a change during a process, without itself being changed.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b4">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/InstrumentRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b12">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/SurfacePositionRole"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n2dae7800efde462e916f6301ae24d498b2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ConsumedRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">consumed role</rdfs:label>
+    <rdfs:comment xml:lang="en">A patient role in which the entity is incorporated into, or destroyed by, the process (e.g. an ingredient that is mixed into a dough).</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b7">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/EmergingRole"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/LocationRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">location role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that serves as the spatial setting in which a process occurs.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/PersistingRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">persisting role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that continues to exist, in essentially the same form, throughout the process.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/TransformationProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">transformation process</rdfs:label>
+    <rdfs:comment xml:lang="en">A process in which one or more participants change their qualities, composition, or identity (e.g. baking, cooking).</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Process"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b5">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b6"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b6">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/PersistingRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/PatientRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">patient role</rdfs:label>
+    <rdfs:comment xml:lang="en">A role borne by an entity that undergoes a change as a result of a process.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/sulo/Role"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/DevelopmentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">development role</rdfs:label>
+    <rdfs:comment xml:lang="en">A patient role in which the entity undergoes ordered, internally driven change toward a mature state (e.g. growth, maturation).</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/PatientRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/OnTopPositionRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">on top position role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b11">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/OnTopPositionRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b12"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/SurfacePositionRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">surface position role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/ontostart/pro/ContainmentRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">containment role</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/ontostart/pro/LocationRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/description">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n2dae7800efde462e916f6301ae24d498b9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b2">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/AgentRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2dae7800efde462e916f6301ae24d498b9">
+    <rdf:first rdf:resource="https://w3id.org/ontostart/pro/ContainmentRole"/>
+    <rdf:rest rdf:nodeID="n2dae7800efde462e916f6301ae24d498b10"/>
+  </rdf:Description>
+</rdf:RDF>

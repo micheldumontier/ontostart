@@ -1,0 +1,6294 @@
+[
+  {
+    "@id": "http://purl.org/vocab/vann/preferredNamespaceUri",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Salt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/UnproofedDoughRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/ProofedDoughRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DoughTexture",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Quality"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaSlice",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderReceivedTime",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/StartTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b139"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b139",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/StartTime"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b140"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b140",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isTimeOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/OrderingProcess"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaOrder",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/InformationObject"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/id_002",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderIdentifier"
+    ],
+    "https://w3id.org/sulo/hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "ORD-002"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Sugar",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Spiciness",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Spiciness is a quality that represents the perceived heat or pungency of a food material."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Quality"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/publisher",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/creator",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DesaltedAnchovyIngredient",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "An anchovy desalted to below 400 mg sodium per 100 g."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b284"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b284",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b285"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b285",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SodiumMeasurement"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b286"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b287"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b286",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Milligram"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b287",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b288"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b288",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b289"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b289",
+    "http://www.w3.org/2001/XMLSchema#maxInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 400
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/id_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderIdentifier"
+    ],
+    "https://w3id.org/sulo/hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "ORD-001"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/bibliographicCitation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Gorgonzola",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Gorgonzola is a veined Italian blue cheese, made from unskimmed cow's milk."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/contributor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/t_bake_end_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/BakingEndTime"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Baking end for order #001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#definitionProperty",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PecorinoRomano",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Pecorino Romano is a hard, salty Italian cheese, often used for grating, made out of sheep's milk."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/MediumSalt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A moderate level of saltiness."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Saltiness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ProofingTheDough",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b356"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b357"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b356",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/AssemblingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b357",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b358"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b372"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b358",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b359"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b359",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b360"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b365"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b360",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b361"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b361",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/UnproofedDoughRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b362"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b362",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b365",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b366"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b366",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/DenseTexture"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b367"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b367",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b372",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b373"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b373",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b374"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b374",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b375"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b380"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b375",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b376"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b376",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/ProofedDoughRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b377"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b377",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b380",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b381"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b381",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/AiryTexture"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b382"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b382",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakingThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b407"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b408"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b409"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b410"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b411"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b407",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DoughBaking"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b408",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SlicingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b409",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/CheeseMelting"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b410",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/atTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingEndTime"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b411",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/atTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingStartTime"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/pizza_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza"
+    ],
+    "https://w3id.org/sulo/hasDirectPart": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/crust_of_my_pizza"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/vocab/vann/preferredNamespacePrefix",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderForFourCheesePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b59"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b59",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b60"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b60",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/refersTo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FourCheesePizza"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicySalami",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A salami with a hot or medium spiciness quality."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b401"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b401",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b402"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b402",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyHot"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyMedium"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ExpressPizzaDelivery",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DeliveringThePizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b40"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b40",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/DeliveringThePizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b41"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b41",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/atTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b42"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b42",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/DeliveryDuration"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b43"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b43",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b44"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b44",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b45"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b45",
+    "http://www.w3.org/2001/XMLSchema#maxInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "30.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Mozzarella",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Mozzarella is a traditionally southern Italian cheese made from Italian buffalo's milk by the pasta filata method."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaSauce",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A pizza sauce is a food material used in the preparation of pizza,\n                    typically made from tomatoes and various herbs and spices."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b412"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b412",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/OliveOil"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaMakingProcess",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b214"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b219"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b224"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b229"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b230"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b214",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b215"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b215",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/BakingThePizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b216"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b216",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SlicingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b219",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b220"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b220",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/MakingThePizzaDough"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b221"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b221",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/ProofingTheDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b224",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b225"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b225",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/ProofingTheDough"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b226"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b226",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/AssemblingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b229",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SlicingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b230",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b231"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b231",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/AssemblingThePizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b232"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b232",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b441",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Prosciutto"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Gorgonzola"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Parmesan"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PecorinoRomano"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/t_order_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderReceivedTime"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Order received time for order #001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/HighSalt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A high level of saltiness causing a strong savoury flavour."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Saltiness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DeliveryTime",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/TimeInstant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b25"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b25",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/TimeInstant"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b26"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b26",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isTimeOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DeliveringThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Prosciutto",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A dry-cured Italian ham."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b428",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Gorgonzola"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Parmesan"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PecorinoRomano"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b423",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDifferent"
+    ],
+    "http://www.w3.org/2002/07/owl#distinctMembers": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/pizza_001"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/delivery_box_001"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/crust_of_my_pizza"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/fridge_001"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Pizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A pizza is a food material minimally consisting of a pizza crust (baked dough) and optionally topped with \n                    tomatoes or tomato sauce, cheese, and often various other ingredients (such as anchovies, mushrooms, onions, olives, \n                    vegetables, meat, etc.) baked at a high temperature."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b413"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b414"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b413",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b414",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaCrust"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/receipt_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaReceipt"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Receipt #001"
+      }
+    ],
+    "https://w3id.org/sulo/hasFeature": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/amount_001"
+      }
+    ],
+    "https://w3id.org/sulo/refersTo": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/order_001"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/modified",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Water",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SodiumMeasurement",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A measurement of sodium content in milligrams."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b400"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Quantity"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b400",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/refersTo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Saltiness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/FoodMaterial",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A food material is a spatial object that is intended for consumption as food."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/SpatialObject"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DoughBaking",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b125"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b130"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b125",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b126"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b126",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/DevelopmentRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b127"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b127",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaCrust"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b130",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b131"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b131",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/DevelopmentRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b132"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b132",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Cornicione",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A cornicione is the outer edge of a pizza crust"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/delivery_box_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaDeliveryBox"
+    ],
+    "https://w3id.org/sulo/contains": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/placing_pizza_on_table_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PlacingPizzaOnTable"
+    ],
+    "https://w3id.org/sulo/hasParticipant": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_ontop_position_role_001"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/table_surface_role_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Milligram",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A unit of mass equal to one thousandth of a gram, used here for sodium content."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Unit"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/AnchovyIngredient",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "An anchovy topping, known for very high salt content."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b184"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b185"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DesaltedAnchovyIngredient"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b184",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/HighSalt"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b185",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b186"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b186",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SodiumMeasurement"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b187"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b188"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b187",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Milligram"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b188",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b189"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b189",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b190"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b190",
+    "http://www.w3.org/2001/XMLSchema#minInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 1400
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaDeliveryBox",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b406"
+      },
+      {
+        "@id": "https://w3id.org/sulo/SpatialObject"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b406",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/ContainmentRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Cheese",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A cheese is a food material derived from milk and produced in a wide range of flavors, textures, and forms by coagulation of the milk protein casein."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/language",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ProofedDoughRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Role"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/making_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaMakingProcess"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaReceipt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/InformationObject"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/pav/authoredBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakingStartTime",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/StartTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b199"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b199",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/StartTime"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b200"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b200",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isTimeOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#example",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/pizza_ontop_position_role_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pro/OnTopPositionRole"
+    ],
+    "https://w3id.org/sulo/isFeatureOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicyMedium",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A moderate level of spiciness."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Spiciness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SlicingThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b389"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b394"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b395"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b389",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b390"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b390",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b391"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b391",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSlice"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b394",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DeliveringThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b395",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b396"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b396",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b397"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b397",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/table_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/Table"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/making_event_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/MakingThePizzaDough"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BoxedPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b21"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b21",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b22"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b22",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isIn"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDeliveryBox"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Flour",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://schema.org/funding",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/HotPepper",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b203"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SpicySalami"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b203",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b204"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b204",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicinessMeasurement"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b205"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b206"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b205",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/ScovilleHeatUnit"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b206",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b207"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b207",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b208"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b208",
+    "http://www.w3.org/2001/XMLSchema#minInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 500000
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakingEndTime",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/EndTime"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b195"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b195",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/EndTime"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b196"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b196",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isTimeOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b419",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDifferent"
+    ],
+    "http://www.w3.org/2002/07/owl#distinctMembers": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/order_001"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/order_002"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/receipt_001"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BoxingThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b110"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b115"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b110",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b111"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b111",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b112"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b112",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b115",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b116"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b116",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainmentRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b117"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b117",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDeliveryBox"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DesaltedAnchovyPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b29"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b29",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b30"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b31"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b32"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b30",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b31",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DesaltedAnchovyIngredient"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b32",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b33"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b33",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/DesaltedAnchovyIngredient"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicySalamiPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b99"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b99",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b100"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b101"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b102"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b100",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b101",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SpicySalami"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b102",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b103"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b103",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicySalami"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b415",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/LowSalt"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/MediumSalt"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/HighSalt"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DeliveryDuration",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Duration"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SaltyPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b82"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b87"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b82",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b83"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b83",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b84"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b84",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/HighSalt"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b87",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b88"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b88",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b89"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b89",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b90"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b90",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SodiumMeasurement"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b91"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b91",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b92"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b92",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b93"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b93",
+    "http://www.w3.org/2001/XMLSchema#minInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 1400
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/AnchovyPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b2"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b3"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b2",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b3",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/AnchovyIngredient"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b4",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b5"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b5",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/AnchovyIngredient"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/legacy_id",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderIdentifier"
+    ],
+    "https://w3id.org/sulo/hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "LEGACY-001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/fridge_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/sulo/SpatialObject"
+    ],
+    "https://w3id.org/sulo/contains": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/delivery_box_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/pizza_boxing_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/BoxingThePizza"
+    ],
+    "https://w3id.org/sulo/hasParticipant": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/box_containment_role_001"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_contained_role_001"
+      }
+    ],
+    "https://w3id.org/sulo/precedes": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_unboxing_001"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b433",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaOven"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaDeliveryBox"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Table"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/title",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Saltiness",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Saltiness is a quality describing the perceived salt content of a food material."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Quality"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PlacingPizzaOnTable",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b144"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b149"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b144",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b145"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b145",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b146"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b146",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Table"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b149",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b150"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b150",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/OnTopPositionRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b151"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b151",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/dcat#accessURL",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ScovilleHeatUnit",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A unit to measure the spiciness or \"heat\" of chili peppers and substances based on their concentration of capsaicinoids. \n                    The scale indicates how many times a chili extract must be diluted in sugar water before its heat is undetectable to tasters."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Unit"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/license",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakingDuration",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Duration"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b12"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b12",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/Duration"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b13"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b13",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b14"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b14",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b15"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b15",
+    "http://www.w3.org/2001/XMLSchema#maxInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "15.0"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b16",
+    "http://www.w3.org/2001/XMLSchema#minInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "8.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/pizza_contained_role_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pro/ContainedRole"
+    ],
+    "https://w3id.org/sulo/isFeatureOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/box_containment_role_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pro/ContainmentRole"
+    ],
+    "https://w3id.org/sulo/isFeatureOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/delivery_box_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/order_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaOrder"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Order for a TraditionalFourCheesePizza, placed at the counter."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Pizza Order #001"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#sameAs": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/order_001_legacy"
+      }
+    ],
+    "https://w3id.org/sulo/hasFeature": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/id_001"
+      }
+    ],
+    "https://w3id.org/sulo/refersTo": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/quattro_formaggi_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/delivering_event_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/DeliveringThePizza"
+    ],
+    "https://w3id.org/sulo/atTime": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/delivery_duration_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/crust_of_my_pizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaCrust"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/AssemblingThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b253"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b258"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b263"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b268"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b269"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b274"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b279"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b253",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b254"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b254",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b255"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b255",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2002/07/owl#Thing"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b258",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b259"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b259",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b260"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b260",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b263",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b264"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b264",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b265"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b265",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b268",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakingThePizza"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b269",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b270"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b270",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/BakerRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b271"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b271",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Person"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b274",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b275"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b275",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b276"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b276",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b279",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b280"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b280",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/PersistingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b281"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b281",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaOven",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b143"
+      },
+      {
+        "@id": "https://w3id.org/sulo/SpatialObject"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b143",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/ContainmentRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaRecipe",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/InformationObject"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b67"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b67",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/InformationObject"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b68"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b68",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/refersTo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaMakingProcess"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/HotPepperPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b51"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b51",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b52"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b53"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b54"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b52",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaSauce"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b53",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/HotPepper"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b54",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/HotPepper"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/delivery_duration_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/DeliveryDuration"
+    ],
+    "https://w3id.org/sulo/hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "25.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicyHot",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A high level of spiciness causing intense heat sensation."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Spiciness"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/created",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/amount_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderAmount"
+    ],
+    "https://w3id.org/sulo/hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "12.5"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#status",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicinessMeasurement",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b235"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Quantity"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b235",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/refersTo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Spiciness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderingProcess",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b213"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b213",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/MakingThePizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderForSpicyPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b63"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b63",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b64"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b64",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/refersTo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/SpicyPizza"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DeliveringThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaCrust",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A pizza crust is a food material resulting from the cooking of a dough \n                    and forms the base of a pizza upon which sauce and toppings are added."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b355"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b355",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cornicione"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PhoneOrder",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/pizza_unboxing_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/UnboxingThePizza"
+    ],
+    "https://w3id.org/sulo/hasParticipant": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/box_containment_role_001"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/pizza_contained_role_001"
+      }
+    ],
+    "https://w3id.org/sulo/precedes": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/placing_pizza_on_table_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Parmesan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Parmesan is a hard, granular cheese named after the producing areas near Parma, Italy."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OliveOil",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Olive oil used as an ingredient in pizza sauce."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicyMild",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A low level of spiciness with minimal heat sensation."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Spiciness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/UnboxingThePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b174"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b179"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b174",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b175"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b175",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainmentRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b176"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b176",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDeliveryBox"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b179",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b180"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b180",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ContainedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b181"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b181",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#hasSyntax",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Person",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/SpatialObject"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/baking_event_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/BakingThePizza"
+    ],
+    "https://w3id.org/sulo/atTime": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/t_bake_end_001"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pizza/t_bake_start_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/CheeseMelting",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b120"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/DevelopmentalProcess"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b120",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b121"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b121",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/DevelopmentRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b122"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b122",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ordering_event_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OrderingProcess"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/alternative",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#prefLabelProperty",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/t_bake_start_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/BakingStartTime"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Baking start for order #001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderAmount",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/Quantity"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/quattro_formaggi_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakerRole",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/AgentRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/BakersYeast",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/order_002",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/OnlineOrder"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Pizza Order #002 (online)"
+      }
+    ],
+    "https://w3id.org/sulo/hasFeature": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/id_002"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/FourCheesePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A Four Cheese Pizza is a pizza that contains exactly four different types of cheese as toppings."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b135"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b135",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b136"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b136",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Cheese"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "4"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/order_001_legacy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pizza/PizzaOrder"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "ORD-001 (legacy system)"
+      }
+    ],
+    "https://w3id.org/sulo/hasFeature": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/legacy_id"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OnlineOrder",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaOrder"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PhoneOrder"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/PizzaDough",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/FoodMaterial"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b437",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyHot"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyMedium"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyMild"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/LowSalt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A low level of saltiness."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Saltiness"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/AiryTexture",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DoughTexture"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/recipe_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/sulo/InformationObject"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "Traditional Neapolitan Pizza Recipe"
+      }
+    ],
+    "https://w3id.org/sulo/refersTo": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/making_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/MakingThePizzaDough",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b294"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b310"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b311"
+      },
+      {
+        "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+      },
+      {
+        "@id": "https://w3id.org/sulo/Process"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b294",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/sulo/Process"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b295"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b296"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b297"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b298"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b299"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b300"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b301"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b295",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Flour"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b296",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Water"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b297",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Sugar"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b298",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakersYeast"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b299",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Salt"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b300",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b301",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Person"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b310",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/precedes"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/ProofingTheDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b311",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/TransformationProcess"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b312"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b317"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b322"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b327"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b332"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b337"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b342"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b312",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b313"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b313",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b314"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b314",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Flour"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b317",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b318"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b318",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b319"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b319",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Water"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b322",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b323"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b323",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b324"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b324",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Sugar"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b327",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b328"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b328",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b329"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b329",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/BakersYeast"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b332",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b333"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b333",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/ConsumedRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b334"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b334",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Salt"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b337",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b338"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b338",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pro/EmergingRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b339"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b339",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PizzaDough"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b342",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasParticipant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b343"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b343",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/BakerRole"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b344"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b344",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/isFeatureOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Person"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/OrderIdentifier",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/sulo/InformationObject"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/Table",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b405"
+      },
+      {
+        "@id": "https://w3id.org/sulo/SpatialObject"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b405",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/ontostart/pro/SurfacePositionRole"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Ontology"
+    ],
+    "http://purl.org/dc/elements/1.1/creator": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/dc/terms/alternative": [
+      {
+        "@language": "en",
+        "@value": "pizza"
+      }
+    ],
+    "http://purl.org/dc/terms/bibliographicCitation": [
+      {
+        "@language": "en",
+        "@value": "Unpublished"
+      }
+    ],
+    "http://purl.org/dc/terms/contributor": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-05-17T06:23:13.381206+00:00"
+      }
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@language": "en",
+        "@value": "An OWL ontology for the pizza domain, built incrementally through the SULO Pizza Tutorial. Covers spatial composition, qualities, quantities, processes, time, and spatial containment."
+      }
+    ],
+    "http://purl.org/dc/terms/issued": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2026-05-17"
+      }
+    ],
+    "http://purl.org/dc/terms/language": [
+      {
+        "@id": "http://lexvo.org/id/iso639-1/en"
+      }
+    ],
+    "http://purl.org/dc/terms/license": [
+      {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-05-17T06:23:13.381206+00:00"
+      }
+    ],
+    "http://purl.org/dc/terms/publisher": [
+      {
+        "@id": "https://github.com/micheldumontier"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@language": "en",
+        "@value": "SULO Pizza Tutorial Ontology"
+      }
+    ],
+    "http://purl.org/pav/authoredBy": [
+      {
+        "@id": "https://orcid.org/0000-0003-4727-9435"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespacePrefix": [
+      {
+        "@value": "pizza"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespaceUri": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "SULO Pizza Tutorial Ontology"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#backwardCompatibleWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/0.0.8"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#imports": [
+      {
+        "@id": "https://w3id.org/ontostart/pro"
+      },
+      {
+        "@id": "https://w3id.org/sulo"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#priorVersion": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/0.0.8"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionIRI": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/0.0.9"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "0.0.9"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#accessURL": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/homepage": [
+      {
+        "@id": "https://micheldumontier.github.io/ontostart/pizza/"
+      }
+    ],
+    "https://schema.org/funding": [
+      {
+        "@language": "en",
+        "@value": "This work is supported by the AIDAVA project."
+      }
+    ],
+    "https://w3id.org/mod#definitionProperty": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#comment"
+      }
+    ],
+    "https://w3id.org/mod#hasRepresentationLanguage": [
+      {
+        "@id": "http://omv.ontoware.org/2005/05/ontology#OWL"
+      }
+    ],
+    "https://w3id.org/mod#hasSyntax": [
+      {
+        "@id": "http://www.w3.org/ns/formats/Turtle"
+      }
+    ],
+    "https://w3id.org/mod#prefLabelProperty": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#label"
+      }
+    ],
+    "https://w3id.org/mod#status": [
+      {
+        "@value": "active"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/SpicyPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b154"
+      },
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b162"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b154",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b155"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b155",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b156"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b156",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b157"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b157",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyHot"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicyMedium"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b162",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b163"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b163",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b164"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b164",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasFeature"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b165"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b165",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/SpicinessMeasurement"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b166"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b166",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasValue"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b167"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b167",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#onDatatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#withRestrictions": [
+      {
+        "@list": [
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b168"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b168",
+    "http://www.w3.org/2001/XMLSchema#minInclusive": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 300000
+      }
+    ]
+  },
+  {
+    "@id": "http://xmlns.com/foaf/0.1/homepage",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/DenseTexture",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/DoughTexture"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/AiryTexture"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/TraditionalFourCheesePizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A Traditional Four Cheese Pizza is a pizza made with mozzarella, gorgonzola, parmesan, and pecorino romano."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b236"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b236",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b237"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b238"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b239"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b240"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b241"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b237",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b238",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Gorgonzola"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b239",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Parmesan"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b240",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/PecorinoRomano"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b241",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b242"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b242",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Gorgonzola"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Parmesan"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/PecorinoRomano"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/table_surface_role_001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://w3id.org/ontostart/pro/SurfacePositionRole"
+    ],
+    "https://w3id.org/sulo/isFeatureOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/table_001"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/mod#hasRepresentationLanguage",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/issued",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/ontostart/pizza/ProsciuttoMozzarellaPizza",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#string",
+        "@value": "A pizza with exactly one mozzarella and one prosciutto topping and nothing else."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Pizza"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#equivalentClass": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b71"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b71",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Pizza"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b72"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b73"
+          },
+          {
+            "@id": "_:nbbb1876491d941b796842f516b7dcf53b74"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b72",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b73",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/ontostart/pizza/Prosciutto"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b74",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:nbbb1876491d941b796842f516b7dcf53b75"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/sulo/hasDirectPart"
+      }
+    ]
+  },
+  {
+    "@id": "_:nbbb1876491d941b796842f516b7dcf53b75",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Mozzarella"
+          },
+          {
+            "@id": "https://w3id.org/ontostart/pizza/Prosciutto"
+          }
+        ]
+      }
+    ]
+  }
+]
