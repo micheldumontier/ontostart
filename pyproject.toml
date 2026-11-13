@@ -1,0 +1,23 @@
+[project]
+name = "ontostart"
+version = "0.1.0"
+description = "Build, check and publish ontologies kept in folders"
+requires-python = ">=3.11"
+dependencies = ["rdflib>=7", "pyyaml"]
+
+[project.scripts]
+ontostart = "ontostart.cli:main"
+
+[dependency-groups]
+dev = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ontostart"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore:ConjunctiveGraph is deprecated:DeprecationWarning"]

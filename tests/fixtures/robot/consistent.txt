@@ -1,0 +1,1 @@
+Reasoned ontology; no unsatisfiable classes.

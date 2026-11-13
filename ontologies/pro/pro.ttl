@@ -1,0 +1,134 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mod: <https://w3id.org/mod#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix pro: <https://w3id.org/ontostart/pro/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dcterms:description a owl:AnnotationProperty .
+
+pro: a owl:Ontology ;
+    rdfs:label "Process Roles Ontology (PRO)"^^xsd:string ;
+    dc:creator "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
+    dcterms:alternative "pro"^^xsd:string ;
+    dcterms:bibliographicCitation "Unpublished"^^xsd:string ;
+    dcterms:contributor "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
+    dcterms:created "2026-08-20T08:54:45.630444+00:00"^^xsd:dateTime ;
+    dcterms:description "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants."^^xsd:string ;
+    dcterms:issued "2026-08-20"^^xsd:date ;
+    dcterms:language "http://lexvo.org/id/iso639-1/en"^^xsd:string ;
+    dcterms:license "https://creativecommons.org/licenses/by/4.0/"^^xsd:string ;
+    dcterms:modified "2026-08-20T08:54:45.630444+00:00"^^xsd:dateTime ;
+    dcterms:publisher "https://github.com/micheldumontier"^^xsd:string ;
+    dcterms:title "Process Roles Ontology (PRO)"^^xsd:string ;
+    pav:authoredBy "https://orcid.org/0000-0000-0000-0000"^^xsd:string ;
+    vann:preferredNamespacePrefix "pro"^^xsd:string ;
+    vann:preferredNamespaceUri "https://w3id.org/ontostart/pro/"^^xsd:string ;
+    rdfs:comment "A small SULO extension that defines reusable subclasses of sulo:Role (agent, patient, instrument, location, etc.) and sulo:Process (transformation, developmental, ...). PRO is intended to be imported by domain ontologies that need a finer-grained vocabulary for describing process participants."^^xsd:string ;
+    owl:backwardCompatibleWith pro:1.0.1 ;
+    owl:imports <https://w3id.org/sulo> ;
+    owl:priorVersion pro:1.0.1 ;
+    owl:versionIRI pro:1.0.2 ;
+    owl:versionInfo "1.0.2"^^xsd:string ;
+    dcat:accessURL "https://w3id.org/ontostart/pro/"^^xsd:string ;
+    foaf:homepage "https://github.com/micheldumontier/ontostart"^^xsd:string ;
+    mod:definitionProperty "http://www.w3.org/2000/01/rdf-schema#comment"^^xsd:string ;
+    mod:hasRepresentationLanguage "http://omv.ontoware.org/2005/05/ontology#OWL"^^xsd:string ;
+    mod:hasSyntax "http://www.w3.org/ns/formats/Turtle"^^xsd:string ;
+    mod:prefLabelProperty "http://www.w3.org/2000/01/rdf-schema#label"^^xsd:string ;
+    mod:status "active"^^xsd:string .
+
+pro:ConsumedRole a owl:Class ;
+    rdfs:label "consumed role"@en ;
+    rdfs:comment "A patient role in which the entity is incorporated into, or destroyed by, the process (e.g. an ingredient that is mixed into a dough)."@en ;
+    rdfs:subClassOf pro:PatientRole .
+
+pro:DevelopmentRole a owl:Class ;
+    rdfs:label "development role"@en ;
+    rdfs:comment "A patient role in which the entity undergoes ordered, internally driven change toward a mature state (e.g. growth, maturation)."@en ;
+    rdfs:subClassOf pro:PatientRole .
+
+pro:DevelopmentalProcess a owl:Class ;
+    rdfs:label "developmental process"@en ;
+    rdfs:comment "A process in which a participant undergoes ordered internal change toward a mature state."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Process> ;
+    owl:disjointWith pro:TransformationProcess .
+
+pro:PartRole a owl:Class ;
+    rdfs:label "part role"@en ;
+    rdfs:comment "A mereological role borne by a part that a composition process assembles into a whole."@en ;
+    rdfs:subClassOf pro:MereologicalRole .
+
+pro:WholeRole a owl:Class ;
+    rdfs:label "whole role"@en ;
+    rdfs:comment "A mereological role borne by the whole that a composition process assembles from its parts."@en ;
+    rdfs:subClassOf pro:MereologicalRole .
+
+pro:AgentRole a owl:Class ;
+    rdfs:label "agent role"@en ;
+    rdfs:comment "A role borne by an entity that actively brings about a change during a process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:ContainedRole a owl:Class ;
+    rdfs:label "contained role"@en ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:ContainmentRole a owl:Class ;
+    rdfs:label "containment role"@en ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:EmergingRole a owl:Class ;
+    rdfs:label "emerging role"@en ;
+    rdfs:comment "A role borne by an entity that comes into existence as an outcome of the process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:InstrumentRole a owl:Class ;
+    rdfs:label "instrument role"@en ;
+    rdfs:comment "A role borne by an entity that is used by an agent to bring about a change during a process, without itself being changed."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:OnTopPositionRole a owl:Class ;
+    rdfs:label "on top position role"@en ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:PersistingRole a owl:Class ;
+    rdfs:label "persisting role"@en ;
+    rdfs:comment "A role borne by an entity that continues to exist, in essentially the same form, throughout the process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:SurfacePositionRole a owl:Class ;
+    rdfs:label "surface position role"@en ;
+    rdfs:subClassOf pro:LocationRole .
+
+pro:TransformationProcess a owl:Class ;
+    rdfs:label "transformation process"@en ;
+    rdfs:comment "A process in which one or more participants change their qualities, composition, or identity (e.g. baking, cooking)."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Process> .
+
+pro:MereologicalRole a owl:Class ;
+    rdfs:label "mereological role"@en ;
+    rdfs:comment "A role borne by an entity by virtue of participating in a part-whole composition process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:PatientRole a owl:Class ;
+    rdfs:label "patient role"@en ;
+    rdfs:comment "A role borne by an entity that undergoes a change as a result of a process."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+pro:LocationRole a owl:Class ;
+    rdfs:label "location role"@en ;
+    rdfs:comment "A role borne by an entity that serves as the spatial setting in which a process occurs."@en ;
+    rdfs:subClassOf <https://w3id.org/sulo/Role> .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pro:AgentRole pro:PatientRole pro:InstrumentRole pro:LocationRole pro:PersistingRole pro:EmergingRole ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( pro:ContainmentRole pro:ContainedRole pro:OnTopPositionRole pro:SurfacePositionRole ) .
+

@@ -1,0 +1,4 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+<https://w3id.org/x/demo/> a owl:Ontology ;
+    owl:versionInfo "1.0.0"
+<https://w3id.org/x/demo/A> a owl:Class .

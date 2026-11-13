@@ -6,23 +6,28 @@
 #   target check: "y" = the Location must exist on GitHub Pages (--targets); "-" = skip
 #
 # accept	path	expected location	check
-# --- main ontology and content negotiation
-text/html	/	{pages}/main/	y
-text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	y
-application/rdf+xml	/	{pages}/main/versions/latest/ontostart.owl	y
-application/ld+json	/	{pages}/main/versions/latest/ontostart.jsonld	y
-application/n-triples	/	{pages}/main/versions/latest/ontostart.nt	y
-*/*	/	{pages}/main/	y
-text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8	/	{pages}/main/	y
-application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6, text/plain; q=0.1, */*; q=0.09	/	{pages}/main/versions/latest/ontostart.owl	y
-application/rdf+xml, text/turtle;q=0.1	/	{pages}/main/versions/latest/ontostart.owl	-
-text/turtle, application/rdf+xml;q=0.5	/	{pages}/main/versions/latest/ontostart.ttl	-
-*/*;q=0.1, text/turtle	/	{pages}/main/versions/latest/ontostart.ttl	-
-text/html, text/turtle	/	{pages}/main/	-
-# --- main version IRIs (owl:versionIRI = <w3id folder>/x.y.z)
+# --- catalogue root and content negotiation
+text/html	/	{pages}/	-
+text/turtle	/	{pages}/catalog.ttl	-
+application/rdf+xml	/	{pages}/catalog.owl	-
+application/ld+json	/	{pages}/catalog.jsonld	-
+application/n-triples	/	{pages}/catalog.nt	-
+*/*	/	{pages}/	-
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8	/	{pages}/	-
+application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6, text/plain; q=0.1, */*; q=0.09	/	{pages}/catalog.owl	-
+application/rdf+xml, text/turtle;q=0.1	/	{pages}/catalog.owl	-
+text/turtle, application/rdf+xml;q=0.5	/	{pages}/catalog.ttl	-
+*/*;q=0.1, text/turtle	/	{pages}/catalog.ttl	-
+text/html, text/turtle	/	{pages}/	-
+application/ld+json	/catalog.jsonld	{pages}/catalog.jsonld	-
+text/html	/catalog.ttl	{pages}/catalog.ttl	-
+text/html	/sandbox	{pages}/	-
+text/turtle	/sandbox/	{pages}/	-
+# --- legacy root ontology (legacy_root: main/ontostart.ttl), version IRIs = <w3id folder>/x.y.z
 text/turtle	/0.0.2	{pages}/main/versions/0.0.2/ontostart.ttl	y
 text/html	/0.0.2	{pages}/main/0.0.2/	y
-# --- main branch folder
+text/html	/0.0.2/	{pages}/main/0.0.2/	y
+text/html	/0.0.2/index.html	{pages}/main/0.0.2/index.html	y
 text/turtle	/main/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/main/	{pages}/main/	y
 text/html	/main	{pages}/main/	y
@@ -34,11 +39,27 @@ text/turtle	/versions/latest/	{pages}/main/versions/latest/ontostart.ttl	y
 text/html	/versions	{pages}/main/versions/	-
 text/html	/docs/ontospy/index.html	{pages}/main/docs/ontospy/index.html	y
 text/html	/ontostart.ttl	{pages}/main/versions/latest/ontostart.ttl	y
-# --- main terms
-text/html	/Thing	{pages}/main/docs/ontospy/class-ontostartThing.html	-
-text/html	/hasUnit	{pages}/main/docs/ontospy/prop-ontostarthasUnit.html	-
-text/turtle	/hasUnit	{pages}/main/versions/latest/ontostart.ttl	y
-# --- branch ontologies
+# --- root-level terms of the retired root ontology no longer resolve (passed through)
+text/html	/hasUnit	{pages}/hasUnit	-
+# --- aliases (testo: sandbox/testo), straight to GitHub Pages
+text/turtle	/testo/	{pages}/sandbox/testo/versions/latest/testo.ttl	-
+text/html	/testo	{pages}/sandbox/testo/	-
+text/html	/testo/Pizza	{pages}/sandbox/testo/docs/ontospy/class-testoPizza.html	-
+# --- sandbox ontologies
+text/turtle	/sandbox/alice/	{pages}/sandbox/alice/versions/latest/alice.ttl	-
+text/turtle	/sandbox/alice	{pages}/sandbox/alice/versions/latest/alice.ttl	-
+text/html	/sandbox/alice	{pages}/sandbox/alice/	-
+text/html	/sandbox/alice/1.0.0	{pages}/sandbox/alice/1.0.0/	-
+application/rdf+xml	/sandbox/alice/versions/1.0.0/	{pages}/sandbox/alice/versions/1.0.0/alice.owl	-
+text/html	/sandbox/alice/hasPart	{pages}/sandbox/alice/docs/ontospy/prop-alicehasPart.html	-
+text/turtle	/sandbox/alice/hasPart	{pages}/sandbox/alice/versions/latest/alice.ttl	-
+text/turtle	/sandbox/alice/alice.owl	{pages}/sandbox/alice/versions/latest/alice.owl	-
+text/html	/sandbox/alice/docs/pylode/index.html	{pages}/sandbox/alice/docs/pylode/index.html	-
+text/html	/sandbox/Alice	{pages}/sandbox/Alice	-
+# --- new ontologies resolve without a w3id.org change
+text/turtle	/newonto	{pages}/newonto/versions/latest/newonto.ttl	-
+text/html	/newonto/	{pages}/newonto/	-
+# --- ontologies
 text/turtle	/pizza/	{pages}/pizza/versions/latest/pizza.ttl	y
 text/html	/pizza/	{pages}/pizza/	y
 text/html	/pizza	{pages}/pizza/	y
@@ -51,7 +72,7 @@ text/html	/pizza/versions/1.0.1/	{pages}/pizza/1.0.1/	y
 text/html	/pizza/docs	{pages}/pizza/docs/	-
 text/html	/pizza/docs/pylode/index.html	{pages}/pizza/docs/pylode/index.html	y
 text/html	/pizza/pizza.owl	{pages}/pizza/versions/latest/pizza.owl	y
-# --- branch terms
+# --- ontology terms
 text/html	/pizza/BakingDuration	{pages}/pizza/docs/ontospy/class-pizzaBakingDuration.html	y
 text/turtle	/pizza/BakingDuration	{pages}/pizza/versions/latest/pizza.ttl	y
 text/html	/pro/AgentRole	{pages}/pro/docs/ontospy/class-proAgentRole.html	y

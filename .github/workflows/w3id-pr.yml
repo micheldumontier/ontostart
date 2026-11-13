@@ -32,20 +32,76 @@ on:
         required: false
         default: ""
 
+  # The same inputs, for collection repositories that call this workflow.
+  workflow_call:
+    inputs:
+      W3ID_FOLDER:
+        description: "Identifier: the w3id.org directory ids/<name>, serving https://w3id.org/<name>/"
+        type: string
+        required: true
+      SOURCE_HTACCESS_PATH:
+        description: "Path in the calling repository to the .htaccess to copy"
+        type: string
+        required: true
+      SOURCE_README_PATH:
+        description: "Path in the calling repository to the README.md file to copy"
+        type: string
+        required: true
+      W3ID_FORK_OWNER:
+        description: "Organization to own the fork (leave empty to fork under your user)"
+        type: string
+        required: false
+        default: ""
+      COMMIT_MESSAGE:
+        description: "Git commit message for the .htaccess/README change"
+        type: string
+        required: false
+        default: ""
+      PR_TITLE:
+        description: "Pull request title"
+        type: string
+        required: false
+        default: ""
+      PR_BODY:
+        description: "Pull request body / description"
+        type: string
+        required: false
+        default: ""
+      engine-ref:
+        description: >-
+          Engine version: a ref of micheldumontier/ontostart to pip install,
+          or "" to pip install the checked-out repository itself.
+        type: string
+        required: false
+        default: v1
+    secrets:
+      W3ID_TOKEN:
+        description: >-
+          Token that can fork perma-id/w3id.org and open pull requests there.
+          Define it as a secret of the ontostart-secrets environment, limited to
+          main; the job reads it from there, so callers need not pass it.
+        required: false
+
+# Everything on GitHub is done with W3ID_TOKEN; GITHUB_TOKEN only checks out.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   W3ID_UPSTREAM_REPO: perma-id/w3id.org
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # Run by hand in this repository there is no engine-ref input, so the engine
+  # is installed from this checkout ("").
+  ENGINE_REF: ${{ inputs.engine-ref }}
 
 jobs:
   make-pr:
     runs-on: ubuntu-latest
+    # W3ID_TOKEN is a secret of this environment, whose deployment branches are
+    # limited to main, so a workflow run on any other branch cannot read it.
+    environment: ontostart-secrets
     steps:
       - name: Check out this repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # gh is preinstalled on ubuntu-latest, but this keeps the job portable
       - name: Ensure GitHub CLI is available
@@ -57,19 +113,52 @@ jobs:
           gh --version
 
       - name: Authenticate gh for API and Git
+        env:
+          W3ID_TOKEN: ${{ secrets.W3ID_TOKEN }}
         run: |
-          echo "${{ secrets.W3ID_TOKEN }}" | gh auth login --with-token
+          if [ -z "$W3ID_TOKEN" ]; then
+            echo "::error::W3ID_TOKEN is not set; add it as a secret of the ontostart-secrets environment."
+            exit 1
+          fi
+          echo "$W3ID_TOKEN" | gh auth login --with-token
           gh auth status
           gh auth setup-git
           git config --global user.name  "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Capture inputs
+        env:
+          IN_W3ID_FOLDER: ${{ inputs.W3ID_FOLDER }}
+          IN_SOURCE_HTACCESS_PATH: ${{ inputs.SOURCE_HTACCESS_PATH }}
+          IN_SOURCE_README_PATH: ${{ inputs.SOURCE_README_PATH }}
+          IN_W3ID_FORK_OWNER: ${{ inputs.W3ID_FORK_OWNER }}
         run: |
-          echo "W3ID_FOLDER=${{ inputs.W3ID_FOLDER }}"          >> "$GITHUB_ENV"
-          echo "SOURCE_HTACCESS_PATH=${{ inputs.SOURCE_HTACCESS_PATH }}" >> "$GITHUB_ENV"
-          echo "SOURCE_README_PATH=${{ inputs.SOURCE_README_PATH }}" >> "$GITHUB_ENV"
-          echo "REQ_OWNER=${{ inputs.W3ID_FORK_OWNER }}"         >> "$GITHUB_ENV"
+          {
+            echo "W3ID_FOLDER=${IN_W3ID_FOLDER}"
+            echo "SOURCE_HTACCESS_PATH=${IN_SOURCE_HTACCESS_PATH}"
+            echo "SOURCE_README_PATH=${IN_SOURCE_README_PATH}"
+            echo "REQ_OWNER=${IN_W3ID_FORK_OWNER}"
+          } >> "$GITHUB_ENV"
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      # The committed .htaccess must be exactly what the engine generates from ontostart.yaml.
+      - name: Check the .htaccess is up to date
+        run: |
+          python -m pip install --upgrade pip
+          if [ -z "$ENGINE_REF" ]; then
+            pip install .
+          else
+            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
+          fi
+          ontostart htaccess --out "$RUNNER_TEMP/htaccess"
+          if ! diff -u "$RUNNER_TEMP/htaccess" "$SOURCE_HTACCESS_PATH"; then
+            echo "::error::$SOURCE_HTACCESS_PATH differs from \`ontostart htaccess\`; regenerate and commit it."
+            exit 1
+          fi
 
       # Runs the .htaccess in Apache and checks it against the expected redirects
       # before proposing it to w3id.org.
@@ -91,7 +180,7 @@ jobs:
           FORK_OWNER="${GITHUB_ACTOR}"
           TARGET_IS_ORG="false"
           if [ -n "${REQ_OWNER}" ]; then
-            TYPE="$(gh api users/${REQ_OWNER} -q .type || echo unknown)"
+            TYPE="$(gh api "users/${REQ_OWNER}" -q .type || echo unknown)"
             if [ "${TYPE}" = "Organization" ]; then
               FORK_OWNER="${REQ_OWNER}"
               TARGET_IS_ORG="true"
@@ -136,6 +225,8 @@ jobs:
           git fetch upstream "${BASE_BRANCH}"
 
       - name: Create branch and copy .htaccess AND README.md
+        env:
+          IN_COMMIT_MESSAGE: ${{ inputs.COMMIT_MESSAGE }}
         run: |
           cd "${CLONED_DIR}"
           BRANCH="${W3ID_FOLDER}-$(date +%Y%m%d%H%M%S)"
@@ -156,7 +247,7 @@ jobs:
 
           git add "${ID_DIR}/.htaccess" "${ID_DIR}/README.md" || true
 
-          COMMIT_MSG="${{ inputs.COMMIT_MESSAGE }}"
+          COMMIT_MSG="${IN_COMMIT_MESSAGE}"
           if [ -z "${COMMIT_MSG}" ]; then
             COMMIT_MSG="${W3ID_FOLDER}: update redirects"
           fi
@@ -181,14 +272,17 @@ jobs:
           git push -u fork "${BRANCH}"
 
       - name: Open/Reuse Pull Request to upstream
+        env:
+          IN_PR_TITLE: ${{ inputs.PR_TITLE }}
+          IN_PR_BODY: ${{ inputs.PR_BODY }}
         run: |
           set -e
           # Try to create the PR; if it already exists, just show it
-          PR_TITLE="${{ inputs.PR_TITLE }}"
+          PR_TITLE="${IN_PR_TITLE}"
           if [ -z "${PR_TITLE}" ]; then
             PR_TITLE="${W3ID_FOLDER}: update redirects"
           fi
-          PR_BODY="${{ inputs.PR_BODY }}"
+          PR_BODY="${IN_PR_BODY}"
           if [ -z "${PR_BODY}" ]; then
             PR_BODY="Updates \`${ID_DIR}/.htaccess\` (and README.md) with the redirects for https://w3id.org/${W3ID_FOLDER}/."
           fi

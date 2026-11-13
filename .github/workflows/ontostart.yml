@@ -1,0 +1,53 @@
+# Builds, checks and publishes this collection's ontologies with the reusable
+# build workflow. This repository is also the engine, so it installs the engine
+# from its own checkout (engine-ref: ""); other collections use
+# micheldumontier/ontostart/.github/workflows/build.yml@v1 and leave engine-ref out.
+# A sandbox/<name> branch installs the engine from main instead, so an old
+# student branch does not regenerate the root catalogue with a stale engine.
+#
+# GIST_TOKEN (and W3ID_TOKEN for w3id-pr.yml) are secrets of the environment
+# "ontostart-secrets", limited to the main branch; they are not passed from here.
+# See the header of build.yml for how to set that environment up.
+name: ontostart
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+    paths:
+      - "ontologies/**"
+      - "sandbox/**"
+      - "ontostart.yaml"
+  pull_request:
+    paths:
+      - "ontologies/**"
+      - "sandbox/**"
+      - "ontostart.yaml"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Build only this path (e.g. "pizza" or "sandbox/testo"); empty builds all'
+        type: string
+        required: false
+        default: ""
+      bump:
+        description: Bump the version and commit it back
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: ontostart-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  ontostart:
+    if: github.actor != 'github-actions[bot]'
+    uses: ./.github/workflows/build.yml
+    with:
+      engine-ref: ${{ startsWith(github.ref_name, 'sandbox/') && 'main' || '' }}
+      only: ${{ inputs.only || '' }}
+      bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}
