@@ -51,3 +51,6 @@ jobs:
       engine-ref: ${{ startsWith(github.ref_name, 'sandbox/') && 'main' || '' }}
       only: ${{ inputs.only || '' }}
       bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}
+    # Needed for the called workflow's `environment: ontostart-secrets` job to
+    # see that environment's secrets. No repository-level secrets exist.
+    secrets: inherit
