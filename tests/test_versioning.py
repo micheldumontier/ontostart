@@ -5,7 +5,8 @@ from pathlib import Path
 
 import pytest
 from rdflib import Graph, Literal, URIRef
-from rdflib.namespace import DCTERMS, OWL, XSD
+from rdflib.namespace import DCTERMS, OWL
+import rdflib.namespace as rdfns
 
 from ontostart.cli import main
 from ontostart.versioning import (
@@ -40,8 +41,13 @@ def test_bump_patch(ttl):
     g = load(ttl)
     assert g.value(ONTO, OWL.versionIRI) == URIRef(BASE + "0.0.2")
     assert [str(o) for o in g.objects(ONTO, OWL.versionInfo)] == ["0.0.2"]
-    assert g.value(ONTO, DCTERMS.issued) == Literal("2026-11-13", datatype=XSD.date)
+    assert g.value(ONTO, DCTERMS.issued) == Literal("2026-11-13", datatype=rdfns.XSD.date)
     assert g.value(ONTO, DCTERMS.modified).toPython() == NOW
+
+
+def test_bump_rejects_naive_now(ttl):
+    with pytest.raises(ValueError, match="timezone-aware"):
+        bump_version(ttl, BASE, ttl.parent / "versions", datetime(2026, 11, 13))
 
 
 def test_bump_links_prior_version(ttl):
@@ -61,7 +67,7 @@ def test_bump_no_prior_without_snapshot(ttl):
 
 def test_bump_keeps_created(ttl):
     g = load(ttl)
-    created = Literal("2020-01-01T00:00:00+00:00", datatype=XSD.dateTime)
+    created = Literal("2020-01-01T00:00:00+00:00", datatype=rdfns.XSD.dateTime)
     g.add((ONTO, DCTERMS.created, created))
     g.serialize(ttl, format="turtle")
     bump_version(ttl, BASE, ttl.parent / "versions", NOW)
@@ -141,3 +147,13 @@ def test_cli_reports_iri_error(ttl, monkeypatch, capsys):
     monkeypatch.chdir(root)
     assert main(["version", "--target-json", json.dumps(data), "--bump"]) == 1
     assert "expected owl:Ontology" in capsys.readouterr().err
+
+
+def test_cli_version_without_version_info(ttl, monkeypatch, capsys):
+    g = load(ttl)
+    g.remove((ONTO, OWL.versionInfo, None))
+    g.serialize(ttl, format="turtle")
+    tj, root = _target_json(ttl)
+    monkeypatch.chdir(root)
+    assert main(["version", "--target-json", tj]) == 1
+    assert "no owl:versionInfo" in capsys.readouterr().err

@@ -20,3 +20,4 @@ packages = ["src/ontostart"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = ["ignore:ConjunctiveGraph is deprecated:DeprecationWarning"]

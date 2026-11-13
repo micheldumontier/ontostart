@@ -40,7 +40,11 @@ def current_version(file: Path, base_iri: str) -> str | None:
 
 def bump_version(file: Path, base_iri: str, versions_dir: Path, now: datetime) -> str:
     """Bump the patch version in place and return the new version."""
-    g = _load(file, base_iri)
+    if now.tzinfo is None or now.utcoffset() is None:
+        raise ValueError("now must be a timezone-aware datetime")
+    check_ontology_iri(file, base_iri)
+    g = Graph()
+    g.parse(file)
     onto = URIRef(base_iri)
     old = g.value(onto, OWL.versionInfo)
     old = "0.0.0" if old is None else str(old).strip()
@@ -77,6 +81,6 @@ def write_variants(file: Path, out_dir: Path, name: str) -> list[Path]:
     paths = []
     for ext, fmt in formats:
         path = out_dir / f"{name}.{ext}"
-        g.serialize(destination=path, format=fmt)
+        g.serialize(destination=path, format=fmt, encoding="utf-8")
         paths.append(path)
     return paths
