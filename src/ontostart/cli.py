@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .badges import badge_files, push_badges
+from .catalogue import build_catalogue
 from .checks import CheckReport, run_checks
 from .config import ConfigError, load_config
 from .foops import FoopsSummary, summarize_foops, write_foops_page
@@ -131,6 +132,12 @@ def _badges(args: argparse.Namespace) -> int:
     return 0
 
 
+def _catalogue(args: argparse.Namespace) -> int:
+    config = load_config(Path.cwd() / "ontostart.yaml")
+    build_catalogue(Path(args.site), config)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ontostart")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -172,6 +179,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--gist", required=True)
     p.add_argument("--deployed", nargs="*")
     p.set_defaults(func=_badges)
+    p = sub.add_parser("catalogue", help="build the root catalogue page and DCAT files")
+    p.add_argument("--site", required=True)
+    p.set_defaults(func=_catalogue)
     args = parser.parse_args(argv)
     try:
         return args.func(args)
