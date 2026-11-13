@@ -61,3 +61,36 @@ def test_catalog_files_parse(tmp_path):
         for e, f in [("ttl", "turtle"), ("jsonld", "json-ld"), ("nt", "nt"), ("owl", "xml")]
     }
     assert len(set(sizes.values())) == 1 and sizes["ttl"] > 0
+
+
+def test_catalogue_is_deterministic(tmp_path):
+    # Unchanged content must give byte-identical files, so concurrent publishes rebase cleanly.
+    site = _site(tmp_path)
+    build_catalogue(site, CONFIG)
+    first = {e: (site / f"catalog.{e}").read_bytes() for e in ("ttl", "jsonld", "nt", "owl")}
+    first["index.html"] = (site / "index.html").read_bytes()
+    build_catalogue(site, CONFIG)
+    for name, data in first.items():
+        path = site / (name if name == "index.html" else f"catalog.{name}")
+        assert path.read_bytes() == data, name
+
+
+def test_catalogue_is_deterministic_across_hash_seeds(tmp_path):
+    # Blank-node ids and serialisation order must not depend on PYTHONHASHSEED.
+    import os
+    import subprocess
+    import sys
+
+    code = (
+        "import sys; from pathlib import Path; from ontostart.catalogue import build_catalogue; "
+        "from ontostart.config import Config; "
+        "build_catalogue(Path(sys.argv[1]), Config(w3id='ontostart', pages='https://example.github.io/ontostart'))"
+    )
+    outputs = []
+    for seed in ("1", "2"):
+        site = _site(tmp_path / seed)
+        env = {**os.environ, "PYTHONHASHSEED": seed}
+        subprocess.run([sys.executable, "-c", code, str(site)], check=True, env=env)
+        outputs.append({e: (site / f"catalog.{e}").read_bytes() for e in ("ttl", "jsonld", "nt", "owl")})
+    for ext in outputs[0]:
+        assert outputs[0][ext] == outputs[1][ext], ext

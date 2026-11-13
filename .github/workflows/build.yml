@@ -2,6 +2,8 @@
 #
 # Called from a collection repository's .github/workflows/ontostart.yml:
 #
+#   permissions:
+#     contents: write
 #   jobs:
 #     ontostart:
 #       uses: micheldumontier/ontostart/.github/workflows/build.yml@v1
@@ -9,6 +11,16 @@
 #
 # Every inputs.* and github.event.* value reaches the shell only
 # through env:, never inline in run:.
+#
+# Runs on one ref are serialised by the caller's concurrency group, and every
+# publish job (from any ref) by the ontostart-gh-pages group below. For push and
+# workflow_dispatch the jobs check out the ref's tip, not github.sha, so a run
+# queued behind another builds on top of that run's bump commit instead of
+# bumping the same version again; the plan still diffs only this push's commits
+# (before..github.sha). GitHub keeps one pending run per concurrency group: if
+# three or more pushes land while a run is in progress, the middle pending run
+# is cancelled, and its folders are rebuilt only on their next change or a
+# manual run. The same holds for publish jobs queued on ontostart-gh-pages.
 name: ontostart build
 
 on:
@@ -53,6 +65,9 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The ref's tip (it may already hold an earlier run's bump commit); the PR merge commit for PRs.
+          ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -75,6 +90,7 @@ jobs:
           REF: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
           PUSH_BEFORE: ${{ github.event.before }}
           PR_BASE: ${{ github.event.pull_request.base.sha }}
+          EVENT_SHA: ${{ github.sha }}
           ONLY: ${{ inputs.only }}
           BUMP: ${{ inputs.bump }}
         run: |
@@ -85,13 +101,16 @@ jobs:
           esac
           args=(--ref "$REF" --event "$EVENT")
           changed="$RUNNER_TEMP/changed.txt"
+          # Diff only this event's commits (base..github.sha): HEAD may be a newer tip that
+          # holds an earlier run's bump commit, which must not be planned again.
           if [ -n "$base" ] && ! [[ "$base" =~ ^0+$ ]]; then
-            if git fetch --no-tags --depth=1 origin "$base" && git diff --name-only "$base" HEAD > "$changed"; then
-              echo "Changed files ($base..HEAD):"
+            if git fetch --no-tags --depth=1 origin "$base" "$EVENT_SHA" \
+                && git diff --name-only "$base" "$EVENT_SHA" > "$changed"; then
+              echo "Changed files ($base..$EVENT_SHA):"
               cat "$changed"
               args+=(--changed-file "$changed")
             else
-              echo "::warning::could not diff $base..HEAD; planning every ontology"
+              echo "::warning::could not diff $base..$EVENT_SHA; planning every ontology"
             fi
           fi
           if [ -n "$ONLY" ]; then args+=(--only "$ONLY"); fi
@@ -131,6 +150,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
           persist-credentials: false
 
       - name: Set up Python
@@ -302,10 +322,14 @@ jobs:
   publish:
     needs: [plan, build]
     if: >-
-      always() && needs.plan.result == 'success'
+      !cancelled() && needs.plan.result == 'success'
       && needs.plan.outputs.publish == 'true'
       && needs.plan.outputs.has-targets == 'true'
     runs-on: ubuntu-latest
+    # Every ref publishes into the one gh-pages branch and regenerates the catalogue.
+    concurrency:
+      group: ontostart-gh-pages
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
@@ -318,6 +342,9 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The ref's tip (it may already hold an earlier run's bump commit); the PR merge commit for PRs.
+          ref: ${{ github.event_name == 'pull_request' && github.sha || github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -426,7 +453,7 @@ jobs:
           fi
 
       - name: Badges
-        if: always() && steps.sort.outcome == 'success'
+        if: ${{ !cancelled() && steps.sort.outcome == 'success' }}
         continue-on-error: true
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
@@ -436,10 +463,10 @@ jobs:
           if [ "$PAGES_OK" = true ]; then
             while read -r safe _; do deployed+=("$safe"); done < "$RUNNER_TEMP/ready.txt"
           fi
-          ontostart badges --results "$ARTIFACTS" --gist "$(jq -r .gist_id <<<"$PLAN")" --deployed "${deployed[@]}"
+          ontostart badges --results "$ARTIFACTS" --gist "$(jq -r '.gist_id // empty' <<<"$PLAN")" --deployed "${deployed[@]}"
 
       - name: Report blocked ontologies
-        if: always() && steps.sort.outcome == 'success'
+        if: ${{ !cancelled() && steps.sort.outcome == 'success' }}
         run: |
           if [ ! -s "$RUNNER_TEMP/blocked.txt" ]; then
             exit 0

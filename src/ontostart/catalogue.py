@@ -71,7 +71,9 @@ def _section(label: str, entries: list[dict]) -> str:
 
 
 def _dcat(entries: list[dict], config: Config) -> Graph:
-    g = Graph()
+    # SimpleMemory keeps insertion order (the default store iterates a set), so the
+    # N-Triples and RDF/XML files are byte-identical when nothing changed.
+    g = Graph(store="SimpleMemory")
     g.bind("dcat", DCAT)
     g.bind("dcterms", DCTERMS)
     g.bind("owl", OWL)
@@ -91,8 +93,10 @@ def _dcat(entries: list[dict], config: Config) -> Graph:
         if m.get("version"):
             g.add((ds, OWL.versionInfo, Literal(m["version"])))
         g.add((ds, DCAT.landingPage, URIRef(landing)))
+        safe = str(m["path"]).replace("/", "-")
         for ext, _, media in FORMATS:
-            dist = BNode()
+            # A fixed blank-node id keeps the files byte-identical when nothing changed.
+            dist = BNode(f"dist-{safe}-{ext}")
             g.add((ds, DCAT.distribution, dist))
             g.add((dist, RDF.type, DCAT.Distribution))
             g.add((dist, DCAT.downloadURL, URIRef(f"{landing}versions/latest/{m['name']}.{ext}")))
@@ -115,4 +119,11 @@ def build_catalogue(site_root: Path, config: Config) -> None:
     )
     g = _dcat(entries, config)
     for ext, fmt, _ in FORMATS:
-        g.serialize(destination=site_root / f"catalog.{ext}", format=fmt, encoding="utf-8")
+        text = g.serialize(format=fmt)
+        if fmt == "json-ld":
+            # rdflib emits the top-level nodes in set order; sort them so the file is stable.
+            nodes = json.loads(text)
+            if isinstance(nodes, list):
+                nodes.sort(key=lambda node: str(node.get("@id", "")))
+            text = json.dumps(nodes, indent=2, ensure_ascii=False) + "\n"
+        (site_root / f"catalog.{ext}").write_text(text, encoding="utf-8")
