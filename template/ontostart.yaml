@@ -1,0 +1,7 @@
+# Run `ontostart init` (see README.md) to fill in this file.
+w3id: CHANGEME                                    # https://w3id.org/CHANGEME/
+pages: https://OWNER.github.io/REPO
+gist_id: ""                                       # badges; empty disables them
+sandbox: false
+foops: true
+term_docs: ontospy                                # or "site"

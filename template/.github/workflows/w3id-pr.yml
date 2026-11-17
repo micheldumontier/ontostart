@@ -1,0 +1,44 @@
+# Opens a pull request against perma-id/w3id.org with this collection's
+# redirects (apache/web/CHANGEME/), using the reusable OntoStart workflow.
+# `ontostart init` replaces CHANGEME below with your w3id name.
+name: Propose w3id.org redirects
+
+on:
+  workflow_dispatch:
+    inputs:
+      W3ID_FORK_OWNER:
+        description: "Organization to own the fork (leave empty to fork under your user)"
+        required: false
+        default: ""
+      COMMIT_MESSAGE:
+        description: "Git commit message for the .htaccess/README change"
+        required: false
+        default: ""
+      PR_TITLE:
+        description: "Pull request title"
+        required: false
+        default: ""
+      PR_BODY:
+        description: "Pull request body / description"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  w3id-pr:
+    uses: micheldumontier/ontostart/.github/workflows/w3id-pr.yml@v1
+    with:
+      W3ID_FOLDER: CHANGEME
+      SOURCE_HTACCESS_PATH: apache/web/CHANGEME/.htaccess
+      SOURCE_README_PATH: apache/web/CHANGEME/README.md
+      W3ID_FORK_OWNER: ${{ inputs.W3ID_FORK_OWNER }}
+      COMMIT_MESSAGE: ${{ inputs.COMMIT_MESSAGE }}
+      PR_TITLE: ${{ inputs.PR_TITLE }}
+      PR_BODY: ${{ inputs.PR_BODY }}
+      engine-ref: v1
+    # Tokens are passed by name so this works from any account; they live only
+    # in the ontostart-secrets environment.
+    secrets:
+      W3ID_TOKEN: ${{ secrets.W3ID_TOKEN }}

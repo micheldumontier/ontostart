@@ -1,0 +1,51 @@
+# Builds, checks and publishes this collection's ontologies with the reusable
+# OntoStart build workflow, pinned to the v1 release of the engine.
+#
+# GIST_TOKEN (and W3ID_TOKEN for w3id-pr.yml) are secrets of the environment
+# "ontostart-secrets", limited to the main branch; they are not passed from here.
+# See README.md for how to set that environment up.
+name: ontostart
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+    paths:
+      - "ontologies/**"
+      - "ontostart.yaml"
+  pull_request:
+    paths:
+      - "ontologies/**"
+      - "ontostart.yaml"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Build only this path (e.g. "testo"); empty builds all'
+        type: string
+        required: false
+        default: ""
+      bump:
+        description: Bump the version and commit it back
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: ontostart-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  ontostart:
+    if: github.actor != 'github-actions[bot]'
+    uses: micheldumontier/ontostart/.github/workflows/build.yml@v1
+    with:
+      engine-ref: v1
+      only: ${{ inputs.only || '' }}
+      bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}
+    # Tokens are passed by name so this works from any account; they live only
+    # in the ontostart-secrets environment.
+    secrets:
+      GIST_TOKEN: ${{ secrets.GIST_TOKEN }}

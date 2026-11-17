@@ -15,6 +15,7 @@ from .checks import CheckReport, run_checks
 from .config import ConfigError, load_config
 from .foops import FoopsSummary, summarize_foops, write_foops_page
 from .htaccess import render_htaccess
+from .init import init_repo
 from .site import SiteContext, _metadata, build_site
 from .targets import Target, make_plan
 from .versioning import (
@@ -162,6 +163,17 @@ def _htaccess(args: argparse.Namespace) -> int:
     return 0
 
 
+def _init(args: argparse.Namespace) -> int:
+    try:
+        changed = init_repo(Path(args.root), args.w3id, args.owner, args.repo, args.gist)
+    except ConfigError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+    for path in changed:
+        print(path)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="ontostart")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -214,6 +226,13 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("htaccess", help="write the w3id.org .htaccess")
     p.add_argument("--out", help="default: apache/web/<w3id>/.htaccess")
     p.set_defaults(func=_htaccess)
+    p = sub.add_parser("init", help="set up a repository made from the OntoStart template")
+    p.add_argument("--w3id", required=True, help="name under https://w3id.org/")
+    p.add_argument("--owner", required=True, help="GitHub user or organization")
+    p.add_argument("--repo", required=True, help="GitHub repository name")
+    p.add_argument("--gist", default="", help="gist id for badges")
+    p.add_argument("--root", default=".")
+    p.set_defaults(func=_init)
     args = parser.parse_args(argv)
     try:
         return args.func(args)

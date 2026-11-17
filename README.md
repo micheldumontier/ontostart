@@ -14,7 +14,7 @@ What you get for every ontology:
 * rich ontology metadata, as per the FAIR principles
 * GitHub Actions that check the OWL 2 DL profile and consistency (ROBOT with HermiT), bump the version on commit, write Turtle, RDF/XML, JSON-LD and N-Triples files, generate documentation (OntoSpy and pyLODE), run a FOOPS! FAIRness assessment, and publish a website to GitHub Pages
 
-A template repository, `micheldumontier/ontostart-template`, for publishing your own collection under your own w3id.org identifier is coming soon. It doesn't exist yet.
+To publish your own collection under your own w3id.org identifier, start from the template repository <https://github.com/micheldumontier/ontostart-template> and run `ontostart init`; its README has the steps.
 
 ## The collection
 
