@@ -15,7 +15,7 @@ from .checks import CheckReport, run_checks
 from .config import ConfigError, load_config
 from .foops import FoopsSummary, summarize_foops, write_foops_page
 from .htaccess import render_htaccess
-from .init import init_repo
+from .init import PLACEHOLDER, init_repo
 from .site import SiteContext, _metadata, build_site
 from .targets import Target, make_plan
 from .versioning import (
@@ -40,8 +40,15 @@ def _plan(args: argparse.Namespace) -> int:
         lines = Path(args.changed_file).read_text().splitlines()
         changed = [line.strip() for line in lines if line.strip()]
     plan = make_plan(root, config, args.ref, args.event, changed, args.only, args.bump)
+    targets = plan.targets
+    if config.w3id == PLACEHOLDER:
+        # A repository just created from the template: building it would publish
+        # placeholder IRIs and push a version bump the user's init commit conflicts with.
+        print("::notice::Not initialised yet (w3id is still CHANGEME); run "
+              "`ontostart init` (see README.md) and push. Nothing is built.", file=sys.stderr)
+        targets = []
     print(json.dumps({
-        "targets": [t.to_json() for t in plan.targets],
+        "targets": [t.to_json() for t in targets],
         "publish": plan.publish,
         "bump": plan.bump,
         "foops": config.foops,

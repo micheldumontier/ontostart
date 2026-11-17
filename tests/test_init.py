@@ -1,3 +1,4 @@
+import json
 import shutil
 from pathlib import Path
 
@@ -76,3 +77,11 @@ def test_template_does_not_leak_identity():
         for line in (TEMPLATE / rel).read_text().splitlines():
             if "micheldumontier" in line:
                 assert "uses: micheldumontier/ontostart/.github/workflows/" in line or line.lstrip().startswith("#")
+
+
+def test_plan_skips_uninitialised_template(repo, capsys, monkeypatch):
+    monkeypatch.chdir(repo)
+    assert main(["plan", "--ref", "main", "--event", "push"]) == 0
+    out = capsys.readouterr()
+    assert json.loads(out.out)["targets"] == []
+    assert "ontostart init" in out.err
