@@ -39,7 +39,9 @@ permissions:
 
 jobs:
   ontostart:
-    if: github.actor != 'github-actions[bot]'
+    # The template repository itself has no w3id name yet, so it
+    # does not build; repositories created from it do.
+    if: github.actor != 'github-actions[bot]' && !github.event.repository.is_template
     uses: micheldumontier/ontostart/.github/workflows/build.yml@v1
     with:
       engine-ref: v1

@@ -5,7 +5,7 @@ A collection of ontologies published with [OntoStart](https://github.com/micheld
 ## Set up
 
 1. Click **Use this template** to create your repository.
-2. In a clone of it, run init with the w3id.org name you want (lower case letters, digits and `-`), your GitHub account and the repository name:
+2. In a clone of it (you need `git` and [uv](https://docs.astral.sh/uv/)), run init with the w3id.org name you want (lower case letters, digits and `-`), your GitHub account and the repository name:
 
    ```
    uvx --from git+https://github.com/micheldumontier/ontostart@v1.1 ontostart init --w3id NAME --owner OWNER --repo REPO

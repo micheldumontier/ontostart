@@ -74,8 +74,6 @@ testo: a owl:Ontology ;
     dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> ;
     dcterms:bibliographicCitation "Unpublished"@en ;
     dcterms:title "Ontostart Test Ontology"@en ;
-    vann:preferredNamespacePrefix "testo" ;
-    vann:preferredNamespaceUri testo: ;
     dcat:accessURL <https://w3id.org/CHANGEME/testo/versions/latest/testo.ttl> ;
     owl:imports <https://w3id.org/sulo/> ;
     mod:definitionProperty rdfs:comment ;
