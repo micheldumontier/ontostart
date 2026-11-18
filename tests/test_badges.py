@@ -127,3 +127,14 @@ def test_badges_command_reports_failure_in_one_line(monkeypatch, tmp_path, capsy
     out = capsys.readouterr()
     assert out.out == "::warning title=Badges not updated::HTTP 401 from the gist API: Bad credentials (check GIST_TOKEN and gist_id)\n"
     assert "Traceback" not in out.err
+
+
+@pytest.mark.parametrize("report,message,color", [
+    (CheckReport(True, ReasonResult("consistent"), None, None, None), "success", "brightgreen"),
+    (CheckReport(False, ReasonResult("consistent"), None, None, None), "failure", "red"),
+    (CheckReport(False, ReasonResult("error"), None, None, None, profile_error="Could not load"), "error", "red"),
+    (CheckReport(False, ReasonResult("error"), None, None, None, timed_out=["profile"]), "error", "red"),
+])
+def test_profile_badge_tells_failure_from_error(report, message, color):
+    badge = badge_files(target(), report, "", {}, None, None)["ontology-ci-profile-sandbox-testo.json"]
+    assert (badge["message"], badge["color"]) == (message, color)

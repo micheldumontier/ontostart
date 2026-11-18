@@ -21,6 +21,13 @@ def _ok(flag: bool) -> tuple[str, str]:
     return ("success", "brightgreen") if flag else ("failure", "red")
 
 
+def _profile(report: CheckReport) -> tuple[str, str]:
+    """"error" when the check could not run (ROBOT failed or timed out), not a profile violation."""
+    if report.profile_error or "profile" in report.timed_out:
+        return ("error", "red")
+    return _ok(report.profile_ok)
+
+
 def badge_files(
     target: Target,
     report: CheckReport,
@@ -31,7 +38,7 @@ def badge_files(
 ) -> dict[str, dict]:
     """Badges for steps missing from ``steps``, an empty version, or None flags are omitted."""
     badges = {
-        "profile": _badge("OWL DL Profile", *_ok(report.profile_ok)),
+        "profile": _badge("OWL DL Profile", *_profile(report)),
         "reason": _badge("Reasoning", report.reason.message, report.reason.color),
     }
     if version:

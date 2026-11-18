@@ -20,6 +20,25 @@ _COLORS = {"consistent": "brightgreen", "unsatisfiable": "orange", "inconsistent
 # inside the build job's 30-minute limit and a timeout is reported as one.
 CHECK_BUDGET = 900
 BLOCKING_STEPS = ("profile", "reason", "compare")  # a timeout of "explain" does not block
+PROFILE_VIOLATION = "PROFILE VIOLATION ERROR"  # what validate-profile prints for a real violation
+_BOILERPLATE = ("Use the -vvv option", "Use the --help option", "For details see:")
+_LOG_PREFIX = re.compile(r"^\d{4}-\d\d-\d\d [\d:,]+ [A-Z]+ \S+ - ")
+_EXCEPTION_PREFIX = re.compile(r"^(?:[a-z_]\w*\.)+[A-Z]\w*(?:Exception|Error): ")
+
+
+def robot_error_cause(output: str) -> str:
+    """The message of a failed ROBOT run: its last line, without Java class names or help text."""
+    lines = [
+        line.strip() for line in output.splitlines()
+        if line.strip() and not line.strip().startswith(_BOILERPLATE)
+    ]
+    if not lines:
+        return "ROBOT stopped without a message"
+    cause = _LOG_PREFIX.sub("", lines[-1])
+    while _EXCEPTION_PREFIX.match(cause):
+        cause = _EXCEPTION_PREFIX.sub("", cause, count=1)
+    cause = cause.removeprefix("error: ")
+    return cause if len(cause) <= 300 else cause[:299] + "…"
 
 
 @dataclass(frozen=True)
@@ -57,6 +76,7 @@ class CheckReport:
     parse_error: str | None = None
     logs: dict[str, str] = field(default_factory=dict)  # step -> path of its ROBOT output
     timed_out: list[str] = field(default_factory=list)  # steps that ran out of time or were not run
+    profile_error: str | None = None  # why validate-profile failed, when it did not report a violation
 
     def blocked_reason(self) -> str | None:
         if self.parse_error:
@@ -69,6 +89,8 @@ class CheckReport:
                 f"ROBOT did not finish in time ({', '.join(late)}); "
                 f"the checks of one ontology may take {CHECK_BUDGET // 60} minutes in total"
             )
+        if self.profile_error:
+            return f"profile check failed: {self.profile_error}"
         if not self.profile_ok:
             return "ontology is not in the OWL DL profile"
         if self.reason.kind == "inconsistent":
@@ -95,6 +117,7 @@ class CheckReport:
             "parse_error": self.parse_error,
             "logs": dict(self.logs),
             "timed_out": list(self.timed_out),
+            "profile_error": self.profile_error,
         }
 
     @classmethod
@@ -109,6 +132,7 @@ class CheckReport:
             parse_error=data.get("parse_error"),
             logs=dict(data.get("logs") or {}),
             timed_out=list(data.get("timed_out") or []),
+            profile_error=data.get("profile_error"),
         )
 
 
@@ -177,8 +201,12 @@ def run_checks(
         # ROBOT would fail on the same file; skip it.
         return CheckReport(False, ReasonResult("error"), None, None, None, parse_error=parse_error)
 
-    code, _ = run_step("profile", robot + ["validate-profile"] + catalog + ["--profile", "DL", "--input", file])
+    code, out = run_step("profile", robot + ["validate-profile"] + catalog + ["--profile", "DL", "--input", file])
     profile_ok = code == 0
+    # A timeout is reported through timed_out; any other failure without a violation report is ROBOT's own.
+    profile_error = None
+    if code not in (0, 124) and PROFILE_VIOLATION not in out:
+        profile_error = robot_error_cause(out)
 
     code, out = run_step(
         "reason",
@@ -210,4 +238,7 @@ def run_checks(
         )
         expected = classify_reasoning(code, out).unsatisfiable
 
-    return CheckReport(profile_ok, reason, expected, iri_error, explanation, logs=logs, timed_out=timed_out)
+    return CheckReport(
+        profile_ok, reason, expected, iri_error, explanation,
+        logs=logs, timed_out=timed_out, profile_error=profile_error,
+    )

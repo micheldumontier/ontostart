@@ -326,3 +326,69 @@ def test_report_without_timed_out_field_still_loads():
     data = report().to_json()
     del data["timed_out"]
     assert CheckReport.from_json(data).timed_out == []
+
+
+# validate-profile output of ROBOT 1.9.8, captured from real runs.
+PROFILE_VIOLATION = """OWL 2 DL Profile Report: Ontology and imports closure NOT in profile. The following violations are present:
+Cannot pun between properties: <https://w3id.org/x/demo/p> [Declaration(ObjectProperty(<https://w3id.org/x/demo/p>))]
+
+PROFILE VIOLATION ERROR https://w3id.org/x/demo/ violates profile DL
+For details see: http://robot.obolibrary.org/validate-profile#profile-violation-error
+Use the -vvv option to show the stack trace.
+Use the --help option to see usage information.
+"""
+UNLOADABLE_IMPORT = """org.semanticweb.owlapi.model.UnloadableImportException: Could not load imported ontology: <https://example.invalid/missing.owl> Cause: example.invalid
+Use the -vvv option to show the stack trace.
+Use the --help option to see usage information.
+"""
+MISSING_FILE = """org.semanticweb.owlapi.io.OWLOntologyInputSourceException: java.io.FileNotFoundException: nosuchfile.ttl (No such file or directory)
+Use the -vvv option to show the stack trace.
+Use the --help option to see usage information.
+"""
+
+
+@pytest.mark.parametrize("output,cause", [
+    (UNLOADABLE_IMPORT, "Could not load imported ontology: <https://example.invalid/missing.owl> Cause: example.invalid"),
+    (MISSING_FILE, "nosuchfile.ttl (No such file or directory)"),
+    ("error: cannot run java: [Errno 2] No such file or directory: 'java'\n",
+     "cannot run java: [Errno 2] No such file or directory: 'java'"),
+    ("2026-11-18 15:03:31,753 ERROR org.obolibrary.robot.IOHelper - Java heap space\n", "Java heap space"),
+    ("", "ROBOT stopped without a message"),
+])
+def test_robot_error_cause(output, cause):
+    assert checks.robot_error_cause(output) == cause
+
+
+def _profile_run(code, output):
+    def fake(args, cwd):
+        if args[3] == "validate-profile":
+            return code, output
+        return 0, ""
+    return fake
+
+
+def test_profile_violation_is_reported_as_such(tmp_path):
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=_profile_run(1, PROFILE_VIOLATION))
+    assert rep.profile_ok is False and rep.profile_error is None
+    assert rep.blocked_reason() == "ontology is not in the OWL DL profile"
+
+
+def test_robot_failure_is_not_reported_as_a_profile_violation(tmp_path):
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=_profile_run(1, UNLOADABLE_IMPORT))
+    assert rep.profile_ok is False
+    assert rep.blocked_reason() == (
+        "profile check failed: Could not load imported ontology: "
+        "<https://example.invalid/missing.owl> Cause: example.invalid"
+    )
+    assert CheckReport.from_json(rep.to_json()) == rep
+
+
+def test_profile_timeout_sets_no_profile_error(tmp_path):
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=_profile_run(124, "timed out"))
+    assert rep.profile_error is None and rep.timed_out == ["profile"]
+
+
+def test_report_without_profile_error_field_still_loads():
+    data = report().to_json()
+    del data["profile_error"]
+    assert CheckReport.from_json(data).profile_error is None
