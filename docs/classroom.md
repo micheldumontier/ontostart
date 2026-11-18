@@ -13,11 +13,12 @@ cp -r sandbox/testo sandbox/<name>
 rm -rf sandbox/<name>/versions       # CI regenerates it
 mv sandbox/<name>/testo.ttl sandbox/<name>/<name>.ttl
 perl -pi -e 's/\btesto\b/<name>/g' sandbox/<name>/<name>.ttl
+perl -pi -e 's/(owl:versionInfo\s+)"[^"]*"/$1"0.0.0"/' sandbox/<name>/<name>.ttl
 ```
 
-The `perl` command replaces every lowercase word `testo` in `<name>.ttl` with `<name>`: the IRIs (`https://w3id.org/ontostart/sandbox/testo/` becomes `https://w3id.org/ontostart/sandbox/<name>/`), the file name in URLs (`testo.ttl` becomes `<name>.ttl`), the `testo:` prefix, `vann:preferredNamespacePrefix "testo"` and the LOV link. It works the same on macOS and Linux. Then edit `<name>.ttl` by hand: replace the title, label, description, `dcterms:alternative "TESTO"`, creator and other metadata. The ontology IRI must be `https://w3id.org/ontostart/sandbox/<name>/`. Edit `sandbox/<name>/README.md` too, or delete it.
+The first `perl` command replaces every lowercase word `testo` in `<name>.ttl` with `<name>`: the IRIs (`https://w3id.org/ontostart/sandbox/testo/` becomes `https://w3id.org/ontostart/sandbox/<name>/`), the file name in URLs (`testo.ttl` becomes `<name>.ttl`), the `testo:` prefix, `vann:preferredNamespacePrefix "testo"` and the LOV link. It works the same on macOS and Linux. Then edit `<name>.ttl` by hand: replace the title, label, description, `dcterms:alternative "TESTO"`, creator and other metadata. The ontology IRI must be `https://w3id.org/ontostart/sandbox/<name>/`. Edit `sandbox/<name>/README.md` too, or delete it.
 
-Your copy still has testo's `owl:versionInfo "0.0.1"`, and CI bumps the patch version when it publishes, so the first published version of your ontology is 0.0.2.
+The second `perl` command sets your copy's `owl:versionInfo` to `"0.0.0"`, whatever version testo is at. CI bumps the patch version when it publishes, so the first published version of your ontology is 0.0.1; it also rewrites `owl:versionIRI` to match.
 
 ## Default: fork and pull request
 
