@@ -8,7 +8,7 @@ A collection of ontologies published with [OntoStart](https://github.com/micheld
 2. In a clone of it (you need `git` and [uv](https://docs.astral.sh/uv/)), run init with the w3id.org name you want (lower case letters, digits and `-`), your GitHub account and the repository name:
 
    ```
-   uvx --from git+https://github.com/micheldumontier/ontostart@v1.5 ontostart init --w3id NAME --owner OWNER --repo REPO
+   uvx --from git+https://github.com/micheldumontier/ontostart@v1.6 ontostart init --w3id NAME --owner OWNER --repo REPO
    ```
 
    This fills in `ontostart.yaml`, the example ontology's IRIs, `.github/workflows/w3id-pr.yml`, and writes `apache/web/NAME/.htaccess` and `README.md`.
@@ -25,4 +25,4 @@ Create `ontologies/<name>/<name>.ttl` with the IRI `https://w3id.org/NAME/<name>
 
 ## Upgrade the engine
 
-The workflows run a fixed release of OntoStart, so your published ontologies change only when this repository changes. To take a newer release (see [Engine releases](https://github.com/micheldumontier/ontostart#engine-releases)), replace the version, such as `v1.5`, in four lines: `uses:` and `engine-ref:` in both `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`. Commit and push; the next change to an ontology or to `ontostart.yaml` builds with it.
+The workflows run a fixed release of OntoStart, so your published ontologies change only when this repository changes. To take a newer release (see [Engine releases](https://github.com/micheldumontier/ontostart#engine-releases)), replace the version, such as `v1.6`, in four lines: `uses:` and `engine-ref:` in both `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`. Commit and push; the next change to an ontology or to `ontostart.yaml` builds with it.

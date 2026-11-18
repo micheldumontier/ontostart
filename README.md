@@ -140,7 +140,7 @@ Both tokens must be secrets of the environment `ontostart-secrets`, not reposito
 2. In a clone, fill in your w3id.org name, GitHub account and repository:
 
    ```
-   uvx --from git+https://github.com/micheldumontier/ontostart@v1.5 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
+   uvx --from git+https://github.com/micheldumontier/ontostart@v1.6 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
    ```
 
    This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`. Running `init` again with the same name and another `--owner` or `--repo` updates `pages:` (unless it is a custom domain) and the redirect README; `--gist ''` removes the gist id, which turns badges off.
@@ -158,6 +158,7 @@ The template's README has the details. Its workflows call this repository's `bui
 | `v1.3` | the catalogue page shows each ontology's IRI and source folder, and what each status means; template pinned to `v1.3` |
 | `v1.4` | optional `home:` front page (the catalogue page moves to `catalog/`); editing it republishes only the front page; template pinned to `v1.4` |
 | `v1.5` | editing `ontostart.yaml` no longer bumps every ontology; OntoSpy and pyLODE pinned to commits; template pinned to `v1.5` |
+| `v1.6` | ROBOT checks share one 15-minute budget and a timeout or ROBOT failure is reported as such, not as a profile violation; badge updates retry GitHub server errors; re-running `init` follows a new owner/repo and `--gist ''` clears the gist id; template pinned to `v1.6` |
 
 A collection pins an exact release in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`, each in two lines (`uses: ...@vX.Y` and `engine-ref: vX.Y`); change all four together to upgrade. There is no moving `v1` tag: a collection's published pages and versions change only when its own repository changes, and a bad engine release cannot reach every collection at once. The first release, once tagged `v1`, is `v1.0`. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
 
