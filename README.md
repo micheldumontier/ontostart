@@ -143,7 +143,7 @@ Both tokens must be secrets of the environment `ontostart-secrets`, not reposito
    uvx --from git+https://github.com/micheldumontier/ontostart@v1.5 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
    ```
 
-   This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`.
+   This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`. Running `init` again with the same name and another `--owner` or `--repo` updates `pages:` (unless it is a custom domain) and the redirect README; `--gist ''` removes the gist id, which turns badges off.
 3. Turn on Pages (`gh-pages`, `/` root), create the `ontostart-secrets` environment (see [Secrets and variables](#secrets-and-variables)), and run **Propose w3id.org redirects** to claim `https://w3id.org/NAME/`.
 
 The template's README has the details. Its workflows call this repository's `build.yml` and `w3id-pr.yml` at a fixed release.

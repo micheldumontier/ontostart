@@ -249,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--w3id", required=True, help="name under https://w3id.org/")
     p.add_argument("--owner", required=True, help="GitHub user or organization")
     p.add_argument("--repo", required=True, help="GitHub repository name")
-    p.add_argument("--gist", default="", help="gist id for badges")
+    p.add_argument("--gist", help="gist id for badges; '' clears it; left out, the current id is kept")
     p.add_argument("--root", default=".")
     p.set_defaults(func=_init)
     args = parser.parse_args(argv)

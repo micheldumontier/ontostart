@@ -85,3 +85,40 @@ def test_plan_skips_uninitialised_template(repo, capsys, monkeypatch):
     out = capsys.readouterr()
     assert json.loads(out.out)["targets"] == []
     assert "ontostart init" in out.err
+
+
+def test_init_rerun_with_other_owner_updates_pages_and_readme(repo):
+    init_repo(repo, "myonto", "alice", "my-repo")
+    changed = init_repo(repo, "myonto", "bob", "onto")
+    assert repo / "ontostart.yaml" in changed
+    assert load_config(repo / "ontostart.yaml").pages == "https://bob.github.io/onto"
+    readme = (repo / "apache/web/myonto/README.md").read_text()
+    assert "https://github.com/bob/onto" in readme and "@bob" in readme
+
+
+def test_init_keeps_a_custom_pages_domain(repo):
+    init_repo(repo, "myonto", "alice", "my-repo")
+    config = repo / "ontostart.yaml"
+    config.write_text(config.read_text().replace("https://alice.github.io/my-repo", "https://onto.example.org"))
+    init_repo(repo, "myonto", "bob", "onto")
+    assert load_config(config).pages == "https://onto.example.org"
+
+
+def test_init_gist_kept_when_omitted_and_cleared_when_empty(repo):
+    init_repo(repo, "myonto", "alice", "my-repo", "abc123")
+    assert init_repo(repo, "myonto", "alice", "my-repo") == []
+    assert load_config(repo / "ontostart.yaml").gist_id == "abc123"
+    init_repo(repo, "myonto", "alice", "my-repo", "def456")
+    assert load_config(repo / "ontostart.yaml").gist_id == "def456"
+    init_repo(repo, "myonto", "alice", "my-repo", "")
+    assert load_config(repo / "ontostart.yaml").gist_id == ""
+    assert 'gist_id: ""' in (repo / "ontostart.yaml").read_text()
+
+
+def test_cli_init_gist_flag(repo):
+    args = ["init", "--w3id", "myonto", "--owner", "alice", "--repo", "r", "--root", str(repo)]
+    assert main(args + ["--gist", "abc123"]) == 0
+    assert main(args) == 0
+    assert load_config(repo / "ontostart.yaml").gist_id == "abc123"
+    assert main(args + ["--gist", ""]) == 0
+    assert load_config(repo / "ontostart.yaml").gist_id == ""

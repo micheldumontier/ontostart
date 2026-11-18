@@ -32,8 +32,12 @@ def _initialised_as(root: Path) -> str | None:
     return None if name in (None, PLACEHOLDER) else str(name)
 
 
-def init_repo(root: Path, w3id: str, owner: str, repo: str, gist_id: str = "") -> list[Path]:
-    """Fill in the template; return the files written. Running it again returns []."""
+def init_repo(root: Path, w3id: str, owner: str, repo: str, gist_id: str | None = None) -> list[Path]:
+    """Fill in the template; return the files written. Running it again returns [].
+
+    ``pages:`` follows owner and repo on every run unless it is a custom domain (not
+    github.io). ``gist_id``: None keeps the current id, "" clears it, a value sets it.
+    """
     root = Path(root)
     if not NAME_RE.match(w3id) or w3id in RESERVED:
         raise ConfigError(f"w3id name '{w3id}' must match {NAME_RE.pattern} and not be reserved")
@@ -57,9 +61,13 @@ def init_repo(root: Path, w3id: str, owner: str, repo: str, gist_id: str = "") -
     config_file = root / "ontostart.yaml"
     text = config_file.read_text()
     text = re.sub(r"(?m)^(w3id:[ \t]*)\S+", rf"\g<1>{w3id}", text)
-    text = text.replace("https://OWNER.github.io/REPO", f"https://{owner}.github.io/{repo}")
-    if gist_id:
-        text = re.sub(r"(?m)^(gist_id:[ \t]*)(\"\"|'')?[A-Za-z0-9]*", rf"\g<1>{gist_id}", text)
+    text = re.sub(
+        r"(?m)^(pages:[ \t]*)https://[^\s/]+\.github\.io/[^\s#]*",
+        rf"\g<1>https://{owner}.github.io/{repo}", text,
+    )
+    if gist_id is not None:
+        value = gist_id or '""'
+        text = re.sub(r"(?m)^(gist_id:[ \t]*)(\"\"|'')?[A-Za-z0-9]*", lambda m: m.group(1) + value, text)
     write(config_file, text.replace(PLACEHOLDER, w3id))
 
     for ttl in sorted((root / "ontologies").glob("**/*.ttl")):
