@@ -4,7 +4,7 @@
 
 OntoStart publishes FAIR (Findable, Accessible, Interoperable, Reusable) OWL ontologies with GitHub Actions. This repository holds two things:
 
-* the **engine**: the Python package `ontostart` (`src/ontostart/`) and the reusable workflows `build.yml` and `w3id-pr.yml`, released as tags `v1`, `v1.1`, `v1.2`, ... (see [Engine releases](#engine-releases))
+* the **engine**: the Python package `ontostart` (`src/ontostart/`) and the reusable workflows `build.yml` and `w3id-pr.yml`, released as tags `v1.0`, `v1.1`, `v1.2`, ... (see [Engine releases](#engine-releases))
 * the **collection**: Michel Dumontier's ontologies, one folder each, built by the engine.
 
 What you get for every ontology:
@@ -152,14 +152,14 @@ The template's README has the details. Its workflows call this repository's `bui
 
 | Tag | Adds |
 |---|---|
-| `v1` | the engine, reusable build and w3id workflows, collection layout, sandbox |
+| `v1.0` | the engine, reusable build and w3id workflows, collection layout, sandbox |
 | `v1.1` | `ontostart init` and the template content in `template/` |
 | `v1.2` | a repository created from the template builds nothing until `ontostart init` has run; template pinned to `v1.2` |
 | `v1.3` | the catalogue page shows each ontology's IRI and source folder, and what each status means; template pinned to `v1.3` |
 | `v1.4` | optional `home:` front page (the catalogue page moves to `catalog/`); editing it republishes only the front page; template pinned to `v1.4` |
 | `v1.5` | editing `ontostart.yaml` no longer bumps every ontology; OntoSpy and pyLODE pinned to commits; template pinned to `v1.5` |
 
-A collection pins a release in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`, each in two lines (`uses: ...@vX.Y` and `engine-ref: vX.Y`); change all four together to upgrade. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
+A collection pins an exact release in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`, each in two lines (`uses: ...@vX.Y` and `engine-ref: vX.Y`); change all four together to upgrade. There is no moving `v1` tag: a collection's published pages and versions change only when its own repository changes, and a bad engine release cannot reach every collection at once. The first release, once tagged `v1`, is `v1.0`. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
 
 ## Running the engine locally
 

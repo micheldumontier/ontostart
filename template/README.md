@@ -22,3 +22,7 @@ A collection of ontologies published with [OntoStart](https://github.com/micheld
 ## Add an ontology
 
 Create `ontologies/<name>/<name>.ttl` with the IRI `https://w3id.org/NAME/<name>/` and push. Settings per ontology (such as `status: experimental`) go under `ontologies:` in `ontostart.yaml`. Then run **Propose w3id.org redirects** again if you changed `ontostart.yaml`.
+
+## Upgrade the engine
+
+The workflows run a fixed release of OntoStart, so your published ontologies change only when this repository changes. To take a newer release (see [Engine releases](https://github.com/micheldumontier/ontostart#engine-releases)), replace the version, such as `v1.5`, in four lines: `uses:` and `engine-ref:` in both `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`. Commit and push; the next change to an ontology or to `ontostart.yaml` builds with it.

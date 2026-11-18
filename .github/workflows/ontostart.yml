@@ -1,7 +1,7 @@
 # Builds, checks and publishes this collection's ontologies with the reusable
 # build workflow. This repository is also the engine, so it installs the engine
 # from its own checkout (engine-ref: ""); other collections use
-# micheldumontier/ontostart/.github/workflows/build.yml@v1 and leave engine-ref out.
+# micheldumontier/ontostart/.github/workflows/build.yml@vX.Y with engine-ref: vX.Y.
 # A sandbox/<name> branch installs the engine from main instead, so an old
 # student branch does not regenerate the root catalogue with a stale engine.
 #

@@ -69,11 +69,11 @@ on:
         default: ""
       engine-ref:
         description: >-
-          Engine version: a ref of micheldumontier/ontostart to pip install,
-          or "" to pip install the checked-out repository itself.
+          Engine version: an exact release of micheldumontier/ontostart to pip
+          install (the same vX.Y as in uses:), or "" to pip install the
+          checked-out repository itself.
         type: string
-        required: false
-        default: v1
+        required: true
     secrets:
       W3ID_TOKEN:
         description: >-
