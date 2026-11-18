@@ -19,6 +19,11 @@ FORMATS = [
     ("owl", "xml", "application/rdf+xml"),
 ]
 SECTIONS = [("stable", "Ontologies"), ("experimental", "Experimental"), ("sandbox", "Sandbox")]
+NOTES = {
+    "stable": "Curated ontologies with persistent IRIs.",
+    "experimental": "Generated or still changing; they may change without notice.",
+    "sandbox": "Tutorial ontologies. They are not persistent and may be removed.",
+}
 
 PAGE = """<!doctype html>
 <html lang="en">
@@ -31,12 +36,15 @@ PAGE = """<!doctype html>
     h1 {{ margin: 0 0 .25rem 0; }}
     .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; max-width: 900px; margin-bottom: 1rem; }}
     .description {{ margin: .25rem 0; }}
+    .entry {{ margin: .75rem 0; }}
+    .note, .links {{ color: #555; margin: .25rem 0; }}
     code, a {{ color: #0b5fff; word-break: break-all; }}
     ul {{ margin: .25rem 0 .5rem 1.25rem; }}
   </style>
 </head>
 <body>
   <h1>{title}</h1>
+  <p>Ontologies published under {base}. Each links to its page with versions, documentation and downloads.</p>
   <p>Catalogue files: {files}</p>
 {sections}
 </body>
@@ -56,18 +64,35 @@ def _load(site_root: Path) -> list[dict]:
     return entries
 
 
-def _section(label: str, entries: list[dict]) -> str:
+def _url(value) -> str:
+    """value if it is an http(s) URL, else "" (meta.json files are not trusted to be well formed)."""
+    value = str(value or "")
+    return value if value.startswith(("https://", "http://")) else ""
+
+
+def _link(url: str, text: str) -> str:
+    return f'<a href="{h.escape(url)}">{h.escape(text)}</a>'
+
+
+def _section(status: str, label: str, entries: list[dict]) -> str:
     items = []
     for m in sorted(entries, key=lambda m: str(m.get("title") or m.get("name") or m["path"]).lower()):
         title = str(m.get("title") or m.get("name") or m["path"])
         desc = str(m.get("description") or "")
+        iri, source = _url(m.get("iri")), _url(m.get("source"))
+        links = " · ".join(
+            ([_link(iri, iri)] if iri else []) + ([_link(source, "source")] if source else [])
+        )
         items.append(
-            f'    <div><a href="{h.escape(str(m["path"]))}/">{h.escape(title)}</a>'
+            f'    <div class="entry"><a href="{h.escape(str(m["path"]))}/">{h.escape(title)}</a>'
             f' <code>{h.escape(str(m.get("version") or ""))}</code>'
             + (f'<p class="description">{h.escape(desc)}</p>' if desc else "")
+            + (f'<p class="links">{links}</p>' if links else "")
             + "</div>"
         )
-    return f'  <section class="card">\n    <h2>{label}</h2>\n' + "\n".join(items) + "\n  </section>"
+    note = f'    <p class="note">{h.escape(NOTES[status])}</p>\n' if status in NOTES else ""
+    return (f'  <section class="card">\n    <h2>{label}</h2>\n{note}'
+            + "\n".join(items) + "\n  </section>")
 
 
 def _dcat(entries: list[dict], config: Config) -> Graph:
@@ -108,13 +133,17 @@ def build_catalogue(site_root: Path, config: Config) -> None:
     site_root = Path(site_root)
     entries = _load(site_root)
     sections = "\n".join(
-        _section(label, [m for m in entries if m["status"] == status])
+        _section(status, label, [m for m in entries if m["status"] == status])
         for status, label in SECTIONS
         if any(m["status"] == status for m in entries)
     )
     files = " | ".join(f'<a href="catalog.{ext}">catalog.{ext}</a>' for ext, _, _ in FORMATS)
     (site_root / "index.html").write_text(
-        PAGE.format(title=h.escape(f"{config.w3id} ontologies"), files=files, sections=sections),
+        PAGE.format(
+            title=h.escape(f"{config.w3id} ontologies"),
+            base=_link(f"https://w3id.org/{config.w3id}/", f"https://w3id.org/{config.w3id}/"),
+            files=files, sections=sections,
+        ),
         encoding="utf-8",
     )
     g = _dcat(entries, config)

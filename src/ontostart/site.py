@@ -232,4 +232,5 @@ def build_site(target: Target, version: str, out: Path, ctx: SiteContext) -> Non
         "name": name, "path": target.path, "status": target.status, "title": title,
         "description": description, "iri": target.base_iri, "version": version,
         "versions": versions, "modified": modified,
+        "source": f"{repo_url}/tree/{ref}/{rel['folder']}",
     }, indent=2) + "\n", encoding="utf-8")

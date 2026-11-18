@@ -78,7 +78,8 @@ def test_meta_json(tmp_path):
     _, out = build(tmp_path)
     meta = json.loads((out / "meta.json").read_text())
     assert set(meta) == {"name", "path", "status", "title", "description", "iri", "version",
-                         "versions", "modified"}
+                         "versions", "modified", "source"}
+    assert meta["source"] == "https://github.com/o/r/tree/main/ontologies/pizza"
     assert meta["versions"] == ["1.0.10", "1.0.2", "1.0.1"]
     assert meta["iri"] == IRI and meta["modified"] == "2026-11-13" and meta["title"] == "Pizza"
 
