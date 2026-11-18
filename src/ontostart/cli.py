@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .badges import badge_files, push_badges
+from .badges import BadgeError, badge_files, push_badges
 from .catalogue import build_catalogue
 from .checks import CheckReport, run_checks
 from .config import ConfigError, load_config
@@ -157,7 +157,11 @@ def _badges(args: argparse.Namespace) -> int:
             target, CheckReport.from_json(data["report"]), data["version"], data["steps"],
             deployed, None if foops is None else FoopsSummary(foops["label"], foops["checks"]),
         ))
-    push_badges(args.gist, token, files)
+    try:
+        push_badges(args.gist, token, files)
+    except BadgeError as e:
+        print(f"::warning title=Badges not updated::{e}")
+        return 1
     return 0
 
 

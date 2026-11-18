@@ -1,9 +1,13 @@
 import io
 import json
+import urllib.error
 import urllib.request
 from pathlib import Path
 
-from ontostart.badges import badge_files, push_badges
+import pytest
+
+from ontostart import cli
+from ontostart.badges import BadgeError, badge_files, push_badges
 from ontostart.checks import CheckReport, ReasonResult
 from ontostart.foops import FoopsSummary
 from ontostart.targets import Target
@@ -60,3 +64,66 @@ def test_push_badges_single_request(monkeypatch):
     assert req.get_header("Authorization") == "Bearer tok"
     body = json.loads(req.data)
     assert body == {"files": {n: {"content": json.dumps(v)} for n, v in files.items()}}
+
+
+def _http_error(code, message=""):
+    body = json.dumps({"message": message}).encode() if message else b""
+    return urllib.error.HTTPError("https://api.github.com/gists/gid", code, "err", {}, io.BytesIO(body))
+
+
+def _urlopen(monkeypatch, outcomes):
+    """Each call takes the next outcome: an exception to raise, or None for success."""
+    calls = []
+
+    def fake(req, *a, **k):
+        calls.append(req)
+        outcome = outcomes[len(calls) - 1]
+        if outcome is not None:
+            raise outcome
+        return io.BytesIO(b"{}")
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake)
+    return calls
+
+
+def test_push_badges_retries_server_errors_with_backoff(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(500), _http_error(502), None])
+    waits = []
+    push_badges("gid", "tok", {"a.json": {}}, sleep=waits.append)
+    assert len(calls) == 3
+    assert waits == [2, 4]
+
+
+def test_push_badges_retries_connection_errors(monkeypatch):
+    calls = _urlopen(monkeypatch, [urllib.error.URLError("reset"), TimeoutError(), None])
+    push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: None)
+    assert len(calls) == 3
+
+
+def test_push_badges_gives_up_after_four_attempts(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(503)] * 4)
+    waits = []
+    with pytest.raises(BadgeError, match="HTTP 503 after 4 attempts"):
+        push_badges("gid", "tok", {"a.json": {}}, sleep=waits.append)
+    assert len(calls) == 4
+    assert waits == [2, 4, 8]
+
+
+def test_push_badges_client_error_is_not_retried(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(401, "Bad credentials")])
+    with pytest.raises(BadgeError) as e:
+        push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: pytest.fail("retried"))
+    assert len(calls) == 1
+    assert str(e.value) == "HTTP 401 from the gist API: Bad credentials (check GIST_TOKEN and gist_id)"
+
+
+def test_badges_command_reports_failure_in_one_line(monkeypatch, tmp_path, capsys):
+    def fail(*a, **k):
+        raise BadgeError("HTTP 401 from the gist API: Bad credentials (check GIST_TOKEN and gist_id)")
+
+    monkeypatch.setattr(cli, "push_badges", fail)
+    monkeypatch.setenv("GIST_TOKEN", "tok")
+    assert cli.main(["badges", "--results", str(tmp_path), "--gist", "gid"]) == 1
+    out = capsys.readouterr()
+    assert out.out == "::warning title=Badges not updated::HTTP 401 from the gist API: Bad credentials (check GIST_TOKEN and gist_id)\n"
+    assert "Traceback" not in out.err

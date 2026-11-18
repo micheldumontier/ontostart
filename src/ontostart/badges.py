@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
+import time
+import urllib.error
 import urllib.request
+from typing import Callable
 
 from .checks import CheckReport
 from .foops import FoopsSummary
@@ -43,7 +46,27 @@ def badge_files(
     return {f"ontology-ci-{kind}-{target.safe}.json": b for kind, b in badges.items()}
 
 
-def push_badges(gist_id: str, token: str, files: dict[str, dict]) -> None:
+ATTEMPTS = 4  # waits of 2, 4 and 8 seconds between them
+
+
+class BadgeError(Exception):
+    """The gist could not be updated."""
+
+
+def _api_message(e: urllib.error.HTTPError) -> str:
+    try:
+        return json.loads(e.read() or b"{}").get("message", "") or e.reason
+    except (ValueError, AttributeError, OSError):
+        return str(e.reason)
+
+
+def push_badges(
+    gist_id: str, token: str, files: dict[str, dict], sleep: Callable[[float], None] = time.sleep,
+) -> None:
+    """Update the gist in one PATCH, retrying server and connection errors.
+
+    Raises BadgeError on a 4xx (not retried) or when every attempt failed.
+    """
     body = {"files": {name: {"content": json.dumps(value)} for name, value in files.items()}}
     req = urllib.request.Request(
         f"https://api.github.com/gists/{gist_id}",
@@ -55,5 +78,19 @@ def push_badges(gist_id: str, token: str, files: dict[str, dict]) -> None:
             "Content-Type": "application/json",
         },
     )
-    with urllib.request.urlopen(req):
-        pass
+    for attempt in range(1, ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=30):
+                return
+        except urllib.error.HTTPError as e:
+            if e.code < 500:
+                raise BadgeError(
+                    f"HTTP {e.code} from the gist API: {_api_message(e)} (check GIST_TOKEN and gist_id)"
+                ) from None
+            problem = f"HTTP {e.code}"
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            problem = f"connection error ({getattr(e, 'reason', None) or type(e).__name__})"
+        if attempt < ATTEMPTS:
+            print(f"badges: {problem}; retrying", flush=True)
+            sleep(2 ** attempt)
+    raise BadgeError(f"{problem} after {ATTEMPTS} attempts")
