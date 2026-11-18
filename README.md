@@ -4,7 +4,7 @@
 
 OntoStart publishes FAIR (Findable, Accessible, Interoperable, Reusable) OWL ontologies with GitHub Actions. This repository holds two things:
 
-* the **engine**: the Python package `ontostart` (`src/ontostart/`) and the reusable workflows `build.yml` and `w3id-pr.yml`, tagged `v1`, `v1.1`, ...
+* the **engine**: the Python package `ontostart` (`src/ontostart/`) and the reusable workflows `build.yml` and `w3id-pr.yml`, released as tags `v1`, `v1.1`, `v1.2`, ... (see [Engine releases](#engine-releases))
 * the **collection**: Michel Dumontier's ontologies, one folder each, built by the engine.
 
 What you get for every ontology:
@@ -14,7 +14,7 @@ What you get for every ontology:
 * rich ontology metadata, as per the FAIR principles
 * GitHub Actions that check the OWL 2 DL profile and consistency (ROBOT with HermiT), bump the version on commit, write Turtle, RDF/XML, JSON-LD and N-Triples files, generate documentation (OntoSpy and pyLODE), run a FOOPS! FAIRness assessment, and publish a website to GitHub Pages
 
-To publish your own collection under your own w3id.org identifier, start from the template repository <https://github.com/micheldumontier/ontostart-template> and run `ontostart init`; its README has the steps.
+To publish your own collection under your own w3id.org identifier, see [Start your own collection](#start-your-own-collection).
 
 ## The collection
 
@@ -44,6 +44,8 @@ curl -L https://w3id.org/ontostart/pizza/BakingDuration    # term page in a brow
 
 The retired root ontology `ontostart.ttl` is archived on GitHub Pages under `main/`; its `/x.y.z` IRIs still resolve.
 
+Until November 2026 each ontology lived on its own branch (`pizza`, `pro`, `testo`, `suloized-pizza`). Those branches are kept as the tags `archive/<branch>`; `git checkout -b pizza archive/pizza` restores one.
+
 ## Repository layout
 
 ```
@@ -56,6 +58,7 @@ apache/test-redirects.sh          redirect tester
 src/ontostart/, tests/            the engine and its tests
 .github/workflows/                build.yml, ontostart.yml, w3id-pr.yml, engine-tests.yml
 docs/classroom.md                 how students publish a sandbox ontology
+template/                         content of the ontostart-template repository (see below)
 ```
 
 `<name>` matches `^[a-z0-9][a-z0-9-]*$`. `sandbox`, `versions`, `docs`, `catalog`, `main` and the keys of `aliases` are reserved.
@@ -127,11 +130,35 @@ Run the `Propose w3id.org redirects` workflow (`w3id-pr.yml`). It tests the redi
 
 ## Secrets and variables
 
-* `GIST_TOKEN` (secret): classic PAT with the `gist` scope, used to write the badge data. Badges are pushed from `main` only.
+* `GIST_TOKEN` (secret): a fine-grained personal access token with Gists read and write access (or a classic PAT with the `gist` scope), used to write the badge data. Badges are pushed from `main` only.
 * The badge gist is a public gist; its id is `gist_id` in `ontostart.yaml`.
 * `W3ID_TOKEN` (secret): see above.
 
-Both tokens must be secrets of the environment `ontostart-secrets`, not repository secrets. Anyone with write access can push a branch with a modified workflow and run it, and such a run can read every repository secret; an environment limited to `main` keeps the tokens out of those runs. To set it up: Settings → Environments → New environment `ontostart-secrets` → Deployment branches and tags: Selected branches and tags, add `main`; add `GIST_TOKEN` and `W3ID_TOKEN` as environment secrets; delete the repository-level copies. Only the badges job and `w3id-pr.yml` use that environment.
+Both tokens must be secrets of the environment `ontostart-secrets`, not repository secrets. Anyone with write access can push a branch with a modified workflow and run it, and such a run can read every repository secret; an environment limited to `main` keeps the tokens out of those runs. To set it up: Settings → Environments → New environment `ontostart-secrets` → Deployment branches and tags: Selected branches and tags, add `main`; add `GIST_TOKEN` and `W3ID_TOKEN` as environment secrets; delete the repository-level copies. Only the badges job and `w3id-pr.yml` use that environment. This repository passes them to the reusable workflows with `secrets: inherit`; a collection in another account passes them by name, as the template does.
+
+## Start your own collection
+
+1. On <https://github.com/micheldumontier/ontostart-template>, click **Use this template**. Its first run builds nothing and asks you to run `ontostart init`.
+2. In a clone, fill in your w3id.org name, GitHub account and repository:
+
+   ```
+   uvx --from git+https://github.com/micheldumontier/ontostart@v1.2 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
+   ```
+
+   This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`.
+3. Turn on Pages (`gh-pages`, `/` root), create the `ontostart-secrets` environment (see [Secrets and variables](#secrets-and-variables)), and run **Propose w3id.org redirects** to claim `https://w3id.org/NAME/`.
+
+The template's README has the details. Its workflows call this repository's `build.yml` and `w3id-pr.yml` at a fixed release.
+
+## Engine releases
+
+| Tag | Adds |
+|---|---|
+| `v1` | the engine, reusable build and w3id workflows, collection layout, sandbox |
+| `v1.1` | `ontostart init` and the template content in `template/` |
+| `v1.2` | a repository created from the template builds nothing until `ontostart init` has run; template pinned to `v1.2` |
+
+A collection pins a release in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`, each in two lines (`uses: ...@vX.Y` and `engine-ref: vX.Y`); change all four together to upgrade. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
 
 ## Running the engine locally
 
@@ -139,4 +166,5 @@ Both tokens must be secrets of the environment `ontostart-secrets`, not reposito
 uv run pytest
 uv run ontostart --help
 uv run ontostart plan --ref main --event workflow_dispatch   # list the build targets
+uv run ontostart init --help                                  # set up a repository created from the template
 ```
