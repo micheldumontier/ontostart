@@ -252,3 +252,77 @@ def test_blocked_cli(tmp_path, capsys):
     assert capsys.readouterr().out == "ontology is not in the OWL DL profile\n"
     assert main(["blocked", "--report", str(ok)]) == 0
     assert capsys.readouterr().out == "\n"
+
+
+def _demo_target(tmp_path):
+    folder = tmp_path / "ontologies" / "demo"
+    folder.mkdir(parents=True)
+    file = folder / "demo.ttl"
+    file.write_text(
+        "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+        "<https://w3id.org/x/demo/> a owl:Ontology .\n"
+    )
+    return Target("demo", "demo", folder, file, "stable", "demo", "https://w3id.org/x/demo/", None, None)
+
+
+class Clock:
+    def __init__(self):
+        self.now = 1000.0
+
+    def __call__(self):
+        return self.now
+
+
+def test_run_checks_shares_one_time_budget(tmp_path, monkeypatch):
+    clock = Clock()
+    timeouts = []
+
+    def fake_subprocess_run(args, cwd, timeout):
+        timeouts.append(timeout)
+        clock.now += 300
+        return 0, "ok"
+
+    monkeypatch.setattr(checks, "_subprocess_run", fake_subprocess_run)
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, clock=clock)
+    assert timeouts == [900, 600]
+    assert rep.timed_out == [] and rep.blocked_reason() is None
+
+
+def test_run_checks_profile_timeout_skips_the_rest(tmp_path):
+    clock = Clock()
+    calls = []
+
+    def fake(args, cwd):
+        calls.append(args[3])
+        clock.now += 900
+        return 124, "error: timed out after 900 s\n"
+
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=fake, clock=clock)
+    assert calls == ["validate-profile"]
+    assert rep.timed_out == ["profile", "reason"]
+    assert "not run" in (tmp_path / "reason.log").read_text()
+    assert rep.blocked_reason() == (
+        "ROBOT did not finish in time (profile, reason); "
+        "the checks of one ontology may take 15 minutes in total"
+    )
+    assert CheckReport.from_json(rep.to_json()) == rep
+
+
+def test_run_checks_explain_timeout_does_not_block(tmp_path):
+    def fake(args, cwd):
+        if args[3] == "reason":
+            return 1, "There are 2 unsatisfiable classes"
+        if args[3] == "explain":
+            return 124, "error: timed out\n"
+        return 0, ""
+
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=fake)
+    assert rep.timed_out == ["explain"]
+    assert rep.reason == ReasonResult("unsatisfiable", 2)
+    assert rep.blocked_reason() is None
+
+
+def test_report_without_timed_out_field_still_loads():
+    data = report().to_json()
+    del data["timed_out"]
+    assert CheckReport.from_json(data).timed_out == []

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import subprocess
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Literal
@@ -15,7 +16,10 @@ Runner = Callable[[list[str], Path], "tuple[int, str]"]
 
 _UNSAT_RE = re.compile(r"There are ([0-9]+) unsatisfiable classes|There is (1) unsatisfiable class")
 _COLORS = {"consistent": "brightgreen", "unsatisfiable": "orange", "inconsistent": "red", "error": "red"}
-ROBOT_TIMEOUT = 900  # seconds, per ROBOT invocation
+# Seconds for all ROBOT runs of one ontology together, so that the checks end well
+# inside the build job's 30-minute limit and a timeout is reported as one.
+CHECK_BUDGET = 900
+BLOCKING_STEPS = ("profile", "reason", "compare")  # a timeout of "explain" does not block
 
 
 @dataclass(frozen=True)
@@ -52,12 +56,19 @@ class CheckReport:
     explanation: Path | None
     parse_error: str | None = None
     logs: dict[str, str] = field(default_factory=dict)  # step -> path of its ROBOT output
+    timed_out: list[str] = field(default_factory=list)  # steps that ran out of time or were not run
 
     def blocked_reason(self) -> str | None:
         if self.parse_error:
             return self.parse_error
         if self.iri_error:
             return self.iri_error
+        late = [step for step in self.timed_out if step in BLOCKING_STEPS]
+        if late:
+            return (
+                f"ROBOT did not finish in time ({', '.join(late)}); "
+                f"the checks of one ontology may take {CHECK_BUDGET // 60} minutes in total"
+            )
         if not self.profile_ok:
             return "ontology is not in the OWL DL profile"
         if self.reason.kind == "inconsistent":
@@ -83,6 +94,7 @@ class CheckReport:
             "explanation": None if self.explanation is None else str(self.explanation),
             "parse_error": self.parse_error,
             "logs": dict(self.logs),
+            "timed_out": list(self.timed_out),
         }
 
     @classmethod
@@ -96,6 +108,7 @@ class CheckReport:
             explanation=None if explanation is None else Path(explanation),
             parse_error=data.get("parse_error"),
             logs=dict(data.get("logs") or {}),
+            timed_out=list(data.get("timed_out") or []),
         )
 
 
@@ -105,30 +118,49 @@ def _text(value: str | bytes | None) -> str:
     return value or ""
 
 
-def _subprocess_run(args: list[str], cwd: Path) -> tuple[int, str]:
+def _subprocess_run(args: list[str], cwd: Path, timeout: float = CHECK_BUDGET) -> tuple[int, str]:
     """Run a command; a timeout is exit code 124 and a missing program 127, like the shell."""
     try:
-        proc = subprocess.run(args, cwd=cwd, capture_output=True, text=True, timeout=ROBOT_TIMEOUT)
+        proc = subprocess.run(args, cwd=cwd, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired as e:
         partial = _text(e.output) + _text(e.stderr)
-        return 124, f"{partial}\nerror: timed out after {ROBOT_TIMEOUT} s: {' '.join(args)}\n"
+        return 124, f"{partial}\nerror: timed out after {timeout:.0f} s: {' '.join(args)}\n"
     except FileNotFoundError as e:
         return 127, f"error: cannot run {args[0]}: {e}\n"
     return proc.returncode, proc.stdout + proc.stderr
 
 
 def run_checks(
-    target: Target, robot_jar: Path, workdir: Path, run: Runner | None = None
+    target: Target,
+    robot_jar: Path,
+    workdir: Path,
+    run: Runner | None = None,
+    clock: Callable[[], float] = time.monotonic,
 ) -> CheckReport:
+    """Run ROBOT's checks; together they get CHECK_BUDGET seconds.
+
+    Each run gets the time left, and once it is used up the remaining runs are skipped.
+    A run that times out (exit code 124) or is skipped is listed in ``timed_out``.
+    """
     workdir = Path(workdir)
     robot = ["java", "-jar", str(robot_jar)]
     catalog = ["--catalog", str(target.catalog)] if target.catalog else []
     file = str(target.file)
     logs: dict[str, str] = {}
+    timed_out: list[str] = []
+    deadline = clock() + CHECK_BUDGET
 
     def run_step(step: str, args: list[str]) -> tuple[int, str]:
         """Run one ROBOT command and keep its output in <workdir>/<step>.log."""
-        code, out = (run or _subprocess_run)(args, workdir)
+        left = deadline - clock()
+        if left < 1:
+            code, out = 124, f"error: not run; the {CHECK_BUDGET // 60}-minute limit for all checks was used up\n"
+        elif run is None:
+            code, out = _subprocess_run(args, workdir, timeout=left)
+        else:
+            code, out = run(args, workdir)
+        if code == 124:
+            timed_out.append(step)
         log = workdir / f"{step}.log"
         log.write_text(out)
         logs[step] = str(log)
@@ -178,4 +210,4 @@ def run_checks(
         )
         expected = classify_reasoning(code, out).unsatisfiable
 
-    return CheckReport(profile_ok, reason, expected, iri_error, explanation, logs=logs)
+    return CheckReport(profile_ok, reason, expected, iri_error, explanation, logs=logs, timed_out=timed_out)

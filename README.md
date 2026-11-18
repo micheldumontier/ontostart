@@ -71,7 +71,7 @@ template/                         content of the ontostart-template repository (
 
 Per target: OWL DL profile check, HermiT reasoning (using the folder's `catalog-v001.xml` when present), version bump, four syntaxes, OntoSpy and pyLODE docs, FOOPS! (if enabled), site page.
 
-A target is **blocked** (not committed, not published, and the run fails at the end) when the profile check fails, the ontology is inconsistent, reasoning errors, its ontology IRI is not `https://w3id.org/<w3id>/<path>/`, or its unsatisfiable-class count differs from `compare_unsatisfiable_with`. Unsatisfiable classes alone do not block. One run makes at most one commit to the ref and one push to `gh-pages`; runs on the same ref never overlap.
+A target is **blocked** (not committed, not published, and the run fails at the end) when the profile check fails, the ontology is inconsistent, reasoning errors, its ontology IRI is not `https://w3id.org/<w3id>/<path>/`, its unsatisfiable-class count differs from `compare_unsatisfiable_with`, or ROBOT's checks do not finish within 15 minutes (all ROBOT runs of one ontology together). Unsatisfiable classes alone do not block. One run makes at most one commit to the ref and one push to `gh-pages`; runs on the same ref never overlap.
 
 The site is published on the `gh-pages` branch: at the root the front page (`index.html`, or the catalogue page when `home:` is not set) and the DCAT catalogue (`catalog.{ttl,jsonld,nt,owl}`), the catalogue page at `catalog/` when `home:` is set, and, for each ontology, its page, `meta.json`, `versions/`, `docs/` and `foops/`. Set Pages to "Deploy from a branch", `gh-pages`, `/` root.
 
