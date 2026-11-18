@@ -169,3 +169,48 @@ def test_plan_home_false_without_home_or_publish(repo, monkeypatch, capsys):
     (repo / "ontostart.yaml").write_text((repo / "ontostart.yaml").read_text() + "home: site/index.html\n")
     assert main(["plan", "--ref", "feature", "--event", "push"]) == 0
     assert json.loads(capsys.readouterr().out)["home"] is False
+
+
+def bumped(p):
+    return [t.path for t in p.targets if t.bump]
+
+
+def test_config_change_rebuilds_all_but_bumps_none(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", ["ontostart.yaml"])
+    assert len(p.targets) == 3 and p.publish
+    assert bumped(p) == [] and not p.bump
+
+
+def test_config_change_with_ontology_change_bumps_only_that_one(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", ["ontostart.yaml", "ontologies/pizza/pizza.ttl"])
+    assert len(p.targets) == 3
+    assert bumped(p) == ["pizza"] and p.bump
+
+
+def test_changed_folders_are_bumped(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", ["ontologies/pizza/pizza.ttl"])
+    assert bumped(p) == ["pizza"]
+
+
+def test_sandbox_branch_push_bumps_its_target(repo):
+    p = make_plan(repo, cfg(repo), "sandbox/testo", "push", ["README.md"])
+    assert bumped(p) == ["sandbox/testo"]
+
+
+def test_dispatch_bump_input_applies_to_every_target(repo):
+    p = make_plan(repo, cfg(repo), "main", "workflow_dispatch", None, bump=True)
+    assert len(bumped(p)) == 3
+    p = make_plan(repo, cfg(repo), "main", "workflow_dispatch", None, bump=False)
+    assert bumped(p) == []
+
+
+def test_undiffable_push_bumps_every_target(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", None)
+    assert len(bumped(p)) == 3
+
+
+def test_target_json_round_trip_keeps_bump(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", ["ontologies/pizza/pizza.ttl"])
+    t = p.targets[0]
+    assert t.to_json()["bump"] is True
+    assert Target.from_json(t.to_json(), repo) == t

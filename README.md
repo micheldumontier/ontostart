@@ -63,7 +63,7 @@ template/                         content of the ontostart-template repository (
 
 | Event and ref | Targets | Bump and commit back | Publish |
 |---|---|---|---|
-| push to `main` | folders with changed files (all, if `ontostart.yaml` changed) | yes | yes |
+| push to `main` | folders with changed files (all, if `ontostart.yaml` changed) | only folders whose own files changed | yes |
 | push to `sandbox/<name>` | `sandbox/<name>/` only | yes | yes |
 | push to `main` that changes only the `home:` page | none | no | the front page only |
 | push to any other branch, or pull request (from any branch, `sandbox/<name>` included) | folders with changed files | no | no |

@@ -168,7 +168,8 @@ jobs:
         target: ${{ fromJSON(needs.plan.outputs.plan).targets }}
     env:
       TARGET_JSON: ${{ toJSON(matrix.target) }}
-      PLAN_BUMP: ${{ fromJSON(needs.plan.outputs.plan).bump }}
+      # Per ontology: a configuration change rebuilds every ontology but bumps only edited ones.
+      PLAN_BUMP: ${{ matrix.target.bump }}
       PLAN_FOOPS: ${{ fromJSON(needs.plan.outputs.plan).foops }}
       GIST_ID: ${{ fromJSON(needs.plan.outputs.plan).gist_id }}
       GIST_OWNER: ${{ vars.GIST_OWNER || github.repository_owner }}

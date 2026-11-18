@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from .config import NAME_RE, RESERVED, Config, ConfigError
@@ -21,6 +21,8 @@ class Target:
     base_iri: str
     catalog: Path | None
     compare_with: Path | None
+    # Whether this run gives the ontology a new version (see make_plan).
+    bump: bool = False
 
     def to_json(self) -> dict:
         """Paths are repo-relative POSIX strings (the folder is <root>/<kind>/<name>)."""
@@ -39,6 +41,7 @@ class Target:
             "base_iri": self.base_iri,
             "catalog": rel(self.catalog),
             "compare_with": rel(self.compare_with),
+            "bump": self.bump,
         }
 
     @classmethod
@@ -56,6 +59,7 @@ class Target:
             base_iri=data["base_iri"],
             catalog=res(data["catalog"]),
             compare_with=res(data["compare_with"]),
+            bump=bool(data.get("bump", False)),
         )
 
 
@@ -142,6 +146,12 @@ def make_plan(
         targets = all_targets
     else:
         targets = [t for t in all_targets if any(_inside(c, t, root) for c in changed)]
+    # Folders whose own files changed. A configuration change rebuilds every
+    # ontology (its status or docs settings may change its pages) but is not a
+    # change to the ontologies, so it bumps none of them.
+    edited = None if changed is None or on_sandbox else {
+        t.path for t in all_targets if any(_inside(c, t, root) for c in changed)
+    }
 
     if only is not None:
         targets = [t for t in targets if t.path == only]
@@ -151,5 +161,11 @@ def make_plan(
     publishing_ref = on_main or on_sandbox
     publish = publishing_ref and event in ("push", "workflow_dispatch")
     if bump is None:
-        bump = publishing_ref and event == "push"
-    return Plan(targets=targets, publish=publish, bump=bump and publish)
+        # A push bumps the folders it edited; a manual run bumps all or none (its input).
+        targets = [
+            replace(t, bump=publish and event == "push" and (edited is None or t.path in edited))
+            for t in targets
+        ]
+    else:
+        targets = [replace(t, bump=bump and publish) for t in targets]
+    return Plan(targets=targets, publish=publish, bump=any(t.bump for t in targets))
