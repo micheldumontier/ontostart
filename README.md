@@ -18,7 +18,7 @@ To publish your own collection under your own w3id.org identifier, see [Start yo
 
 ## The collection
 
-The ontologies are listed in the catalogue at **<https://w3id.org/ontostart/>** (site: <https://micheldumontier.github.io/ontostart/>), with each one's version, description, IRI and source folder. CI regenerates the catalogue every time it publishes, so a new ontology or sandbox entry appears there without editing this README. The same list is available as DCAT in `catalog.ttl`, `catalog.jsonld`, `catalog.nt` and `catalog.owl` (stable and experimental ontologies only).
+The site's front page, <https://w3id.org/ontostart/> (<https://micheldumontier.github.io/ontostart/>), introduces OntoStart; its source is [`site/index.html`](site/index.html). The ontologies are listed in the catalogue at **<https://micheldumontier.github.io/ontostart/catalog/>**, with each one's version, description, IRI and source folder. CI regenerates the catalogue every time it publishes, so a new ontology or sandbox entry appears there without editing this README. The same list is available as DCAT in `catalog.ttl`, `catalog.jsonld`, `catalog.nt` and `catalog.owl` (stable and experimental ontologies only).
 
 The status of an ontology decides its section in the catalogue:
 
@@ -53,6 +53,7 @@ apache/test-redirects.sh          redirect tester
 src/ontostart/, tests/            the engine and its tests
 .github/workflows/                build.yml, ontostart.yml, w3id-pr.yml, engine-tests.yml
 docs/classroom.md                 how students publish a sandbox ontology
+site/index.html                   the site's front page (`home:` in ontostart.yaml)
 template/                         content of the ontostart-template repository (see below)
 ```
 
@@ -64,6 +65,7 @@ template/                         content of the ontostart-template repository (
 |---|---|---|---|
 | push to `main` | folders with changed files (all, if `ontostart.yaml` changed) | yes | yes |
 | push to `sandbox/<name>` | `sandbox/<name>/` only | yes | yes |
+| push to `main` that changes only the `home:` page | none | no | the front page only |
 | push to any other branch, or pull request (from any branch, `sandbox/<name>` included) | folders with changed files | no | no |
 | manual run | one folder or all; the bump is an input (default no) | per input | yes, on `main` and `sandbox/*` |
 
@@ -71,7 +73,7 @@ Per target: OWL DL profile check, HermiT reasoning (using the folder's `catalog-
 
 A target is **blocked** (not committed, not published, and the run fails at the end) when the profile check fails, the ontology is inconsistent, reasoning errors, its ontology IRI is not `https://w3id.org/<w3id>/<path>/`, or its unsatisfiable-class count differs from `compare_unsatisfiable_with`. Unsatisfiable classes alone do not block. One run makes at most one commit to the ref and one push to `gh-pages`; runs on the same ref never overlap.
 
-The site is published on the `gh-pages` branch: a catalogue at the root (`index.html`, `catalog.{ttl,jsonld,nt,owl}`) and, for each ontology, its page, `meta.json`, `versions/`, `docs/` and `foops/`. Set Pages to "Deploy from a branch", `gh-pages`, `/` root.
+The site is published on the `gh-pages` branch: at the root the front page (`index.html`, or the catalogue page when `home:` is not set) and the DCAT catalogue (`catalog.{ttl,jsonld,nt,owl}`), the catalogue page at `catalog/` when `home:` is set, and, for each ontology, its page, `meta.json`, `versions/`, `docs/` and `foops/`. Set Pages to "Deploy from a branch", `gh-pages`, `/` root.
 
 ## `ontostart.yaml`
 
@@ -82,6 +84,7 @@ gist_id: 9affe51b863c5144fa82d7b1d23449aa         # badges; empty disables them
 sandbox: true
 foops: true
 term_docs: ontospy                                # or "site"
+home: site/index.html                             # front page; the catalogue page moves to catalog/
 aliases:                                          # old path -> current path
   testo: sandbox/testo
 legacy_root:                                      # /x.y.z of the retired root ontology
@@ -137,7 +140,7 @@ Both tokens must be secrets of the environment `ontostart-secrets`, not reposito
 2. In a clone, fill in your w3id.org name, GitHub account and repository:
 
    ```
-   uvx --from git+https://github.com/micheldumontier/ontostart@v1.3 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
+   uvx --from git+https://github.com/micheldumontier/ontostart@v1.4 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
    ```
 
    This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`.
@@ -153,6 +156,7 @@ The template's README has the details. Its workflows call this repository's `bui
 | `v1.1` | `ontostart init` and the template content in `template/` |
 | `v1.2` | a repository created from the template builds nothing until `ontostart init` has run; template pinned to `v1.2` |
 | `v1.3` | the catalogue page shows each ontology's IRI and source folder, and what each status means; template pinned to `v1.3` |
+| `v1.4` | optional `home:` front page (the catalogue page moves to `catalog/`); editing it republishes only the front page; template pinned to `v1.4` |
 
 A collection pins a release in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`, each in two lines (`uses: ...@vX.Y` and `engine-ref: vX.Y`); change all four together to upgrade. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
 

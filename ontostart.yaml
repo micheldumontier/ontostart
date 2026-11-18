@@ -4,6 +4,7 @@ gist_id: 9affe51b863c5144fa82d7b1d23449aa         # badges; empty disables them
 sandbox: true
 foops: true
 term_docs: ontospy                                # or "site"
+home: site/index.html                             # front page; the catalogue page is at catalog/
 aliases:                                          # old path -> current path
   testo: sandbox/testo
 legacy_root:                                      # /x.y.z of the retired root ontology
