@@ -1,3 +1,4 @@
+# Editing this file rebuilds every ontology; only ontologies whose own files changed get a new version.
 w3id: ontostart                                   # https://w3id.org/ontostart/
 pages: https://micheldumontier.github.io/ontostart
 gist_id: 9affe51b863c5144fa82d7b1d23449aa         # badges; empty disables them
