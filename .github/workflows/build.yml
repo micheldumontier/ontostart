@@ -285,6 +285,10 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: micheldumontier/Ontospy
+          # Pinned: a new commit on the fork would otherwise change every collection's
+          # term docs and run unreviewed code in its builds. To update, review the
+          # fork's new commits and replace the sha.
+          ref: 65b793741ebc23e8b8ac07a33876ea4bf30fb972 # master, 2025-01-09
           path: .ontospy-src
           persist-credentials: false
 
@@ -292,7 +296,7 @@ jobs:
         if: steps.check.outputs.blocked == 'false'
         continue-on-error: true
         run: |
-          pip install "git+https://github.com/RDFLib/pyLODE.git@3.1.0"
+          pip install "git+https://github.com/RDFLib/pyLODE.git@8a8bd4dd14018a1ab31e27185eaf740219bb93f1" # 3.1.0
           cd .ontospy-src
           pip install -r requirements.txt
           pip install -e .
