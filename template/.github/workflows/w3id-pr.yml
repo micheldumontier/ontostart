@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   w3id-pr:
-    uses: micheldumontier/ontostart/.github/workflows/w3id-pr.yml@v1.3
+    uses: micheldumontier/ontostart/.github/workflows/w3id-pr.yml@v1.4
     with:
       W3ID_FOLDER: CHANGEME
       SOURCE_HTACCESS_PATH: apache/web/CHANGEME/.htaccess
@@ -37,7 +37,7 @@ jobs:
       COMMIT_MESSAGE: ${{ inputs.COMMIT_MESSAGE }}
       PR_TITLE: ${{ inputs.PR_TITLE }}
       PR_BODY: ${{ inputs.PR_BODY }}
-      engine-ref: v1.3
+      engine-ref: v1.4
     # Tokens are passed by name so this works from any account; they live only
     # in the ontostart-secrets environment.
     secrets:
