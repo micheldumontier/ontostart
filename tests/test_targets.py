@@ -139,3 +139,33 @@ def test_cli_plan(repo, capsys, monkeypatch):
     assert [t["path"] for t in data["targets"]] == ["pizza"]
     assert data["publish"] is True and data["bump"] is True
     assert data["foops"] is True and data["gist_id"] == "abc"
+
+
+@pytest.mark.parametrize("event,changed,expected", [
+    ("push", ["site/index.html"], True),
+    ("push", ["ontostart.yaml"], True),
+    ("push", ["ontologies/pizza/pizza.ttl"], False),
+    ("workflow_dispatch", None, True),
+])
+def test_plan_home_refresh(repo, monkeypatch, capsys, event, changed, expected):
+    import json
+    from ontostart.cli import main
+    (repo / "ontostart.yaml").write_text((repo / "ontostart.yaml").read_text() + "home: site/index.html\n")
+    monkeypatch.chdir(repo)
+    args = ["plan", "--ref", "main", "--event", event]
+    if changed is not None:
+        (repo / "changed.txt").write_text("\n".join(changed) + "\n")
+        args += ["--changed-file", str(repo / "changed.txt")]
+    assert main(args) == 0
+    assert json.loads(capsys.readouterr().out)["home"] is expected
+
+
+def test_plan_home_false_without_home_or_publish(repo, monkeypatch, capsys):
+    import json
+    from ontostart.cli import main
+    monkeypatch.chdir(repo)
+    assert main(["plan", "--ref", "main", "--event", "workflow_dispatch"]) == 0
+    assert json.loads(capsys.readouterr().out)["home"] is False
+    (repo / "ontostart.yaml").write_text((repo / "ontostart.yaml").read_text() + "home: site/index.html\n")
+    assert main(["plan", "--ref", "feature", "--event", "push"]) == 0
+    assert json.loads(capsys.readouterr().out)["home"] is False

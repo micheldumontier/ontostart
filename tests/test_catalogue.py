@@ -1,3 +1,4 @@
+import pytest
 import json
 from pathlib import Path
 
@@ -121,3 +122,51 @@ def test_catalogue_escapes_source(tmp_path):
     build_catalogue(tmp_path, CONFIG)
     page = (tmp_path / "index.html").read_text()
     assert "javascript:" not in page
+
+
+HOME_CONFIG = Config(w3id="ontostart", pages="https://example.github.io/ontostart", home="site/index.html")
+
+
+def test_catalogue_with_home_page(tmp_path, monkeypatch):
+    repo = tmp_path / "repo"
+    (repo / "site").mkdir(parents=True)
+    (repo / "site/index.html").write_text("<!doctype html><title>Landing</title>")
+    monkeypatch.chdir(repo)
+    site = _site(tmp_path / "site-out")
+    build_catalogue(site, HOME_CONFIG)
+    assert (site / "index.html").read_text() == "<!doctype html><title>Landing</title>"
+    page = (site / "catalog/index.html").read_text()
+    assert 'href="../pizza/"' in page and 'href="../sandbox/testo/"' in page
+    assert 'href="../catalog.ttl"' in page and 'href="../">' in page
+    assert (site / "catalog.ttl").is_file()
+
+
+def test_catalogue_without_home_has_no_catalog_page(tmp_path):
+    build_catalogue(_site(tmp_path), CONFIG)
+    assert not (tmp_path / "catalog").exists()
+    assert 'href="pizza/"' in (tmp_path / "index.html").read_text()
+
+
+def test_catalogue_missing_home_file(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    site = _site(tmp_path / "site-out")
+    with pytest.raises(FileNotFoundError, match="site/index.html"):
+        build_catalogue(site, HOME_CONFIG)
+
+
+def test_catalogue_keeps_home_when_not_writing_it(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)  # no site/index.html here: it must not be read
+    site = _site(tmp_path / "site-out")
+    (site / "index.html").write_text("published home")
+    build_catalogue(site, HOME_CONFIG, write_home=False)
+    assert (site / "index.html").read_text() == "published home"
+    assert 'href="../pizza/"' in (site / "catalog/index.html").read_text()
+
+
+def test_catalogue_cli_no_home(tmp_path, monkeypatch):
+    from ontostart.cli import main
+    (tmp_path / "ontostart.yaml").write_text("w3id: ontostart\npages: https://x\nhome: site/index.html\n")
+    monkeypatch.chdir(tmp_path)
+    site = _site(tmp_path / "site-out")
+    assert main(["catalogue", "--site", str(site), "--no-home"]) == 0
+    assert (site / "catalog/index.html").is_file() and not (site / "index.html").exists()

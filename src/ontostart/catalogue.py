@@ -43,7 +43,7 @@ PAGE = """<!doctype html>
   </style>
 </head>
 <body>
-  <h1>{title}</h1>
+{home_link}  <h1>{title}</h1>
   <p>Ontologies published under {base}. Each links to its page with versions, documentation and downloads.</p>
   <p>Catalogue files: {files}</p>
 {sections}
@@ -74,7 +74,7 @@ def _link(url: str, text: str) -> str:
     return f'<a href="{h.escape(url)}">{h.escape(text)}</a>'
 
 
-def _section(status: str, label: str, entries: list[dict]) -> str:
+def _section(status: str, label: str, entries: list[dict], up: str = "") -> str:
     items = []
     for m in sorted(entries, key=lambda m: str(m.get("title") or m.get("name") or m["path"]).lower()):
         title = str(m.get("title") or m.get("name") or m["path"])
@@ -84,7 +84,7 @@ def _section(status: str, label: str, entries: list[dict]) -> str:
             ([_link(iri, iri)] if iri else []) + ([_link(source, "source")] if source else [])
         )
         items.append(
-            f'    <div class="entry"><a href="{h.escape(str(m["path"]))}/">{h.escape(title)}</a>'
+            f'    <div class="entry"><a href="{up}{h.escape(str(m["path"]))}/">{h.escape(title)}</a>'
             f' <code>{h.escape(str(m.get("version") or ""))}</code>'
             + (f'<p class="description">{h.escape(desc)}</p>' if desc else "")
             + (f'<p class="links">{links}</p>' if links else "")
@@ -129,23 +129,45 @@ def _dcat(entries: list[dict], config: Config) -> Graph:
     return g
 
 
-def build_catalogue(site_root: Path, config: Config) -> None:
+def build_catalogue(
+    site_root: Path, config: Config, repo_root: Path | None = None, write_home: bool = True
+) -> None:
+    """Write the catalogue page and the DCAT files into site_root.
+
+    Without `home` in the configuration the catalogue page is the site's index.html.
+    With it, index.html is a copy of that file (read from repo_root, default the
+    current directory) and the catalogue page moves to catalog/index.html. With
+    write_home False (runs on other branches, whose copy of the home page may be
+    old) index.html is left as it is.
+    """
     site_root = Path(site_root)
+    home = None
+    if config.home and write_home:
+        home_file = Path(repo_root or Path.cwd()) / config.home
+        if not home_file.is_file():
+            raise FileNotFoundError(f"home page {config.home} not found")
+        home = home_file.read_text(encoding="utf-8")
+    up = "../" if config.home else ""
     entries = _load(site_root)
     sections = "\n".join(
-        _section(status, label, [m for m in entries if m["status"] == status])
+        _section(status, label, [m for m in entries if m["status"] == status], up)
         for status, label in SECTIONS
         if any(m["status"] == status for m in entries)
     )
-    files = " | ".join(f'<a href="catalog.{ext}">catalog.{ext}</a>' for ext, _, _ in FORMATS)
-    (site_root / "index.html").write_text(
-        PAGE.format(
-            title=h.escape(f"{config.w3id} ontologies"),
-            base=_link(f"https://w3id.org/{config.w3id}/", f"https://w3id.org/{config.w3id}/"),
-            files=files, sections=sections,
-        ),
-        encoding="utf-8",
+    files = " | ".join(f'<a href="{up}catalog.{ext}">catalog.{ext}</a>' for ext, _, _ in FORMATS)
+    page = PAGE.format(
+        title=h.escape(f"{config.w3id} ontologies"),
+        home_link='  <p><a href="../">← home</a></p>\n' if config.home else "",
+        base=_link(f"https://w3id.org/{config.w3id}/", f"https://w3id.org/{config.w3id}/"),
+        files=files, sections=sections,
     )
+    if not config.home:
+        (site_root / "index.html").write_text(page, encoding="utf-8")
+    else:
+        (site_root / "catalog").mkdir(exist_ok=True)
+        (site_root / "catalog/index.html").write_text(page, encoding="utf-8")
+        if home is not None:
+            (site_root / "index.html").write_text(home, encoding="utf-8")
     g = _dcat(entries, config)
     for ext, fmt, _ in FORMATS:
         text = g.serialize(format=fmt)

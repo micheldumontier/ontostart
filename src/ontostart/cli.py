@@ -47,8 +47,14 @@ def _plan(args: argparse.Namespace) -> int:
         print("::notice::Not initialised yet (w3id is still CHANGEME); run "
               "`ontostart init` (see README.md) and push. Nothing is built.", file=sys.stderr)
         targets = []
+    # The home page is rebuilt on its own when it (or the configuration) changed, so
+    # editing it publishes without building any ontology.
+    home = bool(config.home) and plan.publish and (
+        changed is None or config.home in changed or "ontostart.yaml" in changed
+    )
     print(json.dumps({
         "targets": [t.to_json() for t in targets],
+        "home": home,
         "publish": plan.publish,
         "bump": plan.bump,
         "foops": config.foops,
@@ -157,7 +163,7 @@ def _badges(args: argparse.Namespace) -> int:
 
 def _catalogue(args: argparse.Namespace) -> int:
     config = load_config(Path.cwd() / "ontostart.yaml")
-    build_catalogue(Path(args.site), config)
+    build_catalogue(Path(args.site), config, write_home=not args.no_home)
     return 0
 
 
@@ -228,6 +234,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--deployed", nargs="*")
     p.set_defaults(func=_badges)
     p = sub.add_parser("catalogue", help="build the root catalogue page and DCAT files")
+    p.add_argument("--no-home", action="store_true",
+                   help="leave the published home page as it is (runs on other branches)")
     p.add_argument("--site", required=True)
     p.set_defaults(func=_catalogue)
     p = sub.add_parser("htaccess", help="write the w3id.org .htaccess")

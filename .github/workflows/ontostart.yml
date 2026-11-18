@@ -17,11 +17,13 @@ on:
     paths:
       - "ontologies/**"
       - "sandbox/**"
+      - "site/**"
       - "ontostart.yaml"
   pull_request:
     paths:
       - "ontologies/**"
       - "sandbox/**"
+      - "site/**"
       - "ontostart.yaml"
   workflow_dispatch:
     inputs:

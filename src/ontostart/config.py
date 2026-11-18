@@ -40,6 +40,7 @@ class Config:
     aliases: dict[str, str] = field(default_factory=dict)
     legacy_root: LegacyRoot | None = None
     ontologies: dict[str, OntologySettings] = field(default_factory=dict)
+    home: str = ""
 
 
 def _text(data: dict, key: str, *, required: bool = False, default: str = "") -> str:
@@ -89,6 +90,10 @@ def load_config(path: Path) -> Config:
 
     aliases = _aliases(data)
 
+    home = _text(data, "home")
+    if home and (home.startswith("/") or "\\" in home or ".." in home.split("/")):
+        raise ConfigError("ontostart.yaml: 'home' must be a path inside the repository, like site/index.html")
+
     legacy = data.get("legacy_root")
     legacy_root = None
     if legacy:
@@ -114,4 +119,5 @@ def load_config(path: Path) -> Config:
         aliases=aliases,
         legacy_root=legacy_root,
         ontologies=ontologies,
+        home=home,
     )

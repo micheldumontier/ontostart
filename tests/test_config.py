@@ -52,3 +52,19 @@ def test_load_config_accepts_alias_to_sandbox(tmp_path):
     p = tmp_path / "ontostart.yaml"
     p.write_text("w3id: x\npages: p\naliases:\n  testo: sandbox/testo\n  old-pizza: pizza\n")
     assert load_config(p).aliases == {"testo": "sandbox/testo", "old-pizza": "pizza"}
+
+
+def test_load_config_home(tmp_path):
+    p = tmp_path / "ontostart.yaml"
+    p.write_text("w3id: x\npages: https://x\nhome: site/index.html\n")
+    assert load_config(p).home == "site/index.html"
+    p.write_text("w3id: x\npages: https://x\n")
+    assert load_config(p).home == ""
+
+
+@pytest.mark.parametrize("home", ["/etc/passwd", "../index.html", "site/../../x.html", "site\\index.html"])
+def test_load_config_rejects_bad_home(tmp_path, home):
+    p = tmp_path / "ontostart.yaml"
+    p.write_text(f"w3id: x\npages: https://x\nhome: '{home}'\n")
+    with pytest.raises(ConfigError, match="home"):
+        load_config(p)

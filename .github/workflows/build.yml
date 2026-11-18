@@ -84,6 +84,7 @@ jobs:
       plan: ${{ steps.plan.outputs.plan }}
       has-targets: ${{ steps.plan.outputs.has-targets }}
       publish: ${{ steps.plan.outputs.publish }}
+      home: ${{ steps.plan.outputs.home }}
       sha: ${{ steps.sha.outputs.sha }}
     steps:
       - name: Check out
@@ -152,6 +153,7 @@ jobs:
             echo "plan=$plan"
             echo "has-targets=$(jq -r '(.targets | length) > 0' <<<"$plan")"
             echo "publish=$(jq -r '.publish' <<<"$plan")"
+            echo "home=$(jq -r '.home // false' <<<"$plan")"
           } >> "$GITHUB_OUTPUT"
 
   build:
@@ -377,7 +379,7 @@ jobs:
     if: >-
       !cancelled() && needs.plan.result == 'success'
       && needs.plan.outputs.publish == 'true'
-      && needs.plan.outputs.has-targets == 'true'
+      && (needs.plan.outputs.has-targets == 'true' || needs.plan.outputs.home == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -389,6 +391,8 @@ jobs:
       PLAN: ${{ needs.plan.outputs.plan }}
       PLAN_SHA: ${{ needs.plan.outputs.sha }}
       REF: ${{ github.ref_name }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      HOME_CHANGED: ${{ needs.plan.outputs.home }}
       GIT_AUTHOR_NAME: github-actions[bot]
       GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
       GIT_COMMITTER_NAME: github-actions[bot]
@@ -416,6 +420,7 @@ jobs:
           echo "ARTIFACTS=$RUNNER_TEMP/artifacts" >> "$GITHUB_ENV"
 
       - name: Download build results
+        if: needs.plan.outputs.has-targets == 'true'
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: ontology-*
@@ -501,7 +506,7 @@ jobs:
       - name: Publish to gh-pages
         id: pages
         run: |
-          if [ ! -s "$RUNNER_TEMP/ready.txt" ]; then
+          if [ ! -s "$RUNNER_TEMP/ready.txt" ] && [ "$HOME_CHANGED" != true ]; then
             echo "Nothing to publish."
             echo "deployed=" >> "$GITHUB_OUTPUT"
             exit 0
@@ -512,7 +517,12 @@ jobs:
             parts+=("$path@$version")
             deployed+=("$safe")
           done < "$RUNNER_TEMP/ready.txt"
+          if [ "${#parts[@]}" -eq 0 ]; then parts=("the home page"); fi
           joined="$(printf '%s, ' "${parts[@]}")"
+          # Only the default branch writes the home page (ontostart.yaml `home:`): another
+          # branch's copy of it may be older than the published one.
+          catalogue_args=(--site gh-pages)
+          if [ "$REF" != "$DEFAULT_BRANCH" ]; then catalogue_args+=(--no-home); fi
           pushed=false
           for attempt in 1 2 3 4 5; do
             if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
@@ -543,7 +553,7 @@ jobs:
               # artifact was downloaded (e.g. 1.0.4 -> 1.0.5) would otherwise be skipped.
               rsync -a --checksum --delete "${keep[@]}" "$ARTIFACTS/ontology-$safe/site/" "gh-pages/$path/"
             done < "$RUNNER_TEMP/ready.txt"
-            ontostart catalogue --site gh-pages
+            ontostart catalogue "${catalogue_args[@]}"
             touch gh-pages/.nojekyll
             git -C gh-pages add -A
             if git -C gh-pages diff --cached --quiet; then
@@ -565,7 +575,7 @@ jobs:
             echo "::error::could not push gh-pages after 5 attempts."
             exit 1
           fi
-          echo "deployed=${deployed[*]}" >> "$GITHUB_OUTPUT"
+          echo "deployed=${deployed[*]:-}" >> "$GITHUB_OUTPUT"
 
       - name: Report blocked ontologies
         if: ${{ !cancelled() && steps.sort.outcome == 'success' }}
@@ -586,6 +596,7 @@ jobs:
     needs: [plan, publish]
     if: >-
       !cancelled() && github.ref == 'refs/heads/main'
+      && needs.plan.outputs.has-targets == 'true'
       && needs.publish.outputs.sorted == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
