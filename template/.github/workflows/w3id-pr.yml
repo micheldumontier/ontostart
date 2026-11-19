@@ -37,7 +37,6 @@ jobs:
       COMMIT_MESSAGE: ${{ inputs.COMMIT_MESSAGE }}
       PR_TITLE: ${{ inputs.PR_TITLE }}
       PR_BODY: ${{ inputs.PR_BODY }}
-      engine-ref: v1.6
     # Tokens are passed by name so this works from any account; they live only
     # in the ontostart-secrets environment.
     secrets:

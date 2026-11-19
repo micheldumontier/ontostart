@@ -48,11 +48,13 @@ on:
     inputs:
       engine-ref:
         description: >-
-          Engine version: an exact release of micheldumontier/ontostart to pip
-          install (the same vX.Y as in uses:), or "" to pip install the
-          checked-out repository itself.
+          Engine version. Left out ("workflow"), the engine is installed from the
+          commit this workflow was called at, so the release in uses: decides it.
+          "" installs the checked-out repository itself; anything else is a ref
+          of micheldumontier/ontostart.
         type: string
-        required: true
+        required: false
+        default: workflow
       only:
         description: Build only this path (e.g. "pizza" or "sandbox/testo").
         type: string
@@ -124,13 +126,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install the engine
+        env:
+          # The repository and commit this reusable workflow was called at (uses: ...@vX.Y).
+          ENGINE_REPO: ${{ job.workflow_repository }}
+          ENGINE_SHA: ${{ job.workflow_sha }}
         run: |
           python -m pip install --upgrade pip
-          if [ -z "$ENGINE_REF" ]; then
-            pip install .
-          else
-            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
-          fi
+          case "$ENGINE_REF" in
+            "") pip install . ;;
+            workflow) pip install "git+https://github.com/${ENGINE_REPO:?}@${ENGINE_SHA:?}" ;;
+            *) pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}" ;;
+          esac
 
       - name: Plan
         id: plan
@@ -217,13 +223,17 @@ jobs:
           java-version: "17"
 
       - name: Install the engine
+        env:
+          # The repository and commit this reusable workflow was called at (uses: ...@vX.Y).
+          ENGINE_REPO: ${{ job.workflow_repository }}
+          ENGINE_SHA: ${{ job.workflow_sha }}
         run: |
           python -m pip install --upgrade pip
-          if [ -z "$ENGINE_REF" ]; then
-            pip install .
-          else
-            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
-          fi
+          case "$ENGINE_REF" in
+            "") pip install . ;;
+            workflow) pip install "git+https://github.com/${ENGINE_REPO:?}@${ENGINE_SHA:?}" ;;
+            *) pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}" ;;
+          esac
           echo "OUT=$RUNNER_TEMP/out" >> "$GITHUB_ENV"
 
       - name: Download ROBOT (checksum-verified)
@@ -432,13 +442,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install the engine
+        env:
+          # The repository and commit this reusable workflow was called at (uses: ...@vX.Y).
+          ENGINE_REPO: ${{ job.workflow_repository }}
+          ENGINE_SHA: ${{ job.workflow_sha }}
         run: |
           python -m pip install --upgrade pip
-          if [ -z "$ENGINE_REF" ]; then
-            pip install .
-          else
-            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
-          fi
+          case "$ENGINE_REF" in
+            "") pip install . ;;
+            workflow) pip install "git+https://github.com/${ENGINE_REPO:?}@${ENGINE_SHA:?}" ;;
+            *) pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}" ;;
+          esac
           echo "ARTIFACTS=$RUNNER_TEMP/artifacts" >> "$GITHUB_ENV"
 
       - name: Download build results
@@ -639,13 +653,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install the engine
+        env:
+          # The repository and commit this reusable workflow was called at (uses: ...@vX.Y).
+          ENGINE_REPO: ${{ job.workflow_repository }}
+          ENGINE_SHA: ${{ job.workflow_sha }}
         run: |
           python -m pip install --upgrade pip
-          if [ -z "$ENGINE_REF" ]; then
-            pip install .
-          else
-            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
-          fi
+          case "$ENGINE_REF" in
+            "") pip install . ;;
+            workflow) pip install "git+https://github.com/${ENGINE_REPO:?}@${ENGINE_SHA:?}" ;;
+            *) pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}" ;;
+          esac
 
       - name: Download build results
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2

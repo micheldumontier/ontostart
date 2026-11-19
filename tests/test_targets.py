@@ -214,3 +214,21 @@ def test_target_json_round_trip_keeps_bump(repo):
     t = p.targets[0]
     assert t.to_json()["bump"] is True
     assert Target.from_json(t.to_json(), repo) == t
+
+
+def test_engine_upgrade_rebuilds_all_but_bumps_none(repo):
+    # Merging an engine upgrade (the release in uses:) republishes every ontology with it.
+    p = make_plan(repo, cfg(repo), "main", "push", [".github/workflows/ontostart.yml"])
+    assert paths(p) == ["pizza", "sandbox/testo", "suloized-pizza"] and p.publish
+    assert bumped(p) == [] and not p.bump
+
+
+def test_engine_upgrade_pull_request_checks_all(repo):
+    p = make_plan(repo, cfg(repo), "dependabot/github_actions/x", "pull_request",
+                  [".github/workflows/ontostart.yml", ".github/workflows/w3id-pr.yml"])
+    assert len(p.targets) == 3 and not p.publish
+
+
+def test_other_workflow_changes_build_nothing(repo):
+    p = make_plan(repo, cfg(repo), "main", "push", [".github/workflows/w3id-pr.yml"])
+    assert p.targets == []

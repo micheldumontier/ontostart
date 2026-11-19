@@ -1,5 +1,6 @@
 # Builds, checks and publishes this collection's ontologies with the reusable
-# OntoStart build workflow, pinned to release v1.6 of the engine (update both lines together).
+# OntoStart build workflow, pinned to an exact release of the engine (@vX.Y below).
+# Dependabot proposes newer releases as pull requests; see .github/dependabot.yml.
 #
 # GIST_TOKEN (and W3ID_TOKEN for w3id-pr.yml) are secrets of the environment
 # "ontostart-secrets", limited to the main branch; they are not passed from here.
@@ -13,10 +14,12 @@ on:
     paths:
       - "ontologies/**"
       - "ontostart.yaml"
+      - ".github/workflows/ontostart.yml"  # an engine upgrade rebuilds all, bumps none
   pull_request:
     paths:
       - "ontologies/**"
       - "ontostart.yaml"
+      - ".github/workflows/ontostart.yml"
   workflow_dispatch:
     inputs:
       only:
@@ -44,7 +47,6 @@ jobs:
     if: github.actor != 'github-actions[bot]' && !github.event.repository.is_template
     uses: micheldumontier/ontostart/.github/workflows/build.yml@v1.6
     with:
-      engine-ref: v1.6
       only: ${{ inputs.only || '' }}
       bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}
     # Tokens are passed by name so this works from any account; they live only

@@ -69,11 +69,13 @@ on:
         default: ""
       engine-ref:
         description: >-
-          Engine version: an exact release of micheldumontier/ontostart to pip
-          install (the same vX.Y as in uses:), or "" to pip install the
-          checked-out repository itself.
+          Engine version. Left out ("workflow"), the engine is installed from the
+          commit this workflow was called at, so the release in uses: decides it.
+          "" installs the checked-out repository itself; anything else is a ref
+          of micheldumontier/ontostart.
         type: string
-        required: true
+        required: false
+        default: workflow
     secrets:
       W3ID_TOKEN:
         description: >-
@@ -147,13 +149,17 @@ jobs:
 
       # The committed .htaccess must be exactly what the engine generates from ontostart.yaml.
       - name: Check the .htaccess is up to date
+        env:
+          # The repository and commit this reusable workflow was called at (uses: ...@vX.Y).
+          ENGINE_REPO: ${{ job.workflow_repository }}
+          ENGINE_SHA: ${{ job.workflow_sha }}
         run: |
           python -m pip install --upgrade pip
-          if [ -z "$ENGINE_REF" ]; then
-            pip install .
-          else
-            pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}"
-          fi
+          case "$ENGINE_REF" in
+            "") pip install . ;;
+            workflow) pip install "git+https://github.com/${ENGINE_REPO:?}@${ENGINE_SHA:?}" ;;
+            *) pip install "git+https://github.com/micheldumontier/ontostart@${ENGINE_REF}" ;;
+          esac
           ontostart htaccess --out "$RUNNER_TEMP/htaccess"
           if ! diff -u "$RUNNER_TEMP/htaccess" "$SOURCE_HTACCESS_PATH"; then
             echo "::error::$SOURCE_HTACCESS_PATH differs from \`ontostart htaccess\`; regenerate and commit it."

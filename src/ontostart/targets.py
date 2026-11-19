@@ -117,6 +117,11 @@ def _inside(changed: str, target: Target, root: Path) -> bool:
     return changed.startswith(target.folder.relative_to(root).as_posix() + "/")
 
 
+# Changing one of these rebuilds every ontology without bumping any: the configuration,
+# and the build workflow, whose uses: line names the engine release.
+REBUILD_ALL = ("ontostart.yaml", ".github/workflows/ontostart.yml")
+
+
 def make_plan(
     root: Path,
     config: Config,
@@ -142,13 +147,13 @@ def make_plan(
         targets = [t for t in all_targets if t.path == ref]
         if not targets:
             raise ConfigError(f"ref {ref}: expected sandbox/{name}/{name}.ttl")
-    elif changed is None or "ontostart.yaml" in changed:
+    elif changed is None or any(c in REBUILD_ALL for c in changed):
         targets = all_targets
     else:
         targets = [t for t in all_targets if any(_inside(c, t, root) for c in changed)]
-    # Folders whose own files changed. A configuration change rebuilds every
-    # ontology (its status or docs settings may change its pages) but is not a
-    # change to the ontologies, so it bumps none of them.
+    # Folders whose own files changed. A configuration change or engine upgrade
+    # rebuilds every ontology (its pages may change) but is not a change to the
+    # ontologies, so it bumps none of them.
     edited = None if changed is None or on_sandbox else {
         t.path for t in all_targets if any(_inside(c, t, root) for c in changed)
     }

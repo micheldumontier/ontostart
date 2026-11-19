@@ -68,7 +68,8 @@ def test_cli_init(repo, capsys):
 
 
 def test_template_does_not_leak_identity():
-    allowed = {"README.md", ".github/workflows/ontostart.yml", ".github/workflows/w3id-pr.yml"}
+    allowed = {"README.md", ".github/workflows/ontostart.yml", ".github/workflows/w3id-pr.yml",
+               ".github/dependabot.yml"}
     for path in TEMPLATE.rglob("*"):
         rel = path.relative_to(TEMPLATE).as_posix()
         if path.is_file() and rel not in allowed:
@@ -77,6 +78,9 @@ def test_template_does_not_leak_identity():
         for line in (TEMPLATE / rel).read_text().splitlines():
             if "micheldumontier" in line:
                 assert "uses: micheldumontier/ontostart/.github/workflows/" in line or line.lstrip().startswith("#")
+    mentions = [line.strip() for line in (TEMPLATE / ".github/dependabot.yml").read_text().splitlines()
+                if "micheldumontier" in line]
+    assert mentions == ['- "micheldumontier/ontostart*"']
 
 
 def test_plan_skips_uninitialised_template(repo, capsys, monkeypatch):
@@ -122,3 +126,17 @@ def test_cli_init_gist_flag(repo):
     assert load_config(repo / "ontostart.yaml").gist_id == "abc123"
     assert main(args + ["--gist", ""]) == 0
     assert load_config(repo / "ontostart.yaml").gist_id == ""
+
+
+def test_template_upgrades_through_uses_lines_only():
+    import yaml
+
+    from ontostart.targets import REBUILD_ALL
+
+    workflow = yaml.safe_load((TEMPLATE / ".github/workflows/ontostart.yml").read_text())
+    triggers = workflow[True]  # PyYAML reads the key "on" as True
+    for event in ("push", "pull_request"):
+        assert ".github/workflows/ontostart.yml" in triggers[event]["paths"]
+    assert ".github/workflows/ontostart.yml" in REBUILD_ALL
+    for rel in (".github/workflows/ontostart.yml", ".github/workflows/w3id-pr.yml"):
+        assert "engine-ref" not in (TEMPLATE / rel).read_text(), rel

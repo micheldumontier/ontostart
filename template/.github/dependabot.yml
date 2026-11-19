@@ -1,0 +1,14 @@
+# Dependabot opens one pull request when OntoStart has a new release: it changes
+# the @vX.Y of the uses: lines in .github/workflows. CI checks every ontology with
+# the new release on that pull request; merging it republishes them with it, and
+# their versions stay the same.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      ontostart:
+        patterns:
+          - "micheldumontier/ontostart*"

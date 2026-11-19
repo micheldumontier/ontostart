@@ -25,4 +25,4 @@ Create `ontologies/<name>/<name>.ttl` with the IRI `https://w3id.org/NAME/<name>
 
 ## Upgrade the engine
 
-The workflows run a fixed release of OntoStart, so your published ontologies change only when this repository changes. To take a newer release (see [Engine releases](https://github.com/micheldumontier/ontostart#engine-releases)), replace the version, such as `v1.6`, in four lines: `uses:` and `engine-ref:` in both `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`. Commit and push; the next change to an ontology or to `ontostart.yaml` builds with it.
+The workflows run a fixed release of OntoStart, the `@vX.Y` in their `uses:` lines, so your published ontologies change only when this repository changes. When there is a new release (see [Engine releases](https://github.com/micheldumontier/ontostart#engine-releases)), Dependabot opens a pull request that changes those lines, and CI checks every ontology with the new release on it. Merge it to republish your ontologies with the new release; their versions stay the same. Without Dependabot, change the `@vX.Y` in `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml` yourself.
