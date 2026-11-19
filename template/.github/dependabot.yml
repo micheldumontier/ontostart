@@ -12,3 +12,7 @@ updates:
       ontostart:
         patterns:
           - "micheldumontier/ontostart*"
+    # A release is proposed once it is three days old, so a broken release can be
+    # withdrawn before it reaches you.
+    cooldown:
+      default-days: 3
