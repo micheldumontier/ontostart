@@ -69,7 +69,7 @@ template/                         content of the ontostart-template repository (
 | push to any other branch, or pull request (from any branch, `sandbox/<name>` included) | folders with changed files | no | no |
 | manual run | one folder or all; the bump is an input (default no) | per input | yes, on `main` and `sandbox/*` |
 
-Per target: OWL DL profile check, HermiT reasoning (using the folder's `catalog-v001.xml` when present), version bump, four syntaxes, OntoSpy and pyLODE docs, FOOPS! (if enabled), site page.
+Per target: OWL DL profile check, HermiT reasoning (using the folder's `catalog-v001.xml` when present), version bump, four syntaxes, OntoSpy and pyLODE docs, FOOPS! (if enabled), site page. Each docs generator may take 5 minutes and FOOPS! 3; one that fails or runs out of time is left out with a warning, and the ontology is still published.
 
 A target is **blocked** (not committed, not published, and the run fails at the end) when the ontology is not in the OWL DL profile or ROBOT cannot check it (for example, an import that does not load), the ontology is inconsistent, reasoning errors, its ontology IRI is not `https://w3id.org/<w3id>/<path>/`, its unsatisfiable-class count differs from `compare_unsatisfiable_with`, or ROBOT's checks do not finish within 15 minutes (all ROBOT runs of one ontology together). Unsatisfiable classes alone do not block. One run makes at most one commit to the ref and one push to `gh-pages`; runs on the same ref never overlap.
 

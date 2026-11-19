@@ -184,7 +184,10 @@ jobs:
     if: needs.plan.outputs.has-targets == 'true'
     name: build ${{ matrix.target.path }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Worst case: ROBOT's checks share 15 minutes (CHECK_BUDGET), the slow steps below
+    # have their own limits (21 minutes together), and the rest takes a few minutes.
+    # Within this limit a slow ontology still gets its report and badges.
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -237,6 +240,7 @@ jobs:
           echo "OUT=$RUNNER_TEMP/out" >> "$GITHUB_ENV"
 
       - name: Download ROBOT (checksum-verified)
+        timeout-minutes: 3
         run: |
           mkdir -p "$RUNNER_TEMP/robot"
           cd "$RUNNER_TEMP/robot"
@@ -322,6 +326,7 @@ jobs:
       - name: Install OntoSpy and pyLODE
         if: steps.check.outputs.blocked == 'false'
         continue-on-error: true
+        timeout-minutes: 5
         run: |
           pip install "git+https://github.com/RDFLib/pyLODE.git@8a8bd4dd14018a1ab31e27185eaf740219bb93f1" # 3.1.0
           cd .ontospy-src
@@ -332,6 +337,7 @@ jobs:
         id: ontospy
         if: steps.check.outputs.blocked == 'false'
         continue-on-error: true
+        timeout-minutes: 5
         run: |
           mkdir -p "$OUT/site/docs/ontospy"
           python -m ontospy.cli gendocs --type 2 -o "$OUT/site/docs/ontospy" "$ONTO_FILE"
@@ -340,6 +346,7 @@ jobs:
         id: pylode
         if: steps.check.outputs.blocked == 'false'
         continue-on-error: true
+        timeout-minutes: 5
         run: |
           mkdir -p "$OUT/site/docs/pylode"
           python - "$ONTO_FILE" "$OUT/site/docs/pylode/index.html" <<'PY'
@@ -352,6 +359,7 @@ jobs:
         id: foops
         if: steps.check.outputs.blocked == 'false' && env.PLAN_FOOPS == 'true'
         continue-on-error: true
+        timeout-minutes: 3
         run: |
           body="$(jq -cn --arg iri "$ONTO_IRI" '{ontologyUri: $iri}')"
           curl -fsS --max-time 120 -X POST "https://foops.linkeddata.es/assessOntology" \
@@ -369,6 +377,13 @@ jobs:
                 --report "$OUT/report.json" --result "$OUT/result.json"
                 --repo "$REPO" --ref "$REF" --server-url "$SERVER_URL"
                 --step "ontospy=$ONTOSPY_OK" --step "pylode=$PYLODE_OK")
+          # A docs step that failed or ran out of time (5 minutes) does not block publishing.
+          if [ "$ONTOSPY_OK" != true ]; then
+            echo "::warning::$ONTO_PATH: OntoSpy docs failed or took over 5 minutes; published without them"
+          fi
+          if [ "$PYLODE_OK" != true ]; then
+            echo "::warning::$ONTO_PATH: pyLODE docs failed or took over 5 minutes; published without them"
+          fi
           if [ "$PLAN_FOOPS" = true ]; then args+=(--foops-json "$RUNNER_TEMP/foops.json"); fi
           if [ -n "$GIST_ID" ]; then
             args+=(--badge-base "https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/$GIST_OWNER/$GIST_ID/raw/")
