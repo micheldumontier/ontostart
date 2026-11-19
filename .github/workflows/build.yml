@@ -664,8 +664,9 @@ jobs:
 
   # Register/refresh the ontologies this run published in OntoExplorer. Main only,
   # and strictly opt-in: the step no-ops unless ONTOEXPLORER_TOKEN is set in the
-  # ontostart-secrets environment. It POSTs each published ontology's latest
-  # Turtle URL to OntoExplorer's authenticated submit endpoint; the token acts
+  # ontostart-secrets environment. It POSTs each published ontology's canonical
+  # w3id IRI (or its latest published URL until that IRI's redirect is live) to
+  # OntoExplorer's authenticated submit endpoint; the token acts
   # only as its own user, so no platform-wide webhook secret is shared with this
   # repo. OntoExplorer identifies the ontology by the IRI inside the document, so
   # a known ontology is refreshed and a new one is registered, each owned by the
@@ -704,9 +705,11 @@ jobs:
             echo "::warning::ontoexplorer-host is empty; skipping OntoExplorer registration."
             exit 0
           fi
-          # Pages base is the declared source of truth for the published site.
-          pages="$( (grep -E '^pages:' ontostart.yaml || true) | head -1 | cut -d: -f2- | sed 's/#.*$//' | tr -d '"'\''' | xargs)"
-          pages="${pages%/}"
+          # ontostart.yaml is the declared source of truth for the w3id namespace
+          # (canonical IRIs) and the published Pages base (the day-one fallback).
+          yval() { (grep -E "^$1:" ontostart.yaml || true) | head -1 | cut -d: -f2- | sed 's/#.*$//' | tr -d '"'\''' | xargs; }
+          pages="$(yval pages)"; pages="${pages%/}"
+          w3id="$(yval w3id)"
           if [ -z "$pages" ] || [ "$pages" = "https://OWNER.github.io/REPO" ]; then
             echo "::warning::ontostart.yaml 'pages:' is not configured ('$pages'); cannot build published URLs. Skipping."
             exit 0
@@ -721,17 +724,30 @@ jobs:
               echo "::warning::no plan entry for deployed target '$safe'; skipping."
               continue
             fi
-            url="$pages/$path/versions/latest/$name.ttl"
-            echo "Registering $url"
+            # Prefer the canonical w3id IRI — stable identity, content-negotiated,
+            # carries the version — but only when it already resolves to RDF. A
+            # brand-new collection's w3id redirect is not live until its w3id PR is
+            # merged at perma-id/w3id.org, so until then fall back to the freshly
+            # published Pages URL (which always resolves right after this deploy).
+            iri=""
+            if [ -n "$w3id" ] && [ "$w3id" != "CHANGEME" ]; then iri="https://w3id.org/$w3id/$name/"; fi
+            pages_url="$pages/$path/versions/latest/$name.ttl"
+            if [ -n "$iri" ] && curl -sfL -m 20 -H 'Accept: text/turtle' -o /dev/null "$iri"; then
+              submit="$iri"; body="{\"iri\": \"$iri\"}"
+            else
+              [ -n "$iri" ] && echo "::notice::$iri does not resolve to RDF yet (w3id redirect pending?); using the published URL."
+              submit="$pages_url"; body="{\"url\": \"$pages_url\"}"
+            fi
+            echo "Registering $submit"
             code="$(curl -sS -m 30 -o /tmp/oe_resp -w '%{http_code}' \
               -X POST "$host/api/v1/ontologies" \
               -H "Authorization: Bearer $ONTOEXPLORER_TOKEN" \
               -H 'Content-Type: application/json' \
-              -d "{\"url\": \"$url\"}" || echo 000)"
+              -d "$body" || echo 000)"
             if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
               echo "  queued ($code): $(cat /tmp/oe_resp 2>/dev/null)"
             else
-              echo "::warning::OntoExplorer registration failed for $url: HTTP $code $(cat /tmp/oe_resp 2>/dev/null)"
+              echo "::warning::OntoExplorer registration failed for $submit: HTTP $code $(cat /tmp/oe_resp 2>/dev/null)"
               fails=$((fails + 1))
             fi
           done
