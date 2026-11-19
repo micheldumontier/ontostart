@@ -1,6 +1,6 @@
 [project]
 name = "ontostart"
-version = "1.8.0"
+version = "1.9.0"
 description = "Build, check and publish ontologies kept in folders"
 requires-python = ">=3.11"
 dependencies = ["rdflib>=7", "pyyaml"]

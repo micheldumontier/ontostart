@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   w3id-pr:
-    uses: micheldumontier/ontostart/.github/workflows/w3id-pr.yml@v1.8
+    uses: micheldumontier/ontostart/.github/workflows/w3id-pr.yml@v1.9
     with:
       W3ID_FOLDER: CHANGEME
       SOURCE_HTACCESS_PATH: apache/web/CHANGEME/.htaccess

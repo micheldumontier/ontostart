@@ -45,7 +45,7 @@ jobs:
     # The template repository itself has no w3id name yet, so it
     # does not build; repositories created from it do.
     if: github.actor != 'github-actions[bot]' && !github.event.repository.is_template
-    uses: micheldumontier/ontostart/.github/workflows/build.yml@v1.8
+    uses: micheldumontier/ontostart/.github/workflows/build.yml@v1.9
     with:
       only: ${{ inputs.only || '' }}
       bump: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.bump) || '' }}

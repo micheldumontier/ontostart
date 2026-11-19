@@ -140,7 +140,7 @@ Both tokens must be secrets of the environment `ontostart-secrets`, not reposito
 2. In a clone, fill in your w3id.org name, GitHub account and repository:
 
    ```
-   uvx --from git+https://github.com/micheldumontier/ontostart@v1.8 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
+   uvx --from git+https://github.com/micheldumontier/ontostart@v1.9 ontostart init --w3id NAME --owner OWNER --repo REPO [--gist GIST_ID]
    ```
 
    This writes `ontostart.yaml`, the example ontology's IRIs (`https://w3id.org/NAME/testo/`), the w3id workflow, and `apache/web/NAME/.htaccess` with its README. Commit and push: CI builds the example and creates `gh-pages`. Running `init` again with the same name and another `--owner` or `--repo` updates `pages:` (unless it is a custom domain) and the redirect README; `--gist ''` removes the gist id, which turns badges off.
@@ -161,6 +161,7 @@ The template's README has the details. Its workflows call this repository's `bui
 | `v1.6` | ROBOT checks share one 15-minute budget and a timeout or ROBOT failure is reported as such, not as a profile violation; badge updates retry GitHub server errors; re-running `init` follows a new owner/repo and `--gist ''` clears the gist id; template pinned to `v1.6` |
 | `v1.7` | optional OntoExplorer registration after publish (`ONTOEXPLORER_TOKEN` secret, `ontoexplorer-host` input); template pinned to `v1.7` |
 | `v1.8` | the engine is installed from the release named in `uses:`, so `engine-ref` is no longer needed; an engine upgrade rebuilds every ontology without bumping; the template's Dependabot configuration proposes new releases as pull requests; template pinned to `v1.8` |
+| `v1.9` | time limits for the docs and FOOPS! steps (the build job may take 45 minutes); a failed reasoning run says why; each ontology page links back to the catalogue; template pinned to `v1.9` |
 
 A collection pins an exact release in the `uses: ...@vX.Y` lines of `.github/workflows/ontostart.yml` and `.github/workflows/w3id-pr.yml`; from `v1.8` the workflows install the engine from that same release, and the template's Dependabot configuration proposes each new release as one pull request, which CI checks against every ontology. Merging it rebuilds every ontology with the new release without bumping their versions. A collection made before `v1.8` also has `engine-ref: vX.Y` lines; delete them when upgrading, and copy `.github/dependabot.yml` and the `.github/workflows/ontostart.yml` entry under `paths:` from the template. There is no moving `v1` tag: a collection's published pages and versions change only when its own repository changes, and a bad engine release cannot reach every collection at once. The first release, once tagged `v1`, is `v1.0`. This repository builds with the engine from its own checkout. To release: tag `main` as `vX.Y`, update the pins under `template/`, and push the `template/` content to the template repository.
 
