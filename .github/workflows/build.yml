@@ -32,14 +32,15 @@
 # ontologies in, regenerates the catalogue and pushes, and starts over from the
 # fetch (up to 5 attempts) when another run pushed first.
 #
-# Secrets. GIST_TOKEN (badges) and W3ID_TOKEN (w3id-pr.yml) must be secrets of
-# the environment "ontostart-secrets" whose deployment branches are limited to
-# main, not repository secrets: anyone who can push a branch can run a modified
-# workflow on it and read repository secrets. Set it up under Settings >
-# Environments > New environment "ontostart-secrets" > Deployment branches and
-# tags > Selected branches and tags > add "main"; add both secrets there and
-# delete the repository-level copies. Only the badges job (main only) and
-# w3id-pr.yml use that environment.
+# Secrets. GIST_TOKEN (badges), W3ID_TOKEN (w3id-pr.yml) and the optional
+# ONTOEXPLORER_TOKEN (ontoexplorer job) must be secrets of the environment
+# "ontostart-secrets" whose deployment branches are limited to main, not
+# repository secrets: anyone who can push a branch can run a modified workflow on
+# it and read repository secrets. Set it up under Settings > Environments > New
+# environment "ontostart-secrets" > Deployment branches and tags > Selected
+# branches and tags > add "main"; add the secrets there and delete the
+# repository-level copies. Only the badges job (main only), the ontoexplorer job
+# (main only) and w3id-pr.yml use that environment.
 name: ontostart build
 
 on:
@@ -62,12 +63,28 @@ on:
         type: string
         required: false
         default: ""
+      ontoexplorer-host:
+        description: >-
+          Base URL of the OntoExplorer deployment to register published ontologies
+          with (the ontoexplorer job POSTs to <host>/api/v1/ontologies). Only used
+          when ONTOEXPLORER_TOKEN is set. Defaults to the dev deployment.
+        type: string
+        required: false
+        default: "https://ontoexplorer.dev.k8s.semanticscience.org"
     secrets:
       GIST_TOKEN:
         description: >-
           Token allowed to update the badge gist (optional). Define it as a secret
           of the ontostart-secrets environment (see above); the badges job reads it
           from there.
+        required: false
+      ONTOEXPLORER_TOKEN:
+        description: >-
+          OntoExplorer API key (write scope) that registers/refreshes this
+          collection's published ontologies after each main-branch publish
+          (optional). Define it as a secret of the ontostart-secrets environment
+          (see above); the ontoexplorer job reads it from there. Unset = the job
+          skips, so OntoExplorer registration is strictly opt-in.
         required: false
 
 permissions:
@@ -644,3 +661,82 @@ jobs:
         run: |
           read -ra safes <<<"$DEPLOYED_SAFES"
           ontostart badges --results "$RUNNER_TEMP/artifacts" --gist "$(jq -r '.gist_id // empty' <<<"$PLAN")" --deployed "${safes[@]}"
+
+  # Register/refresh the ontologies this run published in OntoExplorer. Main only,
+  # and strictly opt-in: the step no-ops unless ONTOEXPLORER_TOKEN is set in the
+  # ontostart-secrets environment. It POSTs each published ontology's latest
+  # Turtle URL to OntoExplorer's authenticated submit endpoint; the token acts
+  # only as its own user, so no platform-wide webhook secret is shared with this
+  # repo. OntoExplorer identifies the ontology by the IRI inside the document, so
+  # a known ontology is refreshed and a new one is registered, each owned by the
+  # token's user. Best-effort: a registration failure warns but never fails the build.
+  ontoexplorer:
+    needs: [plan, publish]
+    if: >-
+      !cancelled() && github.ref == 'refs/heads/main'
+      && needs.plan.outputs.has-targets == 'true'
+      && needs.publish.outputs.sorted == 'true'
+      && needs.publish.outputs.deployed != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ontostart-secrets
+    env:
+      PLAN: ${{ needs.plan.outputs.plan }}
+      DEPLOYED_SAFES: ${{ needs.publish.outputs.deployed }}
+      ONTOEXPLORER_HOST: ${{ inputs.ontoexplorer-host }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.plan.outputs.sha }}
+          persist-credentials: false
+
+      - name: Register with OntoExplorer
+        env:
+          ONTOEXPLORER_TOKEN: ${{ secrets.ONTOEXPLORER_TOKEN }}
+        run: |
+          if [ -z "${ONTOEXPLORER_TOKEN:-}" ]; then
+            echo "ONTOEXPLORER_TOKEN is not set; skipping OntoExplorer registration (opt-in)."
+            exit 0
+          fi
+          host="${ONTOEXPLORER_HOST%/}"
+          if [ -z "$host" ]; then
+            echo "::warning::ontoexplorer-host is empty; skipping OntoExplorer registration."
+            exit 0
+          fi
+          # Pages base is the declared source of truth for the published site.
+          pages="$( (grep -E '^pages:' ontostart.yaml || true) | head -1 | cut -d: -f2- | sed 's/#.*$//' | tr -d '"'\''' | xargs)"
+          pages="${pages%/}"
+          if [ -z "$pages" ] || [ "$pages" = "https://OWNER.github.io/REPO" ]; then
+            echo "::warning::ontostart.yaml 'pages:' is not configured ('$pages'); cannot build published URLs. Skipping."
+            exit 0
+          fi
+          read -ra safes <<<"$DEPLOYED_SAFES"
+          fails=0
+          for safe in "${safes[@]}"; do
+            [ -n "$safe" ] || continue
+            path="$(jq -r --arg s "$safe" '.targets[] | select(.safe==$s) | .path' <<<"$PLAN")"
+            name="$(jq -r --arg s "$safe" '.targets[] | select(.safe==$s) | .name' <<<"$PLAN")"
+            if [ -z "$path" ] || [ "$path" = "null" ] || [ -z "$name" ] || [ "$name" = "null" ]; then
+              echo "::warning::no plan entry for deployed target '$safe'; skipping."
+              continue
+            fi
+            url="$pages/$path/versions/latest/$name.ttl"
+            echo "Registering $url"
+            code="$(curl -sS -m 30 -o /tmp/oe_resp -w '%{http_code}' \
+              -X POST "$host/api/v1/ontologies" \
+              -H "Authorization: Bearer $ONTOEXPLORER_TOKEN" \
+              -H 'Content-Type: application/json' \
+              -d "{\"url\": \"$url\"}" || echo 000)"
+            if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
+              echo "  queued ($code): $(cat /tmp/oe_resp 2>/dev/null)"
+            else
+              echo "::warning::OntoExplorer registration failed for $url: HTTP $code $(cat /tmp/oe_resp 2>/dev/null)"
+              fails=$((fails + 1))
+            fi
+          done
+          if [ "$fails" -gt 0 ]; then
+            echo "::warning::$fails OntoExplorer registration(s) failed; publishing itself succeeded."
+          fi
+          # Best-effort: never fail the build on a registration hiccup.
+          exit 0
