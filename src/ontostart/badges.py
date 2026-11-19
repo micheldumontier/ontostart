@@ -54,6 +54,7 @@ def badge_files(
 
 
 ATTEMPTS = 4  # waits of 2, 4 and 8 seconds between them
+MAX_RATE_WAIT = 60  # longest rate-limit wait honoured; a longer one gives up at once
 
 
 class BadgeError(Exception):
@@ -67,12 +68,40 @@ def _api_message(e: urllib.error.HTTPError) -> str:
         return str(e.reason)
 
 
-def push_badges(
-    gist_id: str, token: str, files: dict[str, dict], sleep: Callable[[float], None] = time.sleep,
-) -> None:
-    """Update the gist in one PATCH, retrying server and connection errors.
+def _rate_limit_wait(e: urllib.error.HTTPError, message: str, now: float) -> float | None:
+    """Seconds GitHub asks us to wait, or None when the error is not a rate limit.
 
-    Raises BadgeError on a 4xx (not retried) or when every attempt failed.
+    GitHub signals rate limits with a 403 or 429 and, in order of precedence, a
+    Retry-After header, an exhausted X-RateLimit-Remaining with its reset time, or
+    only a message; for the last it asks clients to wait at least a minute.
+    """
+    if e.code not in (403, 429):
+        return None
+    headers = e.headers or {}
+    try:
+        if headers.get("Retry-After") is not None:
+            return max(1.0, float(headers["Retry-After"]))
+        if headers.get("X-RateLimit-Remaining") == "0" and headers.get("X-RateLimit-Reset"):
+            return max(1.0, float(headers["X-RateLimit-Reset"]) - now)
+    except ValueError:
+        pass
+    if e.code == 429 or "rate limit" in message.lower():
+        return 60.0
+    return None
+
+
+def push_badges(
+    gist_id: str,
+    token: str,
+    files: dict[str, dict],
+    sleep: Callable[[float], None] = time.sleep,
+    now: Callable[[], float] = time.time,
+) -> None:
+    """Update the gist in one PATCH, retrying server errors, connection errors and
+    short rate limits.
+
+    Raises BadgeError on any other 4xx (not retried), on a rate limit longer than
+    MAX_RATE_WAIT, or when every attempt failed.
     """
     body = {"files": {name: {"content": json.dumps(value)} for name, value in files.items()}}
     req = urllib.request.Request(
@@ -86,18 +115,28 @@ def push_badges(
         },
     )
     for attempt in range(1, ATTEMPTS + 1):
+        wait: float = 2 ** attempt
         try:
             with urllib.request.urlopen(req, timeout=30):
                 return
         except urllib.error.HTTPError as e:
             if e.code < 500:
-                raise BadgeError(
-                    f"HTTP {e.code} from the gist API: {_api_message(e)} (check GIST_TOKEN and gist_id)"
-                ) from None
-            problem = f"HTTP {e.code}"
+                message = _api_message(e)
+                rate_wait = _rate_limit_wait(e, message, now())
+                if rate_wait is None:
+                    raise BadgeError(
+                        f"HTTP {e.code} from the gist API: {message} (check GIST_TOKEN and gist_id)"
+                    ) from None
+                if rate_wait > MAX_RATE_WAIT:
+                    raise BadgeError(
+                        f"rate limited by the gist API; it asks to wait {rate_wait:.0f} s"
+                    ) from None
+                problem, wait = f"HTTP {e.code} (rate limited)", rate_wait
+            else:
+                problem = f"HTTP {e.code}"
         except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
             problem = f"connection error ({getattr(e, 'reason', None) or type(e).__name__})"
         if attempt < ATTEMPTS:
-            print(f"badges: {problem}; retrying", flush=True)
-            sleep(2 ** attempt)
+            print(f"badges: {problem}; retrying in {wait:.0f} s", flush=True)
+            sleep(wait)
     raise BadgeError(f"{problem} after {ATTEMPTS} attempts")

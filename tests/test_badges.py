@@ -1,3 +1,4 @@
+import email.message
 import io
 import json
 import urllib.error
@@ -66,9 +67,12 @@ def test_push_badges_single_request(monkeypatch):
     assert body == {"files": {n: {"content": json.dumps(v)} for n, v in files.items()}}
 
 
-def _http_error(code, message=""):
+def _http_error(code, message="", **headers):
     body = json.dumps({"message": message}).encode() if message else b""
-    return urllib.error.HTTPError("https://api.github.com/gists/gid", code, "err", {}, io.BytesIO(body))
+    hdrs = email.message.Message()
+    for name, value in headers.items():
+        hdrs[name.replace("_", "-")] = str(value)
+    return urllib.error.HTTPError("https://api.github.com/gists/gid", code, "err", hdrs, io.BytesIO(body))
 
 
 def _urlopen(monkeypatch, outcomes):
@@ -115,6 +119,50 @@ def test_push_badges_client_error_is_not_retried(monkeypatch):
         push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: pytest.fail("retried"))
     assert len(calls) == 1
     assert str(e.value) == "HTTP 401 from the gist API: Bad credentials (check GIST_TOKEN and gist_id)"
+
+
+def test_push_badges_waits_retry_after_when_rate_limited(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(429, Retry_After=5), None])
+    waits = []
+    push_badges("gid", "tok", {"a.json": {}}, sleep=waits.append)
+    assert len(calls) == 2 and waits == [5]
+
+
+def test_push_badges_waits_for_primary_rate_limit_reset(monkeypatch):
+    calls = _urlopen(monkeypatch, [
+        _http_error(403, "API rate limit exceeded", X_RateLimit_Remaining=0, X_RateLimit_Reset=1010), None])
+    waits = []
+    push_badges("gid", "tok", {"a.json": {}}, sleep=waits.append, now=lambda: 1000.0)
+    assert len(calls) == 2 and waits == [10]
+
+
+def test_push_badges_waits_a_minute_on_secondary_rate_limit(monkeypatch):
+    calls = _urlopen(monkeypatch, [
+        _http_error(403, "You have exceeded a secondary rate limit. Please wait a few minutes."), None])
+    waits = []
+    push_badges("gid", "tok", {"a.json": {}}, sleep=waits.append)
+    assert len(calls) == 2 and waits == [60]
+
+
+def test_push_badges_gives_up_at_once_on_a_long_rate_limit(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(429, Retry_After=3600)])
+    with pytest.raises(BadgeError, match="rate limited by the gist API; it asks to wait 3600 s"):
+        push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: pytest.fail("slept"))
+    assert len(calls) == 1
+
+
+def test_push_badges_rate_limit_counts_towards_attempts(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(429, Retry_After=1)] * 4)
+    with pytest.raises(BadgeError, match="HTTP 429 \\(rate limited\\) after 4 attempts"):
+        push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: None)
+    assert len(calls) == 4
+
+
+def test_push_badges_forbidden_is_not_retried(monkeypatch):
+    calls = _urlopen(monkeypatch, [_http_error(403, "Resource not accessible by personal access token")])
+    with pytest.raises(BadgeError, match="HTTP 403 from the gist API: Resource not accessible"):
+        push_badges("gid", "tok", {"a.json": {}}, sleep=lambda s: pytest.fail("retried"))
+    assert len(calls) == 1
 
 
 def test_badges_command_reports_failure_in_one_line(monkeypatch, tmp_path, capsys):
