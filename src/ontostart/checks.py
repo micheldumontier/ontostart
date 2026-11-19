@@ -45,6 +45,7 @@ def robot_error_cause(output: str) -> str:
 class ReasonResult:
     kind: Literal["consistent", "unsatisfiable", "inconsistent", "error"]
     unsatisfiable: int = 0
+    cause: str = field(default="", compare=False)  # ROBOT's message, for "error"
 
     @property
     def message(self) -> str:
@@ -63,7 +64,7 @@ def classify_reasoning(exit_code: int, output: str) -> ReasonResult:
     match = _UNSAT_RE.search(output)
     if match:
         return ReasonResult("unsatisfiable", int(match.group(1) or match.group(2)))
-    return ReasonResult("error")
+    return ReasonResult("error", cause=robot_error_cause(output))
 
 
 @dataclass
@@ -77,6 +78,7 @@ class CheckReport:
     logs: dict[str, str] = field(default_factory=dict)  # step -> path of its ROBOT output
     timed_out: list[str] = field(default_factory=list)  # steps that ran out of time or were not run
     profile_error: str | None = None  # why validate-profile failed, when it did not report a violation
+    compare_error: str | None = None  # why reasoning on compare_unsatisfiable_with failed
 
     def blocked_reason(self) -> str | None:
         if self.parse_error:
@@ -96,7 +98,9 @@ class CheckReport:
         if self.reason.kind == "inconsistent":
             return "ontology is inconsistent"
         if self.reason.kind == "error":
-            return "reasoning error"
+            return f"reasoning failed: {self.reason.cause}" if self.reason.cause else "reasoning error"
+        if self.compare_error:
+            return self.compare_error
         if (
             self.expected_unsatisfiable is not None
             and self.reason.unsatisfiable != self.expected_unsatisfiable
@@ -110,7 +114,11 @@ class CheckReport:
     def to_json(self) -> dict:
         return {
             "profile_ok": self.profile_ok,
-            "reason": {"kind": self.reason.kind, "unsatisfiable": self.reason.unsatisfiable},
+            "reason": {
+                "kind": self.reason.kind,
+                "unsatisfiable": self.reason.unsatisfiable,
+                "cause": self.reason.cause,
+            },
             "expected_unsatisfiable": self.expected_unsatisfiable,
             "iri_error": self.iri_error,
             "explanation": None if self.explanation is None else str(self.explanation),
@@ -118,6 +126,7 @@ class CheckReport:
             "logs": dict(self.logs),
             "timed_out": list(self.timed_out),
             "profile_error": self.profile_error,
+            "compare_error": self.compare_error,
         }
 
     @classmethod
@@ -125,7 +134,9 @@ class CheckReport:
         explanation = data["explanation"]
         return cls(
             profile_ok=data["profile_ok"],
-            reason=ReasonResult(data["reason"]["kind"], data["reason"]["unsatisfiable"]),
+            reason=ReasonResult(
+                data["reason"]["kind"], data["reason"]["unsatisfiable"], data["reason"].get("cause", "")
+            ),
             expected_unsatisfiable=data["expected_unsatisfiable"],
             iri_error=data["iri_error"],
             explanation=None if explanation is None else Path(explanation),
@@ -133,6 +144,7 @@ class CheckReport:
             logs=dict(data.get("logs") or {}),
             timed_out=list(data.get("timed_out") or []),
             profile_error=data.get("profile_error"),
+            compare_error=data.get("compare_error"),
         )
 
 
@@ -230,15 +242,23 @@ def run_checks(
         explanation = path if path.is_file() else None
 
     expected = None
+    compare_error = None
     if target.compare_with:
         code, out = run_step(
             "compare",
             robot + ["reason", "--reasoner", "HermiT", "--input", str(target.compare_with),
                      "--output", str(workdir / "reasoned-compare.owl")],
         )
-        expected = classify_reasoning(code, out).unsatisfiable
+        compared = classify_reasoning(code, out)
+        expected = compared.unsatisfiable
+        if compared.kind == "error" and code != 124:  # a timeout is reported through timed_out
+            try:
+                rel = Path(target.compare_with).relative_to(target.folder.parents[1]).as_posix()
+            except ValueError:
+                rel = Path(target.compare_with).name
+            compare_error = f"reasoning on {rel} failed: {compared.cause}"
 
     return CheckReport(
         profile_ok, reason, expected, iri_error, explanation,
-        logs=logs, timed_out=timed_out, profile_error=profile_error,
+        logs=logs, timed_out=timed_out, profile_error=profile_error, compare_error=compare_error,
     )

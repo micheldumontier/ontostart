@@ -392,3 +392,58 @@ def test_report_without_profile_error_field_still_loads():
     data = report().to_json()
     del data["profile_error"]
     assert CheckReport.from_json(data).profile_error is None
+
+
+def _compare_target(tmp_path):
+    t = _demo_target(tmp_path)
+    source = t.folder / "imports" / "source.owl"
+    source.parent.mkdir()
+    source.write_text("")
+    return Target(t.name, t.path, t.folder, t.file, t.status, t.safe, t.base_iri, None, source)
+
+
+def _reason_run(main, compare=(0, "")):
+    def fake(args, cwd):
+        if args[3] == "reason":
+            return compare if "reasoned-compare.owl" in args[-1] else main
+        return 0, ""
+    return fake
+
+
+def test_reasoning_failure_says_why(tmp_path):
+    rep = run_checks(_demo_target(tmp_path), Path("robot.jar"), tmp_path, run=_reason_run((1, UNLOADABLE_IMPORT)))
+    assert rep.reason == ReasonResult("error")
+    assert rep.blocked_reason() == (
+        "reasoning failed: Could not load imported ontology: "
+        "<https://example.invalid/missing.owl> Cause: example.invalid"
+    )
+    again = CheckReport.from_json(rep.to_json())
+    assert again.reason.cause == rep.reason.cause and again.blocked_reason() == rep.blocked_reason()
+
+
+def test_inconsistent_is_not_a_failure():
+    out = ("2026-11-19 18:25:57,712 ERROR org.obolibrary.robot.ReasonerHelper - "
+           "The ontology is inconsistent. TIP: use a tool like Protege to find explanations\n")
+    assert classify_reasoning(1, out) == ReasonResult("inconsistent")
+
+
+def test_compare_reasoning_failure_says_why(tmp_path):
+    target = _compare_target(tmp_path)
+    rep = run_checks(target, Path("robot.jar"), tmp_path, run=_reason_run((0, ""), (1, MISSING_FILE)))
+    assert rep.blocked_reason() == (
+        "reasoning on ontologies/demo/imports/source.owl failed: nosuchfile.ttl (No such file or directory)"
+    )
+    assert CheckReport.from_json(rep.to_json()).blocked_reason() == rep.blocked_reason()
+
+
+def test_compare_timeout_is_reported_as_a_timeout(tmp_path):
+    target = _compare_target(tmp_path)
+    rep = run_checks(target, Path("robot.jar"), tmp_path, run=_reason_run((0, ""), (124, "timed out")))
+    assert rep.compare_error is None
+    assert rep.blocked_reason().startswith("ROBOT did not finish in time (compare)")
+
+
+def test_old_report_without_causes_still_loads():
+    data = report(reason=ReasonResult("error")).to_json()
+    del data["reason"]["cause"], data["compare_error"]
+    assert CheckReport.from_json(data).blocked_reason() == "reasoning error"
