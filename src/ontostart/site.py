@@ -36,6 +36,7 @@ PAGE = """<!doctype html>
     .banner-experimental {{ background: #fef3c7; border: 1px solid #d97706; }}
     .banner-sandbox {{ background: #dbeafe; border: 1px solid #2563eb; }}
     .meta {{ color: #555; margin-bottom: 1rem; }}
+    .crumbs {{ margin-bottom: .75rem; }}
     .badges img {{ margin-right: .5rem; vertical-align: middle; }}
     .grid {{ display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; }}
     .card {{ border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; }}
@@ -44,6 +45,7 @@ PAGE = """<!doctype html>
   </style>
 </head>
 <body>
+  <nav class="crumbs"><a href="{catalogue}">← All ontologies</a></nav>
   <header>
     <h1>{title}</h1>
     {description}
@@ -127,6 +129,7 @@ class SiteContext:
     server_url: str
     badge_base: str
     foops_enabled: bool
+    catalogue: str = ""  # the catalogue page's folder in the site: "" (root) or "catalog/"
 
 
 def _semver_key(v: str) -> tuple[int, ...]:
@@ -215,7 +218,9 @@ def build_site(target: Target, version: str, out: Path, ctx: SiteContext) -> Non
         f'        <li><a href="versions/{version}/{name}.{e}">{name}.{e}</a></li>' for e in EXTS
     )
     banner = BANNERS.get(target.status)
+    catalogue = "../" * len(target.path.split("/")) + ctx.catalogue
     page = PAGE.format(
+        catalogue=h.escape(catalogue),
         title=h.escape(title), version=h.escape(version), safe=h.escape(target.safe),
         description=f'<p class="description">{h.escape(description)}</p>' if description else "",
         banner=f'<div class="banner banner-{h.escape(target.status)}">{h.escape(banner)}</div>' if banner else "",

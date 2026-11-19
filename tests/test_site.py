@@ -161,3 +161,27 @@ def test_site_cli_requires_out_unless_result_only(tmp_path, monkeypatch, capsys)
                  "--report", "report.json", "--result", "result.json",
                  "--repo", "o/r", "--ref", "main"]) == 1
     assert "--out" in capsys.readouterr().err
+
+
+def test_page_links_to_the_catalogue(tmp_path):
+    _, out = build(tmp_path)
+    assert '<a href="../">← All ontologies</a>' in (out / "index.html").read_text()
+
+
+def test_nested_page_links_to_a_catalogue_beside_a_home_page(tmp_path):
+    t = make(tmp_path, name="testo", path="sandbox/testo", status="sandbox")
+    ctx = SiteContext("o/r", "main", "https://github.com", "", False, catalogue="catalog/")
+    build_site(t, "1.0.2", tmp_path / "s", ctx)
+    assert '<a href="../../catalog/">← All ontologies</a>' in (tmp_path / "s" / "index.html").read_text()
+
+
+def test_site_cli_reads_the_catalogue_location_from_the_config(tmp_path, monkeypatch):
+    t = make(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "ontostart.yaml").write_text("w3id: x\npages: https://o.github.io/r\nhome: site/index.html\n")
+    report = CheckReport(True, ReasonResult("consistent"), None, None, None)
+    (tmp_path / "report.json").write_text(json.dumps(report.to_json()))
+    assert main(["site", "--target-json", json.dumps(t.to_json()), "--version", "1.0.2",
+                 "--out", "out", "--report", "report.json", "--result", "result.json",
+                 "--repo", "o/r", "--ref", "main"]) == 0
+    assert '<a href="../catalog/">← All ontologies</a>' in (tmp_path / "out" / "index.html").read_text()

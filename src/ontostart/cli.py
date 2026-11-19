@@ -127,7 +127,11 @@ def _site(args: argparse.Namespace) -> int:
             foops_error = str(e)
     if not args.result_only:
         out = Path(args.out)
-        ctx = SiteContext(args.repo, args.ref, args.server_url, args.badge_base, bool(args.foops_json))
+        config_file = Path.cwd() / "ontostart.yaml"
+        # With a home page, the catalogue page is at catalog/ (see build_catalogue).
+        catalogue = "catalog/" if config_file.is_file() and load_config(config_file).home else ""
+        ctx = SiteContext(args.repo, args.ref, args.server_url, args.badge_base, bool(args.foops_json),
+                          catalogue=catalogue)
         build_site(target, args.version, out, ctx)
         if args.foops_json:
             title, _, _ = _metadata(target)
