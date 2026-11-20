@@ -232,3 +232,34 @@ def test_engine_upgrade_pull_request_checks_all(repo):
 def test_other_workflow_changes_build_nothing(repo):
     p = make_plan(repo, cfg(repo), "main", "push", [".github/workflows/w3id-pr.yml"])
     assert p.targets == []
+
+
+@pytest.mark.parametrize("engine_file", [
+    "src/ontostart/site.py", "pyproject.toml", "uv.lock", ".github/workflows/build.yml"])
+def test_self_engine_change_checks_every_ontology(repo, engine_file):
+    # This repository builds with the engine in its own checkout, so changing the
+    # engine may change every ontology's checks and pages.
+    p = make_plan(repo, cfg(repo), "dependabot/x", "pull_request", [engine_file], self_engine=True)
+    assert len(p.targets) == 3 and not p.publish
+
+
+def test_self_engine_change_on_push_rebuilds_but_bumps_only_edited(repo):
+    p = make_plan(repo, cfg(repo), "main", "push",
+                  ["src/ontostart/site.py", "ontologies/pizza/pizza.ttl"], self_engine=True)
+    assert len(p.targets) == 3 and bumped(p) == ["pizza"]
+
+
+def test_engine_files_mean_nothing_to_other_collections(repo):
+    p = make_plan(repo, cfg(repo), "main", "pull_request",
+                  ["src/x.py", "pyproject.toml", "uv.lock", ".github/workflows/build.yml"])
+    assert p.targets == []
+
+
+def test_cli_plan_self_engine(repo, capsys, monkeypatch):
+    monkeypatch.chdir(repo)
+    (repo / "changed.txt").write_text("uv.lock\n")
+    args = ["plan", "--ref", "x", "--event", "pull_request", "--changed-file", "changed.txt"]
+    assert main(args) == 0
+    assert json.loads(capsys.readouterr().out)["targets"] == []
+    assert main(args + ["--self-engine"]) == 0
+    assert len(json.loads(capsys.readouterr().out)["targets"]) == 3
