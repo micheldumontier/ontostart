@@ -1,0 +1,25 @@
+# Keeps the engine's own dependencies current: the actions its workflows pin by
+# commit SHA, and the Python packages in uv.lock. Each ecosystem gets one grouped
+# weekly pull request, opened once a release is three days old (security updates
+# are not delayed). Collections pick these up with the next engine release.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      python:
+        patterns: ["*"]
