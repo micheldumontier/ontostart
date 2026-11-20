@@ -39,7 +39,7 @@ def _plan(args: argparse.Namespace) -> int:
     if args.changed_file:
         lines = Path(args.changed_file).read_text().splitlines()
         changed = [line.strip() for line in lines if line.strip()]
-    plan = make_plan(root, config, args.ref, args.event, changed, args.only, args.bump)
+    plan = make_plan(root, config, args.ref, args.event, changed, args.only, args.bump, args.self_engine)
     targets = plan.targets
     if config.w3id == PLACEHOLDER:
         # A repository just created from the template: building it would publish
@@ -204,6 +204,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--changed-file")
     p.add_argument("--only")
     p.add_argument("--bump", type=_bool)
+    p.add_argument("--self-engine", action="store_true",
+                   help="the engine is installed from this checkout, so its files rebuild every ontology")
     p.set_defaults(func=_plan)
     p = sub.add_parser("version", help="print or bump an ontology's version")
     p.add_argument("--target-json", required=True)

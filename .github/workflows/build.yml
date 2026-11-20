@@ -170,6 +170,8 @@ jobs:
           fi
           if [ -n "$ONLY" ]; then args+=(--only "$ONLY"); fi
           if [ -n "$BUMP" ]; then args+=(--bump "$BUMP"); fi
+          # Built with the engine in this checkout: an engine change rebuilds every ontology.
+          if [ -z "$ENGINE_REF" ]; then args+=(--self-engine); fi
           plan="$(ontostart plan "${args[@]}")"
           echo "$plan" | jq .
           {

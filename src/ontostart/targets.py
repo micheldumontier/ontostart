@@ -121,6 +121,16 @@ def _inside(changed: str, target: Target, root: Path) -> bool:
 # and the build workflow, whose uses: line names the engine release.
 REBUILD_ALL = ("ontostart.yaml", ".github/workflows/ontostart.yml")
 
+# For a collection that builds with the engine in its own checkout (only the engine's
+# repository does), the engine's files rebuild every ontology the same way.
+ENGINE_FILES = ("pyproject.toml", "uv.lock", ".github/workflows/build.yml")
+
+
+def _rebuilds_all(changed: str, self_engine: bool) -> bool:
+    if changed in REBUILD_ALL:
+        return True
+    return self_engine and (changed in ENGINE_FILES or changed.startswith("src/"))
+
 
 def make_plan(
     root: Path,
@@ -130,6 +140,7 @@ def make_plan(
     changed: list[str] | None,
     only: str | None = None,
     bump: bool | None = None,
+    self_engine: bool = False,
 ) -> Plan:
     root = Path(root)
     all_targets = find_targets(root, config)
@@ -147,7 +158,7 @@ def make_plan(
         targets = [t for t in all_targets if t.path == ref]
         if not targets:
             raise ConfigError(f"ref {ref}: expected sandbox/{name}/{name}.ttl")
-    elif changed is None or any(c in REBUILD_ALL for c in changed):
+    elif changed is None or any(_rebuilds_all(c, self_engine) for c in changed):
         targets = all_targets
     else:
         targets = [t for t in all_targets if any(_inside(c, t, root) for c in changed)]
